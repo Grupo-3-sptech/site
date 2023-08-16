@@ -7,6 +7,7 @@ body {
     display: flex;
     width: 80%;
     margin: auto;
+    justify-content: space-evenly;
 }
 
 .header {
@@ -18,7 +19,7 @@ body {
    
 }
 .navBar{
-width: 700px;
+width: 400vh;
 display: flex;
 color: #3E838C;
 list-style: none;
@@ -27,9 +28,9 @@ justify-content: space-around;
 
 }
 .logo {
-margin: 20px;
-    width: 200px;
-    height: 100px;
+margin: 5vh;
+    width: 25vh;
+    height: 15vh;
 }
 
 .header .container {
@@ -43,23 +44,42 @@ a {
 
 }
 
-.resumo{
- width: 450px;
- height: 350px;
- display: flex;
- flex-direction: column;
-    padding: 60px;
 
+ .resumo h2 {
+    width: 50vh;
+    height: 100vh;
+    font-size: 8vh;
+    color:#195E63;
+    
+}
+.resumo img {
+    width: 80vh;
+    height: 60vh;
+    padding: 5vh;
 }
 
-.container .cardR h2 {
-    font-size: 50px;
-    color:#3E838C;
-
-
+.btn_card{
+    width: 30vh;
+    height: 10vh;
+  font-size: 3vh;
+  background-color: #3E838C;
+  color: white;
+ border-radius: 7vh;
+ border: 0;
 }
-.cardR img {
-    width: 600px;
-    height: 400px;
+
+.btn_card:hover{
+    width: 34vh;
+    height: 15vh;
 }
 
+.btn_card:active{
+    width: 40vh;
+    height: 20vh;
+}
+.servicos{
+    width: 30vh;
+    height: 10vh;
+  font-size: 3vh;
+    color: #3E838C;
+}
