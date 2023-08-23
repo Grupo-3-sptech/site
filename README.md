@@ -8,4 +8,5 @@ Linguagens Utilizadas:
 
 Plataformas Utilizadas:
 
+
 [![My Skills](https://skills.thijs.gg/icons?i=figma,git)](https://skills.thijs.gg)
