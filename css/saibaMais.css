@@ -76,7 +76,7 @@ justify-content: space-around;
 
 @font-face {
     font-family:inter ;
-    src: url(./Inter-VariableFont_slnt\,wght.ttf);
+    src: url(/Fonte/Inter-VariableFont_slnt\,wght.ttf);
 }
 
 
@@ -147,3 +147,4 @@ justify-content: space-around;
     color: #063940;
     font-size: 3vh;
 }
+
