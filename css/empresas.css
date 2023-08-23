@@ -1,0 +1,93 @@
+@font-face {
+    font-family: inter ;
+    src: url(./Inter-VariableFont_slnt\,wght.ttf);
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo img{
+    width: 50vh;
+    padding-left: 6vh;
+}
+.opcoes{
+    margin-right: 6vh;
+    font-size: 2.5vh;
+}
+.opcoes a{
+    color: #3E838C;
+    text-decoration: none;
+    margin: 4vh;
+}
+.opcoes .entrar{
+    color:#BF7300;
+}
+.saudacao{
+    color: #063940;
+    font-size: 6vh;
+    margin-top: 4vh;
+    margin-left: 20vh;
+}
+.mensagem span{
+    display: flex;
+    color: #063940;
+    font-size: 4.5vh;
+    margin-left: 15vh;
+    margin-right: 15vh;
+}
+.mensagem h2{
+    color: #063940;
+    font-size: 4.5vh;
+    margin-top: 15vh;
+    margin-left: 15vh;
+}
+.mensagem h3{
+    color: #BF7300;
+    font-size: 4.5vh;
+    margin-left: 15vh;
+}
+.cards{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    background-color: #3E838C;
+    width: 30vh;
+    height: 50vh;
+    padding: 5vh;
+    font-size: 4vh;
+    color: #F5F5F5;
+    margin-top: 5vh;
+    border-radius: 5vh;
+}
+.card h5{
+    font-size: 4.5vh;
+    text-align: center;
+}
+.card span{
+    margin-top: 3vh;
+}
+.contato{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 15vh;
+    margin-right: 15vh;
+    margin-top: 15vh;
+}
+.contato h5{
+    color:#BF7300;
+    font-size: 3vh;
+}
+.contato span{
+    color:#BF7300;
+    background-color: #F5F5F5;
+    border-radius: 1vh;
+    padding: 0.75vh;
+}
