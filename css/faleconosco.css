@@ -26,14 +26,14 @@ margin-left: 12%;
     margin-left: 2%;
   }
   
-  .question input:checked ~ .answer {
+   .question input:checked ~ .answer {
     width: 97%;
     height: 20vh;
     font-weight: bold;
     display: block;
     background-color: #e8f3f3;
     padding: 2vh;
- }
+ } 
 
 
 h1{
