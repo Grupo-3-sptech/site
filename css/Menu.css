@@ -3,7 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
+    /* position: fixed;
+    top: 0; */
 }
 
 .logo img {
@@ -12,27 +13,48 @@
     margin-top: 3vh;
 }
 
+
+
 .opcoes {
     margin-left: 10vh;
     font-size: 2.3vh;
     padding-right: 6vh;
-
+    transition: 0.5s;
 }
 
-.opcoes a {
+.linkMenu{
     color: #3E838C;
     text-decoration: none;
     margin: 1.5vh;
-
 }
 
-.opcoes a:hover {
+.linkMenu:hover {
     color: #BF7300;
-    font-size: 3vh;
-    
-
 }
 
 .opcoes .entrar {
+    color: white;
+    font-weight: 500;
+    background-color: #8EBDB6;
+    padding: 1vh 3vh;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.entrar:hover {
+    background-color: #BF7300;
+}
+
+.localizacaoSite {
+    border-bottom: #BF7300 0.5vh solid;
     color: #BF7300;
+}
+
+.localizacaoSiteEntrar {
+    color: white;
+    font-weight: 500;
+    background-color: #BF7300;
+    padding: 1vh 3vh;
+    border-radius: 10px;
+    transition: 0.5s;
 }

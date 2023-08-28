@@ -102,7 +102,6 @@ body {
 
 .rodape_meio_texto_direito h3 {
        width: 50vh;
-       height: 4vh;
        font-weight: bold;
        color: #ECE1C3;
 }
@@ -124,9 +123,9 @@ body {
 .rodape_meio_texto_Esquerdo h3 a {
     text-decoration: none;
     color: #ECE1C3;
+    transition: 0.5s;
 }
 
 .rodape_meio_texto_Esquerdo h3 a:hover {
     color: #063940;
-    font-size: 3vh;
 }
