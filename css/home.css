@@ -9,11 +9,14 @@ body{
 /*Banner Inicial*/
 
  .bannerInicial{
-    margin-top: 7vh;
+    /* margin-top: 7vh; */
     width: 100%;
     height: 75vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url(../Img/imgHome.jpg);
+    background-size: cover;
 }
 
 .blocoImgBannerInicial{
@@ -29,7 +32,7 @@ body{
     margin-top: 10vh;
     font-size: 8vh;
     padding-right: 25vh;
-    color: #3E838C;
+    color: #063940;
 }
 
 .blocoTextoBannerInicial {
@@ -37,7 +40,7 @@ body{
     flex-direction: column;
     align-items:flex-start;
     height: 70vh;
-
+    margin-left: 30vh;
 }
 .botaoSaibaMais{
     background-color: #3E838C;
@@ -227,4 +230,57 @@ body{
     height: 50vh;
     margin-top: 10vh;
 
+}
+
+/*Banner Equipe*/
+
+.bannerEquipe {
+    height: 60vh;
+    background-color: #bf73004a;
+}
+
+.tituloBannerEquipe {
+    text-align: center;
+    font-size: 2rem;
+    color: #BF7300;
+    padding: 5vh 0vh;
+}
+
+#destaqueEquipe {
+    color: #764701;
+}
+
+.blocoBannerEquipe {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cardBannerEquipe {
+    width: 30%;
+    height: 30vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.imgBannerEquipe {
+    height: 25vh;
+    width: 25vh;
+    border-radius: 100%;
+}
+.subtituloBannerEquipe {
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: #063940;
+}
+
+.textoBannerEquipe {
+    color: #3E838C;
+}
+
+.setaBannerEquipe {
+    height: 10vh;
 }
