@@ -148,146 +148,83 @@ body{
     color: #8EBDB6;
 }
 
-.degrade {
-    background-image: linear-gradient(to bottom, white, #8ebdb63e, #8ebdb63e);
-
-}
-
-.topicos {
-    text-decoration: none;
-    color: #3E838C;
-
-}
-.topicosl {
-    text-decoration: none;
-    color: #BF7300;
-
-}
-
-
-/* .resumo{
- width: 450px;
- height: 350px;
- display: flex;
- flex-direction: column;
-    padding: 60px;
+/* .degrade {
+    background-image: linear-gradient(to bottom, white, #8ebdb63e, #8ebdb63e, #8ebdb63e);
 
 } */
 
-.container .cardR h2 {
-    font-size: 50px;
-    color:#3E838C;
+/*Banner Nossos Serviços*/
 
-
-}
-.cardR img {
-    width: 600px;
-    height: 400px;
-}
-
-@font-face {
-    font-family:inter ;
-    src: url(./Inter-VariableFont_slnt\,wght.ttf);
-}
-
-
-.fundo2{
-    background-size:cover;
-    background-position: center;
-    text-align: center;
-    width: 100%;
-    height: 100vh;
-}
-#Servicos{
-    color: #3E838C;
-padding-top: 10vh;
-
-
-}
-.espaco{
+.bannerServicos {
+    height: 80vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    margin: 8vh 0 0 0;
+    background-color: #8ebdb63e;
 }
-.bloco1_fundo2{
-background-color: #ffffff;
-width: 50vh;
-height: 70vh;
-margin-left: 10vh;
-box-shadow: 0px 7px 10px black;  
-border-radius: 80px;
+
+.tituloBannerServicos {
+    font-size: 3rem;
+    color: #063940;
 }
-.bloco2_fundo2{
+
+.imgBannerServicos {
+    height: 30vh;
+}
+
+.blocoServicos {
     background-color: #ffffff;
-    width: 50vh;
-    height: 70vh;
-    box-shadow: 0px 7px 10px black;  
+    width: 40vh;
+    height: 60vh;
+    box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);  
     border-radius: 80px;
-}
-
-.bloco3_fundo2{
-        background-color: #ffffff;
-        width: 50vh;
-        height: 70vh;
-        box-shadow: 0px 7px 10px black;  
-        margin-right: 10vh;  
-        border-radius: 80px;
-}
-#img1_servicos{
-    object-fit: cover; 
-width: 35vh;
-margin-top: 10vh;
-}
-
-#img2_servicos{
-    object-fit: cover; 
-    width: 35vh;
-    margin-top: 10vh;
-    }
-
-    #img3_servicos{
-        margin: center;
-        object-fit: cover; 
-        width: 35vh;
-        margin-top: 10vh;
-        }
-
-    .text_servicos{
-        font-size: 4vh;
-        color: #3E838C;
-    }
-
-
-    .fundo3{
-        background-size:cover;
-        background-position: center;
-        text-align: center;
-        width: 100%;
-        height: 100vh;
-    background-color: #ffffff;
     display: flex;
-    }
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.5s;
+}
+.blocoServicos:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.textoServicos {
+    text-align: center;
+    color: #063940;
+    font-size: 1.1rem;
+    padding: 5vh;
+}
+
+/*Banner Inovação*/
+.bannerInovacao{
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20vh 8vh 20vh;
+}
+
+.blocoInovacao {
+    width: 80vh;
+}
         
-.Inove{
+.tituloBannerInovacao{
     color: #BF7300;
-    font-size: 7vh;
-   margin-left: 10vh;
-    padding-top: 15vh;
+    font-size: 3rem;
 }
-.subtext_Inove{
+
+.textoBannerInovacao{
     color: #BF7300;
-    font-size: 3vh;
-    margin-left: 10vh;
+    font-size: 1.1rem;
+    text-align: justify;
+    text-indent: 8mm;
+    margin-right: 7vh;
 }
-.bloco1_inove{
-    width: 80vh;
-}
-.bloco2_inove{
-    width: 80vh;
-    margin-left: 8vh;
-}
-#img_inove{
-    object-fit: cover; 
-    width: 100vh;
+
+.imgBannerInovacao {
+    height: 50vh;
     margin-top: 10vh;
 
 }
