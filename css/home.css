@@ -15,7 +15,7 @@ body{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-image: url(../Img/imgHome.jpg);
+	background-image: url(../Img/imgHome.jpg);
     background-size: cover;
 }
 
@@ -67,7 +67,7 @@ body{
     display: flex;
     justify-content: space-between;
     padding-top: 8vh;
-    margin-top: 3vh;
+    /* margin-top: 3vh; */
     /* background: rgba(253, 183, 92, 0.20); */
 }
 
