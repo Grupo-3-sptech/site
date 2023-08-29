@@ -87,6 +87,7 @@ justify-content: space-around;
     height: 80vh;
     margin-left: 9vh;
     margin-top: 5vh;
+    border-radius: 40px;
 }
 .blocoCadastro{
 width: 80vh;
@@ -106,14 +107,17 @@ width: 80vh;
 .geral1{
     font-size: 2.3vh;
     margin-top: -2vh;
-    margin-bottom: -0.1vh;
+    /* margin-top: -0.3vh; */
+    margin-bottom: 1vh;
 }
 .geral{
     font-size: 2.3vh;
-    margin-bottom: -0.1vh;
+    margin-top: 0.5vh;
+    margin-bottom: 1vh;
 }
 .campos{
     margin-left: 12vh;
+    margin-top: -5vh;
 }
 .input{
         width: 50vh;
@@ -122,20 +126,21 @@ width: 80vh;
         align-items: center;
         justify-content: space-around;
     background-color: #ECE1C3;
-    
-    border:none
+    margin-top: -2vh;
+    border:none;
+    border-radius: 10px;
     
 }
 .Criar{
-    margin-left: 25vh;
-    background-color: #3E838C;
+    margin-left: 12vh;
+    background-color: #063940;
     color: #ffffff;
     font-weight: bold;
-    width: 20vh;
-    height: 5vh;
-    border-radius: 5px;
+    width: 50vh;
+    height: 6vh;
+    border-radius: 17px;
     border: none;
-    font-size: .9rem;
+    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,15 +158,21 @@ button:hover {
 .blocoLogin{
     width: 80vh;
     background-color: #195E63;
+    border-radius: 0px 40px 40px 0px;
 }
 
-#Login{
+.Login{
     margin-left: 28vh;
-    margin-top: 15vh;
+   
     font-size: 8vh;
     color: #ffffff;
 }
-
+#subtextLogin{
+    margin-top: 5vh;
+    /* margin-right;:  */
+    font-size: 2vh;
+    color: rgb(234, 250, 242);
+}
 .input2{
     margin-left: 13vh;
     width: 50vh;
@@ -169,9 +180,10 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-background-color: #ECE1C3;
+background-color: #F5F5F5;
 
-border:none
+border:none;
+border-radius: 10px;
 
 }
 
@@ -185,17 +197,18 @@ border:none
     font-size: 2.3vh;
     margin-bottom: 1vh;
     color: #ffffff;
+
 }
 .Entrar{
-    margin-left: 28vh;
-    background-color: #ECE1C3;
-    color: #000000;
+    margin-left: 13vh;
+    background-color: #063940;
+    color: #FFFFFF;
     font-weight: bold;
-    width: 20vh;
-    height: 5vh;
-    border-radius: 5px;
+    width: 50vh;
+    height: 6vh;
+    border-radius: 17px;
     border: none;
-    font-size: .9rem;
+    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
