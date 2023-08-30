@@ -1,70 +1,78 @@
+body {
+    margin: 0;
+}
 
-h2{
+h2 {
     /* margin-top: 4%; */
     margin-left: 14%;
     color: #063940;
-    font-size: 250%;
+    font-size: 3rem;
 
 }
 
- .Perguntas{
-margin-left: 10%;
-}  
+.Perguntas {
+    margin-left: 10%;
+}
+
+
 
 .question {
-    width: 150vh;
+    width: 90%;
     padding: 1vh;
     background-color: #cfe7e9;
     border-radius: 2vh;
-  }
-  
-  .question input,
-  .question .answer { display: none }
-   
-  .question label {
+
+}
+
+.question input,
+.question .answer {
+    display: none
+}
+
+.question label {
     font-weight: bold;
     margin-left: 2%;
-  }
-  
-   .question input:checked ~ .answer {
+    color: #063940;
+    padding-top: 3vh;
+    cursor: pointer;
+}
+
+.question input:checked~.answer {
     width: 97%;
     height: 20vh;
     font-weight: bold;
     display: block;
     background-color: #e8f3f3;
     padding: 2vh;
- } 
+}
 
 
-h1{
-    margin-top: 5%;
-    margin-left: 12%;
+h1 {
     color: #BF7300;
-    font-size: 250%;
+    font-size: 2.5rem;
 
 }
 
-h4{
-    margin-left: 14%;
+h4 {
     color: #063940;
-    font-size: 120%;
+    font-size: 2rem;
 }
 
-.container{
+.container {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10vh auto;
+    width: 90%;
 }
 
-.contato{
-    margin-left: 14%;
+.contato {
     color: #BF7300;
     font-size: 3vh;
 
 }
 
-.contato img{
+.contato img {
     width: 90vh;
     display: flex;
-  
 }
-
-
