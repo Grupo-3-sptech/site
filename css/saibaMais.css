@@ -6,157 +6,55 @@ body {
 }
 
 
-.container {
-    display: flex;
-    width: 100%;
-    margin: auto;
-    height: 10vh;
-}
-
-.header {
-
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    display: flex;
-
-}
-
-.navBar {
-    width: 700px;
-    display: flex;
-    color: #3E838C;
-    list-style: none;
-    justify-content: space-around;
-
-
-}
-
-
-.header .container {
-    justify-content: space-between;
-    align-items: center;
-}
-
-.topicos {
-    text-decoration: none;
-    color: #3E838C;
-
-}
-
-.topicosl {
-    text-decoration: none;
-    color: #BF7300;
-
-}
-
-
-/* .resumo{
- width: 450px;
- height: 350px;
- display: flex;
- flex-direction: column;
-    padding: 60px;
-
-} */
-
-.container .cardR h2 {
-    font-size: 50px;
-    color: #3E838C;
-
-
-}
-
-.cardR img {
-    width: 600px;
-    height: 400px;
-}
-
-@font-face {
-    font-family: inter;
-    src: url(/Fonte/Inter-VariableFont_slnt\,wght.ttf);
-}
-
-
-.fundo {
-
+.bannerSaibaMais {
     background-size: cover;
-    background-position: center;
-    text-align: center;
-    width: 100%;
+    /* background-position: center; */
     height: 180vh;
-    background: rgb(142, 189, 182);
-    background: linear-gradient(0deg, rgba(142, 189, 182, 1) 0%, rgba(255, 255, 255, 1) 100%);
-}
-
-.SaibaMais {
-    color: #BF7300;
-    font-size: 12vh;
-    margin-bottom: 10vh;
-    margin-left: 10vh;
-
-}
-
-.bloco1 {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../Img/fundoSaibaMais.png);
 }
 
-#fotoS1 {
-    object-fit: cover;
-    width: 80vh;
-    margin-top: 22vh;
-    margin-right: 20vh;
-    border-radius: 50vh;
-
-}
-
-.text1 {
-    margin-top: 25vh;
-    margin-right: 15vh;
-    margin-left: 20vh;
+.tituloSaibaMais {
     color: #BF7300;
-    font-size: 3.5vh;
+    font-size: 3rem;
 }
 
-.espaco2 {
-    margin-right: 20vh;
-}
-
-
-.fundo2 {
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    width: 100%;
-    height: 100vh;
-}
-
-.bloco1_2 {
+.blocoSaiba {
     display: flex;
+    justify-content: space-between;
 }
 
-#fotoS1_2 {
-    object-fit: cover;
-    margin-top: 25vh;
-    margin-left: 25vh;
-    width: 60vh;
-    height: 60vh;
-    border-radius: 50%;
+.SaibaTexto1 {
+    text-align: justify;
+    text-indent: 8mm;
+    font-size: 1rem;
+    color: #BF7300;
+    margin: 0 20vh ;
+    width: 35%;
+}
+
+.SaibaFoto1{
+    width: 100vh;
+    border-radius: 50vh 0 0 50vh;
+}
+
+.SaibaTexto2 {
+    text-align: justify;
+    text-indent: 8mm;
+    font-size: 1rem;
+    color: #063940;
+    margin: 20vh 20vh 20vh 0;
+    width: 35%;
+
+}
+
+.SaibaFoto2 {
+    margin-top: 20vh;
+    width: 100vh;
+    border-radius: 0 50vh 50vh 0;
    
 }
 
-.espaco2_2 {
-    margin-right: 20vh;
-    padding-top: 100vh;
-
-
-}
-
-.text2 {
-    margin-top: 45vh;
-    margin-right: 25vh;
-    margin-left: 15vh;
-    color: #195E63;
-    font-size: 3.5vh;
-
-}
