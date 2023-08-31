@@ -1,3 +1,8 @@
+@media(max-width: 700px){
+
+    
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -17,7 +22,7 @@
 
 
 .opcoes {
-    margin-left: 10vh;
+    /* margin-left: 10vh; */
     font-size: 2.3vh;
     padding-right: 6vh;
     transition: 0.5s;

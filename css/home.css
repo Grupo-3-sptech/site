@@ -1,3 +1,41 @@
+@media screen and (max-width: 800px){
+.blocoImgBannerDaVinci{
+    display: none;
+    width: 100%;
+}
+.textoBannerDaVinci{
+    width: 100vh;
+}
+.textoBannerDaVinci2{
+    width: 110vh;
+}
+.fundoDaVinci{
+    margin-bottom: 40vh;
+}
+.bannerNumeros{
+    flex-wrap: wrap;
+    margin-bottom: 20vh;
+}
+.blocoNumero, .blocoNumero2, .blocoNumero3, .blocoNumero4{
+    display: block;
+    margin-bottom: 10vh;
+}
+.textoBannerInovacao{
+    font-size: 3.7rem;
+}
+.blocoAllInovacao{
+    flex-wrap: wrap;
+    
+}
+.fundoInovacao{
+    margin-bottom: 30vh;
+}
+.cardBannerEquipe2{
+    display: none;
+}
+
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -11,7 +49,7 @@ body{
  .bannerInicial{
     /* margin-top: 7vh; */
     width: 100%;
-    height: 75vh;
+    height: 85vh;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -30,9 +68,11 @@ body{
     
 .tituloBannerInicial{
     margin-top: 10vh;
-    font-size: 8vh;
-    padding-right: 25vh;
-    color: #063940;
+    font-size: 10.8vh;
+    /* padding-right: 15vh; */
+    color: #ffffff;
+    text-shadow: 0.1em 0.1em 0.9em rgb(0, 0, 0);
+width: 100vh;
 }
 
 .blocoTextoBannerInicial {
@@ -40,16 +80,16 @@ body{
     flex-direction: column;
     align-items:flex-start;
     height: 70vh;
-    margin-left: 30vh;
+    margin-left: 10vh;
 }
 .botaoSaibaMais{
     background-color: #3E838C;
     color: #ffffff;
     width: 30vh;
     height: 7vh;
-    text-decoration: none;
+    text-decoration: block;
     border-radius: 25px;
-    font-size: 1.5rem;
+    font-size: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,11 +102,17 @@ body{
 }
     
 /*Banner Da Vinci*/
+.fundoDaVinci{
+    height: 140vh;
+    width: 100%;
+}
+
+
 .bannerDaVinci {
     height: 75vh;
     display: flex;
     justify-content: space-between;
-    padding-top: 8vh;
+    /* padding-top: 8vh; */
     /* margin-top: 3vh; */
     /* background: rgba(253, 183, 92, 0.20); */
 }
@@ -79,15 +125,27 @@ body{
     justify-content: center;
     margin-left: 10%;
 }
-
+.blocoDescDaVinci{
+    height: 50vh;
+}
 .tituloBannerDaVinci {
+    
     font-size: 3rem;
+    width: 100vh;
 }
 
 .textoBannerDaVinci {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     text-align: justify;
     text-indent: 8mm;
+}
+
+
+.textoBannerDaVinci2 {
+    font-size: 1.5rem;
+    /* text-align: justify; */
+    text-indent: 10mm;
+    font-weight: bolder;
 }
 
 .blocoImgBannerDaVinci {
@@ -95,6 +153,7 @@ body{
 }
 
 .decoracaoBannerDaVinci {
+    margin-top: 10vh;
     border-radius: 237px 0px 0px 237px;
     background: rgba(253, 183, 92, 0.50);
     height: 70vh;
@@ -105,13 +164,20 @@ body{
 }
 
 #imgBannerDaVinci {
-    height: 50vh;
-    border-radius: 40vh;
+    border-radius: 237px 0px 0px 237px;
+    /* background: rgba(253, 183, 92, 0.50); */
+    height: 60vh;
+    width: 85%;
+    padding-left: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*Banner Números*/
 
 .bannerNumeros {
+    padding-top: 10vh;
     height: 50vh;
     display: flex;
     justify-content: space-around;
@@ -120,8 +186,8 @@ body{
 }
 
 .blocoNumero {
-    width: 20%;
-    height: 80%;
+    width: 40vh;
+    height: 40vh;
     border-radius: 100%;
     background-color: #F5F5F5;
     display: flex;
@@ -130,7 +196,47 @@ body{
     align-items: center;
     transition: 0.5s;
     box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
+    margin-left: 4vh;
  
+}
+.blocoNumero2 {
+    width: 40vh;
+    height: 40vh;
+    border-radius: 100%;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
+ margin-left: 4vh;
+}
+.blocoNumero3 {
+    width: 40vh;
+    height: 40vh;
+    border-radius: 100%;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
+ margin-left: 4vh;
+}
+.blocoNumero4 {
+    width: 40vh;
+    height: 40vh;
+    border-radius: 100%;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
+ margin-left: 4vh;
 }
 
 .blocoNumero:hover {
@@ -139,13 +245,13 @@ body{
 }
 
 .tituloBannerNumeros {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #063940;
     text-align: center;
 }
 
 .textoBannerNumeros {
-    font-size: 3rem;
+    font-size: 2.3rem;
     font-weight: bold;
     margin: 0;
     color: #8EBDB6;
@@ -201,12 +307,21 @@ body{
 }
 
 /*Banner Inovação*/
+.fundoInovacao{
+    /* margin-top: 30vh; */
+    height: 80vh;
+    width: 100%;
+    /* display: flex; */
+
+}
 .bannerInovacao{
+    /* margin-top: 30vh; */
     height: 70vh;
-    display: flex;
+    
     justify-content: center;
     align-items: center;
     margin: 0 20vh 8vh 20vh;
+    /* margin-top: -30vh; */
 }
 
 .blocoInovacao {
@@ -218,17 +333,21 @@ body{
     font-size: 3rem;
 }
 
+.blocoAllInovacao{
+    display: flex;
+}
 .textoBannerInovacao{
     color: #BF7300;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     text-align: justify;
     text-indent: 8mm;
     margin-right: 7vh;
+    width: 120vh;
 }
 
 .imgBannerInovacao {
-    height: 50vh;
-    margin-top: 10vh;
+    height: 60vh;
+    /* margin-top: 10vh; */
 
 }
 
@@ -255,7 +374,16 @@ body{
     justify-content: space-around;
     align-items: center;
 }
+.cardBannerEquipe2{
+    width: 30%;
+    height: 30vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
 
+}
 .cardBannerEquipe {
     width: 30%;
     height: 30vh;
@@ -267,8 +395,8 @@ body{
 }
 
 .imgBannerEquipe {
-    height: 25vh;
-    width: 25vh;
+    height: 20vh;
+    width: 20vh;
     border-radius: 100%;
 }
 .subtituloBannerEquipe {

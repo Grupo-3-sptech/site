@@ -1,3 +1,38 @@
+@media only screen and (max-width: 800px) {
+
+
+    .SaibaFoto1{
+        width: 10vh;
+    }
+
+    .blocoSaiba{
+        display: block;
+    }
+    .bannerSaibaMais {
+        display: block;
+
+    }
+
+    .tituloSaibaMais {
+
+        font-size: 2rem;
+    }
+
+    .SaibaTexto1 {
+        font-size: 0.6rem;
+
+    }
+
+    .SaibaTexto2 {
+        font-size: 0.6rem;
+    }
+
+}
+
+
+
+
+
 body {
     margin: 0;
     padding: 0;
@@ -6,20 +41,23 @@ body {
 }
 
 
+
+
 .bannerSaibaMais {
     background-size: cover;
-    /* background-position: center; */
+
     height: 180vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+
     background-image: url(../Img/fundoSaibaMais.png);
 }
 
 .tituloSaibaMais {
     color: #BF7300;
-    font-size: 3rem;
+    font-size: 4rem;
+    margin-left: 5vh;
 }
 
 .blocoSaiba {
@@ -30,31 +68,34 @@ body {
 .SaibaTexto1 {
     text-align: justify;
     text-indent: 8mm;
-    font-size: 1rem;
+    font-size: 1.6rem;
     color: #BF7300;
-    margin: 0 20vh ;
-    width: 35%;
+    margin-left: 10vh;
+    width: 70vh
 }
 
-.SaibaFoto1{
-    width: 100vh;
+.SaibaFoto1 {
+    margin-top: 10vh;
+    height: 73vh;
+    width: 80vh;
     border-radius: 50vh 0 0 50vh;
 }
 
 .SaibaTexto2 {
     text-align: justify;
     text-indent: 8mm;
-    font-size: 1rem;
+    font-size: 1.6rem;
     color: #063940;
-    margin: 20vh 20vh 20vh 0;
-    width: 35%;
+    padding-right: 16vh;
+    width: 70vh;
+    margin-top: 10vh;
 
 }
 
 .SaibaFoto2 {
     margin-top: 20vh;
-    width: 100vh;
+    height: 73vh;
+    width: 80vh;
     border-radius: 0 50vh 50vh 0;
-   
-}
 
+}

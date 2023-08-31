@@ -11,6 +11,36 @@ body {
     margin: 0;
 }
 
+@media screen and (max-width: 800px){
+
+    .bloco{
+        max-height: 130%;
+max-width: 90%;
+        display:block;
+    }
+    .input{
+        max-width: 80%;
+    }
+    .input2{
+        max-width: 70%;
+    }
+    .blocoCadastro{
+        max-width: 50%;
+    }
+    .blocoLogin{
+max-width: 50%;
+    }
+
+    .Criar{max-width: 65%;}
+    .Entrar{max-width: 70%;}
+   #Login{margin-right: 5vh;}
+
+
+    }
+.fundo{
+    width: 100%;
+    height: 90vh;
+}
 .container {
     display: flex;
     width: 100%;
@@ -69,10 +99,10 @@ justify-content: space-around;
 
 
 }
-.cardR img {
+/* .cardR img {
     width: 600px;
     height: 400px;
-}
+} */
 
 @font-face {
     font-family:inter ;
@@ -88,9 +118,10 @@ justify-content: space-around;
     margin-left: 9vh;
     margin-top: 5vh;
     border-radius: 40px;
+    
 }
 .blocoCadastro{
-width: 80vh;
+width: 50%;
 
 }
 
@@ -101,17 +132,18 @@ width: 80vh;
 #cadastro{
     margin-left: 13vh;
     margin-top: -3vh;
-    font-size: 8vh;
+    font-size: clamp(1rem, 2vw + 1.5rem , 4rem);
+    
 }
 
 .geral1{
-    font-size: 2.3vh;
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     margin-top: -2vh;
     /* margin-top: -0.3vh; */
     margin-bottom: 1vh;
 }
 .geral{
-    font-size: 2.3vh;
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     margin-top: 0.5vh;
     margin-bottom: 1vh;
 }
@@ -140,7 +172,7 @@ width: 80vh;
     height: 6vh;
     border-radius: 17px;
     border: none;
-    font-size: 1.5rem;
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,21 +188,21 @@ button:hover {
 
 
 .blocoLogin{
-    width: 80vh;
+    width: 50%;
     background-color: #195E63;
     border-radius: 0px 40px 40px 0px;
 }
 
-.Login{
+#Login{
     margin-left: 28vh;
    
-    font-size: 8vh;
+    font-size: clamp(1rem, 2vw + 1.5rem , 4rem);
     color: #ffffff;
 }
 #subtextLogin{
     margin-top: 5vh;
     /* margin-right;:  */
-    font-size: 2vh;
+    font-size: clamp(0.1rem, 2vw + 0.1rem , 2rem);
     color: rgb(234, 250, 242);
 }
 .input2{
@@ -194,7 +226,7 @@ border-radius: 10px;
 /* } */
 .gerall{
     margin-left: 13vh;
-    font-size: 2.3vh;
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     margin-bottom: 1vh;
     color: #ffffff;
 
@@ -208,7 +240,7 @@ border-radius: 10px;
     height: 6vh;
     border-radius: 17px;
     border: none;
-    font-size: 1.5rem;
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -222,7 +254,7 @@ button:hover {
 
 }
 .esqueceu{
-    font-size: 1.5vh;
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     margin-left: 13vh;
     margin-top: -0.01vh;
     text-decoration: none;
