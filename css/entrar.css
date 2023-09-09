@@ -15,7 +15,7 @@ body {
 
     .bloco{
         max-height: 130%;
-max-width: 90%;
+        max-width: 90%;
         display:block;
     }
     .input{
@@ -28,12 +28,18 @@ max-width: 90%;
         max-width: 50%;
     }
     .blocoLogin{
-max-width: 50%;
+        max-width: 50%;
     }
 
-    .Criar{max-width: 65%;}
-    .Entrar{max-width: 70%;}
-   #Login{margin-right: 5vh;}
+    .Criar{
+        max-width: 65%;
+    }
+    .Entrar{
+        max-width: 70%;
+    }
+   #Login{
+    margin-left: 10%; 
+    }
 
 
     }
@@ -194,19 +200,20 @@ button:hover {
 }
 
 #Login{
-    margin-left: 28vh;
-   
+  
+    margin-left: 35%;
+   font-weight: bold;
     font-size: clamp(1rem, 2vw + 1.5rem , 4rem);
     color: #ffffff;
 }
 #subtextLogin{
-    margin-top: 5vh;
-    /* margin-right;:  */
+    margin-top: 15vh;
+     margin-left: 25%;
     font-size: clamp(0.1rem, 2vw + 0.1rem , 2rem);
     color: rgb(234, 250, 242);
 }
 .input2{
-    margin-left: 13vh;
+    margin-left: 20%;
     width: 50vh;
     height: 4vh;
     flex-direction: column;
@@ -225,14 +232,14 @@ border-radius: 10px;
     /* margin-bottom: -0.1vh; */
 /* } */
 .gerall{
-    margin-left: 13vh;
+    margin-left: 21%;
     font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     margin-bottom: 1vh;
     color: #ffffff;
 
 }
 .Entrar{
-    margin-left: 13vh;
+    margin-left: 20%;
     background-color: #063940;
     color: #FFFFFF;
     font-weight: bold;
@@ -255,8 +262,8 @@ button:hover {
 }
 .esqueceu{
     font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
-    margin-left: 13vh;
-    margin-top: -0.01vh;
+    margin-left: 24%;
+    margin-top: 1vh;
     text-decoration: none;
     color: #c2e8ed;
 }

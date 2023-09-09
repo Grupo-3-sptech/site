@@ -2,24 +2,35 @@
 
 
     .SaibaFoto1{
-        width: 10vh;
+        display: none;
     }
+    .SaibaFoto2{
+        display: none;
+    }
+.txt2{
+    display: none;
 
+
+}
+.txt1{
+    font-size: small;
+}
     .blocoSaiba{
         display: block;
     }
     .bannerSaibaMais {
-        display: block;
+        height: 200vh;
 
     }
 
     .tituloSaibaMais {
 
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
     .SaibaTexto1 {
         font-size: 0.6rem;
+        width: 60vh;
 
     }
 
@@ -34,6 +45,7 @@
 
 
 body {
+    height: auto;
     margin: 0;
     padding: 0;
     background-size: cover;
@@ -58,27 +70,42 @@ body {
     color: #BF7300;
     font-size: 4rem;
     margin-left: 5vh;
+    width: 60vh;
 }
 
 .blocoSaiba {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
+.blocoSaiba2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 .SaibaTexto1 {
     text-align: justify;
     text-indent: 8mm;
     font-size: 1.6rem;
     color: #BF7300;
     margin-left: 10vh;
-    width: 70vh
+    
 }
 
 .SaibaFoto1 {
     margin-top: 10vh;
     height: 73vh;
-    width: 80vh;
+    width: 60vh;
     border-radius: 50vh 0 0 50vh;
+}
+
+.txt1{
+    width: 110vh;
+    font-size: 100%;
+}
+.txt2{
+    font-size: 100%;
 }
 
 .SaibaTexto2 {
@@ -93,7 +120,7 @@ body {
 }
 
 .SaibaFoto2 {
-    margin-top: 20vh;
+    margin-top: 10vh;
     height: 73vh;
     width: 80vh;
     border-radius: 0 50vh 50vh 0;
