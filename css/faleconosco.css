@@ -69,11 +69,11 @@ h4 {
 }
 
 .container {
-    
-    
+    margin: auto;
     display: flex;
     height: 60vh;
-    width: 100%;
+    justify-content: space-around;
+    width: 80%;
 }
 .duvida{
     margin-left: 11vh;
@@ -90,12 +90,15 @@ h4 {
     font-size: 3vh;
     width: 40vh;
     margin-left: 3vh;
-
-
 }
 
 .imgContato{
     width: 70vh;
     margin-left: 10vh;
 
+}
+
+.answer a {
+    text-decoration: none;
+    color: #BF7300;
 }
