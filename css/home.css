@@ -239,7 +239,7 @@ width: 100vh;
  margin-left: 4vh;
 }
 
-.blocoNumero:hover {
+.blocoNumero:hover, .blocoNumero2:hover, .blocoNumero3:hover, .blocoNumero4:hover {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
 }
@@ -263,17 +263,23 @@ width: 100vh;
 } */
 
 /*Banner Nossos Serviços*/
+.bannerServicos{
+    height: 100vh;
+    margin: 8vh 0 0 0;
+    background-color: #8ebdb63e;
+}
 
-.bannerServicos {
+.bannerServicosCards {
     height: 80vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 8vh 0 0 0;
-    background-color: #8ebdb63e;
 }
 
 .tituloBannerServicos {
+    text-align: center;
+    padding-top: 5vh;
     font-size: 3rem;
     color: #063940;
 }
@@ -310,22 +316,21 @@ width: 100vh;
 .fundoInovacao{
     /* margin-top: 30vh; */
     height: 80vh;
-    width: 100%;
     /* display: flex; */
 
 }
 .bannerInovacao{
     /* margin-top: 30vh; */
     height: 70vh;
-    
-    justify-content: center;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
     margin: 0 20vh 8vh 20vh;
     /* margin-top: -30vh; */
 }
 
 .blocoInovacao {
-    width: 80vh;
+    width: 60vh;
 }
         
 .tituloBannerInovacao{
@@ -335,6 +340,7 @@ width: 100vh;
 
 .blocoAllInovacao{
     display: flex;
+    width: 80vh;
 }
 .textoBannerInovacao{
     color: #BF7300;
@@ -342,7 +348,7 @@ width: 100vh;
     text-align: justify;
     text-indent: 8mm;
     margin-right: 7vh;
-    width: 120vh;
+    width: 80vh;
 }
 
 .imgBannerInovacao {
