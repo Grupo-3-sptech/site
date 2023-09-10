@@ -352,7 +352,7 @@ width: 100vh;
 }
 
 .imgBannerInovacao {
-    height: 60vh;
+    width: 80vh;
     /* margin-top: 10vh; */
 
 }
@@ -417,4 +417,10 @@ width: 100vh;
 
 .setaBannerEquipe {
     height: 10vh;
+}
+
+.botaoSeta {
+    border: none;
+    background-color: #bf730000;
+    cursor: pointer;
 }

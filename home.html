@@ -111,23 +111,23 @@
 
     <div class="bannerEquipe">
         <h2 class="tituloBannerEquipe">Conheça a <span id="destaqueEquipe">Equipe MedConnect</span></h2>
-        <div class="blocoBannerEquipe">
-            <img class="setaBannerEquipe" src="Img/esquerda.png" alt="">
-            <div class="cardBannerEquipe">
+        <div class="blocoBannerEquipe" id="equipe">
+            <button onclick="equipe3()" class="botaoSeta"><img class="setaBannerEquipe" src="Img/esquerda.png" alt=""></button>
+            <div id="card1Equipe" class="cardBannerEquipe">
                 <img src="Img/pedro_pauloIMG.jpeg" alt="" class="imgBannerEquipe">
                 <div>
                     <p class="subtituloBannerEquipe">Pedro Paulo</p>
                     <p class="textoBannerEquipe">Analista de Sistemas</p>
                 </div>
             </div>
-            <div class="cardBannerEquipe2">
+            <div  id="card2Equipe" class="cardBannerEquipe2">
                 <img src="Img/natalia.png" alt="" class="imgBannerEquipe">
                 <div>
                     <p class="subtituloBannerEquipe">Natália Russo</p>
                     <p class="textoBannerEquipe">Análista de Sistemas</p>
                 </div>
             </div>
-            <img class="setaBannerEquipe" src="Img/direita.png" alt="">
+           <button class="botaoSeta" onclick="equipe2()"><img class="setaBannerEquipe" src="Img/direita.png" alt=""></button> 
         </div>
     </div>
 
@@ -169,3 +169,68 @@
 </body>
 
 </html>
+
+<script>
+    function equipe2() {
+        equipe.innerHTML = `
+        <button onclick="equipe1()" class="botaoSeta"><img class="setaBannerEquipe" src="Img/esquerda.png" alt=""></button>
+            <div id="card1Equipe" class="cardBannerEquipe">
+                <img src="Img/Marcela.jpg" alt="" class="imgBannerEquipe">
+                <div>
+                    <p class="subtituloBannerEquipe">Marcela Grecco</p>
+                    <p class="textoBannerEquipe">Analista de Sistemas</p>
+                </div>
+            </div>
+            <div  id="card2Equipe" class="cardBannerEquipe2">
+                <img src="Img/bernardo.jpg" alt="" class="imgBannerEquipe">
+                <div>
+                    <p class="subtituloBannerEquipe">Bernardo de Oliveira</p>
+                    <p class="textoBannerEquipe">Análista de Sistemas</p>
+                </div>
+            </div>
+           <button class="botaoSeta" onclick="equipe3()"><img class="setaBannerEquipe" src="Img/direita.png" alt=""></button>
+        `
+    }
+
+    function equipe3() {
+        equipe.innerHTML = `
+        <button onclick="equipe2()" class="botaoSeta"><img class="setaBannerEquipe" src="Img/esquerda.png" alt=""></button>
+            <div id="card1Equipe" class="cardBannerEquipe">
+                <img src="Img/schiavo.jpg" alt="" class="imgBannerEquipe">
+                <div>
+                    <p class="subtituloBannerEquipe">Gabriel Schiavo</p>
+                    <p class="textoBannerEquipe">Analista de Sistemas</p>
+                </div>
+            </div>
+            <div  id="card2Equipe" class="cardBannerEquipe2">
+                <img src="Img/marchi.jpg" alt="" class="imgBannerEquipe">
+                <div>
+                    <p class="subtituloBannerEquipe">Gustavo Marchi</p>
+                    <p class="textoBannerEquipe">Análista de Sistemas</p>
+                </div>
+            </div>
+           <button class="botaoSeta" onclick="equipe1()"><img class="setaBannerEquipe" src="Img/direita.png" alt=""></button>
+        `
+    }
+
+    function equipe1() {
+        equipe.innerHTML = `
+        <button onclick="equipe3()" class="botaoSeta"><img class="setaBannerEquipe" src="Img/esquerda.png" alt=""></button>
+            <div id="card1Equipe" class="cardBannerEquipe">
+                <img src="Img/pedro_pauloIMG.jpeg" alt="" class="imgBannerEquipe">
+                <div>
+                    <p class="subtituloBannerEquipe">Pedro Paulo</p>
+                    <p class="textoBannerEquipe">Analista de Sistemas</p>
+                </div>
+            </div>
+            <div  id="card2Equipe" class="cardBannerEquipe2">
+                <img src="Img/natalia.png" alt="" class="imgBannerEquipe">
+                <div>
+                    <p class="subtituloBannerEquipe">Natália Russo</p>
+                    <p class="textoBannerEquipe">Análista de Sistemas</p>
+                </div>
+            </div>
+           <button class="botaoSeta" onclick="equipe2()"><img class="setaBannerEquipe" src="Img/direita.png" alt=""></button>
+        `
+    }
+</script>
