@@ -8,7 +8,7 @@
     <title>Entrar | MedConnect</title>
     <link rel="shortcut icon" href="Img/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="css/entrar.css">
+    <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/rodape.css">
     <link rel="stylesheet" href="css/Menu.css">
 </head>
@@ -32,16 +32,23 @@
 
     <div class="fundo">
         <div class="bloco">
-
-            <div class="blocoCadastro" id="linkDiv2">
+            <div class="blocoCadastro">
                 <p id="subtextCadastro">Ainda não possui uma conta?</p>
-                <p href="cadastro.html" class="cadastro">Cadastre-se</p>
+                <p id="cadastro">Cadastre-se</p>
+                <div class="campos">
+                    <p class="geral1">Nome</p><input class="input" type="">
+                    <p class="geral">E-mail</p><input class="input" type="">
+                    <p class="geral">CPF</p><input class="input" type="">
+                    <p class="geral">Identificação da Empresa</p><input class="input" type="">
+                    <p class="geral">Telefone</p><input class="input" type="">
+                    <p class="geral">Senha</p><input class="input" type="">
+                    <p class="geral">Confirmação de senha </p><input class="input" type="">
+                </div>
+                <button class="Criar">Cadastrar</button>
             </div>
-
-            <div class="blocoLogin" id="linkDiv">
-               
-                <p class="Login" >Login</p>
-            </div>
+        
+            <img class="imgCadastro"src="Img/inovacao.jpeg" alt="">
+        
 
 
         </div>
@@ -88,14 +95,3 @@
 </body>
 
 </html>
-<script>
-
-document.getElementById("linkDiv2").addEventListener("click", function() {
-            window.location.href = "cadastro.html"; // Substitua "outra_pagina.html" pelo URL real da outra página
-        });
-
-
-document.getElementById("linkDiv").addEventListener("click", function() {
-            window.location.href = "login.html"; // Substitua "outra_pagina.html" pelo URL real da outra página
-        });
-</script>

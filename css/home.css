@@ -44,6 +44,37 @@ body{
     /* background-image: linear-gradient(to bottom, white, white, white, rgba(253, 183, 92, 0.20),white, white, #8ebdb63e, #8ebdb63e); */
 }
 
+
+
+a{
+    display: inline-block;
+    position: relative;
+    color: #3E838C;
+    cursor: pointer;
+    transition: 0.4s all ease;
+}
+
+a:hover{
+    color: #BF7300;
+    transition: 0.4s all ease;
+}
+a::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3E838C;
+    transform-origin: bottom right;
+    transition: transform 0.5s ease-out;
+}
+a:hover::after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
 /*Banner Inicial*/
 
  .bannerInicial{

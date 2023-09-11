@@ -8,7 +8,7 @@
     <title>Entrar | MedConnect</title>
     <link rel="shortcut icon" href="Img/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="css/entrar.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/rodape.css">
     <link rel="stylesheet" href="css/Menu.css">
 </head>
@@ -32,15 +32,18 @@
 
     <div class="fundo">
         <div class="bloco">
-
-            <div class="blocoCadastro" id="linkDiv2">
-                <p id="subtextCadastro">Ainda não possui uma conta?</p>
-                <p href="cadastro.html" class="cadastro">Cadastre-se</p>
+            <div class="blocoLogin">
+                <div class="esquerda">
+                <img src="Img/ajuda.png" class="esquerdaimg">
             </div>
-
-            <div class="blocoLogin" id="linkDiv">
-               
-                <p class="Login" >Login</p>
+                <div class="direita">
+               <p id="subtextLogin">Bem vindo novamente!</p>
+                <span id="Login">Login</span>
+                <p class="gerall">E-mail</p><input class="input2" type="">
+                <p class="gerall">Senha</p><input class="input2" type="">
+                <a class="esqueceu" href="aba_de_redefir_senha">Esqueceu a senha?</a>
+                <button class="Entrar">Entrar</button>
+            </div>
             </div>
 
 
@@ -88,14 +91,3 @@
 </body>
 
 </html>
-<script>
-
-document.getElementById("linkDiv2").addEventListener("click", function() {
-            window.location.href = "cadastro.html"; // Substitua "outra_pagina.html" pelo URL real da outra página
-        });
-
-
-document.getElementById("linkDiv").addEventListener("click", function() {
-            window.location.href = "login.html"; // Substitua "outra_pagina.html" pelo URL real da outra página
-        });
-</script>

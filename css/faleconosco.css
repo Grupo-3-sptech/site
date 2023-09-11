@@ -9,10 +9,42 @@ body {
     .imgContato{
         width: 10vh;
     }
+    .duvida{
+        margin-left: 5vh;
+    }
 
 }
 
-h2 {
+
+a{
+    display: inline-block;
+    position: relative;
+    color: #3E838C;
+    cursor: pointer;
+    transition: 0.4s all ease;
+}
+
+a:hover{
+    color: #BF7300;
+    transition: 0.4s all ease;
+}
+a::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3E838C;
+    transform-origin: bottom right;
+    transition: transform 0.5s ease-out;
+}
+a:hover::after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+#tittle {
     /* margin-top: 4%; */
     margin-left: 14%;
     color: #063940;
@@ -67,18 +99,26 @@ h4 {
     color: #063940;
     font-size: 2rem;
 }
-
-.container {
-    margin: auto;
+.blocoS{
     display: flex;
-    height: 60vh;
-    justify-content: space-around;
-    width: 80%;
+}
+.container {
+    margin-top: 10vh;
+    
+    
+    height: 70vh;
+    /* justify-content: space-around; */
+    width: 90%;
 }
 .duvida{
-    margin-left: 11vh;
+    
+    margin-left: 14%;
+    color: #BF7300;
+    font-size: 2.7rem;
+    font-weight: bold;
 }
 .entre{
+    margin-top: 10vh;
     width: 70vh;
     margin-left: 6vh;
 }
@@ -89,12 +129,12 @@ h4 {
     color: #BF7300;
     font-size: 3vh;
     width: 40vh;
-    margin-left: 3vh;
+    margin-left: 10vh;
 }
 
 .imgContato{
     width: 70vh;
-    margin-left: 10vh;
+    
 
 }
 
@@ -102,3 +142,6 @@ h4 {
     text-decoration: none;
     color: #BF7300;
 }
+
+.textos{width: 100%;
+margin-right: 0vh;}
