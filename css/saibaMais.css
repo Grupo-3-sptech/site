@@ -13,7 +13,7 @@
 
 }
 .txt1{
-    font-size: small;
+    max-width: 135vh;
 }
     .blocoSaiba{
         display: block;
@@ -130,11 +130,12 @@ a:hover::after{
 }
 
 .txt1{
-    width: 110vh;
+    width: 190vh;
     font-size: 100%;
+    color: black;
 }
 .txt2{
-    font-size: 100%;
+    font-size: 80%;
 }
 
 .SaibaTexto2 {
@@ -142,16 +143,16 @@ a:hover::after{
     text-indent: 8mm;
     font-size: 1.6rem;
     color: #063940;
-    padding-right: 16vh;
+    padding-right: 10vh;
     width: 70vh;
-    margin-top: 10vh;
-
+    margin-top: 5vh;
+width: 100vh;
 }
 
 .SaibaFoto2 {
     margin-top: 10vh;
     height: 73vh;
-    width: 80vh;
+    width: 90vh;
     border-radius: 0 50vh 50vh 0;
 
 }

@@ -36,7 +36,9 @@ body {
  
 
     .Criar{
-        max-width: 65%;
+        
+        max-width: 100%;
+        max-height: 50%;
     }
    
     .imgCadastro{
@@ -160,7 +162,8 @@ justify-content: space-around;
     margin-left: 9vh;
     margin-top: 2vh;
     border-radius: 40px;
-
+    margin: 0 auto;
+    text-align: center; 
     
     
 }
@@ -182,6 +185,8 @@ width: 60%;
 }
 .imgCadastro {
     width: 50vh;
+    margin: 0 auto;
+    text-align: center; 
     
 }
 .geral1{
@@ -189,11 +194,41 @@ width: 60%;
     margin-top: -2vh;
     /* margin-top: -0.3vh; */
     margin-bottom: 1vh;
+    margin-right: 35vh;
 }
 .geral{
     font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
     margin-top: 0.5vh;
     margin-bottom: 1vh;
+    margin-right: 12vh;
+}
+.geralCS{
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
+    margin-top: 0.5vh;
+    margin-bottom: 1vh;
+    margin-right: 16vh;
+}
+.geralT{
+    
+        font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
+        margin-top: 0.5vh;
+        margin-bottom: 1vh;
+        margin-right: 32vh;
+    
+}
+.geral2{
+    
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
+    margin-top: 0.5vh;
+    margin-bottom: 1vh;
+    margin-right: 35vh;
+}
+.geralcpf{
+    
+    font-size: clamp(0.1rem, 15vw + 0.1rem , 1rem);
+    margin-top: 0.5vh;
+    margin-bottom: 1vh;
+    margin-right: 37vh;
 }
 .campos{
     margin-left: 12vh;
@@ -209,10 +244,13 @@ width: 60%;
     margin-top: -2vh;
     border:none;
     border-radius: 10px;
-    
+    margin: 0 auto;
+    text-align: center; 
 }
 .Criar{
-    margin-left: 12vh;
+    margin: 0 auto;
+    text-align: center; 
+    margin-left: 30%;
     background-color: #063940;
     color: #ffffff;
     font-weight: bold;

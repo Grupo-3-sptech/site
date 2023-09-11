@@ -33,6 +33,15 @@
 .cardBannerEquipe2{
     display: none;
 }
+.imgBannerInovacao{
+    display: none;
+}
+.inove{
+    max-width: 50vh;
+}
+.tituloBannerInovacao{
+    margin-left: -10vh;
+}
 
 }
 
@@ -134,7 +143,7 @@ width: 100vh;
     
 /*Banner Da Vinci*/
 .fundoDaVinci{
-    height: 140vh;
+    height: 160vh;
     width: 100%;
 }
 
@@ -208,7 +217,7 @@ width: 100vh;
 /*Banner Números*/
 
 .bannerNumeros {
-    padding-top: 10vh;
+    padding-top: 30vh;
     height: 50vh;
     display: flex;
     justify-content: space-around;
@@ -346,7 +355,7 @@ width: 100vh;
 /*Banner Inovação*/
 .fundoInovacao{
     /* margin-top: 30vh; */
-    height: 80vh;
+    height: 100vh;
     /* display: flex; */
 
 }
@@ -367,6 +376,7 @@ width: 100vh;
 .tituloBannerInovacao{
     color: #BF7300;
     font-size: 3rem;
+    width: 90vh;
 }
 
 .blocoAllInovacao{
@@ -379,12 +389,12 @@ width: 100vh;
     text-align: justify;
     text-indent: 8mm;
     margin-right: 7vh;
-    width: 80vh;
+    width: 100vh;
 }
 
 .imgBannerInovacao {
     width: 80vh;
-    /* margin-top: 10vh; */
+    margin-top: 30vh;
 
 }
 
@@ -454,4 +464,8 @@ width: 100vh;
     border: none;
     background-color: #bf730000;
     cursor: pointer;
+}
+.inove{
+margin-top: 40vh;
+
 }
