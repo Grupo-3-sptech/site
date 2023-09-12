@@ -1,4 +1,4 @@
-@media screen and (max-width: 800px){
+@media screen and (max-width: 850px){
 .blocoImgBannerDaVinci{
     display: none;
     width: 100%;
@@ -44,6 +44,8 @@
 }
 
 }
+
+
 
 body{
     margin: 0;
@@ -143,7 +145,7 @@ width: 100vh;
     
 /*Banner Da Vinci*/
 .fundoDaVinci{
-    height: 160vh;
+    height: 130vh;
     width: 100%;
 }
 
@@ -217,8 +219,8 @@ width: 100vh;
 /*Banner Números*/
 
 .bannerNumeros {
-    padding-top: 30vh;
-    height: 50vh;
+    padding-top: 10vh;
+    height: 40vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -355,22 +357,24 @@ width: 100vh;
 /*Banner Inovação*/
 .fundoInovacao{
     /* margin-top: 30vh; */
-    height: 100vh;
+    height: 90vh;
     /* display: flex; */
 
 }
 .bannerInovacao{
     /* margin-top: 30vh; */
-    height: 70vh;
+    height: 80vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 0 20vh 8vh 20vh;
+    margin: 10vh 20vh 10vh 20vh;
     /* margin-top: -30vh; */
 }
 
 .blocoInovacao {
     width: 60vh;
+    display: flex;
+    align-items: center;
 }
         
 .tituloBannerInovacao{
@@ -394,7 +398,7 @@ width: 100vh;
 
 .imgBannerInovacao {
     width: 80vh;
-    margin-top: 30vh;
+    /* margin-top: 30vh; */
 
 }
 
@@ -466,6 +470,6 @@ width: 100vh;
     cursor: pointer;
 }
 .inove{
-margin-top: 40vh;
+width: 40%;
 
 }
