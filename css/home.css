@@ -10,22 +10,38 @@
     width: 110vh;
 }
 .fundoDaVinci{
-    margin-bottom: 40vh;
+    margin-bottom: 80vh;
+    height: 170vh;
 }
 .bannerNumeros{
     flex-wrap: wrap;
-    margin-bottom: 20vh;
+    margin-top: 20vh;
+    /* margin-bottom: 20vh; */
 }
 .blocoNumero, .blocoNumero2, .blocoNumero3, .blocoNumero4{
     display: block;
-    margin-bottom: 10vh;
+    margin-top: 20vh;
 }
+
+.blocoNumero:hover, .blocoNumero2:hover, .blocoNumero3:hover, .blocoNumero4:hover{
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
 .textoBannerInovacao{
     font-size: 3.7rem;
+   position: relative;
+    right: -10vh;
 }
 .blocoAllInovacao{
-    flex-wrap: wrap;
-    
+    display: block; 
+  
+}
+.bannerInovacao {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-right: 10vh;
 }
 .fundoInovacao{
     margin-bottom: 30vh;
@@ -37,10 +53,19 @@
     display: none;
 }
 .inove{
-    max-width: 50vh;
+    max-width: 100vh;
 }
 .tituloBannerInovacao{
     margin-left: -10vh;
+}
+.textoBannerDaVinci2{
+        margin-bottom: 80vh;
+}
+.imgBannerEquipe{
+    max-width: 18vh;
+  
+    margin-left: 1vh;
+    margin-right: 3vh;
 }
 
 }
