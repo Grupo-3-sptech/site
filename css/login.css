@@ -13,6 +13,10 @@ body {
 
 @media screen and (max-width: 800px){
 
+    .entrar {
+        margin-left: 16%;
+    }
+
     .bloco{
         max-height: 130%;
         max-width: 80%;
@@ -46,10 +50,11 @@ body {
     .esquerdaimg{
         display: none;
     }
-    .esqueceu{padding-left: 10vh;}
-
-
+    .esqueceu{
+        padding-left: 10vh;
     }
+
+}
 
 
     a{
@@ -80,51 +85,51 @@ body {
         transform: scaleX(1);
         transform-origin: bottom left;
     }
-.fundo{
-    width: 100%;
-    height: 90vh;
-}
-.container {
+    .fundo{
+        width: 100%;
+        height: 90vh;
+    }
+    .container {
+        display: flex;
+        width: 100%;
+        margin: auto;
+        height: 10vh;
+    }
+
+    .header {
+
+        width: 100%;
+        height: 100%;
+        background-color:white; 
     display: flex;
-    width: 100%;
-    margin: auto;
-    height: 10vh;
-}
-
-.header {
-
-    width: 100%;
-    height: 100%;
-    background-color:white; 
-   display: flex;
-   
-}
-.navBar{
-width: 700px;
-display: flex;
-color: #3E838C;
-list-style: none;
-justify-content: space-around;
-
-
-}
-
-
-.header .container {
-    justify-content: space-between;
-    align-items: center;
-} 
-
-.topicos {
-    text-decoration: none;
+    
+    }
+    .navBar{
+    width: 700px;
+    display: flex;
     color: #3E838C;
+    list-style: none;
+    justify-content: space-around;
 
-}
-.topicosl {
-    text-decoration: none;
-    color: #BF7300;
 
-}
+    }
+
+
+    .header .container {
+        justify-content: space-between;
+        align-items: center;
+    } 
+
+    .topicos {
+        text-decoration: none;
+        color: #3E838C;
+
+    }
+    .topicosl {
+        text-decoration: none;
+        color: #BF7300;
+
+    }
 
 
 /* .resumo{
@@ -136,21 +141,21 @@ justify-content: space-around;
 
 } */
 
-.container .cardR h2 {
-    font-size: 50px;
-    color:#3E838C;
+    .container .cardR h2 {
+        font-size: 50px;
+        color:#3E838C;
 
 
-}
+    }
 /* .cardR img {
     width: 600px;
     height: 400px;
 } */
 
-@font-face {
-    font-family:inter ;
-    src: url(./Inter-VariableFont_slnt\,wght.ttf);
-}
+    @font-face {
+        font-family:inter ;
+        src: url(./Inter-VariableFont_slnt\,wght.ttf);
+    }
 
 
 .bloco{
@@ -174,7 +179,6 @@ justify-content: space-around;
     padding-left: 10vh;
     width: 70vh;
 }
-.direita{}
 
 .blocoLogin{
     width: 100%;
@@ -222,7 +226,7 @@ border-radius: 10px;
     color: #ffffff;
 
 }
-.Entrar{
+.entrar{
     margin-left: 26%;
     background-color: #063940;
     color: #FFFFFF;

@@ -50,8 +50,6 @@ a:hover::after{
     margin-top: 3vh;
 }
 
-
-
 .opcoes {
     /* margin-left: 10vh; */
     font-size: 2.3vh;
@@ -69,4 +67,6 @@ a:hover::after{
     color: #BF7300;
 }
 
-
+.foco {
+    color: #BF7300;
+}

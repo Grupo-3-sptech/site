@@ -103,15 +103,13 @@ h4 {
     display: flex;
 }
 .container {
+    margin: auto;
     margin-top: 10vh;
-    
-    
     height: 70vh;
-    /* justify-content: space-around; */
-    width: 90%;
+    justify-content: space-around;
+    width: 80%;
 }
 .duvida{
-    
     margin-left: 14%;
     color: #BF7300;
     font-size: 2.7rem;
@@ -128,7 +126,7 @@ h4 {
 .contato {
     color: #BF7300;
     font-size: 3vh;
-    width: 40vh;
+    width: 60vh;
     margin-left: 10vh;
 }
 
