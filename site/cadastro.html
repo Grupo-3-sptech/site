@@ -37,19 +37,19 @@
                 <p id="subtextCadastro">Ainda não possui uma conta?</p>
                 <p id="cadastro">Cadastre-se</p>
                 <div class="campos">
-                    <p class="geral1">Nome</p><input class="input" type="">
-                    <p class="geral2">E-mail</p><input class="input" type="">
-                    <p class="geralcpf">CPF</p><input class="input" type="">
-                    <p class="geral">Identificação da Empresa</p><input class="input" type="">
-                    <p class="geralT">Telefone</p><input class="input" type="">
-                    <p class="geral2">Senha</p><input class="input" type="">
-                    <p class="geralCS">Confirmação de senha </p><input class="input" type="">
+                    <p class="geral1">Nome</p><input class="input" id="nome_input">
+                    <p class="geral2">E-mail</p><input class="input" id="email_input" type="">
+                    <p class="geral2">Senha</p><input class="input" id="senha_input" type="">
+                    <p class="geralCS">Confirmação de senha </p><input class="input" id="confirmacao_input" type="">
+                    <p class="geralcpf">CPF</p><input class="input" id="cpf_input" type="">
+                    <p class="geral">Codigo da Empresa</p><input class="input" id="codigo_input" type="">
+                    <p class="geralT">Telefone</p><input class="input" id="telefone_input" type="">
                 </div>
-                <button class="Criar">Cadastrar</button>
+                <button class="Criar" onclick="cadastrar()">Cadastrar</button>
             </div>
-        
+
             <img class="imgCadastro" src="Img/cadastro.jpg" alt="">
-        
+
 
 
         </div>
@@ -95,3 +95,75 @@
 </body>
 
 </html>
+<script>
+
+
+
+    function cadastrar() {
+
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var confirmacaoVar = confirmacao_input.value;
+        var cpfVar = cpf_input.value;
+        var codigoVar = codigo_input.value;
+        var telefoneVar = telefone_input.value;
+
+
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoVar == "" || cpfVar == "" || codigoVar == "" || telefoneVar == "") {
+            cardErro.style.display = "block"
+            alert("Não foi possivel realizar o cadastro, pois há campos em branco");
+
+
+            return false;
+        } else if (confirmacaoVar != senhaVar) {
+            cardErro.style.display = "block"
+            alert("Sua senha e sua confirmação não coincidem.");
+
+
+            return false;
+
+        }
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                cpfServer: cpfVar,
+                codigoServer: codigoVar,
+                telefoneServer: telefoneVar,
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+
+                alert("Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!");
+
+
+            } else {
+                throw (alert("Houve um erro ao tentar realizar o cadastro!"));
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            alert("erro no cadastro")
+        });
+
+        return false;
+    }
+
+</script>
