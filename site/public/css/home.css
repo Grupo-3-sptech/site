@@ -77,6 +77,7 @@ body{
     padding: 0;
     background-size: cover;
     font-family: inter;
+    overflow-x: hidden;
     /* background-image: linear-gradient(to bottom, white, white, white, rgba(253, 183, 92, 0.20),white, white, #8ebdb63e, #8ebdb63e); */
 }
 
@@ -120,8 +121,19 @@ a:hover::after{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-	background-image: url(../Img/imgHome.jpg);
+	/* background-image: url("../Img/pexels-ron-lach-7584629(Original).gif"); */
     background-size: cover;
+    background-position: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+#video {
+  width: 100%;
+  height: inherit;
+  position: absolute;
+  object-fit: cover;
+  z-index: -1;
 }
 
 .blocoImgBannerInicial{
@@ -135,18 +147,36 @@ a:hover::after{
     
 .tituloBannerInicial{
     margin-top: 10vh;
-    font-size: 10.8vh;
+    font-size: 7vh;
     /* padding-right: 15vh; */
     color: #ffffff;
-    text-shadow: 0.1em 0.1em 0.9em rgb(0, 0, 0);
-width: 100vh;
+    text-shadow: 0.1em 0.1em 0.9em rgba(0, 0, 0, 0.812);
+    width: 100vh;
+}
+
+#btn-fale{
+    align-self: baseline;
+    width: 17vw;
+    height: 7vh;
+    border-style: none; 
+    background-color: white;
+    border-radius: 5vh;
+    font-size: 2.4vh;
+    box-shadow: 0.1em 0.1em 0.9em rgba(0, 0, 0, 0.332);
+    transition: 0.4s ease-in-out;
+    margin-top: 3%;
+}
+
+#btn-fale:hover{
+    transform: scale(1.04);
 }
 
 .blocoTextoBannerInicial {
     display: flex;
     flex-direction: column;
-    align-items:flex-start;
-    height: 70vh;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
     margin-left: 10vh;
 }
 .botaoSaibaMais{
@@ -170,8 +200,57 @@ width: 100vh;
     
 /*Banner Da Vinci*/
 .fundoDaVinci{
-    height: 130vh;
-    width: 100%;
+    height: fit-content;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.segundaParte{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: fit-content;
+    width: 90%;
+    align-self: center;
+    flex-direction: row;
+    margin-top: 4%;
+}
+
+.textSegunda{
+    width: 45%;
+}
+
+#ramo{
+    color: #3E838C;
+}
+
+.texttext{
+    width: 90%;
+}
+
+.texttext h1 span{
+    color: #3E838C;
+}
+
+.imgSegunda{
+    width: 55%;
+    height: inherit;
+    margin-left: -100px;
+    background-color: #3E838C;
+    border-bottom-right-radius: 40vh;
+    border-top-right-radius: 40vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0.2em 0.2em 0.9em 0.2em rgba(0, 0, 0, 0.349);
+}
+
+.imgSegunda img{
+    height: 55vh;
+    width: auto;
 }
 
 
@@ -250,6 +329,7 @@ width: 100vh;
     justify-content: space-around;
     align-items: center;
     margin: 0 10vh 0 10vh;
+    width: 90%;
 }
 
 .blocoNumero {
@@ -309,11 +389,13 @@ width: 100vh;
 .blocoNumero:hover, .blocoNumero2:hover, .blocoNumero3:hover, .blocoNumero4:hover {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
+    
 }
 
 .tituloBannerNumeros {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: #063940;
+    width: 70%;
     text-align: center;
 }
 
@@ -324,31 +406,47 @@ width: 100vh;
     color: #8EBDB6;
 }
 
-/* .degrade {
-    background-image: linear-gradient(to bottom, white, #8ebdb63e, #8ebdb63e, #8ebdb63e);
-
-} */
 
 /*Banner Nossos Serviços*/
 .bannerServicos{
-    height: 100vh;
+    height: fit-content;
     margin: 8vh 0 0 0;
-    background-color: #8ebdb63e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-self: center;
+    background-color: #3e838c2e;
+
+}
+
+.allbannerservi{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h2{
+    margin: 0;
+    padding: 0;
 }
 
 .bannerServicosCards {
-    height: 80vh;
+    height: 70vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 8vh 0 0 0;
+    width: 90%;
 }
 
 .tituloBannerServicos {
     text-align: center;
-    padding-top: 5vh;
-    font-size: 3rem;
+    padding-top: 10vh;
+    font-size: 1.7rem;
     color: #063940;
+    margin-bottom: -50px;
 }
 
 .imgBannerServicos {
@@ -358,7 +456,7 @@ width: 100vh;
 .blocoServicos {
     background-color: #ffffff;
     width: 40vh;
-    height: 60vh;
+    height: 50vh;
     box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);  
     border-radius: 80px;
     display: flex;
@@ -396,36 +494,7 @@ width: 100vh;
     /* margin-top: -30vh; */
 }
 
-.blocoInovacao {
-    width: 60vh;
-    display: flex;
-    align-items: center;
-}
-        
-.tituloBannerInovacao{
-    color: #BF7300;
-    font-size: 3rem;
-    width: 90vh;
-}
 
-.blocoAllInovacao{
-    display: flex;
-    width: 80vh;
-}
-.textoBannerInovacao{
-    color: #BF7300;
-    font-size: 1.3rem;
-    text-align: justify;
-    text-indent: 8mm;
-    margin-right: 7vh;
-    width: 100vh;
-}
-
-.imgBannerInovacao {
-    width: 80vh;
-    /* margin-top: 30vh; */
-
-}
 
 /*Banner Equipe*/
 
@@ -497,4 +566,60 @@ width: 100vh;
 .inove{
 width: 40%;
 
+}
+
+.cardbanner{
+    width: 32%;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.imgcard{
+    width: 90%;
+    height: 20vh;
+    top: 30vh;
+    align-self: center;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0.2em 0.2em 0.9em 0.2em rgba(0, 0, 0, 0.11);
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgcard:hover{
+    border-bottom: 3px solid #3E838C;
+    box-shadow: 0.2em 0.2em 0.9em 0.2em rgba(0, 0, 0, 0.304);
+}
+
+#img1{
+    background-image: url("../Img/pexels-torsten-dettlaff-70911.jpg");
+    background-size: cover;
+}
+
+#img2{
+    background-image: url("../Img/pexels-andrea-piacquadio-3756688.jpg");
+    background-size: cover;
+}
+
+#img3{
+    background-image: url("../Img/pexels-pixabay-534219.jpg");
+    background-size: cover;
+}
+
+.cardbanner h1{
+    font-size: 2.5vh;
+}
+
+.textimgcard{
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+.textimgcard p{
+    font-size: 2.2vh;
 }
