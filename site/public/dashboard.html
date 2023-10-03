@@ -45,8 +45,12 @@
 
             <div class="btn-nav">
 
-                <h3>Gráficos</h3>
-
+                <div id="grafico1">
+                </div>
+                <div id="grafico2">
+                </div>
+                <div id="grafico3">
+                </div>
             </div>
 
             <!-- <div class="btn-nav-white">
@@ -68,8 +72,6 @@
             <div class="btns-dash" id="btnAquario">
                 <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
             </div>
-            <div id="graficos">
-            </div>
         </div>
     </div>
 
@@ -88,7 +90,7 @@
     let proximaAtualizacao;
     var id = 1
 
-    window.onload = exibirComponentes();
+    window.onload = exibirComponentes(id);
 
     function exibirComponentes(id) {
         // var aquarios = JSON.parse(sessionStorage.AQUARIOS);
@@ -97,7 +99,7 @@
         //     <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
         //     `
 
-            document.getElementById("graficos").innerHTML += `
+            document.getElementById("grafico1").innerHTML += `
                 <div id="grafico${id}" class="display-none">
                     <div class="graph">
                         <canvas id="myChartCanvas${id}"></canvas>
@@ -170,13 +172,14 @@
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/cpu/${id}/7`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
+                    console.log(resposta)
 
-                    plotarGrafico(resposta, idAquario);
+                    plotarGrafico(resposta, id);
 
                 });
             } else {
@@ -191,7 +194,7 @@
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idAquario) {
+    function plotarGrafico(resposta, id) {
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -202,17 +205,10 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Umidade',
+                label: 'Porcentagem Cpu',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            },
-            {
-                label: 'Temperatura',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
                 tension: 0.1
             }]
         };
@@ -224,9 +220,9 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
-            dados.datasets[1].data.push(registro.temperatura);
+            labels.push(registro.HorarioDado);
+            dados.datasets[0].data.push(registro.dado);
+            // dados.datasets[1].data.push(registro.temperatura);
         }
 
         console.log('----------------------------------------------')
@@ -245,11 +241,11 @@
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idAquario}`),
+            document.getElementById(`myChartCanvas${id}`),
             config
         );
 
-        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico(id, dados, myChart), 2000);
     }
 
 
@@ -258,15 +254,15 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idAquario, dados, myChart) {
+    function atualizarGrafico(id, dados, myChart) {
 
 
 
-        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/cpu/${id}/1`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    obterdados(idAquario);
+                    obterdados(id);
                     // alertar(novoRegistro, idAquario);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
