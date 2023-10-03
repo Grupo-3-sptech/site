@@ -16,9 +16,9 @@ var medidasRouter = require("./src/routes/medidas");
 var empresasRouter = require("./src/routes/empresas");
 
 
-// Defina o mecanismo de visualização e o diretório de visualizações
-app.set('view engine', 'ejs'); // Use o EJS como mecanismo de visualização
-app.set('views', path.join(__dirname, 'views')); // Especifique o diretório de visualizações
+// // Defina o mecanismo de visualização e o diretório de visualizações
+// app.set('view engine', 'ejs'); // Use o EJS como mecanismo de visualização
+// app.set('views', path.join(__dirname, 'views')); // Especifique o diretório de visualizações
 
 // Resto da configuração do seu aplicativo
 
@@ -26,10 +26,10 @@ app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
 });
 
-app.get('/', (req, res) => {
-    // Lógica para lidar com a solicitação da página inicial
-    res.render('nome_do_arquivo_de_visualizacao');
-  });
+// app.get('/', (req, res) => {
+//     // Lógica para lidar com a solicitação da página inicial
+//     res.render('nome_do_arquivo_de_visualizacao');
+//   });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
