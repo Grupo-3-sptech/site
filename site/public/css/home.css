@@ -1,78 +1,99 @@
-@media screen and (max-width: 850px){
-.blocoImgBannerDaVinci{
-    display: none;
-    width: 100%;
-}
-.textoBannerDaVinci{
-    width: 100vh;
-}
-.textoBannerDaVinci2{
-    width: 110vh;
-}
-.fundoDaVinci{
-    margin-bottom: 80vh;
-    height: 170vh;
-}
-.bannerNumeros{
-    flex-wrap: wrap;
-    margin-top: 20vh;
-    /* margin-bottom: 20vh; */
-}
-.blocoNumero, .blocoNumero2, .blocoNumero3, .blocoNumero4{
-    display: block;
-    margin-top: 20vh;
-}
+@media screen and (max-width: 850px) {
+    .blocoImgBannerDaVinci {
+        display: none;
+        width: 100%;
+    }
 
-.blocoNumero:hover, .blocoNumero2:hover, .blocoNumero3:hover, .blocoNumero4:hover{
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
-}
+    .textoBannerDaVinci {
+        width: 100vh;
+    }
 
-.textoBannerInovacao{
-    font-size: 3.7rem;
-   position: relative;
-    right: -10vh;
-}
-.blocoAllInovacao{
-    display: block; 
-  
-}
-.bannerInovacao {
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    margin-right: 10vh;
-}
-.fundoInovacao{
-    margin-bottom: 30vh;
-}
-.cardBannerEquipe2{
-    display: none;
-}
-.imgBannerInovacao{
-    display: none;
-}
-.inove{
-    max-width: 100vh;
-}
-.tituloBannerInovacao{
-    margin-left: -10vh;
-}
-.textoBannerDaVinci2{
+    .textoBannerDaVinci2 {
+        width: 110vh;
+    }
+
+    .fundoDaVinci {
         margin-bottom: 80vh;
-}
-.imgBannerEquipe{
-    max-width: 18vh;
-  
-    margin-left: 1vh;
-    margin-right: 3vh;
-}
+        height: 170vh;
+    }
+
+    .bannerNumeros {
+        flex-wrap: wrap;
+        margin-top: 20vh;
+        /* margin-bottom: 20vh; */
+    }
+
+    .blocoNumero,
+    .blocoNumero2,
+    .blocoNumero3,
+    .blocoNumero4 {
+        display: block;
+        margin-top: 20vh;
+    }
+
+    .blocoNumero:hover,
+    .blocoNumero2:hover,
+    .blocoNumero3:hover,
+    .blocoNumero4:hover {
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+
+    .textoBannerInovacao {
+        font-size: 3.7rem;
+        position: relative;
+        right: -10vh;
+    }
+
+    .blocoAllInovacao {
+        display: block;
+
+    }
+
+    .bannerInovacao {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        margin-right: 10vh;
+    }
+
+    .fundoInovacao {
+        margin-bottom: 30vh;
+
+    }
+
+    .cardBannerEquipe2 {
+        display: none;
+    }
+
+    .imgBannerInovacao {
+        display: none;
+    }
+
+    .inove {
+        max-width: 100vh;
+    }
+
+    .tituloBannerInovacao {
+        margin-left: -10vh;
+    }
+
+    .textoBannerDaVinci2 {
+        margin-bottom: 80vh;
+    }
+
+    .imgBannerEquipe {
+        max-width: 18vh;
+
+        margin-left: 1vh;
+        margin-right: 3vh;
+    }
 
 }
 
 
 
-body{
+body {
     margin: 0;
     padding: 0;
     background-size: cover;
@@ -83,7 +104,7 @@ body{
 
 
 
-a{
+a {
     display: inline-block;
     position: relative;
     color: #3E838C;
@@ -91,11 +112,12 @@ a{
     transition: 0.4s all ease;
 }
 
-a:hover{
+a:hover {
     color: #BF7300;
     transition: 0.4s all ease;
 }
-a::after{
+
+a::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -107,45 +129,47 @@ a::after{
     transform-origin: bottom right;
     transition: transform 0.5s ease-out;
 }
-a:hover::after{
+
+a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
 
 /*Banner Inicial*/
 
- .bannerInicial{
+.bannerInicial {
     /* margin-top: 7vh; */
     width: 100%;
     height: 85vh;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-	/* background-image: url("../Img/pexels-ron-lach-7584629(Original).gif"); */
+    /* background-image: url("../Img/pexels-ron-lach-7584629(Original).gif"); */
     background-size: cover;
     background-position: 100%;
     background-repeat: no-repeat;
     position: relative;
+ 
 }
 
 #video {
-  width: 100%;
-  height: inherit;
-  position: absolute;
-  object-fit: cover;
-  z-index: -1;
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    object-fit: cover;
+    z-index: -1;
 }
 
-.blocoImgBannerInicial{
+.blocoImgBannerInicial {
     width: 100vh;
     height: 70vh;
 }
 
-#imgBannerInicial{
+#imgBannerInicial {
     height: 70vh;
 }
-    
-.tituloBannerInicial{
+
+.tituloBannerInicial {
     margin-top: 10vh;
     font-size: 7vh;
     /* padding-right: 15vh; */
@@ -154,11 +178,11 @@ a:hover::after{
     width: 100vh;
 }
 
-#btn-fale{
+#btn-fale {
     align-self: baseline;
     width: 17vw;
     height: 7vh;
-    border-style: none; 
+    border-style: none;
     background-color: white;
     border-radius: 5vh;
     font-size: 2.4vh;
@@ -167,7 +191,7 @@ a:hover::after{
     margin-top: 3%;
 }
 
-#btn-fale:hover{
+#btn-fale:hover {
     transform: scale(1.04);
 }
 
@@ -179,7 +203,8 @@ a:hover::after{
     height: inherit;
     margin-left: 10vh;
 }
-.botaoSaibaMais{
+
+.botaoSaibaMais {
     background-color: #3E838C;
     color: #ffffff;
     width: 30vh;
@@ -197,9 +222,9 @@ a:hover::after{
 .botaoSaibaMais:hover {
     background-color: #BF7300;
 }
-    
+
 /*Banner Da Vinci*/
-.fundoDaVinci{
+.fundoDaVinci {
     height: fit-content;
     width: 100vw;
     display: flex;
@@ -207,7 +232,7 @@ a:hover::after{
     flex-direction: column;
 }
 
-.segundaParte{
+.segundaParte {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -218,23 +243,23 @@ a:hover::after{
     margin-top: 4%;
 }
 
-.textSegunda{
+.textSegunda {
     width: 45%;
 }
 
-#ramo{
+#ramo {
     color: #3E838C;
 }
 
-.texttext{
+.texttext {
     width: 90%;
 }
 
-.texttext h1 span{
+.texttext h1 span {
     color: #3E838C;
 }
 
-.imgSegunda{
+.imgSegunda {
     width: 55%;
     height: inherit;
     margin-left: -100px;
@@ -248,7 +273,7 @@ a:hover::after{
     box-shadow: 0.2em 0.2em 0.9em 0.2em rgba(0, 0, 0, 0.349);
 }
 
-.imgSegunda img{
+.imgSegunda img {
     height: 55vh;
     width: auto;
 }
@@ -271,11 +296,13 @@ a:hover::after{
     justify-content: center;
     margin-left: 10%;
 }
-.blocoDescDaVinci{
+
+.blocoDescDaVinci {
     height: 50vh;
 }
+
 .tituloBannerDaVinci {
-    
+
     font-size: 3rem;
     width: 100vh;
 }
@@ -330,6 +357,7 @@ a:hover::after{
     align-items: center;
     margin: 0 10vh 0 10vh;
     width: 90%;
+    z-index: 1;
 }
 
 .blocoNumero {
@@ -344,8 +372,9 @@ a:hover::after{
     transition: 0.5s;
     box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
     margin-left: 4vh;
- 
+
 }
+
 .blocoNumero2 {
     width: 40vh;
     height: 40vh;
@@ -357,8 +386,9 @@ a:hover::after{
     align-items: center;
     transition: 0.5s;
     box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
- margin-left: 4vh;
+    margin-left: 4vh;
 }
+
 .blocoNumero3 {
     width: 40vh;
     height: 40vh;
@@ -370,8 +400,9 @@ a:hover::after{
     align-items: center;
     transition: 0.5s;
     box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
- margin-left: 4vh;
+    margin-left: 4vh;
 }
+
 .blocoNumero4 {
     width: 40vh;
     height: 40vh;
@@ -383,13 +414,16 @@ a:hover::after{
     align-items: center;
     transition: 0.5s;
     box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
- margin-left: 4vh;
+    margin-left: 4vh;
 }
 
-.blocoNumero:hover, .blocoNumero2:hover, .blocoNumero3:hover, .blocoNumero4:hover {
+.blocoNumero:hover,
+.blocoNumero2:hover,
+.blocoNumero3:hover,
+.blocoNumero4:hover {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
-    
+
 }
 
 .tituloBannerNumeros {
@@ -408,7 +442,7 @@ a:hover::after{
 
 
 /*Banner Nossos Serviços*/
-.bannerServicos{
+.bannerServicos {
     height: fit-content;
     margin: 8vh 0 0 0;
     display: flex;
@@ -417,18 +451,18 @@ a:hover::after{
     flex-direction: column;
     width: 100%;
     align-self: center;
-    background-color: #3e838c2e;
+    background-color: #3e838c00;
 
 }
 
-.allbannerservi{
+.allbannerservi {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-h2{
+h2 {
     margin: 0;
     padding: 0;
 }
@@ -443,7 +477,7 @@ h2{
 
 .tituloBannerServicos {
     text-align: center;
-    padding-top: 10vh;
+    padding-top: 5vh;
     font-size: 1.7rem;
     color: #063940;
     margin-bottom: -50px;
@@ -457,7 +491,7 @@ h2{
     background-color: #ffffff;
     width: 40vh;
     height: 50vh;
-    box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);  
+    box-shadow: 0px 6px 12px 3px rgba(0, 0, 0, 0.15);
     border-radius: 80px;
     display: flex;
     justify-content: center;
@@ -465,6 +499,7 @@ h2{
     flex-direction: column;
     transition: 0.5s;
 }
+
 .blocoServicos:hover {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
@@ -478,13 +513,17 @@ h2{
 }
 
 /*Banner Inovação*/
-.fundoInovacao{
+.fundoInovacao {
     /* margin-top: 30vh; */
     height: 90vh;
     /* display: flex; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
-.bannerInovacao{
+
+.bannerInovacao {
     /* margin-top: 30vh; */
     height: 80vh;
     display: flex;
@@ -500,18 +539,18 @@ h2{
 
 .bannerEquipe {
     height: 60vh;
-    background-color: #bf73004a;
+    background-color: #eeeded;
 }
 
 .tituloBannerEquipe {
     text-align: center;
     font-size: 2rem;
-    color: #BF7300;
+    color: #000000;
     padding: 5vh 0vh;
 }
 
 #destaqueEquipe {
-    color: #764701;
+    color: #3E838C;
 }
 
 .blocoBannerEquipe {
@@ -519,16 +558,17 @@ h2{
     justify-content: space-around;
     align-items: center;
 }
-.cardBannerEquipe2{
+
+.cardBannerEquipe2 {
     width: 30%;
     height: 30vh;
     background-color: #ffffff;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-radius: 20px;
 
 }
+
 .cardBannerEquipe {
     width: 30%;
     height: 30vh;
@@ -536,7 +576,6 @@ h2{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-radius: 20px;
 }
 
 .imgBannerEquipe {
@@ -544,6 +583,7 @@ h2{
     width: 20vh;
     border-radius: 100%;
 }
+
 .subtituloBannerEquipe {
     font-weight: 500;
     font-size: 1.3rem;
@@ -563,21 +603,23 @@ h2{
     background-color: #bf730000;
     cursor: pointer;
 }
-.inove{
-width: 40%;
+
+.inove {
+    width: 40%;
 
 }
 
-.cardbanner{
+.cardbanner {
     width: 32%;
     height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    border-radius: 2vh;
 }
 
-.imgcard{
+.imgcard {
     width: 90%;
     height: 20vh;
     top: 30vh;
@@ -589,37 +631,167 @@ width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 3px solid #3E838C;
+    border-radius: 2vh;
 }
 
-.imgcard:hover{
-    border-bottom: 3px solid #3E838C;
+.imgcard:hover {
     box-shadow: 0.2em 0.2em 0.9em 0.2em rgba(0, 0, 0, 0.304);
 }
 
-#img1{
+#img1 {
     background-image: url("../Img/pexels-torsten-dettlaff-70911.jpg");
     background-size: cover;
 }
 
-#img2{
+#img2 {
     background-image: url("../Img/pexels-andrea-piacquadio-3756688.jpg");
     background-size: cover;
 }
 
-#img3{
+#img3 {
     background-image: url("../Img/pexels-pixabay-534219.jpg");
     background-size: cover;
 }
 
-.cardbanner h1{
+.cardbanner h1 {
     font-size: 2.5vh;
 }
 
-.textimgcard{
+.textimgcard {
     flex-direction: column;
     align-items: center;
     width: 90%;
 }
-.textimgcard p{
+
+.textimgcard p {
     font-size: 2.2vh;
+}
+
+.boxMoni {
+    height: 75vh;
+    width: 89%;
+    background-color: #ffffff;
+    align-self: center;
+    box-shadow: 0.2em 0.2em 0.9em 0.6em rgba(0, 0, 0, 0.074);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2vh;
+}
+
+.leftboxx {
+    background-image: url("https://portal.wemeds.com.br/wp-content/uploads/2021/09/cirurgia-robotica-em-brasilia-1.jpg");
+    background-size: cover;
+    width: 40%;
+    height: inherit;
+    display: flex;
+    align-items: end;
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+}
+
+.cardplay {
+    display: flex;
+    align-items: end;
+    height: 15vh;
+    width: 8vw;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    background-color: #3E838C;
+    border-radius: 15%;
+    flex-direction: column;
+}
+
+.card img {
+    width: 10vw;
+    height: 10vh;
+}
+
+.rightboxx {
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+}
+
+.textrightbox {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-around;
+    flex-direction: column;
+    width: 85%;
+    height: 70vh;
+    text-align: start;
+}
+
+.textrightbox h1{
+    margin: 0;
+    font-size: 3.6vh;
+    text-align: start;
+}
+
+.cardscomponente{
+    width: 100%;
+    height: 40vh;
+    justify-self: end;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cardcomponente{
+    width: 45%;
+    height: 15vh;
+    background-color: #3E838C;
+    border-radius: 2vh;
+    margin: 2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.cardcomponente img{
+    width: auto;
+    height: 7vh;
+    margin-right: 5%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.parteDaVinci{
+    height: 70vh;
+    width: 85%;
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+.headerParte{
+    width: 60%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerParte p{
+    color: #3E838C;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Onest&display=swap');
+
+.headerParte h1{
+    color: #292828;
+    font-family: 'Onest', sans-serif;
+    font-size: 4vh;
 }
