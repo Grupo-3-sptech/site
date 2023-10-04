@@ -2,7 +2,7 @@ var componenteModel = require("../models/componenteModel");
 
 function buscarUltimasMedidas(req, res) {
 
-    const limite_linhas = 7;
+    const limite_linhas = req.params.linhas;
 
     var id = req.params.id;
 

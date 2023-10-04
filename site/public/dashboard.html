@@ -173,7 +173,7 @@
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/componentes/cpu/${id}/`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/cpu/${id}/7`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -259,7 +259,7 @@
 
 
         
-        fetch(`/componentes/cpu/${id}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/cpu/${id}/1`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
