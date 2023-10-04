@@ -23,6 +23,7 @@ fun main() {
     looka1.grupoDeDiscos()
     looka1.grupoDeServicos()
     looka1.grupoDeProcessos()
+    looka1.Dispositivo()
 
     //bdInter.execute("""
         //insert into statusRobo(nome) value

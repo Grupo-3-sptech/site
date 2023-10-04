@@ -1,4 +1,5 @@
 import com.github.britooo.looca.api.core.Looca
+import com.github.britooo.looca.api.group.dispositivos.DispositivoUsb
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.jdbc.core.JdbcTemplate
 
@@ -84,6 +85,14 @@ class LookaDados {
         var processos = grupoDeProcessos.processos
         var totalProcessos =grupoDeProcessos.totalProcessos
         var totalThreads =grupoDeProcessos.totalThreads
+    }
+
+
+    fun Dispositivo(){
+        val DispositivoUsbGp = looca.dispositivosUsbGrupo
+        var totalConectados = DispositivoUsbGp.totalDispositvosUsbConectados
+        println(totalConectados)
+
     }
 
 
