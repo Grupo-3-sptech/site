@@ -91,9 +91,27 @@ class LookaDados {
     fun Dispositivo(){
         val DispositivoUsbGp = looca.dispositivosUsbGrupo
         var totalConectados = DispositivoUsbGp.totalDispositvosUsbConectados
-        println(totalConectados)
-
+        var dispositivosUsb = DispositivoUsbGp.dispositivosUsb
+        // println(dispositivosUsb)
+        //println(dispositivosUsb[0].nome)
+        var dispositivosUsbConectados = DispositivoUsbGp.dispositivosUsbConectados
+        var totalDispositvosUsb = DispositivoUsbGp.totalDispositvosUsb
     }
+
+    fun rede(){
+        val rede = looca.rede
+        var parametros = rede.parametros
+        var grupoDeInterfaces = rede.grupoDeInterfaces
+    }
+    fun janelas(){
+        val janela = looca.grupoDeJanelas
+        var janelas = janela.janelas
+        var janelasVisiveis = janela.janelasVisiveis
+        var totalJanelas = janela.totalJanelas
+    }
+
+
+
 
 
 }

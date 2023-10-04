@@ -24,6 +24,8 @@ fun main() {
     looka1.grupoDeServicos()
     looka1.grupoDeProcessos()
     looka1.Dispositivo()
+    looka1.rede()
+    looka1.janelas()
 
     //bdInter.execute("""
         //insert into statusRobo(nome) value
