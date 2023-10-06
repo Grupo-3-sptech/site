@@ -1,0 +1,365 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.principal {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #3E838C;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-sidebar {
+    width: 80%;
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.logo-sidebar {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-sidebar img {
+    width: auto;
+    height: 25vh;
+}
+
+.options-sidebar {
+    height: 45vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.opt {
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+#aqui {
+    background-color: rgb(237, 237, 237);
+    width: 20vw;
+    margin-left: 25%;
+    color: black;
+    border-top-left-radius: 5vh;
+    border-bottom-left-radius: 5vh;
+}
+
+#aqui a {
+    color: black;
+}
+
+.opt a {
+    text-decoration: none;
+    color: #b0c9cd;
+}
+
+.opt img {
+    width: auto;
+    height: 5vh;
+    margin-right: 5%;
+}
+
+.quit-button {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    width: 80%;
+    margin-left: auto;
+    background-color: rgb(240, 240, 240);
+    height: 150vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+}
+
+.header-content {
+    width: 100%;
+    height: 10vh;
+    background-color: #e1e2e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(58, 58, 58);
+}
+
+.navbar-header {
+    width: 90%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-before {
+    width: 90%;
+    height: 140vh;
+}
+
+.kpis {
+    display: flex;
+    flex-direction: row;
+    height: 15vh;
+    width: 100%;
+    margin-top: 5%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.kpi {
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    flex-direction: row;
+    height: 15vh;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-kpi {
+    display: flex;
+    width: 83%;
+    height: 11vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.indicador {
+    height: inherit;
+    width: 3%;
+    border-radius: 5vh;
+}
+
+.conteudo-kpi {
+    width: 87%;
+    height: inherit;
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-kpi h1 {
+    color: rgb(92, 92, 92);
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.segunda-parte {
+    margin-top: 5%;
+    width: 100%;
+    height: 55vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-graph {
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+}
+
+.card-graph1 {
+    width: 55%;
+}
+
+.card-graph2 {
+    width: 40%;
+}
+
+.conteudo-graph-g {
+    width: 85%;
+    height: 48vh;
+}
+
+.conteudo-graph-p {
+    width: 85%;
+    height: 48vh;
+}
+
+/* tela de gerenciar usuarios */
+.double-cards {
+    width: 100%;
+    height: 78vh;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card-cadastro {
+    height: 75vh;
+    width: 48%;
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-lista {
+    height: 75vh;
+    width: 48%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.container-cadastro {
+    width: 85%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+.input {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-direction: column;
+    height: 10vh;
+
+}
+
+.input input {
+    height: 6vh;
+    border-style: none;
+    background-color: #dcdcdc;
+    border-radius: 1vh;
+    padding-left: 2vw;
+}
+
+.input input:focus {
+    outline: none;
+}
+
+#diminuir {
+    height: 4vh;
+}
+
+#submit {
+    height: 6vh;
+    width: 20vw;
+    border-style: none;
+    background-color: #3E838C;
+    border-radius: 5vh;
+    color: white;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: #2a585e;
+}
+
+.container-cadastro2 {
+    width: 85%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.container-cadastro h2 {
+    color: #474747;
+}
+
+.container-cadastro2 h2 {
+    color: #474747;
+}
+
+#title-lista {
+    justify-self: flex-start;
+    position: fixed;
+}
+
+.user {
+    width: 100%;
+    height: 10vh;
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 5%;
+}
+
+.img-user {
+    height: 6vh;
+    width: 3vw;
+    border-radius: 50%;
+    background-image: url('../Img/kayku.jfif');
+    background-size: cover;
+}
+
+.img-user {
+    margin-right: 5%;
+    margin-left: 10%;
+}
