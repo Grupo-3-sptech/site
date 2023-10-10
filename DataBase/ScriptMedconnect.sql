@@ -1,5 +1,10 @@
+drop database medconnect;
 create database medconnect;
 use medconnect;
+SELECT count(*) as count from RoboCirurgiao WHERE idProcess = 'BFEBFBFF00040651';
+
+
+
 
 create table Hospital(
 idHospital int primary key auto_increment,
@@ -37,9 +42,13 @@ nome varchar(45) not null
 create table RoboCirurgiao(
 idRobo int primary key auto_increment,
 modelo varchar(45) not null,
-fabricacao DATE not null,
+fabricacao varchar(45),
+idProcess varchar(20),
 fkStatus int, constraint fkStatus foreign key (fkStatus) references statusRobo(idStatus)
 );
+
+INSERT INTO RoboCirurgiao (modelo, fabricacao, fkStatus) 
+VALUES ('Modelo A', '2023-09-12', 1);
 
 create table SalaCirurgiao(
 idSala int auto_increment,
@@ -105,6 +114,8 @@ VALUES ('Admin', 3);
 
 INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
 VALUES ('Médico', 1);
+
+select * from Funcionarios;
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
 VALUES ('Joao', 'joao@eistein.com', '12345678901', '11972579795', '123456', 1, 2);
