@@ -8,11 +8,9 @@ import java.time.LocalDateTime
 class LookaDados {
     val looca = Looca()
     val bdInter: JdbcTemplate
-    val processador = looca.processador
-    var id = processador.id
+    var id = Looca().processador.id
 
     init {
-
         val dataSource = BasicDataSource()
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver"
         val serverName = "localhost"
@@ -68,6 +66,8 @@ class LookaDados {
     }
 
     fun processador() {
+
+        var processador = looca.processador
 
         var fabricante = processador.fabricante
 
