@@ -103,116 +103,6 @@ VALUES ('Modelo A', '${looca.processador.fabricante}', 1, $id);
     }
 
 
-    fun solucao() {
-
-        val url = URL("https://bootstrap.pypa.io/get-pip.py")
-        val nomeArquivoDoPip = "get-pip.py"
-        downloadArq(url, nomeArquivoDoPip)
-        println("Arquivo baixado com sucesso: $nomeArquivoDoPip")
-
-        val nomeBash = "InstalarPip.bat"
-        val arqBash = File(nomeBash)
-        arqBash.writeText(
-            "cd C:\\Users\\Public" +
-                    "py get-pip.py"
-        )
-
-
-        val nomePy = "InstalarPip.bat"
-        val arqPy = File(nomePy)
-        arqPy.writeText(
-            "from mysql.connector import connect\n" +
-                    "import psutil\n" +
-                    "import platform\n" +
-                    "import time\n" +
-                    "import mysql.connector\n" +
-                    "from datetime import datetime\n" +
-                    "\n" +
-                    "def mysql_connection(host, user, passwd, database=None):\n" +
-                    "    connection = connect(\n" +
-                    "        host=host,\n" +
-                    "        user=user,\n" +
-                    "        passwd=passwd,\n" +
-                    "        database=database\n" +
-                    "    )\n" +
-                    "    return connection\n" +
-                    "\n" +
-                    "connection = mysql_connection('localhost', 'root', 'suasenha', 'MedConnect')\n" +
-                    "\n" +
-                    "while True:\n" +
-                    "    memoria = psutil.virtual_memory()[2]\n" +
-                    "    cpu = psutil.cpu_percent(None)\n" +
-                    "    disco = psutil.disk_usage('/')[3]\n" +
-                    "    interval = 1\n" +
-                    "    statusRede = 0\n" +
-                    "    network_connections = psutil.net_connections()\n" +
-                    "\n" +
-                    "    network_active = any(conn.status == psutil.CONN_ESTABLISHED for conn in network_connections)\n" +
-                    "\n" +
-                    "    \n" +
-                    "\n" +
-                    "    print (\"\\nINFORMAÇÕES SOBRE A REDE: \")\n" +
-                    "\n" +
-                    "    if network_active:\n" +
-                    "\n" +
-                    "        print (\"A rede está ativa.\")\n" +
-                    "        statusRede= 1\n" +
-                    "    else:\n" +
-                    "\n" +
-                    "        print (\"A rede não está ativa.\")\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "    cursor = connection.cursor()\n" +
-                    "\n" +
-                    "\n" +
-                    "    horarioAtual = datetime.now()\n" +
-                    "    horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')\n" +
-                    "    \n" +
-                    "    ins = [cpu, memoria, disco, statusRede]\n" +
-                    "    componentes = [1,2,3,4]\n" +
-                    "    cursor = connection.cursor()\n" +
-                    "    \n" +
-                    "    for i in range(len(ins)):\n" +
-                    "        \n" +
-                    "        dado = ins[i]\n" +
-                    "        \n" +
-                    "        componente = componentes[i]\n" +
-                    "\n" +
-                    "    \n" +
-                    "        query = \"INSERT INTO Registros (dado, fkRoboRegistro, fkComponente, HorarioDado) VALUES (%s, 1, %s, %s)\"\n" +
-                    "\n" +
-                    "    \n" +
-                    "        cursor.execute(query, (dado, componente,horarioFormatado))\n" +
-                    "\n" +
-                    "\n" +
-                    "        connection.commit()\n" +
-                    "    print(\"\\nINFORMAÇÕES SOBRE PROCESSAMENTO: \")\n" +
-                    "    print('Porcentagem utilizada do Processador: ',cpu,'\\nPorcentagem utilizada de memoria: ', memoria,'\\nPorcentagem do disco sendo utilizada:', disco,'\\nStatus da rede: ',statusRede)\n" +
-                    "   \n" +
-                    "    \n" +
-                    "       \n" +
-                    "\n" +
-                    "\n" +
-                    "    time.sleep(10)\n" +
-                    "\n" +
-                    "cursor.close()\n" +
-                    "connection.close()\n" +
-                    "    "
-        )
-
-        val nomeBash1 = "InstalarPython.bat"
-        val arqBash1 = File(nomeBash1)
-        arqBash1.writeText(
-            // escreve um comando de script para instalar o py usando chocolatey
-            "@\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))\" && SET \"PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin\"\n\n" +
-                    "choco install python311 --params \"/C:\\Users\\Public\""
-        )
-
-
-    }
-
 
     fun downloadArq(url: URL, nomeArquivoDoPip: String) {
 //funão de baixar arquivo da net
@@ -229,20 +119,20 @@ VALUES ('Modelo A', '${looca.processador.fabricante}', 1, $id);
     fun ver(): Boolean {
         //função que verifica se a maquina já foi usada antes
 
-        var idRobo = bdInter.queryForObject(
+
+
+
+        val idRobo = bdInter.queryForObject(
             """
-    select idRobo from RoboCirurgiao
-    where idProcess = '$id'
+    select count(*) as count from RoboCirurgiao where idProcess = '$id'
     """,
             Int::class.java,
+        )
 
-            )
-
-        if (idRobo == null) {
+        if(idRobo == 0){
             return true
-        } else {
-            return false
         }
+        else{return false}
 
 
     }
@@ -379,6 +269,117 @@ VALUES
         var janelasVisiveis = janela.janelasVisiveis
         var totalJanelas = janela.totalJanelas
     }
+
+    fun solucao() {
+
+        val url = URL("https://bootstrap.pypa.io/get-pip.py")
+        val nomeArquivoDoPip = "get-pip.py"
+        downloadArq(url, nomeArquivoDoPip)
+        println("Arquivo baixado com sucesso: $nomeArquivoDoPip")
+
+        val nomeBash = "InstalarPip.bat"
+        val arqBash = File(nomeBash)
+        arqBash.writeText(
+            "cd C:\\Users\\Public" +
+                    "py get-pip.py"
+        )
+
+
+        val nomePy = "InstalarPip.bat"
+        val arqPy = File(nomePy)
+        arqPy.writeText(
+            "from mysql.connector import connect\n" +
+                    "import psutil\n" +
+                    "import platform\n" +
+                    "import time\n" +
+                    "import mysql.connector\n" +
+                    "from datetime import datetime\n" +
+                    "\n" +
+                    "def mysql_connection(host, user, passwd, database=None):\n" +
+                    "    connection = connect(\n" +
+                    "        host=host,\n" +
+                    "        user=user,\n" +
+                    "        passwd=passwd,\n" +
+                    "        database=database\n" +
+                    "    )\n" +
+                    "    return connection\n" +
+                    "\n" +
+                    "connection = mysql_connection('localhost', 'root', 'suasenha', 'MedConnect')\n" +
+                    "\n" +
+                    "while True:\n" +
+                    "    memoria = psutil.virtual_memory()[2]\n" +
+                    "    cpu = psutil.cpu_percent(None)\n" +
+                    "    disco = psutil.disk_usage('/')[3]\n" +
+                    "    interval = 1\n" +
+                    "    statusRede = 0\n" +
+                    "    network_connections = psutil.net_connections()\n" +
+                    "\n" +
+                    "    network_active = any(conn.status == psutil.CONN_ESTABLISHED for conn in network_connections)\n" +
+                    "\n" +
+                    "    \n" +
+                    "\n" +
+                    "    print (\"\\nINFORMAÇÕES SOBRE A REDE: \")\n" +
+                    "\n" +
+                    "    if network_active:\n" +
+                    "\n" +
+                    "        print (\"A rede está ativa.\")\n" +
+                    "        statusRede= 1\n" +
+                    "    else:\n" +
+                    "\n" +
+                    "        print (\"A rede não está ativa.\")\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "    cursor = connection.cursor()\n" +
+                    "\n" +
+                    "\n" +
+                    "    horarioAtual = datetime.now()\n" +
+                    "    horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')\n" +
+                    "    \n" +
+                    "    ins = [cpu, memoria, disco, statusRede]\n" +
+                    "    componentes = [1,2,3,4]\n" +
+                    "    cursor = connection.cursor()\n" +
+                    "    \n" +
+                    "    for i in range(len(ins)):\n" +
+                    "        \n" +
+                    "        dado = ins[i]\n" +
+                    "        \n" +
+                    "        componente = componentes[i]\n" +
+                    "\n" +
+                    "    \n" +
+                    "        query = \"INSERT INTO Registros (dado, fkRoboRegistro, fkComponente, HorarioDado) VALUES (%s, 1, %s, %s)\"\n" +
+                    "\n" +
+                    "    \n" +
+                    "        cursor.execute(query, (dado, componente,horarioFormatado))\n" +
+                    "\n" +
+                    "\n" +
+                    "        connection.commit()\n" +
+                    "    print(\"\\nINFORMAÇÕES SOBRE PROCESSAMENTO: \")\n" +
+                    "    print('Porcentagem utilizada do Processador: ',cpu,'\\nPorcentagem utilizada de memoria: ', memoria,'\\nPorcentagem do disco sendo utilizada:', disco,'\\nStatus da rede: ',statusRede)\n" +
+                    "   \n" +
+                    "    \n" +
+                    "       \n" +
+                    "\n" +
+                    "\n" +
+                    "    time.sleep(10)\n" +
+                    "\n" +
+                    "cursor.close()\n" +
+                    "connection.close()\n" +
+                    "    "
+        )
+
+        val nomeBash1 = "InstalarPython.bat"
+        val arqBash1 = File(nomeBash1)
+        arqBash1.writeText(
+            // escreve um comando de script para instalar o py usando chocolatey
+            "@\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))\" && SET \"PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin\"\n\n" +
+                    "choco install python311 --params \"/C:\\Users\\Public\""
+        )
+
+
+    }
+
 
 
 }
