@@ -90,7 +90,7 @@ class LookaDados {
         bdInter.execute(
             """
                 INSERT INTO RoboCirurgiao (modelo, fabricacao, fkStatus, idProcess) 
-VALUES ('Modelo A', '${looca.processador.fabricante}', 1, $id);
+VALUES ('Modelo A', '${looca.processador.fabricante}', 1, '$id');
                 
                 """
         )
@@ -196,15 +196,14 @@ VALUES ('Modelo A', '${looca.processador.fabricante}', 1, $id);
 
         var numPacotFisico = processador.numeroPacotesFisicos
 
-        bdInter.execute(
-            """
+    //    bdInter.execute(
+      //      """
+       //INSERT INTO Registros (fkRoboRegistro, HorarioDado, dado, fkComponente)
+//VALUES
+ // (1, '${LocalDateTime.now()}', ${uso}, 1);
        
-       INSERT INTO Registros (fkRoboRegistro, HorarioDado, dado, fkComponente) 
-VALUES 
-  (1, '${LocalDateTime.now()}', ${uso}, 1);
-       
-         """
-        )
+   //      """
+     //   )
     }
 
     fun grupoDeDiscos() {
