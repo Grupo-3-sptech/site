@@ -16,7 +16,7 @@ class LookaDados {
         val serverName = "localhost"
         val mydatabase = "medconnect"
         dataSource.username = "root"
-        dataSource.password = "enzo123"
+        dataSource.password = "suasenha"
         dataSource.url = "jdbc:mysql://$serverName/$mydatabase"
         bdInter = JdbcTemplate(dataSource)
     }
