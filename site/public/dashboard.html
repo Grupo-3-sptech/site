@@ -75,10 +75,10 @@
 
                     <div class="opt">
                         <img src="../Img/icons8-robô-48.png" alt="">
-                        <a href="#">Dashboard Rôbos</a>
+                        <a href="dash-robo.html">Dashboard Rôbos</a>
                     </div>
 
-                    <div class="opt">
+                    <div class="opt" id="gerenciar-usuarios">
                         <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
@@ -106,7 +106,7 @@
             <div class="header-content">
                 <div class="navbar-header">
                     <h3>Relatório Geral</h3>
-                    <p>Olá, <span style="font-weight: bolder;" class="b_usuario">Admin</span></p>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
             <div class="header-before">
@@ -144,7 +144,7 @@
                     <div class="card-graph card-graph1">
                         <div class="conteudo-graph-g">
                             <p>Relatório</p>
-                            <div id="grafico1"></div>
+                            <!-- <div id="grafico1"></div> -->
                         </div>
                     </div>
 
@@ -171,6 +171,13 @@
     }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    cargo = sessionStorage.CARGO_USUARIO
+    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+    console.log(gerenciarUsuarios)
+
+    if(cargo !== "admin"){
+        gerenciarUsuarios.style = 'display: none'
+    }
 
     let proximaAtualizacao;
     var id = 1

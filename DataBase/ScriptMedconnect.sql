@@ -95,14 +95,19 @@ fkComponente int,
 constraint fkComponente foreign key (fkComponente) references componentes(idComponentes)
 );
 
+INSERT INTO Registros VALUES (null, 1, NOW(), 15, 1);
 
 INSERT INTO Hospital (nomeFantasia, CNPJ, razaoSocial, sigla, responsavelLegal, fkHospitalSede) 
 VALUES ('Hospital ABC', '12345678901234', 'ABC Ltda', 'HABC', 'João da Silva', NULL);
 
+INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
+VALUES ('Admin', 3);
 
 INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
 VALUES ('Médico', 1);
 
+INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
+VALUES ('Joao', 'joao@eistein.com', '12345678901', '11972579795', '123456', 1, 2);
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
 VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 1);
@@ -149,3 +154,12 @@ SELECT r.*
 FROM Registros r
 JOIN componentes c ON r.fkComponente = c.idComponentes
 WHERE c.nome = 'disco';
+
+SELECT r.*
+        FROM Registros r
+        JOIN componentes c ON r.fkComponente = c.idComponentes
+        WHERE c.nome = 'cpu'
+        AND r.fkRoboRegistro = 1
+                    order by r.idRegistro desc limit 7;
+                    
+# INSERT INTO registros(fkRoboRegistro, horarioDado, dado, fkComponente) VALUES(1, now(), 15, 1), (1, now(),16,1), (1, now(),32,1), (1,now(),64,1);
