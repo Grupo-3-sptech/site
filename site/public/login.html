@@ -35,16 +35,16 @@
         <div class="bloco">
             <div class="blocoLogin">
                 <div class="esquerda">
-                <img src="Img/ajuda.png" class="esquerdaimg">
-            </div>
+                    <img src="Img/ajuda.png" class="esquerdaimg">
+                </div>
                 <div class="direita">
-               <p id="subtextLogin">Bem vindo novamente!</p>
-                <span id="Login">Login</span>
-                <p class="gerall">E-mail</p><input class="input2" type="">
-                <p class="gerall">Senha</p><input class="input2" type="">
-                <a class="esqueceu" href="aba_de_redefir_senha">Esqueceu a senha?</a>
-                <button class="entrar">Entrar</button>
-            </div>
+                    <p id="subtextLogin">Bem vindo novamente!</p>
+                    <span id="Login">Login</span>
+                    <p class="gerall">E-mail</p><input class="input2" id="email_input" type="">
+                    <p class="gerall">Senha</p><input class="input2" id="senha_input" type="">
+                    <a class="esqueceu" href="aba_de_redefir_senha">Esqueceu a senha?</a>
+                    <button class="entrar" onclick="entrar()">Entrar</button>
+                </div>
             </div>
 
 
@@ -91,3 +91,119 @@
 </body>
 
 </html>
+<script>
+    function entrar() {
+        var email = email_input.value
+        var senha = senha_input.value
+
+        if (email == "" || senha == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Os campos precisam ser preenchidos";
+
+        } else {
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: email,
+                    senhaServer: senha
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        // sessionStorage.EMAIL_USUARIO = json.email;
+                        // sessionStorage.NOME_USUARIO = json.nome;
+                        // sessionStorage.ID_USUARIO = json.idUsuario;
+                        // // sessionStorage.fk_EMPRESA = json.fkEmpresa;
+                        // // SALVANDO FK EMPRESA COMO 1 SO PARA TESTE NO CADASTRO DO LOCAL, ENQUANTO NAO RESOLVEMOS O PROBLEMA DE LISTAR AS EMPRESAS NO CADASTRO DE USUARIO
+                        // sessionStorage.fk_EMPRESA = json.fkEmpresa;
+
+                        // cardErro.style.display = "block";
+
+                        if(json.fkEscalonamento == 2){
+                            sessionStorage.CARGO_USUARIO = "admin"
+                        } else {
+                            sessionStorage.CARGO_USUARIO = "funcionario"
+                        }
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        // mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando para tela de Login...";
+
+                        setTimeout(function () {
+                            window.location = "dashboard.html";
+                        }, 1000); // 
+
+                    });
+                }
+                // } else {
+                //     fetch("/empresa/autenticar", {
+                //         method: "POST",
+                //         headers: {
+                //             "Content-Type": "application/json"
+                //         },
+                //         body: JSON.stringify({
+                //             cnpjServer: email,
+                //             senhaServer: senha
+                //         })
+                //     }).then(function (resposta) {
+                //         console.log("ESTOU NO THEN DO entrar()!")
+
+                //         if (resposta.ok) {
+                //             console.log(resposta);
+
+                //             resposta.json().then(json => {
+                //                 console.log(json);
+                //                 console.log(JSON.stringify(json));
+
+                //                 sessionStorage.CNPJ_EMPRESA = json.CNPJ;
+                //                 sessionStorage.NOME_EMPRESA = json.nome;
+                //                 sessionStorage.ID_EMPRESA = json.idEmpresa;
+                //                 // sessionStorage.fk_EMPRESA = json.fkEmpresa;
+                //                 // SALVANDO FK EMPRESA COMO 1 SO PARA TESTE NO CADASTRO DO LOCAL, ENQUANTO NAO RESOLVEMOS O PROBLEMA DE LISTAR AS EMPRESAS NO CADASTRO DE USUARIO
+
+                //                 cardErro.style.display = "block";
+
+                //                 mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando para tela de Login...";
+
+                //                 setTimeout(function () {
+                //                     window.location = "cadastrarLocal.html";
+                //                 }, 1000); // 
+
+                //             });
+
+                //         } else {
+
+                //             console.log("Houve um erro ao tentar realizar o login");
+
+                //             cardErro.style.display = "block"
+                //             alert("O Login está inválido")
+                //             resposta.text().then(texto => {
+                //                 console.error(texto);
+                //             });
+                //         }
+
+                //     }).catch(function (erro) {
+                //         console.log(erro);
+                //         cardErro.style.display = "block"
+                //         mensagem_erro.innerHTML = "O Login está inválido";
+                //     })
+
+                // }
+
+            }).catch(function (erro) {
+                console.log(erro);
+                // cardErro.style.display = "block"
+                // mensagem_erro.innerHTML = "O Login está inválido";
+            })
+        }
+
+    }   
+</script>
