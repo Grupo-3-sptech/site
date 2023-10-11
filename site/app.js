@@ -13,6 +13,9 @@ var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var componentesRouter = require("./src/routes/componentes");
+var hospitalRouter = require("./src/routes/hospital");
+var cargoRouter = require("./src/routes/cargo");
+var funcionarioRouter = require("./src/routes/funcionario");
 
 var empresasRouter = require("./src/routes/empresas");
 
@@ -44,6 +47,10 @@ app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/empresas", empresasRouter);
 app.use("/componentes", componentesRouter);
+app.use("/hospital", hospitalRouter);
+app.use("/cargo", cargoRouter);
+app.use("/funcionario", funcionarioRouter);
+
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

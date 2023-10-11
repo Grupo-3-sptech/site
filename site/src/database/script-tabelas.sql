@@ -1,117 +1,171 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+create database medconnect;
+drop database medconnect;
+use medconnect;
 
-/*
-comandos para mysql - banco local - ambiente de desenvolvimento
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj VARCHAR(14)
+create table Hospital(
+idHospital int primary key auto_increment,
+nomeFantasia varchar(45) not null,
+CNPJ char(14) not null,
+razaoSocial varchar(45) not null,
+sigla varchar(45) not null,
+responsavelLegal varchar(45) not null,
+fkHospitalSede int, constraint fkHospitalSede foreign Key (fkHospitalSede) references Hospital(idHospital)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table EscalonamentoFuncionario(
+idEscalonamento int primary key auto_increment,
+cargo varchar(45) not null,
+prioridade int not null
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+create table Funcionarios(
+idFuncionarios int auto_increment,
+nome varchar(45) not null,
+email varchar(45) not null,
+CPF char(11) not null,
+telefone char(11) not null,
+senha varchar(45) not null,
+fkHospital int, constraint fkHospital foreign key (fkHospital) references Hospital(idHospital),
+constraint pkCompostaFuncionariosHospital primary key(idFuncionarios, fkHospital),
+fkEscalonamento int, constraint fkEscalonamento foreign key (fkEscalonamento) references EscalonamentoFuncionario(idEscalonamento)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table statusRobo(
+idStatus int primary key auto_increment,
+nome varchar(45) not null
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+create table RoboCirurgiao(
+idRobo int primary key auto_increment,
+modelo varchar(45) not null,
+fabricacao DATE not null,
+fkStatus int, constraint fkStatus foreign key (fkStatus) references statusRobo(idStatus)
+);
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+create table SalaCirurgiao(
+idSala int auto_increment,
+numero varchar(5) not null,
+fkHospitalSala int, constraint fkHospitalSala foreign key(fkHospitalSala) references hospital(idHospital),
+fkRoboSala int, constraint fkRoboSala foreign key(fkRoboSala) references robocirurgiao(idRobo),
+constraint pkCompostaSalaCirurgiao primary key(idSala, fkHospitalSala, fkRoboSala)
+);
+
+create table categoriaCirurgia (
+idCategoria int primary key auto_increment,
+niveisPericuloridade varchar(45) not null
+);
+
+create table cirurgia (
+idCirurgia int not null,
+fkRoboCirurgia int, constraint fkRoboCirurgia foreign key (fkRoboCirurgia) references RoboCirurgiao(idRobo),
+dataHorario DATETIME not null,
+fkCategoria int, constraint fkCategoria foreign key (fkCategoria) references categoriaCirurgia(idCategoria)
+);
+
+create table componentes(
+idComponentes int primary key auto_increment,
+nome varchar(45) not null,
+modelo varchar(45) not null,
+identificacaoComponente varchar(60) not null,
+descricaoAdd varchar(45)
+);
+
+INSERT INTO componentes (nome, modelo, identificacaoComponente) 
+VALUES ('CPU', 'Modelo da CPU', 'ID da CPU');
+
+-- Inserir Memória RAM
+INSERT INTO componentes (nome, modelo, identificacaoComponente) 
+VALUES ('Memória RAM', 'Modelo da RAM', 'ID da RAM');
+
+-- Inserir Disco
+INSERT INTO componentes (nome, modelo, identificacaoComponente) 
+VALUES ('Disco', 'Modelo do Disco', 'ID do Disco');
+
+-- Inserir Rede
+INSERT INTO componentes (nome, modelo, identificacaoComponente) 
+VALUES ('Rede', 'Modelo da Rede', 'ID da Rede');
+
+create table Registros (
+idRegistro int auto_increment,
+fkRoboRegistro int , 
+constraint fkRoboRegistro foreign key (fkRoboRegistro) references  RoboCirurgiao(idRobo),
+constraint pkCompostaRegistro primary key(idRegistro, fkRoboRegistro),
+HorarioDado datetime not null,
+dado Double not null,
+fkComponente int, 
+constraint fkComponente foreign key (fkComponente) references componentes(idComponentes)
 );
 
 
-/*
-comando para sql server - banco remoto - ambiente de produção
-*/
+INSERT INTO Hospital (nomeFantasia, CNPJ, razaoSocial, sigla, responsavelLegal, fkHospitalSede) 
+VALUES ('Hospital ABC', '12345678901234', 'ABC Ltda', 'HABC', 'João da Silva', NULL);
 
-CREATE TABLE empresa (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	razao_social VARCHAR(50),
-	cnpj VARCHAR(14)
-);
+INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
+VALUES ('Admin', 2);
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT FOREIGN KEY REFERENCES empresa(id)
-);
+INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
+VALUES ('Atendente', 1);
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT FOREIGN KEY REFERENCES usuario(id)
-);
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY IDENTITY(1,1),
-	descricao VARCHAR(300),
-	fk_empresa INT FOREIGN KEY REFERENCES empresa(id)
-);
+INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
+VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 1);
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
+VALUES ('Kayky', 'kayky@abc.com', '12345678901', '987654321', '123456', 1, 2);
 
-CREATE TABLE medida (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT FOREIGN KEY REFERENCES aquario(id)
-);
+SELECT * FROM Funcionarios;
 
-/*
-comandos para criar usuário em banco de dados azure, sqlserver,
-com permissão de insert + update + delete + select
-*/
+INSERT INTO statusRobo (nome) 
+VALUES ('Ativo');
 
-CREATE USER [usuarioParaAPIWebDataViz_datawriter_datareader]
-WITH PASSWORD = '#Gf_senhaParaAPIWebDataViz',
-DEFAULT_SCHEMA = dbo;
 
-EXEC sys.sp_addrolemember @rolename = N'db_datawriter',
-@membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
+INSERT INTO RoboCirurgiao (modelo, fabricacao, fkStatus) 
+VALUES ('Modelo A', '2023-09-12', 1);
 
-EXEC sys.sp_addrolemember @rolename = N'db_datareader',
-@membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
+
+INSERT INTO SalaCirurgiao (numero, fkHospitalSala, fkRoboSala) 
+VALUES ('101', 1, 1);
+
+
+INSERT INTO categoriaCirurgia (niveisPericuloridade) 
+VALUES ('Alto');
+
+
+INSERT INTO cirurgia (idCirurgia, fkRoboCirurgia, dataHorario, fkCategoria) 
+VALUES (1, 1, '2023-09-15 14:00:00', 1);
+
+select*from registros;
+
+SELECT r.*
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes
+WHERE c.nome = 'Rede';
+
+SELECT r.*
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes
+WHERE c.nome = 'cpu';
+
+SELECT r.*
+        FROM Registros r
+        JOIN componentes c ON r.fkComponente = c.idComponentes
+        WHERE c.nome = 'cpu'
+        AND r.fkRoboRegistro = 1
+                    order by r.idRegistro desc limit 7;
+
+TRUNCATE TABLE Registros;
+
+SELECT r.*
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes
+WHERE c.nome = 'memoria RAM';
+
+
+SELECT r.*
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes
+WHERE c.nome = 'disco';
+
+SELECT r.idRegistro, r.HorarioDado, r.dado, c.nome
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes;

@@ -45,6 +45,8 @@ function cadastrar(req, res) {
     var codigoEmpresa = req.body.codigoServer;
     var cpf = req.body.cpfServer;
     var telefone = req.body.telefoneServer;
+    var hospital = req.body.hospitalServer;
+    var cargo = req.body.cargoServer;
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -52,16 +54,18 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (codigoEmpresa == undefined) {
-        res.status(400).send("O codigo da sua empresa está undefined!");
     } else if (cpf == undefined) {
         res.status(400).send("Seu cpf está undefined!");
     } else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
-    } else {
+    } else if (hospital == undefined) {
+        res.status(400).send("Seu hospital está undefined!");
+    }else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está undefined!");
+    }else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha,cpf, telefone, codigoEmpresa)
+        usuarioModel.cadastrar(nome, email, senha,cpf, telefone, hospital, cargo )
             .then(
                 function (resultado) {
                     res.json(resultado);

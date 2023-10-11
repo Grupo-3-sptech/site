@@ -1,10 +1,6 @@
-drop database medconnect;
 create database medconnect;
+drop database medconnect;
 use medconnect;
-SELECT count(*) as count from RoboCirurgiao WHERE idProcess = 'BFEBFBFF00040651';
-
-
-
 
 create table Hospital(
 idHospital int primary key auto_increment,
@@ -15,6 +11,8 @@ sigla varchar(45) not null,
 responsavelLegal varchar(45) not null,
 fkHospitalSede int, constraint fkHospitalSede foreign Key (fkHospitalSede) references Hospital(idHospital)
 );
+
+SELECT * FROM Hospital;
 
 create table EscalonamentoFuncionario(
 idEscalonamento int primary key auto_increment,
@@ -42,13 +40,18 @@ nome varchar(45) not null
 create table RoboCirurgiao(
 idRobo int primary key auto_increment,
 modelo varchar(45) not null,
-fabricacao varchar(45),
-idProcess varchar(20),
+fabricacao DATE not null,
 fkStatus int, constraint fkStatus foreign key (fkStatus) references statusRobo(idStatus)
 );
 
-INSERT INTO RoboCirurgiao (modelo, fabricacao, fkStatus) 
-VALUES ('Modelo A', '2023-09-12', 1);
+CREATE TABLE associado (
+idAssociado INT PRIMARY KEY auto_increment,
+email VARCHAR(45),
+fkEscalonamentoFuncionario INT,
+constraint fkEscalonamento foreign key (fkEscalonamentoFuncionario) references EscalonamentoFuncionario(idEscalonamento),
+fkHospital INT, 
+constraint fkHospital foreign key (fkHospital) references Hospital(idHospital)
+)
 
 create table SalaCirurgiao(
 idSala int auto_increment,
@@ -104,25 +107,28 @@ fkComponente int,
 constraint fkComponente foreign key (fkComponente) references componentes(idComponentes)
 );
 
-INSERT INTO Registros VALUES (null, 1, NOW(), 15, 1);
 
 INSERT INTO Hospital (nomeFantasia, CNPJ, razaoSocial, sigla, responsavelLegal, fkHospitalSede) 
 VALUES ('Hospital ABC', '12345678901234', 'ABC Ltda', 'HABC', 'João da Silva', NULL);
 
+INSERT INTO Hospital (nomeFantasia, CNPJ, razaoSocial, sigla, responsavelLegal, fkHospitalSede) 
+VALUES ('Hospital Eistein', '12325678901234', 'Eistein Ltda', 'HABC', 'João da Silva', NULL);
+
 INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
-VALUES ('Admin', 3);
+VALUES ('Admin', 2);
 
 INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
 VALUES ('Atendente', 1);
 
-select * from Funcionarios;
-
-INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Joao', 'joao@eistein.com', '12345678901', '11972579795', '123456', 1, 2);
+SELECT * FROM escalonamentoFuncionario;
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
 VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 1);
 
+INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
+VALUES ('Kayky', 'kayky@abc.com', '12345678901', '987654321', '123456', 1, 2);
+
+SELECT * FROM Funcionarios;
 
 INSERT INTO statusRobo (nome) 
 VALUES ('Ativo');
@@ -156,6 +162,15 @@ JOIN componentes c ON r.fkComponente = c.idComponentes
 WHERE c.nome = 'cpu';
 
 SELECT r.*
+        FROM Registros r
+        JOIN componentes c ON r.fkComponente = c.idComponentes
+        WHERE c.nome = 'cpu'
+        AND r.fkRoboRegistro = 1
+                    order by r.idRegistro desc limit 7;
+
+TRUNCATE TABLE Registros;
+
+SELECT r.*
 FROM Registros r
 JOIN componentes c ON r.fkComponente = c.idComponentes
 WHERE c.nome = 'memoria RAM';
@@ -166,11 +181,6 @@ FROM Registros r
 JOIN componentes c ON r.fkComponente = c.idComponentes
 WHERE c.nome = 'disco';
 
-SELECT r.*
-        FROM Registros r
-        JOIN componentes c ON r.fkComponente = c.idComponentes
-        WHERE c.nome = 'cpu'
-        AND r.fkRoboRegistro = 1
-                    order by r.idRegistro desc limit 7;
-                    
-# INSERT INTO registros(fkRoboRegistro, horarioDado, dado, fkComponente) VALUES(1, now(), 15, 1), (1, now(),16,1), (1, now(),32,1), (1,now(),64,1);
+SELECT r.idRegistro, r.HorarioDado, r.dado, c.nome
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes;

@@ -42,8 +42,14 @@
                     <p class="geral2">Senha</p><input class="input" id="senha_input" type="">
                     <p class="geralCS">Confirmação de senha </p><input class="input" id="confirmacao_input" type="">
                     <p class="geralcpf">CPF</p><input class="input" id="cpf_input" type="">
-                    <p class="geral">Codigo da Empresa</p><input class="input" id="codigo_input" type="">
                     <p class="geralT">Telefone</p><input class="input" id="telefone_input" type="">
+                    <!-- <p class="geral">Cargo</p><input class="input" id="codigo_input" type=""> -->
+                    <select id="cargoSelect" name="empresa">
+                        <option>Selecione seu cargo</option>
+                    </select>
+                    <select id="hospitalSelect" name="empresa">
+                        <option>Selecione seu hospital</option>
+                    </select>
                 </div>
                 <button class="Criar" onclick="cadastrar()">Cadastrar</button>
             </div>
@@ -96,7 +102,73 @@
 
 </html>
 <script>
+    var hospitais;
+    fetch("/hospital/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
 
+            console.log(data)
+
+            hospitais = data;
+
+            var selectElement = document.getElementById('hospitalSelect');
+
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < hospitais.length; i++) {
+                const hospital = hospitais[i];
+
+                const optionElement = document.createElement('option');
+                optionElement.value = hospital.idHospital;
+                optionElement.text = hospital.nomeFantasia;
+                selectElement.appendChild(optionElement);
+            }
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    var cargos;
+    fetch("/cargo/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
+
+            console.log(data)
+
+            cargos = data;
+
+            var selectElement = document.getElementById('cargoSelect');
+
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < cargos.length; i++) {
+                const cargo = cargos[i];
+
+                const optionElement = document.createElement('option');
+                optionElement.value = cargo.idEscalonamento;
+                optionElement.text = cargo.cargo;
+                selectElement.appendChild(optionElement);
+            }
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
 
 
     function cadastrar() {
@@ -109,60 +181,87 @@
         var senhaVar = senha_input.value;
         var confirmacaoVar = confirmacao_input.value;
         var cpfVar = cpf_input.value;
-        var codigoVar = codigo_input.value;
         var telefoneVar = telefone_input.value;
+        var cargoVar = cargoSelect.value;
+        var hospitalVar = hospitalSelect.value;
+
+        fetch(`/funcionario/verificar/${hospitalVar}/${emailVar}`)
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        // var empresaCadastrada = json.some(objeto => {
+                        //     return objeto.email === email
+                        // })
+                        // console.log(empresaCadastrada)
+                        // console.log(email)
+                        if (json) {
+                            if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoVar == "" || cpfVar == "" || hospitalVar == "" || telefoneVar == "") {
+                                console.log('OS CAMPOS PRECISAM SER PREENCHIDOS')
+
+                            } else if (confirmacaoVar != senhaVar) {
+                                cardErro.style.display = "block"
+                                alert("Sua senha e sua confirmação não coincidem.");
 
 
+                                return false;
 
-        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoVar == "" || cpfVar == "" || codigoVar == "" || telefoneVar == "") {
-            cardErro.style.display = "block"
-            alert("Não foi possivel realizar o cadastro, pois há campos em branco");
+                            } else if (emailVar.indexOf('@') < 0) {
+                                console.log('EMAIL ESTÁ NO FORMATO INVÁLIDO')
+                            } else if (senhaVar.length < 6) {
+                                console.log('SENHA PRECISA TER MAIS DE 6 CARACTERES')
+                            } else {
+                                fetch("/usuarios/cadastrar", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        // crie um atributo que recebe o valor recuperado aqui
+                                        // Agora vá para o arquivo routes/usuario.js
+                                        nomeServer: nomeVar,
+                                        emailServer: emailVar,
+                                        senhaServer: senhaVar,
+                                        cpfServer: cpfVar,
+                                        codigoServer: codigoVar,
+                                        telefoneServer: telefoneVar,
+                                        hospitalServer: hospitalVar,
+                                        cargoServer: cargoVar
+                                    })
+                                }).then(function (resposta) {
+
+                                    console.log("resposta: ", resposta);
+
+                                    if (resposta.ok) {
+                                        window.location = "login.html"
+
+                                        alert("Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!");
 
 
-            return false;
-        } else if (confirmacaoVar != senhaVar) {
-            cardErro.style.display = "block"
-            alert("Sua senha e sua confirmação não coincidem.");
+                                    } else {
+                                        throw (alert("Houve um erro ao tentar realizar o cadastro!"));
+                                    }
+                                }).catch(function (resposta) {
+                                    console.log(`#ERRO: ${resposta}`);
+                                    alert("erro no cadastro")
+                                });
+                                console.log('Foi')
+                            }
+                        } else {
+                            Swal.fire('O EMAIL NÃO FOI CADASTRADO PELA EMPRESA')
+                        }
 
+                    });
 
-            return false;
-
-        }
-        // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                cpfServer: cpfVar,
-                codigoServer: codigoVar,
-                telefoneServer: telefoneVar,
-
+                }
+            }).catch(function (erro) {
+                console.log(erro)
+                console.log("Empresa não cadastrada")
             })
-        }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-
-
-                alert("Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!");
-
-
-            } else {
-                throw (alert("Houve um erro ao tentar realizar o cadastro!"));
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            alert("erro no cadastro")
-        });
-
         return false;
     }
 

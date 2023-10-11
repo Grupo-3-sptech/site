@@ -10,9 +10,9 @@ function autenticar(email, senha) {
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
-function cadastrar(nome, email, senha,cpf, telefone, codigoEmpresa) {
+function cadastrar(nome, email, senha,cpf, telefone, hospital, cargo) {
     var instrucao = `
-        INSERT INTO funcionarios (nome, email, senha, cpf, telefone, fkHospital) VALUES ('${nome}', '${email}', '${senha}', '${cpf}', '${telefone}', '${codigoEmpresa}');
+        INSERT INTO funcionarios (nome, email, senha, cpf, telefone, fkHospital, fkEscalonamento) VALUES ('${nome}', '${email}', '${senha}', '${cpf}', '${telefone}', '${hospital}', '${cargo}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
