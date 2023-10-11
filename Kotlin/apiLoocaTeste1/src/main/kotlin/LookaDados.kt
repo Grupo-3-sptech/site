@@ -284,7 +284,7 @@ VALUES ('Modelo A', '${looca.processador.fabricante}', 1, '$id');
         )
 
 
-        val nomePy = "InstalarPip.bat"
+        val nomePy = "SolucaoConn.py"
         val arqPy = File(nomePy)
         arqPy.writeText(
             "from mysql.connector import connect\n" +
