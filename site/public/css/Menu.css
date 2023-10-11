@@ -4,17 +4,16 @@
 }
 
 
-
 a{
     display: inline-block;
     position: relative;
-    color: #3E838C;
+    color: white;
     cursor: pointer;
     transition: 0.4s all ease;
 }
 
 a:hover{
-    color: #BF7300;
+    color: #1e4044;
     transition: 0.4s all ease;
 }
 a::after{
@@ -25,7 +24,7 @@ a::after{
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: #3E838C;
+    background-color: #ffffff;
     transform-origin: bottom right;
     transition: transform 0.5s ease-out;
 }
@@ -42,6 +41,7 @@ a:hover::after{
     padding-bottom: 1.5vh;
     /* position: fixed;
     top: 0; */
+    background-color: #3E838C;
 }
 
 .logo img {
@@ -55,18 +55,19 @@ a:hover::after{
     font-size: 2.3vh;
     padding-right: 6vh;
     transition: 0.5s;
+    color: white;
 }
 
 .linkMenu{
-    color: #3E838C;
+    color: white;
     text-decoration: none;
     margin: 1.5vh;
 }
 
 .linkMenu:hover {
-    color: #BF7300;
+    color: #1e4044;
 }
 
 .foco {
-    color: #BF7300;
+    color: #1e4044;
 }

@@ -77,7 +77,7 @@
 
                     <div class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
-                        <a href="dash-robo.html">Dashboard Rôbos</a>
+                        <a href="#">Dashboard Rôbos</a>
                     </div>
 
                     <div class="opt">
@@ -117,11 +117,11 @@
                 <div class="maquinas">
                     <div class="input-maquina">
                         <p>Máquinas Ativas 🟢</p>
-                        <select name="maquinas-ativas" id="select-maquinas-ativas">
-                            <option value="1">Máquina 1</option>
-                            <option value="2">Máquina 2</option>
-                            <option value="3">Máquina 3</option>
-                            <option value="4">Máquina 4</option>
+                        <select name="maquinas-ativas" id="">
+                            <option value="">Máquina 1</option>
+                            <option value="">Máquina 2</option>
+                            <option value="">Máquina 3</option>
+                            <option value="">Máquina 4</option>
                         </select>
                     </div>
                     <div class="input-maquina">
@@ -145,8 +145,6 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem CPU</div>
-                        <div id="grafico1">
-                        </div>
                     </div>
                 </div>
 
@@ -198,9 +196,10 @@
         window.location = '../index.html'
     }
 
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
     let proximaAtualizacao;
-    var pegarId = document.getElementById("select-maquinas-ativas")
-    var id = pegarId.value
+    var id = 1
 
     window.onload = exibirComponentes(id);
 
