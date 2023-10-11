@@ -113,7 +113,7 @@ INSERT INTO EscalonamentoFuncionario (cargo, prioridade)
 VALUES ('Admin', 3);
 
 INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
-VALUES ('Médico', 1);
+VALUES ('Atendente', 1);
 
 select * from Funcionarios;
 
