@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar | MedConnect</title>
+    <title>Cadastro | MedConnect</title>
     <link rel="shortcut icon" href="Img/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" href="css/cadastro.css">
     <link rel="stylesheet" href="css/rodape.css">
     <link rel="stylesheet" href="css/Menu.css">
@@ -37,21 +36,31 @@
                 <p id="subtextCadastro">Ainda não possui uma conta?</p>
                 <p id="cadastro">Cadastre-se</p>
                 <div class="campos">
-                    <p class="geral1">Nome</p><input class="input" id="nome_input">
-                    <p class="geral2">E-mail</p><input class="input" id="email_input" type="">
-                    <p class="geral2">Senha</p><input class="input" id="senha_input" type="">
-                    <p class="geralCS">Confirmação de senha </p><input class="input" id="confirmacao_input" type="">
-                    <p class="geralcpf">CPF</p><input class="input" id="cpf_input" type="">
-                    <p class="geralT">Telefone</p><input class="input" id="telefone_input" type="">
-                    <!-- <p class="geral">Cargo</p><input class="input" id="codigo_input" type=""> -->
-                    <select id="cargoSelect" name="empresa">
+                    <p class="geral1">Nome</p><input class="input" id="nome_input"placeholder="Informe o seu nome">
+                    <p class="geral2">E-mail</p><input class="input" id="email_input" type="email" placeholder="Informe o email">
+                    <p class="geral2">Senha</p><input class="input" id="senha_input" type="password" placeholder="Informe a senha">
+                    <p class="geralCS">Confirmação de senha </p><input class="input" id="confirmacao_input" type="password" placeholder="Confirme a sua senha">
+                    <p class="geralcpf">CPF</p><input class="input" id="cpf_input" type="text" placeholder="Informe o CPF">
+                    <p class="geralT">Telefone</p><input class="input" id="telefone_input" type="number" placeholder="Informe o telefone">
+                    <!-- <p class="geral">Cargo</p><input class="input" id="    codigo_input" type=""> -->
+                    <p class="geralT">Cargo</p>
+                    <select id="cargoSelect" name="empresa" class="select" >
                         <option>Selecione seu cargo</option>
                     </select>
-                    <select id="hospitalSelect" name="empresa">
+                    <p class="geralT">Hospital</p>
+                    <select id="hospitalSelect" name="empresa" class="select">
                         <option>Selecione seu hospital</option>
                     </select>
                 </div>
                 <button class="Criar" onclick="cadastrar()">Cadastrar</button>
+                <div class="alerta_erro">
+                    <div class="card_erro" id="cardErro">
+                        <span id="mensagem_erro"></span>
+                    </div>
+                    <div class="card_acerto" id="cardAcerto">
+                        <span id="mensagem_acerto"></span>
+                    </div>
+                </div>
             </div>
 
             <img class="imgCadastro" src="Img/cadastro.jpg" alt="">
@@ -136,40 +145,6 @@
             console.log(`#ERRO: ${resposta}`);
         });
 
-    var cargos;
-    fetch("/cargo/listar", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
-            }
-            return response.json();
-        }).then(data => {
-
-            console.log(data)
-
-            cargos = data;
-
-            var selectElement = document.getElementById('cargoSelect');
-
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < cargos.length; i++) {
-                const cargo = cargos[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = cargo.idEscalonamento;
-                optionElement.text = cargo.cargo;
-                selectElement.appendChild(optionElement);
-            }
-
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
 
     function cadastrar() {
 
@@ -185,13 +160,41 @@
         var cargoVar = cargoSelect.value;
         var hospitalVar = hospitalSelect.value;
 
-        fetch(`/funcionario/verificar/${hospitalVar}/${emailVar}`)
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoVar == "" || cpfVar == "" || hospitalVar == "" || telefoneVar == "") {
+            console.log('OS CAMPOS PRECISAM SER PREENCHIDOS')
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "Todos os campos precisam ser preenchidos";
+        } else if (confirmacaoVar != senhaVar) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "Sua senha e sua confirmação não coincidem";
+
+            return false;
+
+        } else if (emailVar.indexOf('@') < 0) {
+            console.log('EMAIL ESTÁ NO FORMATO INVÁLIDO')
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "Seu e-mail precisa ter formato válido";
+        } else if (senhaVar.length < 6) {
+            console.log('SENHA PRECISA TER MAIS DE 6 CARACTERES')
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "Sua senha precisa ter mais que 6 caracteres";
+        } else{
+            fetch(`/funcionario/verificar/${hospitalVar}/${emailVar}`)
             .then(function (resposta) {
                 console.log("ESTOU NO THEN DO entrar()!")
 
                 if (resposta.ok) {
                     console.log(resposta);
-
+                    if(resposta.statusContext = "No Content"){
+                        cardErro.style.display = "block";
+                        mensagem_erro.innerHTML =
+                        "Voce não foi cadastrado por esse hospital";
+                    }
+                
                     resposta.json().then(json => {
                         console.log(json);
                         // var empresaCadastrada = json.some(objeto => {
@@ -200,59 +203,49 @@
                         // console.log(empresaCadastrada)
                         // console.log(email)
                         if (json) {
-                            if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoVar == "" || cpfVar == "" || hospitalVar == "" || telefoneVar == "") {
-                                console.log('OS CAMPOS PRECISAM SER PREENCHIDOS')
 
-                            } else if (confirmacaoVar != senhaVar) {
-                                cardErro.style.display = "block"
-                                alert("Sua senha e sua confirmação não coincidem.");
+                            fetch("/usuarios/cadastrar", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    // crie um atributo que recebe o valor recuperado aqui
+                                    // Agora vá para o arquivo routes/usuario.js
+                                    nomeServer: nomeVar,
+                                    emailServer: emailVar,
+                                    senhaServer: senhaVar,
+                                    cpfServer: cpfVar,
+                                    telefoneServer: telefoneVar,
+                                    hospitalServer: hospitalVar,
+                                    cargoServer: cargoVar
+                                })
+                            }).then(function (resposta) {
 
+                                console.log("resposta: ", resposta);
 
-                                return false;
-
-                            } else if (emailVar.indexOf('@') < 0) {
-                                console.log('EMAIL ESTÁ NO FORMATO INVÁLIDO')
-                            } else if (senhaVar.length < 6) {
-                                console.log('SENHA PRECISA TER MAIS DE 6 CARACTERES')
-                            } else {
-                                fetch("/usuarios/cadastrar", {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        // crie um atributo que recebe o valor recuperado aqui
-                                        // Agora vá para o arquivo routes/usuario.js
-                                        nomeServer: nomeVar,
-                                        emailServer: emailVar,
-                                        senhaServer: senhaVar,
-                                        cpfServer: cpfVar,
-                                        codigoServer: codigoVar,
-                                        telefoneServer: telefoneVar,
-                                        hospitalServer: hospitalVar,
-                                        cargoServer: cargoVar
-                                    })
-                                }).then(function (resposta) {
-
-                                    console.log("resposta: ", resposta);
-
-                                    if (resposta.ok) {
-                                        window.location = "login.html"
-
-                                        alert("Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!");
+                                if (resposta.ok) {
+                                    setTimeout(() => {
+                                        window.location = "login.html";
+                                    }, "2000");
 
 
-                                    } else {
-                                        throw (alert("Houve um erro ao tentar realizar o cadastro!"));
-                                    }
-                                }).catch(function (resposta) {
-                                    console.log(`#ERRO: ${resposta}`);
-                                    alert("erro no cadastro")
-                                });
-                                console.log('Foi')
-                            }
+                                    cardErro.style.display = "block";
+                                    mensagem_erro.innerHTML =
+                                        "Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!";
+
+
+                                } else {
+                                    throw (alert("Houve um erro ao tentar realizar o cadastro!"));
+                                }
+                            }).catch(function (resposta) {
+                                console.log(`#ERRO: ${resposta}`);
+                                alert("erro no cadastro")
+                            });
+                            console.log('Foi')
+
                         } else {
-                            Swal.fire('O EMAIL NÃO FOI CADASTRADO PELA EMPRESA')
+                            // Swal.fire('O EMAIL NÃO FOI CADASTRADO PELA EMPRESA')
                         }
 
                     });
@@ -262,7 +255,9 @@
                 console.log(erro)
                 console.log("Empresa não cadastrada")
             })
-        return false;
+        }
     }
 
 </script>
+<script src="js/validacoesCadastro.js"></script>
+    

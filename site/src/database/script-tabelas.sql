@@ -12,6 +12,8 @@ responsavelLegal varchar(45) not null,
 fkHospitalSede int, constraint fkHospitalSede foreign Key (fkHospitalSede) references Hospital(idHospital)
 );
 
+SELECT * FROM Hospital;
+
 create table EscalonamentoFuncionario(
 idEscalonamento int primary key auto_increment,
 cargo varchar(45) not null,
@@ -30,6 +32,8 @@ constraint pkCompostaFuncionariosHospital primary key(idFuncionarios, fkHospital
 fkEscalonamento int, constraint fkEscalonamento foreign key (fkEscalonamento) references EscalonamentoFuncionario(idEscalonamento)
 );
 
+SELECT * FROM funcionarios;
+
 create table statusRobo(
 idStatus int primary key auto_increment,
 nome varchar(45) not null
@@ -40,6 +44,15 @@ idRobo int primary key auto_increment,
 modelo varchar(45) not null,
 fabricacao DATE not null,
 fkStatus int, constraint fkStatus foreign key (fkStatus) references statusRobo(idStatus)
+);
+
+CREATE TABLE associado (
+idAssociado INT PRIMARY KEY auto_increment,
+email VARCHAR(45),
+fkEscalonamentoFuncionario INT,
+constraint fkEscalonamentoFunc foreign key (fkEscalonamentoFuncionario) references EscalonamentoFuncionario(idEscalonamento),
+fkHospital INT, 
+constraint fkHospitalAssociado foreign key (fkHospital) references Hospital(idHospital)
 );
 
 create table SalaCirurgiao(
@@ -100,20 +113,32 @@ constraint fkComponente foreign key (fkComponente) references componentes(idComp
 INSERT INTO Hospital (nomeFantasia, CNPJ, razaoSocial, sigla, responsavelLegal, fkHospitalSede) 
 VALUES ('Hospital ABC', '12345678901234', 'ABC Ltda', 'HABC', 'João da Silva', NULL);
 
-INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
-VALUES ('Admin', 2);
+INSERT INTO Hospital (nomeFantasia, CNPJ, razaoSocial, sigla, responsavelLegal, fkHospitalSede) 
+VALUES ('Hospital Eistein', '12325678901234', 'Eistein Ltda', 'HABC', 'João da Silva', NULL);
 
 INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
 VALUES ('Atendente', 1);
 
+INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
+VALUES ('Engenheiro De Noc', 2);
+
+INSERT INTO EscalonamentoFuncionario (cargo, prioridade) 
+VALUES ('Admin', 3);
+
+SELECT * FROM escalonamentoFuncionario;
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 1);
+VALUES ('Kayky', 'kayky@abc.com', '12345678901', '987654321', '123456', 1, 1);
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Kayky', 'kayky@abc.com', '12345678901', '987654321', '123456', 1, 2);
+VALUES ('Danilo', 'daniloo@email.com', '12345678901', '987654321', '123456', 1, 2);
+
+INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
+VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 3);
 
 SELECT * FROM Funcionarios;
+
+INSERT INTO associado VALUES (null, "erick@email.com", 1, 1);
 
 INSERT INTO statusRobo (nome) 
 VALUES ('Ativo');

@@ -40,10 +40,18 @@
                 <div class="direita">
                     <p id="subtextLogin">Bem vindo novamente!</p>
                     <span id="Login">Login</span>
-                    <p class="gerall">E-mail</p><input class="input2" id="email_input" type="">
-                    <p class="gerall">Senha</p><input class="input2" id="senha_input" type="">
+                    <p class="gerall">E-mail</p><input class="input2" id="email_input" type="email" placeholder="Digite seu email">
+                    <p class="gerall">Senha</p><input class="input2" id="senha_input" type="password" placeholder="Digite sua senha">
                     <a class="esqueceu" href="aba_de_redefir_senha">Esqueceu a senha?</a>
                     <button class="entrar" onclick="entrar()">Entrar</button>
+                    <div class="alerta_erro">
+                        <div class="card_erro" id="cardErro">
+                            <span id="mensagem_erro"></span>
+                        </div>
+                        <div class="card_acerto" id="cardAcerto">
+                            <span id="mensagem_acerto"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -97,8 +105,9 @@
         var senha = senha_input.value
 
         if (email == "" || senha == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "Os campos precisam ser preenchidos";
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "Os campos precisam ser preenchidos";
 
         } else {
             fetch("/usuarios/autenticar", {
@@ -126,20 +135,22 @@
                         // // sessionStorage.fk_EMPRESA = json.fkEmpresa;
                         // // SALVANDO FK EMPRESA COMO 1 SO PARA TESTE NO CADASTRO DO LOCAL, ENQUANTO NAO RESOLVEMOS O PROBLEMA DE LISTAR AS EMPRESAS NO CADASTRO DE USUARIO
                         // sessionStorage.fk_EMPRESA = json.fkEmpresa;
-
-                        // cardErro.style.display = "block";
-
+                        cardAcerto.style.display = "none";
+                        cardAcerto.style.display = "block";
+                        mensagem_acerto.innerHTML =
+                        "Login realizado com sucesso! voce está sendo redirecionado...";
                         if(json.fkEscalonamento == 2){
                             sessionStorage.CARGO_USUARIO = "admin"
                         } else {
                             sessionStorage.CARGO_USUARIO = "funcionario"
                         }
                         sessionStorage.NOME_USUARIO = json.nome;
-                        // mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando para tela de Login...";
+                        sessionStorage.ID_HOSPITAL = json.fkHospital                        // mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando para tela de Login...";
 
                         setTimeout(function () {
                             window.location = "dashboard.html";
                         }, 1000); // 
+
 
                     });
                 }
@@ -200,8 +211,9 @@
 
             }).catch(function (erro) {
                 console.log(erro);
-                // cardErro.style.display = "block"
-                // mensagem_erro.innerHTML = "O Login está inválido";
+                cardErro.style.display = "block"
+                mensagem_erro.innerHTML = "O Login está inválido";
+                
             })
         }
 

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedConnect | Gerenciar Usuários</title>
 
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <!-- <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script> -->
 
@@ -112,7 +112,7 @@
             <div class="header-content">
                 <div class="navbar-header" style="height: 10vh;">
                     <h3>Gerenciar Usuários</h3>
-                    <p>Olá, <span style="font-weight: bolder;" class="b_usuario">Admin</span></p>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario">Admin</span></p>
                 </div>
             </div>
             <div class="header-before">
@@ -126,6 +126,11 @@
                             </div>
                             <div class="input">
                                 Email <input type="email">
+                            </div>
+                            <div class="input">
+                                <select id="cargoSelect" name="empresa" class="select" >
+                                    <option>Selecione o cargo</option>
+                                </select>
                             </div>
                             <input id="submit" type="submit">
                         </div>
@@ -210,10 +215,44 @@
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    let proximaAtualizacao;
     var id = 1
 
-    window.onload = exibirComponentes(id);
+    // window.onload = exibirComponentes(id);
+
+    var cargos;
+    fetch("/cargo/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
+
+            console.log(data)
+
+            cargos = data;
+
+            var selectElement = document.getElementById('cargoSelect');
+
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < cargos.length; i++) {
+                const cargo = cargos[i];
+
+                const optionElement = document.createElement('option');
+                optionElement.value = cargo.idEscalonamento;
+                optionElement.text = cargo.cargo;
+                selectElement.appendChild(optionElement);
+            }
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
 
     function exibirComponentes(id) {
         // var aquarios = JSON.parse(sessionStorage.AQUARIOS);

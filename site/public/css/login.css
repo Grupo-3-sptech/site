@@ -171,6 +171,38 @@ body {
     
 }
 
+.alerta_erro {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card_erro {
+    display: none;
+    background-color: #b52424;
+    color: white;
+    width: 230px;
+    border-radius: 4px;
+    border: #718191 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+}
+
+.card_acerto {
+    display: none;
+    background-color: #01961a;
+    color: rgb(12, 12, 12);
+    width: 230px;
+    border-radius: 4px;
+    border: #718191 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+}
+
+.card_erro #mensagem_erro {
+    font-weight: 500;
+    font-size: 20px;
+}
+
 .esquerda{
     width: 50%;
 }

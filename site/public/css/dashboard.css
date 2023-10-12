@@ -15,6 +15,14 @@ body {
 
 }
 
+.select{
+    height: 6vh;
+    border-style: none;
+    background-color: #dcdcdc;
+    border-radius: 1vh;
+    padding-left: 2vw;
+}
+
 .sidebar {
     width: 20%;
     background-color: #3E838C;

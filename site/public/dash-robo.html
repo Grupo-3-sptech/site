@@ -80,7 +80,7 @@
                         <a href="#">Dashboard Rôbos</a>
                     </div>
 
-                    <div class="opt">
+                    <div class="opt" id="gerenciarUsuarios">
                         <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
@@ -192,6 +192,11 @@
 </html>
 
 <script>
+    cargo = sessionStorage.CARGO_USUARIO
+
+    if(cargo !== "admin"){
+        gerenciarUsuarios.style = 'display: none'
+    }
     function voltarHome() {
         window.location = '../index.html'
     }
