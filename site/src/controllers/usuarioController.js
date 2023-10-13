@@ -42,7 +42,6 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var codigoEmpresa = req.body.codigoServer;
     var cpf = req.body.cpfServer;
     var telefone = req.body.telefoneServer;
     var hospital = req.body.hospitalServer;

@@ -291,12 +291,21 @@ body {
 
 }
 
-.input input {
+.input-cadastro-admin {
     height: 6vh;
     border-style: none;
     background-color: #dcdcdc;
     border-radius: 1vh;
     padding-left: 2vw;
+}
+
+.input-perfil {
+    height: 6vh;
+    border-style: none;
+    background-color: #dcdcdc;
+    border-radius: 1vh;
+    padding-left: 2vw;
+    width: 20vw;
 }
 
 .input input:focus {
@@ -316,6 +325,7 @@ body {
     color: white;
     transition: 0.4s ease-in-out;
     cursor: pointer;
+    margin-top: 10%;
 }
 
 #submit:hover {
@@ -479,3 +489,117 @@ body {
     justify-content: center;
     font-size: 2.5vh;
 }
+
+.div-perfil{
+    width: 100%;
+    height: 78vh;
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-perfil{
+    height: 80vh;
+    width: 78%;
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container-perfil{
+    width: 85%;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 6%;
+}
+
+.cadeado-perfil{
+    width: 16px;
+    height: 16px;
+    position: relative;
+    right: 20px;
+}
+
+.card-cadeado-perfil{
+    display: flex;
+    align-items: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Estiliza o cabeçalho da coluna */
+th {
+    background-color: #3E838C;
+    color: #fff;
+    text-align: left;
+    height: 50px;
+    margin-left: 1vw;
+}
+
+/* Estiliza as células de dados */
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    height: 40px;
+}
+
+/* Alterna cores de fundo das linhas de dados */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estiliza as células do cabeçalho */
+th, td {
+    text-align: center;
+}
+
+#tabela-funcionario{
+    margin-top: 5vh;
+    width: 80%; 
+    height: 32vh;
+}
+
+.largura-coluna-1 {
+    width: 100px;
+  }
+
+  @media (max-width: 600px) {
+    th, td {
+      display: block;
+      width: 100%;
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: inline-block;
+      width: 50%;
+    }
+
+
+        th:nth-child(3),
+        td:nth-child(3) {
+          display: none;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+          display: none;
+        }
+    
+  }
+  

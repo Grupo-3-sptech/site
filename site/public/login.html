@@ -120,6 +120,10 @@
                     senhaServer: senha
                 })
             }).then(function (resposta) {
+                if(resposta.status == 403){
+                cardErro.style.display = "block"
+                mensagem_erro.innerHTML = "O Login está inválido";
+                }
                 console.log("ESTOU NO THEN DO entrar()!")
 
                 if (resposta.ok) {
@@ -135,16 +139,17 @@
                         // // sessionStorage.fk_EMPRESA = json.fkEmpresa;
                         // // SALVANDO FK EMPRESA COMO 1 SO PARA TESTE NO CADASTRO DO LOCAL, ENQUANTO NAO RESOLVEMOS O PROBLEMA DE LISTAR AS EMPRESAS NO CADASTRO DE USUARIO
                         // sessionStorage.fk_EMPRESA = json.fkEmpresa;
+                        cardErro.style.display = "none"
                         cardAcerto.style.display = "none";
                         cardAcerto.style.display = "block";
                         mensagem_acerto.innerHTML =
                         "Login realizado com sucesso! voce está sendo redirecionado...";
-                        if(json.fkEscalonamento == 2){
-                            sessionStorage.CARGO_USUARIO = "admin"
-                        } else {
-                            sessionStorage.CARGO_USUARIO = "funcionario"
-                        }
+                        
+                        sessionStorage.CARGO_USUARIO = json.cargo
                         sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.CPF_USUARIO = json.CPF;
+                        sessionStorage.TELEFONE_USUARIO = json.telefone;
                         sessionStorage.ID_HOSPITAL = json.fkHospital                        // mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando para tela de Login...";
 
                         setTimeout(function () {

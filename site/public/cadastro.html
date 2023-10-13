@@ -43,10 +43,6 @@
                     <p class="geralcpf">CPF</p><input class="input" id="cpf_input" type="text" placeholder="Informe o CPF">
                     <p class="geralT">Telefone</p><input class="input" id="telefone_input" type="number" placeholder="Informe o telefone">
                     <!-- <p class="geral">Cargo</p><input class="input" id="    codigo_input" type=""> -->
-                    <p class="geralT">Cargo</p>
-                    <select id="cargoSelect" name="empresa" class="select" >
-                        <option>Selecione seu cargo</option>
-                    </select>
                     <p class="geralT">Hospital</p>
                     <select id="hospitalSelect" name="empresa" class="select">
                         <option>Selecione seu hospital</option>
@@ -145,7 +141,6 @@
             console.log(`#ERRO: ${resposta}`);
         });
 
-
     function cadastrar() {
 
 
@@ -157,7 +152,6 @@
         var confirmacaoVar = confirmacao_input.value;
         var cpfVar = cpf_input.value;
         var telefoneVar = telefone_input.value;
-        var cargoVar = cargoSelect.value;
         var hospitalVar = hospitalSelect.value;
 
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoVar == "" || cpfVar == "" || hospitalVar == "" || telefoneVar == "") {
@@ -189,7 +183,7 @@
 
                 if (resposta.ok) {
                     console.log(resposta);
-                    if(resposta.statusContext = "No Content"){
+                    if(resposta.status == 204){
                         cardErro.style.display = "block";
                         mensagem_erro.innerHTML =
                         "Voce não foi cadastrado por esse hospital";
@@ -203,7 +197,9 @@
                         // console.log(empresaCadastrada)
                         // console.log(email)
                         if (json) {
-
+                            var cargoVar = json[0].fkEscalonamentoFuncionario;
+                            console.log(cargoVar)
+                            console.log(json)
                             fetch("/usuarios/cadastrar", {
                                 method: "POST",
                                 headers: {
@@ -230,17 +226,17 @@
                                     }, "2000");
 
 
-                                    cardErro.style.display = "block";
-                                    mensagem_erro.innerHTML =
+                                    cardErro.style.display = "none";
+                                    cardAcerto.style.display = "block";
+                                    mensagem_acerto.innerHTML =
                                         "Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!";
 
 
                                 } else {
-                                    throw (alert("Houve um erro ao tentar realizar o cadastro!"));
+                                    
                                 }
                             }).catch(function (resposta) {
                                 console.log(`#ERRO: ${resposta}`);
-                                alert("erro no cadastro")
                             });
                             console.log('Foi')
 

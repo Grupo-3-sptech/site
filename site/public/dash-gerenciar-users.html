@@ -78,9 +78,14 @@
                         <a href="dash-robo.html">Dashboard Rôbos</a>
                     </div>
 
-                    <div class="opt"  id="aqui">
+                    <div class="opt" id="aqui">
                         <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="perfil.html">Perfil</a>
                     </div>
 
                     <div class="opt">
@@ -103,8 +108,7 @@
             </div>
         </div>
 
-        <div class="content" 
-        style="
+        <div class="content" style="
             height: 100vh; 
            
         ">
@@ -120,80 +124,38 @@
                     <div class="card-cadastro">
                         <div class="container-cadastro">
                             <h2><img src="../Img/icons8-usuário-30.png" alt=""> Cadastre um usuário</h2>
-                            <p>Cadastre o email de um funcionário e possibilite o cadastro dele no Site Intitucional.</p>
+                            <p>Cadastre o email de um funcionário e possibilite o cadastro dele no Site Intitucional.
+                            </p>
                             <div class="input">
-                                Nome <input type="text">
+                                Email <input type="email" id="input_email" class="input-cadastro-admin">
                             </div>
                             <div class="input">
-                                Email <input type="email">
-                            </div>
-                            <div class="input">
-                                <select id="cargoSelect" name="empresa" class="select" >
+                                <select id="cargoSelect" name="empresa" class="select">
                                     <option>Selecione o cargo</option>
                                 </select>
                             </div>
-                            <input id="submit" type="submit">
+                            <input id="submit" type="submit" onclick="salvar()">
                         </div>
                     </div>
                     <div class="card-lista">
-                        <div class="container-cadastro2">
-                            <div class="user">
+                        <div class="container-cadastro2" id="emails-cadastrados">
+                            <h2> Lista Funcionarios</h2>
+                            <table id="tabela-funcionario">
+                                <tr>
+                                    <th style="padding-left: 1vw;" data-label="Email">Email</th>
+                                    <th style="padding-left: 1vw;" data-label="Cargo">Cargo</th>
+                                    <th style="padding-left: 1vw; " data-label="Excluir">Excluir</th>
+                                </tr>
+                                <tr>
+                                    <td>bianca.reis@sptech</td>
+                                    <td>Atendente</td>
+                                    <td><img src="Img/excluir.png" alt="Excluir"></td>
+                                </tr>
+                            </table>
+                            <!-- <div class="user">
                                 <div class="img-user"></div>
                                 <a id="nome_user" href="#">bianca.reis@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">kayky.pedroso@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">gabriel.boos@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">danilo.silvestre@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">enzo.stanganeli@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-                            <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">erick.lee@sptech</a>
-                            </div>
-
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -209,6 +171,12 @@
 </html>
 
 <script>
+    cargo = sessionStorage.CARGO_USUARIO
+
+    if (cargo !== "Admin") {
+        window.location = "dashboard.html"
+    }
+
     function voltarHome() {
         window.location = '../index.html'
     }
@@ -254,222 +222,162 @@
         });
 
 
-    function exibirComponentes(id) {
-        // var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-        // aquarios.forEach(item => {
-        //     document.getElementById("btnAquario").innerHTML += `
-        //     <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-        //     `
+    var funcionarios;
+    var idHospital = sessionStorage.ID_HOSPITAL
 
-        document.getElementById("grafico1").innerHTML += `
-                <div id="grafico${id}" class="display-none">
-                    <div class="graph">
-                        <canvas id="myChartCanvas${id}"></canvas>
-                    </div>
-                </div>
-            `
+    fetch(`/funcionarioAssociado/verificar/${idHospital}`)
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
 
-        obterDadosGraficoCpu(id)
-        // });
+            if (resposta.ok) {
+                console.log(resposta);
 
-        // if (aquarios.length > 0) {
-        //     exibirAquario(aquarios[0].id)
-        // }
-    }
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
 
-    // function alterarTitulo(idAquario) {
-    //     var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-    //     var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-    //     tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
-    // }
+                    funcionarios = json
 
-    // function exibirAquario(idAquario) {
-    //     let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
+                    tabela = document.getElementById("tabela-funcionario")
 
-    //     for (i = 0; i < todosOsGraficos.length; i++) {
-    //         // exibindo - ou não - o gráfico
-    //         if (todosOsGraficos[i].id != idAquario) {
-    //             let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-    //             if (elementoAtual.classList.contains("display-block")) {
-    //                 elementoAtual.classList.remove("display-block")
-    //             }
-    //             elementoAtual.classList.add("display-none")
+                    // Itera sobre o array de empresas e cria as opções do select
+                    for (let i = 0; i < funcionarios.length; i++) {
+                        const funcionario = funcionarios[i];
+                        const email = funcionario.email;
+                        const cargo = funcionario.cargo;
+                        const idAssociado = funcionario.idAssociado;
 
-    //             // alterando estilo do botão
-    //             let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-    //             if (btnAtual.classList.contains("btn-pink")) {
-    //                 btnAtual.classList.remove("btn-pink")
-    //             }
-    //             btnAtual.classList.add("btn-white")
-    //         }
-    //     }
-
-    //     // exibindo - ou não - o gráfico
-    //     let graficoExibir = document.getElementById(`grafico${idAquario}`)
-    //     graficoExibir.classList.remove("display-none")
-    //     graficoExibir.classList.add("display-block")
-
-    //     // alterando estilo do botão
-    //     let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-    //     btnExibir.classList.remove("btn-white")
-    //     btnExibir.classList.add("btn-pink")
-    // }
-
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGraficoCpu(id) {
-
-        // alterarTitulo(idAquario)
-        // let quebraLinhas = 7
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/componentes/cpu/${id}/7`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-                    console.log(resposta)
-
-                    plotarGrafico(resposta, id);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, id) {
-
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Porcentagem Cpu',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.HorarioDado);
-            dados.datasets[0].data.push(registro.dado);
-            // dados.datasets[1].data.push(registro.temperatura);
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${id}`),
-            config
-        );
-
-        // setTimeout(() => atualizarGrafico(id, dados, myChart), 2000);
-    }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(id, dados, myChart) {
-
-
-
-        fetch(`/componentes/cpu/${id}/1`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    obterdados(id);
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                    avisoCaptura.innerHTML = ""
-
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                        myChart.update();
+                        var novaLinha = tabela.insertRow();
+                        novaLinha.id = idAssociado // Insere uma nova linha
+                        var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
+                        var celula2 = novaLinha.insertCell(1);
+                        var celula3 = novaLinha.insertCell(2)
+                        celula1.innerHTML = `${email}`;
+                        celula2.innerHTML = `${cargo}`;
+                        celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
                     }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
                 });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
 
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
+        })
+
+    function salvar() {
+        var email = input_email.value;
+        var cargo = cargoSelect.value
+
+        if (email == "" || cargo == "") {
+
+        }
+        else {
+            fetch("/funcionarioAssociado/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: email,
+                    idHospitalServer: idHospital,
+                    idEscalonamentoServer: cargo
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json))
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000); // 
+
+                    })
+                } else {
+
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+
+            })
+        }
     }
+
+    function remover(idAssociado) {
+
+        fetch(`/funcionarioAssociado/deletar`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idServer: idAssociado,
+            })
+        })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000); // 
+                        // funcionarios = json
+
+                        // tabela = document.getElementById("tabela-funcionario")
+
+                        // // Itera sobre o array de empresas e cria as opções do select
+                        // for (let i = 0; i < funcionarios.length; i++) {
+                        //     const funcionario = funcionarios[i];
+                        //     const email = funcionario.email;
+                        //     const cargo = funcionario.cargo;
+                        //     const idAssociado = funcionario.idAssociado;
+
+                        //     var novaLinha = tabela.insertRow();
+                        //     novaLinha.id = idAssociado // Insere uma nova linha
+                        //     var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
+                        //     var celula2 = novaLinha.insertCell(1);
+                        //     var celula3 = novaLinha.insertCell(2)
+                        //     celula1.innerHTML = `${email}`;
+                        //     celula2.innerHTML = `${cargo}`;
+                        //     celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(idAssociado)" alt="Excluir">`
+                        // }
+                    });
+
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+                Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
+            })
+    }
+
+
+    // function ajustarTabela() {
+    //   var tabela = document.getElementById("minhaTabela");
+    //   var larguraTela = window.innerWidth;
+
+    //   if (larguraTela < 600) {
+    //     for (var i = 0; i < tabela.rows.length; i++) {
+    //       tabela.rows[i].cells[2].style.display = "none";
+    //     }
+    //   } else {
+    //     for (var i = 0; i < tabela.rows.length; i++) {
+    //       tabela.rows[i].cells[2].style.display = "table-cell";
+    //     }
+    //   }
+    // }
+
+    // // Chama a função de ajuste da tabela quando a página carrega e quando a tela é redimensionada
+    // window.addEventListener("load", ajustarTabela);
+    // window.addEventListener("resize", ajustarTabela);
+
 </script>

@@ -83,6 +83,11 @@
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
 
+                    <div class="opt" >
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="perfil.html">Perfil</a>
+                    </div>
+
                     <div class="opt">
                         <img src="../Img/icons8-assistente-48.png" alt="">
                         <a href="#">Suporte</a>
@@ -175,7 +180,7 @@
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
     console.log(gerenciarUsuarios)
 
-    if(cargo !== "admin"){
+    if(cargo !== "Admin"){
         gerenciarUsuarios.style = 'display: none'
     }
 

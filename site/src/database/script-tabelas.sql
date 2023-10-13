@@ -24,15 +24,13 @@ create table Funcionarios(
 idFuncionarios int auto_increment,
 nome varchar(45) not null,
 email varchar(45) not null,
-CPF char(11) not null,
-telefone char(11) not null,
+CPF varchar(15) not null,
+telefone varchar(15) not null,
 senha varchar(45) not null,
 fkHospital int, constraint fkHospital foreign key (fkHospital) references Hospital(idHospital),
 constraint pkCompostaFuncionariosHospital primary key(idFuncionarios, fkHospital),
 fkEscalonamento int, constraint fkEscalonamento foreign key (fkEscalonamento) references EscalonamentoFuncionario(idEscalonamento)
 );
-
-SELECT * FROM funcionarios;
 
 create table statusRobo(
 idStatus int primary key auto_increment,
@@ -128,17 +126,22 @@ VALUES ('Admin', 3);
 SELECT * FROM escalonamentoFuncionario;
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Kayky', 'kayky@abc.com', '12345678901', '987654321', '123456', 1, 1);
+VALUES ('Kayky', 'kayky@abc.com', '123.456.789-01', '987654321', '123456', 1, 1);
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Danilo', 'daniloo@email.com', '12345678901', '987654321', '123456', 1, 2);
+VALUES ('Danilo', 'daniloo@email.com', '125.456.789-01', '987654321', '123456', 1, 2);
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 3);
-
-SELECT * FROM Funcionarios;
+VALUES ('Maria Souza', 'maria@example.com', '123.456.789-01', '987654321', 'senha123', 1, 3);
 
 INSERT INTO associado VALUES (null, "erick@email.com", 1, 1);
+
+SELECT * FROM Funcionarios;
+SELECT * FROM associado;a
+
+SELECT * FROM Funcionarios f 
+JOIN EscalonamentoFuncionario e ON f.fkEscalonamento = e.idEscalonamento
+WHERE f.email = 'erick@email.com' AND f.senha = '123456';
 
 INSERT INTO statusRobo (nome) 
 VALUES ('Ativo');
