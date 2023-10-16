@@ -21,7 +21,7 @@
 
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="js/validacoesUsuario.js"></script>
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
@@ -85,7 +85,7 @@
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
 
-                    <div class="opt" >
+                    <div class="opt">
                         <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="perfil.html">Perfil</a>
                     </div>
@@ -122,16 +122,16 @@
                 <div class="maquinas">
                     <div class="input-maquina">
                         <p>Máquinas Ativas 🟢</p>
-                        <select name="maquinas-ativas" id="">
-                            <option value="">Máquina 1</option>
-                            <option value="">Máquina 2</option>
-                            <option value="">Máquina 3</option>
-                            <option value="">Máquina 4</option>
+                        <select name="maquinas-ligadas" id="maquinas-ativas">
+                            <option value="1">Máquina 1</option>
+                            <option value="2">Máquina 2</option>
+                            <option value="3">Máquina 3</option>
+                            <option value="4">Máquina 4</option>
                         </select>
                     </div>
                     <div class="input-maquina">
                         <p>Máquinas Inativas 🔴</p>
-                        <select name="maquinas-ativas" id="">
+                        <select name="maquinas-desligadas" id="">
                             <option value="">Máquina 1</option>
                             <option value="">Máquina 2</option>
                             <option value="">Máquina 3</option>
@@ -150,6 +150,11 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem CPU</div>
+                        <div id="grafico1" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas1"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -159,6 +164,11 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem RAM</div>
+                        <div id="grafico2" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas2"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -168,6 +178,11 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem Disco</div>
+                        <div id="grafico3" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas3"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -177,14 +192,19 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Latência Rede</div>
+                        <div id="grafico4" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas4"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-            
 
 
 
-                
+
+
             </div>
         </div>
     </div>
@@ -197,44 +217,20 @@
 </html>
 
 <script>
-    cargo = sessionStorage.CARGO_USUARIO
+    verificarAdmin()
+    // cargo = sessionStorage.CARGO_USUARIO
 
-    if(cargo !== "Admin"){
-        gerenciarUsuarios.style = 'display: none'
-    }
+    // if (cargo !== "Admin") {
+    //     gerenciarUsuarios.style.display = "none"
+    // }
     function voltarHome() {
         window.location = '../index.html'
     }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    let proximaAtualizacao;
-    var id = 1
-
-    window.onload = exibirComponentes(id);
-
-    function exibirComponentes(id) {
-        // var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-        // aquarios.forEach(item => {
-        //     document.getElementById("btnAquario").innerHTML += `
-        //     <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-        //     `
-
-        document.getElementById("grafico1").innerHTML += `
-                <div id="grafico${id}" class="display-none">
-                    <div class="graph">
-                        <canvas id="myChartCanvas${id}"></canvas>
-                    </div>
-                </div>
-            `
-
-        obterDadosGraficoCpu(id)
-        // });
-
-        // if (aquarios.length > 0) {
-        //     exibirAquario(aquarios[0].id)
-        // }
-    }
+    window.onload = obterDadosGrafico()
+    var select = document.getElementById("maquinas-ativas");
+    select.addEventListener("change", obterDadosGrafico);
 
     // function alterarTitulo(idAquario) {
     //     var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
@@ -285,23 +281,17 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGraficoCpu(id) {
+    function obterDadosGrafico(fkRobo) {
+        fkRobo = document.getElementById("maquinas-ativas").value;
 
-        // alterarTitulo(idAquario)
-        // let quebraLinhas = 7
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/componentes/cpu/${id}/7`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/medidas/${fkRobo}/7`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
                     console.log(resposta)
 
-                    plotarGrafico(resposta, id);
+                    plotarGrafico(resposta, fkRobo);
 
                 });
             } else {
@@ -313,21 +303,69 @@
             });
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, id) {
+    function plotarGrafico(resposta, fkRobo) {
 
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+        // CRIANDO GRÁFICO CPU
+        let labelCpu = [];
 
         // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
+        let dadosCpu = {
+            labels: labelCpu,
             datasets: [{
-                label: 'Porcentagem Cpu',
+                label: 'Cpu',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(139, 0, 0)',
+                tension: 0.1
+            }]
+        };
+
+        console.log(resposta)
+        resposta.forEach(registro => {
+            if (registro.nomeComponente == "CPU") {
+                labelCpu.push(registro.HorarioFormatado);
+                dadosCpu.datasets[0].data.push(registro.dado);
+            }
+        })
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // for (i = 0; i < resposta.length; i++) {
+        //     var registro = resposta[i];
+        //     labels.push(registro.HorarioDado);
+        //     dados.datasets[0].data.push(registro.dado);
+        //     // dados.datasets[1].data.push(registro.temperatura);
+        // }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico de CPU será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelCpu)
+        console.log('Dados:')
+        console.log(dadosCpu)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const configCpu = {
+            type: 'line',
+            data: dadosCpu,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas1`),
+            configCpu
+        );
+
+        console.log('iniciando plotagem do gráfico Memória ...');
+
+        // ----------------------------------------------------------------------------------
+        // CRIANDO GRÁFICO DA MEMÓRIA 
+        let labelMemoria = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dadosMemoria = {
+            labels: labelMemoria,
+            datasets: [{
+                label: 'Memória',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -338,36 +376,147 @@
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
-
+        resposta.forEach(registro => {
+            if (registro.nomeComponente == "Memória RAM") {
+                labelMemoria.push(registro.HorarioFormatado);
+                dadosMemoria.datasets[0].data.push(registro.dado);
+            }
+        })
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.HorarioDado);
-            dados.datasets[0].data.push(registro.dado);
-            // dados.datasets[1].data.push(registro.temperatura);
-        }
+        // for (i = 0; i < resposta.length; i++) {
+        //     var registro = resposta[i];
+        //     labels.push(registro.HorarioDado);
+        //     dados.datasets[0].data.push(registro.dado);
+        //     // dados.datasets[1].data.push(registro.temperatura);
+        // }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
-        console.log(labels)
+        console.log(labelMemoria)
         console.log('Dados:')
-        console.log(dados.datasets)
+        console.log(dadosMemoria)
         console.log('----------------------------------------------')
 
         // Criando estrutura para plotar gráfico - config
-        const config = {
+        const configMemoria = {
             type: 'line',
-            data: dados,
+            data: dadosMemoria,
         };
 
         // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${id}`),
-            config
+        let myChart2 = new Chart(
+            document.getElementById(`myChartCanvas2`),
+            configMemoria
         );
 
-        // setTimeout(() => atualizarGrafico(id, dados, myChart), 2000);
+        // ----------------------------------------------------------------------------------
+        // CRIANDO GRÁFICO DO DISCO 
+        let labelDisco = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dadosDisco = {
+            labels: labelDisco,
+            datasets: [{
+                label: 'Disco',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(39, 110, 14)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+        resposta.forEach(registro => {
+            if (registro.nomeComponente == "Disco") {
+                labelDisco.push(registro.HorarioFormatado);
+                dadosDisco.datasets[0].data.push(registro.dado);
+            }
+        })
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // for (i = 0; i < resposta.length; i++) {
+        //     var registro = resposta[i];
+        //     labels.push(registro.HorarioDado);
+        //     dados.datasets[0].data.push(registro.dado);
+        //     // dados.datasets[1].data.push(registro.temperatura);
+        // }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelMemoria)
+        console.log('Dados:')
+        console.log(dadosMemoria)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const configDisco = {
+            type: 'line',
+            data: dadosDisco,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart3 = new Chart(
+            document.getElementById(`myChartCanvas3`),
+            configDisco
+        );
+
+        // ----------------------------------------------------------------------------------
+        // CRIANDO GRÁFICO DA REDE 
+        let labelRede = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dadosRede = {
+            labels: labelRede,
+            datasets: [{
+                label: 'Disco',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(71, 71, 71)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+        resposta.forEach(registro => {
+            if (registro.nomeComponente == "Rede") {
+                labelRede.push(registro.HorarioFormatado);
+                dadosRede.datasets[0].data.push(registro.dado);
+            }
+        })
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // for (i = 0; i < resposta.length; i++) {
+        //     var registro = resposta[i];
+        //     labels.push(registro.HorarioDado);
+        //     dados.datasets[0].data.push(registro.dado);
+        //     // dados.datasets[1].data.push(registro.temperatura);
+        // }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelMemoria)
+        console.log('Dados:')
+        console.log(dadosMemoria)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const configRede = {
+            type: 'line',
+            data: dadosRede,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart4 = new Chart(
+            document.getElementById(`myChartCanvas4`),
+            configRede
+        );
+
+        setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 20000);
     }
 
 
@@ -376,54 +525,81 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(id, dados, myChart) {
+    function atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4) {
 
 
 
-        fetch(`/componentes/cpu/${id}/1`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/medidas/${fkRobo}/1`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    obterdados(id);
                     // alertar(novoRegistro, idAquario);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
+                    console.log(novoRegistro)
+                    novoRegistro.forEach(registro => {
+                        if (registro.nomeComponente == "CPU") {
+                            // if (registro.HorarioFormatado == dadosCpu.labels[dadosCpu.labels.length - 1]) {
+                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                            // } else {
+                                // tirando e colocando valores no gráfico
+                                dadosCpu.labels.shift(); // apagar o primeiro
+                                dadosCpu.labels.push(registro.HorarioFormatado); // incluir um novo momento
 
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                    avisoCaptura.innerHTML = ""
+                                dadosCpu.datasets[0].data.shift();  // apagar o primeiro de umidade
+                                dadosCpu.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
+                                myChart.update();
+                            // }
+                        } else if(registro.nomeComponente == "Memória RAM"){
+                            // if (registro.HorarioFormatado == dadosMemoria.labels[dadosMemoria.labels.length - 1]) {
+                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                            // } else {
+                                // tirando e colocando valores no gráfico
+                                dadosMemoria.labels.shift(); // apagar o primeiro
+                                dadosMemoria.labels.push(registro.HorarioFormatado); // incluir um novo momento
 
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                                dadosMemoria.datasets[0].data.shift();  // apagar o primeiro de umidade
+                                dadosMemoria.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+                                myChart2.update();
+                            // }
+                        } else if(registro.nomeComponente == "Disco"){
+                            // if (registro.HorarioFormatado == dadosDisco.labels[dadosDisco.labels.length - 1]) {
+                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                            // } else {
+                                // tirando e colocando valores no gráfico
+                                dadosDisco.labels.shift(); // apagar o primeiro
+                                dadosDisco.labels.push(registro.HorarioFormatado); // incluir um novo momento
 
-                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+                                dadosDisco.datasets[0].data.shift();  // apagar o primeiro de umidade
+                                dadosDisco.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
-                        myChart.update();
-                    }
+                                myChart3.update();
+                            // }
+                        } else {
+                            // if (registro.HorarioFormatado == dadosRede.labels[dadosRede.labels.length - 1]) {
+                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                            // } else {
+                                // tirando e colocando valores no gráfico
+                                dadosRede.labels.shift(); // apagar o primeiro
+                                dadosRede.labels.push(registro.HorarioFormatado); // incluir um novo momento
 
+                                dadosRede.datasets[0].data.shift();  // apagar o primeiro de umidade
+                                dadosRede.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+
+                                myChart4.update();
+                            // }
+                        }
+                    })
+                    
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+                    setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 20000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+                setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 2000);
             }
         })
             .catch(function (error) {
