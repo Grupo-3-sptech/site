@@ -146,9 +146,6 @@
 
                 <div class="box-ram">
                     <div class="grafico-geral">
-                        <div class="label-grafico">Relatório CPU</div>
-                    </div>
-                    <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem CPU</div>
                         <div id="grafico1" class="display-none">
                             <div class="graph">
@@ -156,13 +153,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="grafico-pizza">
+                        <div class="label-grafico">Resumo CPU</div>
+                        
+                    </div>
                 </div>
 
                 <div class="box-ram">
                     <div class="grafico-geral">
-                        <div class="label-grafico">Relatório RAM</div>
-                    </div>
-                    <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem RAM</div>
                         <div id="grafico2" class="display-none">
                             <div class="graph">
@@ -170,13 +168,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="grafico-pizza">
+                        <div class="label-grafico">Resumo RAM</div>
+                        
+                    </div>
                 </div>
 
                 <div class="box-ram">
                     <div class="grafico-geral">
-                        <div class="label-grafico">Relatório Disco</div>
-                    </div>
-                    <div class="grafico-pizza">
                         <div class="label-grafico">Porcentagem Disco</div>
                         <div id="grafico3" class="display-none">
                             <div class="graph">
@@ -184,19 +183,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="grafico-pizza">
+                        <div class="label-grafico">Resumo Disco</div>
+                        
+                    </div>
                 </div>
 
                 <div class="box-ram">
                     <div class="grafico-geral">
-                        <div class="label-grafico">Relatório Rede</div>
-                    </div>
-                    <div class="grafico-pizza">
                         <div class="label-grafico">Latência Rede</div>
                         <div id="grafico4" class="display-none">
                             <div class="graph">
                                 <canvas id="myChartCanvas4"></canvas>
                             </div>
                         </div>
+                    </div>
+                    <div class="grafico-pizza">
+                        <div class="label-grafico">Resumo Rede</div>
+                        
                     </div>
                 </div>
 
@@ -314,8 +318,9 @@
             datasets: [{
                 label: 'Cpu',
                 data: [],
-                fill: false,
-                borderColor: 'rgb(139, 0, 0)',
+                fill: true,
+                borderColor: 'rgb(199, 0, 0)',
+                backgroundColor: 'rgb(129, 0, 0, 0.400)',
                 tension: 0.1
             }]
         };
@@ -367,8 +372,9 @@
             datasets: [{
                 label: 'Memória',
                 data: [],
-                fill: false,
+                fill: true,
                 borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgb(141, 217, 217, 0.400)',
                 tension: 0.1
             }]
         };
@@ -420,8 +426,9 @@
             datasets: [{
                 label: 'Disco',
                 data: [],
-                fill: false,
+                fill: true,
                 borderColor: 'rgb(39, 110, 14)',
+                backgroundColor: 'rgb(141, 207, 118, 0.400)',
                 tension: 0.1
             }]
         };
@@ -473,7 +480,8 @@
             datasets: [{
                 label: 'Disco',
                 data: [],
-                fill: false,
+                fill: true,
+                backgroundColor: 'rgb(156, 156, 156, 0.400)',
                 borderColor: 'rgb(71, 71, 71)',
                 tension: 0.1
             }]

@@ -15,7 +15,7 @@ function buscarUltimasMedidas(id, limite_linhas) {
         instrucaoSql = `WITH LinhasComponentes AS (
             SELECT
               r.idRegistro,
-              DATE_FORMAT(r.HorarioDado, '%d/%m/%Y') AS HorarioFormatado,
+              DATE_FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
               r.dado,
               c.nome AS nomeComponente,
               ROW_NUMBER() OVER (PARTITION BY c.nome ORDER BY r.idRegistro DESC) AS linha_num
