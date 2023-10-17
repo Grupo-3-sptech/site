@@ -545,7 +545,7 @@ a:hover::after {
 
 .bannerEquipe {
     height: 60vh;
-    background-color: #82adb371;
+    background-color: #82adb347;
 }
 
 .tituloBannerEquipe {
@@ -575,6 +575,12 @@ a:hover::after {
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     border-bottom: 0.7vh solid #2d5f65;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 
 }
 .cardBannerEquipe {
@@ -587,6 +593,22 @@ a:hover::after {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     border-bottom: 0.7vh solid #2d5f65;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    transition: all 500ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.cardBannerEquipe:hover{
+    box-shadow: rgba(0, 0, 0, 0.400) 0 8px 20px;
+    transform: translateY(-5px);
+}
+
+.cardBannerEquipe2:hover{
+    box-shadow: rgba(0, 0, 0, 0.400) 0 8px 20px;
+    transform: translateY(-5px);
 }
 
 .icons-user{
@@ -665,13 +687,113 @@ width: 40%;
 
 .parte-direita{
     width: 49%;
-    height: inherit;
+    height: 35vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+.parte-direita button{
+    height: 6vh;
+    border-style: none;
+    width: 60%;
+    border-radius: 4vh;
+    background-color: #3E838C;
+    color: white;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+}
+
+.parte-direita button:hover{
+    box-shadow: rgba(0, 0, 0, 0.200) 0 8px 20px;
+    transform: translateY(-2px);
+}
+
+.parte-direita span{
+    color: #2d5f65;
 }
 
 #video{
     border-radius: 2vh;
     margin-top: 10vh;
+}
+
+.footer{
+    width: 100%;
+    height: 40vh;
+    background-color: #3E838C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-geral{
+    width: 85%;
+    height: 35vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: inherit;
+    flex-direction: column;
+}
+
+#logo-footer{
+    width: auto;
+    height: 10vh;
+}
+
+.icons-footer{
+    width: 16vw;
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 5vh;
+    margin-top: 5%;
+}
+
+.icons-footer i{
+    transition: 0.4s ease-in-out;
+}
+
+.icons-footer i:hover{
+    transform: scale(1.2);
+}
+
+.links-footer{
+    width: 70%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.links1{
+    width: 30%;
+    height: inherit;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+}
+
+.links1 a{
+    text-decoration: none;
+    color: rgb(197, 197, 197);
 }
