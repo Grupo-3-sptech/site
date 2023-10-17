@@ -24,13 +24,15 @@ create table Funcionarios(
 idFuncionarios int auto_increment,
 nome varchar(45) not null,
 email varchar(45) not null,
-CPF varchar(15) not null,
-telefone varchar(15) not null,
+CPF char(11) not null,
+telefone char(11) not null,
 senha varchar(45) not null,
 fkHospital int, constraint fkHospital foreign key (fkHospital) references Hospital(idHospital),
 constraint pkCompostaFuncionariosHospital primary key(idFuncionarios, fkHospital),
 fkEscalonamento int, constraint fkEscalonamento foreign key (fkEscalonamento) references EscalonamentoFuncionario(idEscalonamento)
 );
+
+SELECT * FROM funcionarios;
 
 create table statusRobo(
 idStatus int primary key auto_increment,
@@ -126,22 +128,17 @@ VALUES ('Admin', 3);
 SELECT * FROM escalonamentoFuncionario;
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Kayky', 'kayky@abc.com', '123.456.789-01', '987654321', '123456', 1, 1);
+VALUES ('Kayky', 'kayky@abc.com', '12345678901', '987654321', '123456', 1, 1);
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Danilo', 'daniloo@email.com', '125.456.789-01', '987654321', '123456', 1, 2);
+VALUES ('Danilo', 'daniloo@email.com', '12345678901', '987654321', '123456', 1, 2);
 
 INSERT INTO Funcionarios (nome, email, CPF, telefone, senha, fkHospital, fkEscalonamento) 
-VALUES ('Maria Souza', 'maria@example.com', '123.456.789-01', '987654321', 'senha123', 1, 3);
-
-INSERT INTO associado VALUES (null, "erick@email.com", 1, 1);
+VALUES ('Maria Souza', 'maria@example.com', '12345678901', '987654321', 'senha123', 1, 3);
 
 SELECT * FROM Funcionarios;
-SELECT * FROM associado;a
 
-SELECT * FROM Funcionarios f 
-JOIN EscalonamentoFuncionario e ON f.fkEscalonamento = e.idEscalonamento
-WHERE f.email = 'erick@email.com' AND f.senha = '123456';
+INSERT INTO associado VALUES (null, "erick@email.com", 1, 1);
 
 INSERT INTO statusRobo (nome) 
 VALUES ('Ativo');
@@ -194,6 +191,41 @@ FROM Registros r
 JOIN componentes c ON r.fkComponente = c.idComponentes
 WHERE c.nome = 'disco';
 
+SELECT r.*
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes;
+
 SELECT r.idRegistro, r.HorarioDado, r.dado, c.nome
 FROM Registros r
 JOIN componentes c ON r.fkComponente = c.idComponentes;
+
+SELECT r.idRegistro, r.HorarioDado, r.dado, c.nome
+FROM Registros r
+JOIN componentes c ON r.fkComponente = c.idComponentes
+LIMIT 7;
+
+-- SELECT COM TABELA TEMPORÁRIA PARA PEGAR OS ÚLTIMOS 7 REGISTROS DE CADA COMPONENTE
+
+WITH LinhasComponentes AS (
+  SELECT
+    r.idRegistro,
+    DATE_FORMAT(r.HorarioDado, '%d/%m/%Y') AS HorarioFormatado,
+    r.dado,
+    c.nome AS nomeComponente,
+    ROW_NUMBER() OVER (PARTITION BY c.nome ORDER BY r.idRegistro DESC) AS linha_num
+  FROM Registros r
+  JOIN componentes c ON r.fkComponente = c.idComponentes
+  WHERE r.fkRoboRegistro = 1
+)
+SELECT
+  idRegistro,
+  HorarioFormatado,
+  dado,
+  nomeComponente
+FROM LinhasComponentes WHERE linha_num <= 7;
+
+SELECT * FROM Registros;
+
+
+  
+
