@@ -40,7 +40,10 @@
 
 }
 
-
+* {
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -93,6 +96,18 @@ a:hover::after{
 
 
     background-image: url(../Img/fundoSaibaMais.png);
+}
+
+.bottom ul {
+    width: 80%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+
 }
 
 .tituloSaibaMais {
@@ -155,4 +170,129 @@ width: 100vh;
     width: 90vh;
     border-radius: 0 50vh 50vh 0;
 
+}
+
+.navbar {
+    width: 100vw;
+    height: 25vh;
+    background-color: #3E838C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top {
+    width: 90%;
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top img {
+    width: auto;
+    height: 10vh;
+}
+
+.login-icon {
+    width: 15%;
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-icon img {
+    width: auto;
+    height: 5vh;
+    margin: 8px;
+    transition: 0.4s ease-in-out;
+}
+
+.login-icon img:hover {
+    transform: scale(1.1);
+}
+
+.login-icon a {
+    text-decoration: none;
+    color: rgb(220, 220, 220);
+}
+
+.bottom {
+    width: 90%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom ul {
+    width: 80%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+
+}
+
+li {
+    list-style: none;
+    font-size: 2.0vh;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+a:hover {
+    transition: 0.4s all ease;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.5s ease-out;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+#foco::after {
+    transform: scaleX(1);
+    z-index: 99;
+    width: 100%;
+
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffffff;
+}
+
+
+/* new */
+
+.content{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

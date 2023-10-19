@@ -10,26 +10,37 @@
 
     <link rel="stylesheet" href="css/faleconosco.css">
     <link rel="stylesheet" href="css/rodape.css">
-    <link rel="stylesheet" href="css/menu.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
     <div class="navbar">
-        <div class="logo">
-            <a href="index.html"><img src="Img/logo horizontal sem fundo texto preto.png"></a>
+        <div class="top">
+            <img src="./Img/logo horizontal sem fundo.png" alt="">
+            <div class="login-icon">
+                <img src="./Img/icons8-envelope-circulado-30.png" alt="">
+                <img src="./Img/icons8-facebook-novo-24.png" alt="">
+                <img src="./Img/icons8-twitter-dentro-de-um-círculo-50.png" alt="">
+                <img style="margin-left: 10%; height: 4vh;" src="./Img/icons8-usuário-30.png" alt="">
+                <a href="login.html">Entrar</a>
+            </div>
         </div>
-
-        <div class="opcoes">
-            <a href="index.html" class="linkMenu">Home</a>
-            <!-- <a href="saibaMais.html" class="linkMenu">Saiba Mais</a> -->
-            <a href="faleconosco.html" class="linkMenu foco">Fale Conosco</a>
-            <a href="empresas.html" class="linkMenu">Empresas</a>
-            <a class="linkMenu localizacaoSiteEntrar" href="login.html">Login</a>
-            <a class="linkMenu localizacaoSiteEntrar" href="cadastro.html">Cadastro</a>
+        <div class="bottom">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a id="foco" href="faleconosco.html">FALE CONOSCO</a></li>
+                <li><a href="saibaMais.html">SAIBA MAIS</a></li>
+                <li><a href="empresas.html">EMPRESAS</a></li>
+                <li><a href="login.html">LOGIN/CADASTRO</a></li>
+            </ul>
         </div>
     </div>
 
     <h2 id="tittle">Fale Conosco</h2>
+    <p></p>
 
     <div class='Perguntas' id='Perguntas'>
         <div class='question'>
@@ -70,59 +81,67 @@
         </div>
     </div>
 
+    <div class="form">
+        <div class="content-form">
+            <h2>Ainda tem dúvidas? Entre em contato conosco pelo formulário abaixo e receba acompanhamento via e-mail
+            </h2>
+            <form action="">
 
+                <input id="ipt_nome" type="text" placeholder="Nome">
+                <input id="ipt_email" type="email" placeholder="E-mail">
+                <input id="ipt_telcel" type="number" placeholder="Numero do telefone">
+                <input id="ipt_mensagem" type="text" placeholder="Mensagem">
+                <button onclick="enviar()" class="enviar">ENVIAR</button>
 
-    <div class="container">
-        <span class="duvida">Ainda tem dúvidas?</span>
-        <div class="blocoS">
-            <div class="textos">
-                <h4 class="entre">Entre em contato conosco.</h4>
-                <div class='contato'>
-                    <strong>Telefone:</strong> (11) 1234-4352 <br>
-                    <strong>E-mail:</strong> medconnect@contato.com <br>
-                    <strong>Instagram:</strong> @medconnect
-                </div>
-            </div>
-            <div class="contato2">
-                <img class="imgContato" src="Img/ajuda.png">
-            </div>
         </div>
-
     </div>
 
-    <div class="rodape_todo">
-        <div class="rodape_cima">
-
-            <p class="Entre_em_contato">Entre em Contato!</p>
-
-            <div class="email_contato">
-                <span>medconnect@contato.com</span>
-            </div>
-        </div>
-        <div class="rodape_meio">
-            <div class="rodape_meio_texto_direito">
-                <h1>Contato</h1>
-                <h3>Telefone: (11) 1234-4352</h3>
-                <h3>E-mail: medconnect@contato.com</h3>
-                <h3>Instagram: @medconnect</h3>
+    <div class="footer">
+        <div class="footer-geral">
+            <div class="logo-icons">
+                <img id="logo-footer" src="./Img/logo horizontal sem fundo.png" alt="">
+                <div class="icons-footer">
+                    <i class="fa-solid fa-envelope" style="color: #64a3a0;"></i>
+                    <i class="fa-brands fa-linkedin" style="color: #64a3a0;"></i>
+                    <i class="fa-brands fa-facebook" style="color: #64a3a0;"></i>
+                    <i class="fa-solid fa-phone" style="color: #64a3a0;"></i>
+                </div>
             </div>
 
-            <div class="rodape_meio_texto_Esquerdo">
-                <h1>Conheça</h1>
-                <h3><a href="home.html">Home</a></h3>
-                <h3><a href="faleconosco.html">Fale Conosco</a></h3>
-                <h3><a href="cadastro.html">Cadastre-se</a></h3>
-                <h3><a href="login.html">Login</a></h3>
+            <div class="links-footer">
+                <div class="links1">
+                    <h2>Institucional</h2>
+                    <a href="index.html">Home</a>
+                    <a href="saibaMais.html">Saiba Mais</a>
+                    <a href="empresas.html">Para Empresas</a>
 
+                </div>
+                <div class="links1">
+                    <h2>Usuário</h2>
+                    <a href="login.html">Login</a>
+                    <a href="cadastro.html">Cadastro</a>
+                    <a href="faleconosco.html">Fale Conosco</a>
+                </div>
+                <div class="links1">
+                    <h2>Sobre Nós</h2>
+                    <a href="#">(11) 91234-1234</a>
+                    <a href="#">Rua Haddock Lobo, 595 - São Paulo SP Brasil</a>
+                </div>
             </div>
         </div>
-        <div class="rodape_baixo">
-            <span class="span_rodape_baixo">Desenvolvido por MedConnect</span>
-        </div>
-
-
     </div>
 
 </body>
 
 </html>
+
+<script src="https://kit.fontawesome.com/26c2ecd851.js" crossorigin="anonymous"></script>
+
+<script>
+    function enviar() {
+        var email = "secure_ship@hotmail.com";
+        var assunto = `Olá, meu nome é ` + ipt_nome.value;
+        var corpo = ipt_mensagem.value;
+        window.open("mailto:" + email + "?subject=" + assunto + "&body=" + corpo);
+    }
+</script>

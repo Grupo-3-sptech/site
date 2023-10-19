@@ -88,7 +88,7 @@
                         <a href="perfil.html">Perfil</a>
                     </div>
 
-                    <div class="opt" id="aqui" >
+                    <div class="opt" id="aqui">
                         <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
                         <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
                     </div>
@@ -113,13 +113,15 @@
             </div>
         </div>
 
-        <div class="content" style="
-            height: 100vh; 
-           
-        ">
+        <div class="content" style="height: 100vh;">
+            <div class="header-content">
+                <div class="navbar-header" style="height: 10vh;">
+                    <h3>Gerenciar Cirurgias</h3>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
+                </div>
+            </div>
 
-        
-          
+            
         </div>
     </div>
 
@@ -132,7 +134,7 @@
 
 <script>
     cargo = sessionStorage.CARGO_USUARIO
-    
+
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
     console.log(gerenciarUsuarios)
 
@@ -140,7 +142,7 @@
     //     window.location = "dashboard.html"
     // }
 
-    if(cargo !== "Admin"){
+    if (cargo !== "Admin") {
         gerenciarUsuarios.style = 'display: none'
     }
 

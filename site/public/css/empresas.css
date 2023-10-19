@@ -2,8 +2,13 @@ body{
     margin: 0;
     padding: 0;
     background-size: cover;
-    font-family: inter;
+    font-family: Arial, Helvetica, sans-serif;
     background-image: url(../Img/fundoEmpresas.png);
+}
+
+*{
+    margin: 0;
+    padding: 0;
 }
 
 @font-face {
