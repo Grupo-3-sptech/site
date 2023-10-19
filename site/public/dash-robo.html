@@ -309,7 +309,7 @@
         fkRobo = document.getElementById("maquinas-ativas").value;
         tempoHistorico = document.getElementById("tempo-historico").value;
         
-        fetch(`/componentes/medidas/${fkRobo}/7`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/7`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(resposta)
@@ -574,7 +574,7 @@
 
 
 
-        fetch(`/componentes/medidas/${fkRobo}/1`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/1`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
                     console.log(`Dados atuais do gráfico:`);
