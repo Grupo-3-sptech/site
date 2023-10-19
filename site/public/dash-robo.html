@@ -135,12 +135,12 @@
                         </select>
                     </div>
                     <div class="input-maquina">
-                        <p>Máquinas Inativas 🔴</p>
-                        <select name="maquinas-desligadas" id="">
-                            <option value="">Máquina 1</option>
-                            <option value="">Máquina 2</option>
-                            <option value="">Máquina 3</option>
-                            <option value="">Máquina 4</option>
+                        <p>Tempo Historico </p>
+                        <select name="maquinas-desligadas" id="tempo-historico">
+                            <option value="atual">Atual</option>
+                            <option value="dia">Dia</option>
+                            <option value="mes">Mes</option>
+                            <option value="ano">Ano</option>
                         </select>
                     </div>
                     <div class="box-id">
@@ -251,8 +251,10 @@
     }
 
     window.onload = obterDadosGrafico()
-    var select = document.getElementById("maquinas-ativas");
-    select.addEventListener("change", obterDadosGrafico);
+    var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+    var selectTempoHistorico = document.getElementById("tempo-historico");
+    selectMaquinasAtivas.addEventListener("change", obterDadosGrafico);
+    selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
     // function alterarTitulo(idAquario) {
     //     var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
@@ -305,12 +307,11 @@
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDadosGrafico(fkRobo) {
         fkRobo = document.getElementById("maquinas-ativas").value;
-
+        tempoHistorico = document.getElementById("tempo-historico").value;
+        
         fetch(`/componentes/medidas/${fkRobo}/7`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
                     console.log(resposta)
 
                     plotarGrafico(resposta, fkRobo);
@@ -343,7 +344,6 @@
             }]
         };
 
-        console.log(resposta)
         resposta.forEach(registro => {
             if (registro.nomeComponente == "CPU") {
                 labelCpu.push(registro.HorarioFormatado);
@@ -365,6 +365,12 @@
         console.log('Dados:')
         console.log(dadosCpu)
         console.log('----------------------------------------------')
+        
+        var grafico1 = document.getElementById(`myChartCanvas1`)
+         
+        if (Chart.getChart(grafico1)) {
+        Chart.getChart(grafico1).destroy();
+        }
 
         // Criando estrutura para plotar gráfico - config
         const configCpu = {
@@ -399,7 +405,6 @@
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
         resposta.forEach(registro => {
             if (registro.nomeComponente == "Memória RAM") {
                 labelMemoria.push(registro.HorarioFormatado);
@@ -428,6 +433,11 @@
             data: dadosMemoria,
         };
 
+        var grafico2 = document.getElementById(`myChartCanvas2`)
+         
+        if (Chart.getChart(grafico2)) {
+        Chart.getChart(grafico2).destroy();
+        }
         // Adicionando gráfico criado em div na tela
         let myChart2 = new Chart(
             document.getElementById(`myChartCanvas2`),
@@ -453,7 +463,6 @@
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
         resposta.forEach(registro => {
             if (registro.nomeComponente == "Disco") {
                 labelDisco.push(registro.HorarioFormatado);
@@ -482,6 +491,12 @@
             data: dadosDisco,
         };
 
+        var grafico3 = document.getElementById(`myChartCanvas3`)
+         
+        if (Chart.getChart(grafico3)) {
+        Chart.getChart(grafico3).destroy();
+        }
+
         // Adicionando gráfico criado em div na tela
         let myChart3 = new Chart(
             document.getElementById(`myChartCanvas3`),
@@ -507,7 +522,6 @@
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
         resposta.forEach(registro => {
             if (registro.nomeComponente == "Rede") {
                 labelRede.push(registro.HorarioFormatado);
@@ -535,6 +549,11 @@
             type: 'line',
             data: dadosRede,
         };
+        var grafico4 = document.getElementById(`myChartCanvas4`)
+         
+        if (Chart.getChart(grafico4)) {
+        Chart.getChart(grafico4).destroy();
+        }
 
         // Adicionando gráfico criado em div na tela
         let myChart4 = new Chart(
@@ -542,7 +561,7 @@
             configRede
         );
 
-        setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 20000);
+        setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
     }
 
 
@@ -558,16 +577,13 @@
         fetch(`/componentes/medidas/${fkRobo}/1`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
-
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(novoRegistro)
                     novoRegistro.forEach(registro => {
                         if (registro.nomeComponente == "CPU") {
-                            // if (registro.HorarioFormatado == dadosCpu.labels[dadosCpu.labels.length - 1]) {
-                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                            // } else {
+                            if (registro.HorarioFormatado == dadosCpu.labels[dadosCpu.labels.length - 1]) {
+                                console.log("Como não há dados novos para captura de cpu, o gráfico não atualizará.")
+                            } else {
                                 // tirando e colocando valores no gráfico
                                 dadosCpu.labels.shift(); // apagar o primeiro
                                 dadosCpu.labels.push(registro.HorarioFormatado); // incluir um novo momento
@@ -576,11 +592,11 @@
                                 dadosCpu.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
                                 myChart.update();
-                            // }
+                            }
                         } else if(registro.nomeComponente == "Memória RAM"){
-                            // if (registro.HorarioFormatado == dadosMemoria.labels[dadosMemoria.labels.length - 1]) {
-                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                            // } else {
+                            if (registro.HorarioFormatado == dadosMemoria.labels[dadosMemoria.labels.length - 1]) {
+                                console.log("Como não há dados novos para captura de memória, o gráfico não atualizará.")
+                            } else {
                                 // tirando e colocando valores no gráfico
                                 dadosMemoria.labels.shift(); // apagar o primeiro
                                 dadosMemoria.labels.push(registro.HorarioFormatado); // incluir um novo momento
@@ -589,11 +605,11 @@
                                 dadosMemoria.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
                                 myChart2.update();
-                            // }
+                            }
                         } else if(registro.nomeComponente == "Disco"){
-                            // if (registro.HorarioFormatado == dadosDisco.labels[dadosDisco.labels.length - 1]) {
-                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                            // } else {
+                            if (registro.HorarioFormatado == dadosDisco.labels[dadosDisco.labels.length - 1]) {
+                                console.log("Como não há dados novos para captura de disco, o gráfico não atualizará.")
+                            } else {
                                 // tirando e colocando valores no gráfico
                                 dadosDisco.labels.shift(); // apagar o primeiro
                                 dadosDisco.labels.push(registro.HorarioFormatado); // incluir um novo momento
@@ -602,11 +618,11 @@
                                 dadosDisco.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
                                 myChart3.update();
-                            // }
+                            }
                         } else {
-                            // if (registro.HorarioFormatado == dadosRede.labels[dadosRede.labels.length - 1]) {
-                            //     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                            // } else {
+                            if (registro.HorarioFormatado == dadosRede.labels[dadosRede.labels.length - 1]) {
+                                console.log("Como não há dados novos para captura de rede, o gráfico não atualizará.")
+                            } else {
                                 // tirando e colocando valores no gráfico
                                 dadosRede.labels.shift(); // apagar o primeiro
                                 dadosRede.labels.push(registro.HorarioFormatado); // incluir um novo momento
@@ -615,17 +631,17 @@
                                 dadosRede.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
 
                                 myChart4.update();
-                            // }
+                            }
                         }
                     })
                     
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 20000);
+                    setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 2000);
+                setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
             }
         })
             .catch(function (error) {
