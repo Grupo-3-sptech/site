@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedConnect | Gerenciar Usuários</title>
+    <title>MedConnect | Cadastrar Cirurgia</title>
 
     <link rel="stylesheet" href="css/dashboard.css">
     <!-- <script src="../js/sessao.js"></script>
@@ -78,7 +78,7 @@
                         <a href="dash-robo.html">Dashboard Rôbos</a>
                     </div>
 
-                    <div class="opt" id="aqui">
+                    <div class="opt" id="gerenciar-usuarios">
                         <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
@@ -88,7 +88,7 @@
                         <a href="perfil.html">Perfil</a>
                     </div>
 
-                    <div class="opt" id="gerenciar-cirurgias">
+                    <div class="opt" id="aqui" >
                         <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
                         <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
                     </div>
@@ -118,53 +118,8 @@
            
         ">
 
-            <div class="header-content">
-                <div class="navbar-header" style="height: 10vh;">
-                    <h3>Gerenciar Usuários</h3>
-                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario">Admin</span></p>
-                </div>
-            </div>
-            <div class="header-before">
-                <div class="double-cards">
-                    <div class="card-cadastro">
-                        <div class="container-cadastro">
-                            <h2><img src="../Img/icons8-usuário-30.png" alt=""> Cadastre um usuário</h2>
-                            <p>Cadastre o email de um funcionário e possibilite o cadastro dele no Site Intitucional.
-                            </p>
-                            <div class="input">
-                                Email <input type="email" id="input_email" class="input-cadastro-admin">
-                            </div>
-                            <div class="input">
-                                <select id="cargoSelect" name="empresa" class="select">
-                                    <option>Selecione o cargo</option>
-                                </select>
-                            </div>
-                            <input id="submit" type="submit" onclick="salvar()">
-                        </div>
-                    </div>
-                    <div class="card-lista">
-                        <div class="container-cadastro2" id="emails-cadastrados">
-                            <h2> Lista Funcionarios</h2>
-                            <table id="tabela-funcionario">
-                                <tr>
-                                    <th style="padding-left: 1vw;" data-label="Email">Email</th>
-                                    <th style="padding-left: 1vw;" data-label="Cargo">Cargo</th>
-                                    <th style="padding-left: 1vw; " data-label="Excluir">Excluir</th>
-                                </tr>
-                                <tr>
-                                    <td>bianca.reis@sptech</td>
-                                    <td>Atendente</td>
-                                    <td><img src="Img/excluir.png" alt="Excluir"></td>
-                                </tr>
-                            </table>
-                            <!-- <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">bianca.reis@sptech</a>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
+          
         </div>
     </div>
 
@@ -177,19 +132,16 @@
 
 <script>
     cargo = sessionStorage.CARGO_USUARIO
-
+    
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
     console.log(gerenciarUsuarios)
 
-    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-    console.log(gerenciarCirurgias)
+    // if (cargo !== "Atendente") {
+    //     window.location = "dashboard.html"
+    // }
 
-    if (cargo !== "Admin") {
+    if(cargo !== "Admin"){
         gerenciarUsuarios.style = 'display: none'
-    }
-
-    if (cargo !== "Atendente" && cargo !== "Admin") {
-        gerenciarCirurgias.style = 'display: none'
     }
 
     function voltarHome() {

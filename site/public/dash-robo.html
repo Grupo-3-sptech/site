@@ -90,6 +90,11 @@
                         <a href="perfil.html">Perfil</a>
                     </div>
 
+                    <div class="opt" id="gerenciar-cirurgias">
+                        <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
+                        <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
+                    </div>
+
                     <div class="opt">
                         <img src="../Img/icons8-assistente-48.png" alt="">
                         <a href="#">Suporte</a>
@@ -104,7 +109,7 @@
                 <div class="quit-button">
                     <div class="opt">
                         <img src="../Img/icons8-sair-30.png" alt="">
-                        <a href="#">Log Out</a>
+                        <a href="index.html">Log Out</a>
                     </div>
                 </div>
             </div>
@@ -222,16 +227,29 @@
 
 <script>
     verificarAdmin()
-    // cargo = sessionStorage.CARGO_USUARIO
 
-    // if (cargo !== "Admin") {
-    //     gerenciarUsuarios.style.display = "none"
-    // }
     function voltarHome() {
         window.location = '../index.html'
     }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    cargo = sessionStorage.CARGO_USUARIO
+
+    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+    console.log(gerenciarUsuarios)
+
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
+
+    // if(cargo !== "Admin"){
+    //     gerenciarUsuarios.style = 'display: none'
+    // }
+
+    if(cargo !== "Atendente" && cargo !== "Admin"){
+        gerenciarCirurgias.style = 'display: none'
+    }
+
     window.onload = obterDadosGrafico()
     var select = document.getElementById("maquinas-ativas");
     select.addEventListener("change", obterDadosGrafico);

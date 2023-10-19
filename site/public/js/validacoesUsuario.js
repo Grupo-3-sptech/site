@@ -5,3 +5,12 @@ function verificarAdmin(){
         gerenciarUsuarios.style = 'display: none'
     }
   }
+
+  function verificarAtendente(){
+    cargo = sessionStorage.CARGO_USUARIO
+  
+    if (cargo !== "Atendente") {
+        gerenciarCirurgias.style = 'display: none'
+    }
+
+  }
