@@ -3,7 +3,7 @@ var router = express.Router();
 
 var componenteController = require("../controllers/componenteController");
 
-router.get("/medidas/:id/:linhas", function (req, res) {
+router.get("/medidas/:id/:tempo/:linhas", function (req, res) {
     componenteController.buscarUltimasMedidas(req, res);
 });
 
