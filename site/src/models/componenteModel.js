@@ -54,7 +54,8 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
     AND HorarioDado >= NOW() - INTERVAL 24 HOUR AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente;`;
+    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente
+    ORDER BY HorarioFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       instrucaoSql = `SELECT
       DATE_FORMAT(HorarioDado, '%d/%m/%Y %H') as HorarioFormatado,
@@ -64,7 +65,8 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
     AND HorarioDado >= NOW() - INTERVAL 24 HOUR AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente;`;
+    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente
+    ORDER BY HorarioFormatado ;`;
     } else {
       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
       return
@@ -80,6 +82,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     WHERE r.fkRoboRegistro = ${id}
     AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
     GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
     LIMIT 90;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       instrucaoSql = `SELECT
@@ -91,6 +94,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     WHERE r.fkRoboRegistro = ${id}
     AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
     GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
     LIMIT 90;`;
     } else {
       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -107,6 +111,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     WHERE r.fkRoboRegistro = ${id}
     AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
     GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
     LIMIT 36;
     `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -119,6 +124,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     WHERE r.fkRoboRegistro = ${id}
     AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
     GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
     LIMIT 36;
     `;
     } else {

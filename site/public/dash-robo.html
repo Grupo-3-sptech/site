@@ -334,7 +334,7 @@
         };
 
         resposta.forEach(registro => {
-            if (registro.nomeComponente == "CPU") {
+            if (registro.nomeComponente == "Porcentagem da CPU") {
                 labelCpu.push(registro.HorarioFormatado);
                 dadosCpu.datasets[0].data.push(registro.dado);
             }
@@ -396,7 +396,7 @@
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         resposta.forEach(registro => {
-            if (registro.nomeComponente == "Memória RAM") {
+            if (registro.nomeComponente == "Porcentagem da Memoria") {
                 labelMemoria.push(registro.HorarioFormatado);
                 dadosMemoria.datasets[0].data.push(registro.dado);
             }
@@ -454,7 +454,7 @@
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         resposta.forEach(registro => {
-            if (registro.nomeComponente == "Disco") {
+            if (registro.nomeComponente == "Porcentagem do Disco") {
                 labelDisco.push(registro.HorarioFormatado);
                 dadosDisco.datasets[0].data.push(registro.dado);
             }
@@ -501,7 +501,7 @@
         let dadosRede = {
             labels: labelRede,
             datasets: [{
-                label: 'Disco',
+                label: 'Rede',
                 data: [],
                 fill: true,
                 backgroundColor: 'rgb(156, 156, 156, 0.400)',
@@ -570,7 +570,7 @@
                     console.log(`Dados atuais do gráfico:`);
                     console.log(novoRegistro)
                     novoRegistro.forEach(registro => {
-                        if (registro.nomeComponente == "CPU") {
+                        if (registro.nomeComponente == "Porcentagem da CPU") {
                             if (registro.HorarioFormatado == dadosCpu.labels[dadosCpu.labels.length - 1]) {
                                 console.log("Como não há dados novos para captura de cpu, o gráfico não atualizará.")
                             } else {
@@ -583,7 +583,7 @@
 
                                 myChart.update();
                             }
-                        } else if (registro.nomeComponente == "Memória RAM") {
+                        } else if (registro.nomeComponente == "Porcentagem da Memoria") {
                             if (registro.HorarioFormatado == dadosMemoria.labels[dadosMemoria.labels.length - 1]) {
                                 console.log("Como não há dados novos para captura de memória, o gráfico não atualizará.")
                             } else {
@@ -596,7 +596,7 @@
 
                                 myChart2.update();
                             }
-                        } else if (registro.nomeComponente == "Disco") {
+                        } else if (registro.nomeComponente == "Porcentagem do Disco") {
                             if (registro.HorarioFormatado == dadosDisco.labels[dadosDisco.labels.length - 1]) {
                                 console.log("Como não há dados novos para captura de disco, o gráfico não atualizará.")
                             } else {
