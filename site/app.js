@@ -17,6 +17,7 @@ var hospitalRouter = require("./src/routes/hospital");
 var cargoRouter = require("./src/routes/cargo");
 var funcionarioRouter = require("./src/routes/funcionario");
 var funcionarioAssociadoRouter = require("./src/routes/funcionarioAssociado");
+var roboRouter = require("./src/routes/robos");
 
 var empresasRouter = require("./src/routes/empresas");
 
@@ -52,6 +53,7 @@ app.use("/hospital", hospitalRouter);
 app.use("/cargo", cargoRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/funcionarioAssociado", funcionarioAssociadoRouter);
+app.use("/robo", roboRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

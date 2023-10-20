@@ -128,10 +128,6 @@
                     <div class="input-maquina">
                         <p>Máquinas Ativas 🟢</p>
                         <select name="maquinas-ligadas" id="maquinas-ativas">
-                            <option value="1">Máquina 1</option>
-                            <option value="2">Máquina 2</option>
-                            <option value="3">Máquina 3</option>
-                            <option value="4">Máquina 4</option>
                         </select>
                     </div>
                     <div class="input-maquina">
@@ -145,7 +141,7 @@
                     </div>
                     <div class="box-id">
                         <p>ID da Máquina</p>
-                        <p id="id-maquina">255</p>
+                        <p id="id_maquina"></p>
                     </div>
                 </div>
 
@@ -160,7 +156,7 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Resumo CPU</div>
-                        
+
                     </div>
                 </div>
 
@@ -175,7 +171,7 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Resumo RAM</div>
-                        
+
                     </div>
                 </div>
 
@@ -190,7 +186,7 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Resumo Disco</div>
-                        
+
                     </div>
                 </div>
 
@@ -205,7 +201,7 @@
                     </div>
                     <div class="grafico-pizza">
                         <div class="label-grafico">Resumo Rede</div>
-                        
+
                     </div>
                 </div>
 
@@ -246,69 +242,62 @@
     //     gerenciarUsuarios.style = 'display: none'
     // }
 
-    if(cargo !== "Atendente" && cargo !== "Admin"){
+    if (cargo !== "Atendente" && cargo !== "Admin") {
         gerenciarCirurgias.style = 'display: none'
     }
 
-    window.onload = obterDadosGrafico()
+    var idHospital = sessionStorage.ID_HOSPITAL;
+
+    window.onload = async function () {
+        await buscarMaquinas(idHospital);
+    };
     var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
     var selectTempoHistorico = document.getElementById("tempo-historico");
     selectMaquinasAtivas.addEventListener("change", obterDadosGrafico);
     selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
-    // function alterarTitulo(idAquario) {
-    //     var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-    //     var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-    //     tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
-    // }
+    async function buscarMaquinas(idHospital) {
+        fetch(`/robo/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
 
-    // function exibirAquario(idAquario) {
-    //     let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
+                console.log(data)
 
-    //     for (i = 0; i < todosOsGraficos.length; i++) {
-    //         // exibindo - ou não - o gráfico
-    //         if (todosOsGraficos[i].id != idAquario) {
-    //             let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-    //             if (elementoAtual.classList.contains("display-block")) {
-    //                 elementoAtual.classList.remove("display-block")
-    //             }
-    //             elementoAtual.classList.add("display-none")
+                maquinas = data;
 
-    //             // alterando estilo do botão
-    //             let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-    //             if (btnAtual.classList.contains("btn-pink")) {
-    //                 btnAtual.classList.remove("btn-pink")
-    //             }
-    //             btnAtual.classList.add("btn-white")
-    //         }
-    //     }
+                var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 
-    //     // exibindo - ou não - o gráfico
-    //     let graficoExibir = document.getElementById(`grafico${idAquario}`)
-    //     graficoExibir.classList.remove("display-none")
-    //     graficoExibir.classList.add("display-block")
+                // Itera sobre o array de empresas e cria as opções do select
+                for (let i = 0; i < maquinas.length; i++) {
+                    const maquina = maquinas[i];
 
-    //     // alterando estilo do botão
-    //     let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-    //     btnExibir.classList.remove("btn-white")
-    //     btnExibir.classList.add("btn-pink")
-    // }
+                    const optionElement = document.createElement('option');
+                    optionElement.value = maquina.idRobo;
+                    optionElement.text = "Maquina " + maquina.idRobo;
+                    selectMaquinasAtivas.appendChild(optionElement);
+                    optionElement.setAttribute('data-info', maquina.idProcess);
+                }
+                obterDadosGrafico()
+            });
+    }
 
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
 
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(fkRobo) {
+    function obterDadosGrafico() {
         fkRobo = document.getElementById("maquinas-ativas").value;
         tempoHistorico = document.getElementById("tempo-historico").value;
-        
+        const selectedOption = document.getElementById("maquinas-ativas").options[document.getElementById("maquinas-ativas").selectedIndex];
+        const idProcess = selectedOption.getAttribute('data-info');
+        id_maquina.innerHTML = idProcess;
+
         fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/7`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -365,18 +354,19 @@
         console.log('Dados:')
         console.log(dadosCpu)
         console.log('----------------------------------------------')
-        
-        var grafico1 = document.getElementById(`myChartCanvas1`)
-         
-        if (Chart.getChart(grafico1)) {
-        Chart.getChart(grafico1).destroy();
-        }
 
         // Criando estrutura para plotar gráfico - config
         const configCpu = {
             type: 'line',
             data: dadosCpu,
         };
+
+        var grafico1 = document.getElementById(`myChartCanvas1`)
+
+        if (Chart.getChart(grafico1)) {
+            Chart.getChart(grafico1).destroy();
+        }
+
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
@@ -434,9 +424,9 @@
         };
 
         var grafico2 = document.getElementById(`myChartCanvas2`)
-         
+
         if (Chart.getChart(grafico2)) {
-        Chart.getChart(grafico2).destroy();
+            Chart.getChart(grafico2).destroy();
         }
         // Adicionando gráfico criado em div na tela
         let myChart2 = new Chart(
@@ -492,9 +482,9 @@
         };
 
         var grafico3 = document.getElementById(`myChartCanvas3`)
-         
+
         if (Chart.getChart(grafico3)) {
-        Chart.getChart(grafico3).destroy();
+            Chart.getChart(grafico3).destroy();
         }
 
         // Adicionando gráfico criado em div na tela
@@ -550,9 +540,9 @@
             data: dadosRede,
         };
         var grafico4 = document.getElementById(`myChartCanvas4`)
-         
+
         if (Chart.getChart(grafico4)) {
-        Chart.getChart(grafico4).destroy();
+            Chart.getChart(grafico4).destroy();
         }
 
         // Adicionando gráfico criado em div na tela
@@ -593,7 +583,7 @@
 
                                 myChart.update();
                             }
-                        } else if(registro.nomeComponente == "Memória RAM"){
+                        } else if (registro.nomeComponente == "Memória RAM") {
                             if (registro.HorarioFormatado == dadosMemoria.labels[dadosMemoria.labels.length - 1]) {
                                 console.log("Como não há dados novos para captura de memória, o gráfico não atualizará.")
                             } else {
@@ -606,7 +596,7 @@
 
                                 myChart2.update();
                             }
-                        } else if(registro.nomeComponente == "Disco"){
+                        } else if (registro.nomeComponente == "Disco") {
                             if (registro.HorarioFormatado == dadosDisco.labels[dadosDisco.labels.length - 1]) {
                                 console.log("Como não há dados novos para captura de disco, o gráfico não atualizará.")
                             } else {
@@ -634,7 +624,7 @@
                             }
                         }
                     })
-                    
+
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
                 });
