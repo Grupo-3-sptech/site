@@ -1,0 +1,22 @@
+var medidaModel = require("../models/alertasModel");
+
+async function buscarUltimosAlertas(req, res) {
+    try{
+      const response = await medidaModel.buscarUltimosAlertas()
+      if (response.length > 0) {
+        res.status(200).json(response);
+    } else {
+        res.status(204).send("Nenhum resultado encontrado!")
+    }
+    } catch(error){
+        console.log(error);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    }
+
+}
+
+
+module.exports = {
+    buscarUltimosAlertas
+}
