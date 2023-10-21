@@ -155,14 +155,50 @@
                         </div>
                     </div>
                     <div class="grafico-pizza">
-                        <div class="label-grafico">Resumo CPU</div>
-
+                        <div class="label-grafico">
+                            Resumo CPU
+                            <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
+                        </div>
+                        <div class="content-resumo">
+                            <div class="info-resumo">
+                                <img src="Img/icons8-processador-48.png" alt="">
+                                <h3>Em uso:</h3>
+                                <span id="cpu_uso">10GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-selecionado-40.png" alt="">
+                                <h3>Disponível:</h3>
+                                <span id="cpu_disponivel">20GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png" alt="">
+                                <h3>Velocidade:</h3>
+                                <span id="cpu_velocidade">10GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img style="height: 38px;" src="Img/icons8-processo-40.png" alt="">
+                                <h3>Processos:</h3>
+                                <span id="cpu_processos">1234</span>
+                            </div>
+                            <!-- <div class="info-resumo">
+                                <img src="Img/icons8-balanceador-de-carga-40.png" alt="">
+                                <h3>Threads:</h3>
+                                <span>3</span>
+                            </div> -->
+                            <div class="info-resumo">
+                                <img src="Img/icons8-power-off-button-40.png" alt="">
+                                <h3>Tempo de Ativ.:</h3>
+                                <span id="cpu_tempo_atividade">10:23:11</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="box-ram">
                     <div class="grafico-geral">
-                        <div class="label-grafico">Porcentagem RAM</div>
+                        <div class="label-grafico">
+                            Porcentagem RAM
+                        </div>
                         <div id="grafico2" class="display-none">
                             <div class="graph">
                                 <canvas id="myChartCanvas2"></canvas>
@@ -170,7 +206,29 @@
                         </div>
                     </div>
                     <div class="grafico-pizza">
-                        <div class="label-grafico">Resumo RAM</div>
+                        <div class="label-grafico">
+                            Resumo RAM
+                            <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
+                        </div>
+
+                        <div class="content-resumo">
+                            <div class="info-resumo">
+                                <img src="Img/icons8-processador-48.png" alt="">
+                                <h3>Em uso:</h3>
+                                <span id="ram_uso">10GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-selecionado-40.png" alt="">
+                                <h3>Disponível:</h3>
+                                <span id="ram_disponivel">20GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png" alt="">
+                                <h3>Em cache:</h3>
+                                <span id="ram_cache">10GB</span>
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>
@@ -185,8 +243,33 @@
                         </div>
                     </div>
                     <div class="grafico-pizza">
-                        <div class="label-grafico">Resumo Disco</div>
+                        <div class="label-grafico">
+                            Resumo disco
+                            <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
+                        </div>
+                        <div class="content-resumo">
+                            <div class="info-resumo">
+                                <img src="Img/icons8-abrir-pasta-40.png" alt="">
+                                <h3>FyleSystem:</h3>
+                                <span id="disco_fylesystem">EXT4</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png"  alt="">
+                                <h3>Tempo Resposta:</h3>
+                                <span id="disco_tempo_resposta">1,1 ms</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png" alt="">
+                                <h3>Veloc. Leitura:</h3>
+                                <span id="disco_vel_leitura">10ms</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png" alt="">
+                                <h3>Veloc. Gravação:</h3>
+                                <span id="disco_vel_gravacao">0,2ms</span>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
 
@@ -199,17 +282,36 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grafico-pizza">
-                        <div class="label-grafico">Resumo Rede</div>
-
+                    <div class="grafico-pizza-rede">
+                        <div class="estado-rede" id="wifi">
+                            <img src="Img/icons8-wi-fi-60.png" width="auto"
+                            height="70px" alt="">
+                            <div class="text-rede">
+                                <h4>Estado da Rede</h4>
+                                <p id="rede-estado-geral" style="color: green;">Estável</p>
+                            </div>
+                        </div>
+                        <div class="estado-rede" style="flex-direction: column;">
+                            <div class="label-grafico" style="height: 20vh;" >
+                                Resumo Rede
+                                <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
+                            </div>
+                            <div class="content-resumo">
+                                <div class="info-resumo">
+                                    <img src="Img/icons8-abrir-pasta-40.png" alt="">
+                                    <h3>Bytes Enviados:</h3>
+                                    <span id="rede_bytes_enviados">1234</span>
+                                </div>
+                                <div class="info-resumo" >
+                                    <img src="Img/icons8-velocidade-40 (1).png"  alt="">
+                                    <h3>Bytes Recebidos:</h3>
+                                    <span id="rede_bytes_recebidos">1234</span>
+                                </div>
+    
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -631,7 +733,7 @@
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
+                setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 2000);
             }
         })
             .catch(function (error) {
