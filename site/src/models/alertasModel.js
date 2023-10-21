@@ -2,7 +2,9 @@ var database = require("../database/config");
 
 function buscarUltimosAlertas() {
 
-    instrucaoSql = ''
+    var instrucaoSql = ''
+    var instrucaoSql2 = ''
+    var instrucaoSql3 = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top ${limite_linhas}
@@ -20,13 +22,44 @@ function buscarUltimosAlertas() {
         AND dtHora >= date_sub(now(), INTERVAL 1 MINUTE);
         `;
 
+        instrucaoSql2 = `
+        SELECT * FROM Alerta WHERE 
+        tipo_alerta = "urgente"
+        AND dtHora >= date_sub(now(), INTERVAL 1 MINUTE);
+        `;
+
+        instrucaoSql3 = `
+        SELECT * FROM Alerta WHERE 
+        tipo_alerta = "alerta"
+        AND dtHora >= date_sub(now(), INTERVAL 1 MINUTE);
+        `;
+
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
     }
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql + instrucaoSql2 + instrucaoSql3);
+
+
+    return executarQueryEDevolverObjetoJSON(instrucaoSql,instrucaoSql2, instrucaoSql3)
+
+    async function executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3){
+
+        const atencao = await database.executar(instrucaoSql)
+        const urgente = await database.executar(instrucaoSql2)
+        const critico = await database.executar(instrucaoSql3)
+
+        console.log(`DEBUG atencao: ${atencao}`)
+        console.log(`DEBUG urgente: ${urgente}`)
+        console.log(`DEBUG critico: ${critico}`)
+
+        return {
+            atencao: atencao,
+            urgente: urgente,
+            critico: critico
+        }
+    }
 }
 
 

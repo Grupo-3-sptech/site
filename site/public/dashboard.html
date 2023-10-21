@@ -241,8 +241,22 @@
         });
 
         if (response.ok) {
-            const objetoJSON = await response.json(); 
-            console.log(`Printando a resposta aqui: ${JSON.stringify(objetoJSON)}`);
+            const alertas = await response.json(); 
+            atencao = alertas.atencao
+            urgente = alertas.urgente
+            critico = alertas.critico 
+
+            console.log(`DEBUG alertas ${alertas}`)
+            console.log(`DEBUG atencao: ${atencao}`)
+            console.log(`DEBUG urgente: ${urgente}`)
+            console.log(`DEBUG critico: ${critico}`)
+
+
+        
+            listarAlertas(atencao, "atencao")
+            listarAlertas(urgente, "urgente")
+            listarAlertas(critico, "critico")
+
         } else {
             console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
         }
@@ -250,6 +264,10 @@
     } catch (err) {
         console.log(`Houve um erro no fetch dos dados: ${err}`);
     }
+}
+
+
+function listarAlertas(alertas, tipoAlerta){
 }
 
 
