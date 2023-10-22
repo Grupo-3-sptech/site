@@ -22,6 +22,7 @@
 
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
@@ -125,8 +126,8 @@
                         <div class="container-kpi">
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
-                                <p>Problemas na máquina de ID</p>
-                                <h1>1001</h1>
+                                <p>Máquinas em Estado de Alerta</p>
+                                <h1 id ="contAlerta">12</h1>
                             </div>
                         </div>
                     </div>
@@ -134,8 +135,8 @@
                         <div class="container-kpi">
                             <div class="indicador green"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd. de máquinas operando</p>
-                                <h1>4</h1>
+                                <p>Máquinas em Estado Urgente</p>
+                                <h1 id="contUrgente">5</h1>
                             </div>
                         </div>
                     </div>
@@ -143,8 +144,8 @@
                         <div class="container-kpi">
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
-                                <p>Rede (Geral)</p>
-                                <h1>Lenta</h1>
+                                <p>Máquinas em Estado Crítico</p>
+                                <h1 id="contCritico">2</h1>
                             </div>
                         </div>
                     </div>
@@ -155,8 +156,8 @@
                         <div class="container-kpi">
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
-                                <p>Problemas na máquina de ID</p>
-                                <h1>1001</h1>
+                                <p>Qtd de Máquinas em Estado de Alerta esse mês</p>
+                                <h1>12</h1>
                             </div>
                         </div>
                     </div>
@@ -164,7 +165,7 @@
                         <div class="container-kpi">
                             <div class="indicador green"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd. de máquinas operando</p>
+                                <p>Qtd de Máquinas em Estado Urgente esse mês</p>
                                 <h1>4</h1>
                             </div>
                         </div>
@@ -173,8 +174,8 @@
                         <div class="container-kpi">
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
-                                <p>Rede (Geral)</p>
-                                <h1>Lenta</h1>
+                                <p>Qtd de Máquinas em Estado Crítico esse mês</p>
+                                <h1>2</h1>
                             </div>
                         </div>
                     </div>
@@ -207,7 +208,7 @@
 </html>
 
 <script>
-    buscarUltimosAlertas()
+   
 
     function voltarHome() {
         window.location = '../index.html'
@@ -231,32 +232,28 @@
         gerenciarCirurgias.style = 'display: none'
     }
 
+     buscarUltimosAlertas()
+
     async function buscarUltimosAlertas() {
     try {
-        const response = await fetch(`/alertas/buscarUltimaMedida`, {
+        const data = await fetch(`/alertas/buscarUltimaMedida`,
+         {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         });
 
-        if (response.ok) {
-            const alertas = await response.json(); 
-            atencao = alertas.atencao
-            urgente = alertas.urgente
-            critico = alertas.critico 
+        console.log(`DEBUG response: ${data.text()}`)
+        console.log(`DEBUG response: ${data}`)
 
-            console.log(`DEBUG alertas ${alertas}`)
-            console.log(`DEBUG atencao: ${atencao}`)
-            console.log(`DEBUG urgente: ${urgente}`)
-            console.log(`DEBUG critico: ${critico}`)
+        if (data.ok) {
+            // const alertas = await data
+            const resposta = await data.json()
+            
+            console.log(`DEBUG reposta: ${resposta}`)
 
-
-        
-            listarAlertas(atencao, "atencao")
-            listarAlertas(urgente, "urgente")
-            listarAlertas(critico, "critico")
-
+            
         } else {
             console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
         }
@@ -268,7 +265,13 @@
 
 
 function listarAlertas(alertas, tipoAlerta){
-}
+    console.log(`Entrei em Listar alerta!!`)
+    console.log(`DEBUG Alertas e tipoAlerta ${alertas}, ${tipoAlerta}`)
+    const idContadorAlerta = "cont" + tipoAlerta
+    const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
 
+    console.log(`DEBUG elementoHMTL ${contadorAlerta}`)
+    contadorAlerta.textContent = alertas.length
+}
 
 </script>
