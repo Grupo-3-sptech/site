@@ -1,11 +1,11 @@
 var database = require("../database/config");
 
-var instrucaoSql = ''
-var instrucaoSql2 = ''
-var instrucaoSql3 = ''
-
-
 function buscarUltimosAlertas() {
+
+    var instrucaoSql = ''
+    var instrucaoSql2 = ''
+    var instrucaoSql3 = ''
+
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top ${limite_linhas}
         dht11_temperatura as temperatura, 
@@ -42,30 +42,26 @@ function buscarUltimosAlertas() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql + instrucaoSql2 + instrucaoSql3);
 
 
-    return database.executar(instrucaoSql)
-    // return executarQueryEDevolverObjetoJSON(instrucaoSql,instrucaoSql2, instrucaoSql3)
+    return executarQueryEDevolverObjetoJSON(instrucaoSql,instrucaoSql2, instrucaoSql3)
 
+    async function executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3){
 
-}
+        const atencao = await database.executar(instrucaoSql)
+        const urgente = await database.executar(instrucaoSql2)
+        const critico = await database.executar(instrucaoSql3)
 
+        console.log(`DEBUG atencao: ${atencao}`)
+        console.log(`DEBUG urgente: ${urgente}`)
+        console.log(`DEBUG critico: ${critico}`)
 
-async function executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3){
-
-    const atencao = await database.executar(instrucaoSql)
-    const urgente = await database.executar(instrucaoSql2)
-    const critico = await database.executar(instrucaoSql3)
-
-    console.log(`DEBUG atencao: ${atencao}`)
-    console.log(`DEBUG urgente: ${urgente}`)
-    console.log(`DEBUG critico: ${critico}`)
-
-    
-    return {
-        atencao: atencao,
-        urgente: urgente,
-        critico: critico
+        return {
+            atencao: atencao,
+            urgente: urgente,
+            critico: critico
+        }
     }
 }
+
 
 
 

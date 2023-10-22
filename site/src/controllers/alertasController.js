@@ -4,7 +4,6 @@ async function buscarUltimosAlertas(req, res) {
     try {
         var data = await medidaModel.buscarUltimosAlertas();
 
-        console.log(`DEBUG response no controller: ${JSON.stringify(data)}`);
         console.log(`DEBUG tipo da response dentro da controller: ${typeof data}`)
         
         if (Object.keys(data).length > 0) {
@@ -14,7 +13,7 @@ async function buscarUltimosAlertas(req, res) {
             res.status(204).send("Nenhum resultado encontrado!");
             console.log(`Estou na controller, mas a consulta não retornou resultados.`);
         }
-    } catch (error) {
+    } catch (error) {g
         console.error("Houve um erro ao buscar as últimas medidas:", error);
         res.status(500).json({ error: "Houve um erro no servidor." });
     }

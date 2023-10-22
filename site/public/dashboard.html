@@ -232,36 +232,31 @@
         gerenciarCirurgias.style = 'display: none'
     }
 
-     buscarUltimosAlertas()
+     console.log(buscarUltimosAlertas())
 
-    async function buscarUltimosAlertas() {
-    try {
-        const data = await fetch(`/alertas/buscarUltimaMedida`,
-         {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        console.log(`DEBUG response: ${data.text()}`)
-        console.log(`DEBUG response: ${data}`)
-
-        if (data.ok) {
-            // const alertas = await data
-            const resposta = await data.json()
-            
-            console.log(`DEBUG reposta: ${resposta}`)
-
-            
+    function buscarUltimosAlertas() {
+    fetch(`/alertas/buscarUltimaMedida`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
         } else {
             console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+            return Promise.reject('Erro na resposta do servidor');
         }
-
-    } catch (err) {
+    })
+    .then(resposta => {
+        console.log(`Dados analisados:`, resposta);
+    })
+    .catch(err => {
         console.log(`Houve um erro no fetch dos dados: ${err}`);
-    }
+    });
 }
+
 
 
 function listarAlertas(alertas, tipoAlerta){
