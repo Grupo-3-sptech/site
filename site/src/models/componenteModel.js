@@ -1,8 +1,7 @@
 var database = require("../database/config");
 
 function buscarUltimasMedidas(id, tempo, limite_linhas) {
-
-  instrucaoSql = ''
+  instrucaoSql = "";
   if (tempo == "atual") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `WITH LinhasComponentes AS (
@@ -41,8 +40,10 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
             nomeComponente
           FROM LinhasComponentes WHERE linha_num <= ${limite_linhas};`;
     } else {
-      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-      return
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
     }
   } else if (tempo == "dia") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -68,73 +69,216 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
     GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente
     ORDER BY HorarioFormatado ;`;
     } else {
-      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-      return
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
+    }
+  } else if (tempo == "mes") {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucaoSql = `SELECT
+      DATE_FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
+      round(AVG(dado),2) AS dado,
+      c.nome AS nomeComponente
+    FROM Registros r
+    JOIN componentes c ON r.fkComponente = c.idComponentes
+    WHERE r.fkRoboRegistro = ${id}
+    AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
+    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
+    LIMIT 90;`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucaoSql = `SELECT
+      DATE_FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
+      round(AVG(dado),2) AS dado,
+      c.nome AS nomeComponente
+    FROM Registros r
+    JOIN componentes c ON r.fkComponente = c.idComponentes
+    WHERE r.fkRoboRegistro = ${id}
+    AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
+    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
+    LIMIT 90;`;
+    } else {
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
+    }
+  } else if (tempo == "ano") {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucaoSql = `SELECT
+      DATE_FORMAT(HorarioDado, '%m/%Y') as HorarioFormatado,
+      round(AVG(dado),2) AS dado,
+      c.nome AS nomeComponente
+    FROM Registros r
+    JOIN componentes c ON r.fkComponente = c.idComponentes
+    WHERE r.fkRoboRegistro = ${id}
+    AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
+    GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
+    LIMIT 36;
+    `;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucaoSql = `SELECT
+      DATE_FORMAT(HorarioDado, '%m/%Y') as HorarioFormatado,
+      round(AVG(dado),2) AS dado,
+      c.nome AS nomeComponente
+    FROM Registros r
+    JOIN componentes c ON r.fkComponente = c.idComponentes
+    WHERE r.fkRoboRegistro = ${id}
+    AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
+    GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
+    ORDER BY HorarioFormatado 
+    LIMIT 36;
+    `;
+    } else {
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
+    }
+  }
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function buscarMedidasResumo(id, tempo) {
+  instrucaoSql = "";
+  if (tempo == "atual") {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucaoSql = `WITH LinhasComponentes AS (
+              SELECT
+                r.idRegistro,
+                DATE_FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
+                r.dado,
+                c.nome AS nomeComponente,
+                ROW_NUMBER() OVER (PARTITION BY c.nome ORDER BY r.idRegistro DESC) AS linha_num
+              FROM Registros r
+              JOIN componentes c ON r.fkComponente = c.idComponentes
+              WHERE r.fkRoboRegistro = ${id}
+            )
+            SELECT
+              idRegistro,
+              HorarioFormatado,
+              dado,
+              nomeComponente
+            FROM LinhasComponentes WHERE linha_num <= 1;`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucaoSql = `WITH LinhasComponentes AS (
+                SELECT
+                  r.idRegistro,
+                  DATE_FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
+                  r.dado,
+                  c.nome AS nomeComponente,
+                  ROW_NUMBER() OVER (PARTITION BY c.nome ORDER BY r.idRegistro DESC) AS linha_num
+                FROM Registros r
+                JOIN componentes c ON r.fkComponente = c.idComponentes
+                WHERE r.fkRoboRegistro = ${id}
+              )
+              SELECT
+                idRegistro,
+                HorarioFormatado,
+                dado,
+                nomeComponente
+              FROM LinhasComponentes WHERE linha_num <= 1;`;
+    } else {
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
+    }
+  } else if (tempo == "dia") {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucaoSql = `SELECT
+          DATE_FORMAT(HorarioDado, '%d/%m/%Y') as DiaFormatado,
+          round(AVG(dado), 2) AS dado,
+          c.nome AS nomeComponente
+        FROM Registros r
+        JOIN componentes c ON r.fkComponente = c.idComponentes
+        WHERE r.fkRoboRegistro = ${id}
+          AND HorarioDado >= NOW() - INTERVAL 24 HOUR AND HorarioDado <= NOW()
+        GROUP BY DiaFormatado, nomeComponente
+        ORDER BY DiaFormatado;`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucaoSql = `SELECT
+          DATE_FORMAT(HorarioDado, '%d/%m/%Y') as DiaFormatado,
+          round(AVG(dado), 2) AS dado,
+          c.nome AS nomeComponente
+        FROM Registros r
+        JOIN componentes c ON r.fkComponente = c.idComponentes
+        WHERE r.fkRoboRegistro = ${id}
+          AND HorarioDado >= NOW() - INTERVAL 24 HOUR AND HorarioDado <= NOW()
+        GROUP BY DiaFormatado, nomeComponente
+        ORDER BY DiaFormatado;`;
+    } else {
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
     }
   } else if (tempo == "mes"){
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
-      round(AVG(dado),2) AS dado,
+      DATE_FORMAT(HorarioDado, '%m/%Y') as MesFormatado,
+      round(AVG(dado), 2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
-    ORDER BY HorarioFormatado 
-    LIMIT 90;`;
+    WHERE r.fkRoboRegistro = 1
+      AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
+    GROUP BY MesFormatado, nomeComponente
+    ORDER BY MesFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
-      round(AVG(dado),2) AS dado,
+      DATE_FORMAT(HorarioDado, '%m/%Y') as MesFormatado,
+      round(AVG(dado), 2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
-    ORDER BY HorarioFormatado 
-    LIMIT 90;`;
+    WHERE r.fkRoboRegistro = 1
+      AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
+    GROUP BY MesFormatado, nomeComponente
+    ORDER BY MesFormatado;`;
     } else {
-      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-      return
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
     }
-  } else if(tempo == "ano"){
+  } else if (tempo == "ano"){
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%m/%Y') as HorarioFormatado,
-      round(AVG(dado),2) AS dado,
+      DATE_FORMAT(HorarioDado, '%Y') as AnoFormatado,
+      ROUND(AVG(dado), 2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
-    ORDER BY HorarioFormatado 
-    LIMIT 36;
-    `;
+    WHERE r.fkRoboRegistro = 1
+      AND HorarioDado >= NOW() - INTERVAL 365 DAY AND HorarioDado <= NOW()
+    GROUP BY AnoFormatado, nomeComponente
+    ORDER BY AnoFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%m/%Y') as HorarioFormatado,
-      round(AVG(dado),2) AS dado,
+      DATE_FORMAT(HorarioDado, '%Y') as AnoFormatado,
+      ROUND(AVG(dado), 2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
-    ORDER BY HorarioFormatado 
-    LIMIT 36;
-    `;
+    WHERE r.fkRoboRegistro = 1
+      AND HorarioDado >= NOW() - INTERVAL 365 DAY AND HorarioDado <= NOW()
+    GROUP BY AnoFormatado, nomeComponente
+    ORDER BY AnoFormatado;`;
     } else {
-      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-      return
+      console.log(
+        "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+      );
+      return;
     }
   }
 
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
@@ -166,8 +310,8 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
 //     return database.executar(instrucaoSql);
 // }
 
-
 module.exports = {
-  buscarUltimasMedidas
-  // buscarMedidasEmTempoReal
-}
+  buscarUltimasMedidas,
+  // buscarMedidasEmTempoReal,
+  buscarMedidasResumo,
+};

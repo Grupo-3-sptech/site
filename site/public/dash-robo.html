@@ -19,6 +19,7 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+    <script src="js/graficoMaquinas.js"></script>
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/validacoesUsuario.js"></script>
@@ -29,38 +30,6 @@
 <!-- <body onload=" atualizarFeed()"> -->
 
 <body>
-
-    <!-- <div class="janela">
-        <div class="header-left">
-        
-             <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-    
-            <div class="btn-nav">
-
-                <div id="grafico1">
-                </div>
-                <div id="grafico2">
-                </div>
-                <div id="grafico3">
-                </div>
-            </div>
-
-            <button class="btn-logout" onclick="voltarHome()">
-                <h3>Sair</h3>
-            </button>
-
-        </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-            </div>
-        </div>
-    </div> -->
 
     <div class="principal">
         <div class="sidebar">
@@ -126,7 +95,7 @@
             <div class="header-before2">
                 <div class="maquinas">
                     <div class="input-maquina">
-                        <p>Máquinas Ativas 🟢</p>
+                        <p>Robos Ativos 🟢</p>
                         <select name="maquinas-ligadas" id="maquinas-ativas">
                         </select>
                     </div>
@@ -160,6 +129,7 @@
                             <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
                         </div>
                         <div class="content-resumo">
+                            <h2 class="resumo_data_titulo" id="cpu_resumo_titulo"></h2>
                             <div class="info-resumo">
                                 <img src="Img/icons8-processador-48.png" alt="">
                                 <h3>Em uso:</h3>
@@ -188,7 +158,7 @@
                             <div class="info-resumo">
                                 <img src="Img/icons8-power-off-button-40.png" alt="">
                                 <h3>Tempo de Ativ.:</h3>
-                                <span id="cpu_tempo_atividade">10:23:11</span>
+                                <span id="cpu_tempo">10h23m11s</span>
                             </div>
                         </div>
                     </div>
@@ -212,22 +182,27 @@
                         </div>
 
                         <div class="content-resumo">
+                            <h2 class="resumo_data_titulo" id="cpu_resumo_titulo"></h2>
                             <div class="info-resumo">
                                 <img src="Img/icons8-processador-48.png" alt="">
                                 <h3>Em uso:</h3>
-                                <span id="ram_uso">10GB</span>
+                                <span id="memoria_uso">10GB</span>
                             </div>
                             <div class="info-resumo">
                                 <img src="Img/icons8-selecionado-40.png" alt="">
                                 <h3>Disponível:</h3>
-                                <span id="ram_disponivel">20GB</span>
+                                <span id="memoria_disponivel">20GB</span>
                             </div>
                             <div class="info-resumo">
                                 <img src="Img/icons8-velocidade-40 (1).png" alt="">
-                                <h3>Em cache:</h3>
-                                <span id="ram_cache">10GB</span>
+                                <h3>Memoria Swap Porcentagem:</h3>
+                                <span id="memoria_porcentagem_swap">10%</span>
                             </div>
-
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png" alt="">
+                                <h3>Memoria Swap Uso:</h3>
+                                <span id="memoria_uso_swap">5GB</span>
+                            </div>
                         </div>
 
                     </div>
@@ -248,25 +223,36 @@
                             <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
                         </div>
                         <div class="content-resumo">
+                            <h2 class="resumo_data_titulo" id="cpu_resumo_titulo"></h2>
                             <div class="info-resumo">
                                 <img src="Img/icons8-abrir-pasta-40.png" alt="">
-                                <h3>FyleSystem:</h3>
-                                <span id="disco_fylesystem">EXT4</span>
+                                <h3>Arquivo de Sistema:</h3>
+                                <span id="disco_fylesystem">NFTS</span>
                             </div>
                             <div class="info-resumo">
                                 <img src="Img/icons8-velocidade-40 (1).png"  alt="">
-                                <h3>Tempo Resposta:</h3>
-                                <span id="disco_tempo_resposta">1,1 ms</span>
+                                <h3>Espaço Total:</h3>
+                                <span id="disco_total">960.02GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png"  alt="">
+                                <h3>Espaço usado:</h3>
+                                <span id="disco_uso">460GB</span>
+                            </div>
+                            <div class="info-resumo">
+                                <img src="Img/icons8-velocidade-40 (1).png"  alt="">
+                                <h3>Porcentagem do Disco:</h3>
+                                <span id="disco_porcentagem">47%</span>
                             </div>
                             <div class="info-resumo">
                                 <img src="Img/icons8-velocidade-40 (1).png" alt="">
                                 <h3>Veloc. Leitura:</h3>
-                                <span id="disco_vel_leitura">10ms</span>
+                                <span id="disco_velocidade_leitura">50s</span>
                             </div>
                             <div class="info-resumo">
                                 <img src="Img/icons8-velocidade-40 (1).png" alt="">
                                 <h3>Veloc. Gravação:</h3>
-                                <span id="disco_vel_gravacao">0,2ms</span>
+                                <span id="disco_velocidade_escrita">23s</span>
                             </div>
 
                         </div>
@@ -288,7 +274,7 @@
                             height="70px" alt="">
                             <div class="text-rede">
                                 <h4>Estado da Rede</h4>
-                                <p id="rede-estado-geral" style="color: rgb(3, 213, 3);">Estável</p>
+                                <p id="rede_estado_geral" style="color: green;">Estável</p>
                             </div>
                         </div>
                         <div class="estado-rede" style="flex-direction: column;">
@@ -297,15 +283,21 @@
                                 <img src="Img/loading-gif.gif" width="auto" height="20px" style="margin-left: 5%;" alt="">
                             </div>
                             <div class="content-resumo">
+                                <h2 class="resumo_data_titulo" id="cpu_resumo_titulo"></h2>
+                                <div class="info-resumo">
+                                    <img src="Img/icons8-velocidade-40 (1).png" alt="">
+                                    <h3>Status:</h3>
+                                    <span id="rede_status" style="color: green;">Conectado</span>
+                                </div>
                                 <div class="info-resumo">
                                     <img src="Img/icons8-abrir-pasta-40.png" alt="">
-                                    <h3>Bytes Enviados:</h3>
-                                    <span id="rede_bytes_enviados">1234</span>
-                                </div>
-                                <div class="info-resumo" >
-                                    <img src="Img/icons8-velocidade-40 (1).png"  alt="">
                                     <h3>Bytes Recebidos:</h3>
                                     <span id="rede_bytes_recebidos">1234</span>
+                                </div>
+                                <div class="info-resumo" >
+                                    <img src="Img/icons8-abrir-pasta-40.png"  alt="">
+                                    <h3>Bytes Enviados:</h3>
+                                    <span id="rede_bytes_enviados">1234</span>
                                 </div>
     
                             </div>
@@ -335,419 +327,70 @@
 <script>
     verificarAdmin()
 
-    function voltarHome() {
-        window.location = '../index.html'
-    }
+function voltarHome() {
+    window.location = '../index.html'
+}
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    cargo = sessionStorage.CARGO_USUARIO
+cargo = sessionStorage.CARGO_USUARIO
 
-    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-    console.log(gerenciarUsuarios)
+gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+console.log(gerenciarUsuarios)
 
-    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-    console.log(gerenciarCirurgias)
+gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+console.log(gerenciarCirurgias)
 
-    // if(cargo !== "Admin"){
-    //     gerenciarUsuarios.style = 'display: none'
-    // }
+// if(cargo !== "Admin"){
+//     gerenciarUsuarios.style = 'display: none'
+// }
 
-    if (cargo !== "Atendente" && cargo !== "Admin") {
-        gerenciarCirurgias.style = 'display: none'
-    }
+if (cargo !== "Atendente" && cargo !== "Admin") {
+    gerenciarCirurgias.style = 'display: none'
+}
 
-    var idHospital = sessionStorage.ID_HOSPITAL;
+var idHospital = sessionStorage.ID_HOSPITAL;
 
-    window.onload = async function () {
-        await buscarMaquinas(idHospital);
-    };
-    var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-    var selectTempoHistorico = document.getElementById("tempo-historico");
-    selectMaquinasAtivas.addEventListener("change", obterDadosGrafico);
-    selectTempoHistorico.addEventListener("change", obterDadosGrafico);
+window.onload = async function () {
+    await buscarMaquinas(idHospital);
+};
+var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+var selectTempoHistorico = document.getElementById("tempo-historico");
+selectMaquinasAtivas.addEventListener("change", obterDadosGrafico, obterDadosResumo);
+selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
-    async function buscarMaquinas(idHospital) {
-        fetch(`/robo/listar/${idHospital}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao fazer a solicitação GET');
-                }
-                return response.json();
-            }).then(data => {
-
-                console.log(data)
-
-                maquinas = data;
-
-                var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-
-                // Itera sobre o array de empresas e cria as opções do select
-                for (let i = 0; i < maquinas.length; i++) {
-                    const maquina = maquinas[i];
-
-                    const optionElement = document.createElement('option');
-                    optionElement.value = maquina.idRobo;
-                    optionElement.text = "Maquina " + maquina.idRobo;
-                    selectMaquinasAtivas.appendChild(optionElement);
-                    optionElement.setAttribute('data-info', maquina.idProcess);
-                }
-                obterDadosGrafico()
-            });
-    }
-
-
-    function obterDadosGrafico() {
-        fkRobo = document.getElementById("maquinas-ativas").value;
-        tempoHistorico = document.getElementById("tempo-historico").value;
-        const selectedOption = document.getElementById("maquinas-ativas").options[document.getElementById("maquinas-ativas").selectedIndex];
-        const idProcess = selectedOption.getAttribute('data-info');
-        id_maquina.innerHTML = idProcess;
-
-        fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/7`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(resposta)
-
-                    plotarGrafico(resposta, fkRobo);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    function plotarGrafico(resposta, fkRobo) {
-
-        // CRIANDO GRÁFICO CPU
-        let labelCpu = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dadosCpu = {
-            labels: labelCpu,
-            datasets: [{
-                label: 'Cpu',
-                data: [],
-                fill: true,
-                borderColor: 'rgb(199, 0, 0)',
-                backgroundColor: 'rgb(129, 0, 0, 0.400)',
-                tension: 0.1
-            }]
-        };
-
-        resposta.forEach(registro => {
-            if (registro.nomeComponente == "Porcentagem da CPU") {
-                labelCpu.push(registro.HorarioFormatado);
-                dadosCpu.datasets[0].data.push(registro.dado);
-            }
-        })
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        // for (i = 0; i < resposta.length; i++) {
-        //     var registro = resposta[i];
-        //     labels.push(registro.HorarioDado);
-        //     dados.datasets[0].data.push(registro.dado);
-        //     // dados.datasets[1].data.push(registro.temperatura);
-        // }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico de CPU será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelCpu)
-        console.log('Dados:')
-        console.log(dadosCpu)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const configCpu = {
-            type: 'line',
-            data: dadosCpu,
-        };
-
-        var grafico1 = document.getElementById(`myChartCanvas1`)
-
-        if (Chart.getChart(grafico1)) {
-            Chart.getChart(grafico1).destroy();
+async function buscarMaquinas(idHospital) {
+    fetch(`/robo/listar/${idHospital}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
         }
-
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas1`),
-            configCpu
-        );
-
-        console.log('iniciando plotagem do gráfico Memória ...');
-
-        // ----------------------------------------------------------------------------------
-        // CRIANDO GRÁFICO DA MEMÓRIA 
-        let labelMemoria = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dadosMemoria = {
-            labels: labelMemoria,
-            datasets: [{
-                label: 'Memória',
-                data: [],
-                fill: true,
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgb(141, 217, 217, 0.400)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        resposta.forEach(registro => {
-            if (registro.nomeComponente == "Porcentagem da Memoria") {
-                labelMemoria.push(registro.HorarioFormatado);
-                dadosMemoria.datasets[0].data.push(registro.dado);
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
             }
-        })
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        // for (i = 0; i < resposta.length; i++) {
-        //     var registro = resposta[i];
-        //     labels.push(registro.HorarioDado);
-        //     dados.datasets[0].data.push(registro.dado);
-        //     // dados.datasets[1].data.push(registro.temperatura);
-        // }
+            return response.json();
+        }).then(data => {
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelMemoria)
-        console.log('Dados:')
-        console.log(dadosMemoria)
-        console.log('----------------------------------------------')
+            console.log(data)
 
-        // Criando estrutura para plotar gráfico - config
-        const configMemoria = {
-            type: 'line',
-            data: dadosMemoria,
-        };
+            maquinas = data;
 
-        var grafico2 = document.getElementById(`myChartCanvas2`)
+            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 
-        if (Chart.getChart(grafico2)) {
-            Chart.getChart(grafico2).destroy();
-        }
-        // Adicionando gráfico criado em div na tela
-        let myChart2 = new Chart(
-            document.getElementById(`myChartCanvas2`),
-            configMemoria
-        );
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < maquinas.length; i++) {
+                const maquina = maquinas[i];
 
-        // ----------------------------------------------------------------------------------
-        // CRIANDO GRÁFICO DO DISCO 
-        let labelDisco = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dadosDisco = {
-            labels: labelDisco,
-            datasets: [{
-                label: 'Disco',
-                data: [],
-                fill: true,
-                borderColor: 'rgb(39, 110, 14)',
-                backgroundColor: 'rgb(141, 207, 118, 0.400)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        resposta.forEach(registro => {
-            if (registro.nomeComponente == "Porcentagem do Disco") {
-                labelDisco.push(registro.HorarioFormatado);
-                dadosDisco.datasets[0].data.push(registro.dado);
+                const optionElement = document.createElement('option');
+                optionElement.value = maquina.idRobo;
+                optionElement.text = "Robo " + (i+1);
+                selectMaquinasAtivas.appendChild(optionElement);
+                optionElement.setAttribute('data-info', maquina.idProcess);
             }
-        })
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        // for (i = 0; i < resposta.length; i++) {
-        //     var registro = resposta[i];
-        //     labels.push(registro.HorarioDado);
-        //     dados.datasets[0].data.push(registro.dado);
-        //     // dados.datasets[1].data.push(registro.temperatura);
-        // }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelMemoria)
-        console.log('Dados:')
-        console.log(dadosMemoria)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const configDisco = {
-            type: 'line',
-            data: dadosDisco,
-        };
-
-        var grafico3 = document.getElementById(`myChartCanvas3`)
-
-        if (Chart.getChart(grafico3)) {
-            Chart.getChart(grafico3).destroy();
-        }
-
-        // Adicionando gráfico criado em div na tela
-        let myChart3 = new Chart(
-            document.getElementById(`myChartCanvas3`),
-            configDisco
-        );
-
-        // ----------------------------------------------------------------------------------
-        // CRIANDO GRÁFICO DA REDE 
-        let labelRede = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dadosRede = {
-            labels: labelRede,
-            datasets: [{
-                label: 'Rede',
-                data: [],
-                fill: true,
-                backgroundColor: 'rgb(156, 156, 156, 0.400)',
-                borderColor: 'rgb(71, 71, 71)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        resposta.forEach(registro => {
-            if (registro.nomeComponente == "Rede") {
-                labelRede.push(registro.HorarioFormatado);
-                dadosRede.datasets[0].data.push(registro.dado);
-            }
-        })
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        // for (i = 0; i < resposta.length; i++) {
-        //     var registro = resposta[i];
-        //     labels.push(registro.HorarioDado);
-        //     dados.datasets[0].data.push(registro.dado);
-        //     // dados.datasets[1].data.push(registro.temperatura);
-        // }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelMemoria)
-        console.log('Dados:')
-        console.log(dadosMemoria)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const configRede = {
-            type: 'line',
-            data: dadosRede,
-        };
-        var grafico4 = document.getElementById(`myChartCanvas4`)
-
-        if (Chart.getChart(grafico4)) {
-            Chart.getChart(grafico4).destroy();
-        }
-
-        // Adicionando gráfico criado em div na tela
-        let myChart4 = new Chart(
-            document.getElementById(`myChartCanvas4`),
-            configRede
-        );
-
-        setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
-    }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4) {
-
-
-
-        fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/1`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(novoRegistro)
-                    novoRegistro.forEach(registro => {
-                        if (registro.nomeComponente == "Porcentagem da CPU") {
-                            if (registro.HorarioFormatado == dadosCpu.labels[dadosCpu.labels.length - 1]) {
-                                console.log("Como não há dados novos para captura de cpu, o gráfico não atualizará.")
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosCpu.labels.shift(); // apagar o primeiro
-                                dadosCpu.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosCpu.datasets[0].data.shift();  // apagar o primeiro de umidade
-                                dadosCpu.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart.update();
-                            }
-                        } else if (registro.nomeComponente == "Porcentagem da Memoria") {
-                            if (registro.HorarioFormatado == dadosMemoria.labels[dadosMemoria.labels.length - 1]) {
-                                console.log("Como não há dados novos para captura de memória, o gráfico não atualizará.")
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosMemoria.labels.shift(); // apagar o primeiro
-                                dadosMemoria.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosMemoria.datasets[0].data.shift();  // apagar o primeiro de umidade
-                                dadosMemoria.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart2.update();
-                            }
-                        } else if (registro.nomeComponente == "Porcentagem do Disco") {
-                            if (registro.HorarioFormatado == dadosDisco.labels[dadosDisco.labels.length - 1]) {
-                                console.log("Como não há dados novos para captura de disco, o gráfico não atualizará.")
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosDisco.labels.shift(); // apagar o primeiro
-                                dadosDisco.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosDisco.datasets[0].data.shift();  // apagar o primeiro de umidade
-                                dadosDisco.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart3.update();
-                            }
-                        } else {
-                            if (registro.HorarioFormatado == dadosRede.labels[dadosRede.labels.length - 1]) {
-                                console.log("Como não há dados novos para captura de rede, o gráfico não atualizará.")
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosRede.labels.shift(); // apagar o primeiro
-                                dadosRede.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosRede.datasets[0].data.shift();  // apagar o primeiro de umidade
-                                dadosRede.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart4.update();
-                            }
-                        }
-                    })
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 10000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                setTimeout(() => atualizarGrafico(fkRobo, dadosCpu, dadosDisco, dadosMemoria, dadosRede, myChart, myChart2, myChart3, myChart4), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
+            obterDadosGrafico()
+            obterDadosResumo()
+        });
+}
 </script>
