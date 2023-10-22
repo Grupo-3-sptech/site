@@ -694,3 +694,18 @@ th, td {
     display: flex;
     flex-direction: column;
 }
+
+#graph3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    width: 30vw;
+   
+}
+
+#grafico3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -145,8 +145,8 @@ function plotarGrafico(resposta, fkRobo) {
                 label: "Cpu",
                 data: [],
                 fill: true,
-                borderColor: "rgb(199, 0, 0)",
-                backgroundColor: "rgb(129, 0, 0, 0.400)",
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
                 tension: 0.1,
             },
         ],
@@ -204,7 +204,7 @@ function plotarGrafico(resposta, fkRobo) {
                 data: [],
                 fill: true,
                 borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "rgb(141, 217, 217, 0.400)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
                 tension: 0.1,
             },
         ],
@@ -259,14 +259,19 @@ function plotarGrafico(resposta, fkRobo) {
 
     // Criando estrutura para plotar gráfico - dados
     let dadosDisco = {
-        labels: labelDisco,
+        labels: [
+            'Disco Total',
+            'Disco Utilizado'
+          ],
         datasets: [
             {
-                label: "Disco",
-                data: [],
+                label: "",
+                data: [100],
                 fill: true,
-                borderColor: "rgb(39, 110, 14)",
-                backgroundColor: "rgb(141, 207, 118, 0.400)",
+                backgroundColor: [
+                    '#3E838C',
+                    '#78bec8'
+                  ],
                 tension: 0.1,
             },
         ],
@@ -278,7 +283,7 @@ function plotarGrafico(resposta, fkRobo) {
     );
     resposta.forEach((registro) => {
         if (registro.nomeComponente == "Porcentagem do Disco") {
-            labelDisco.push(registro.HorarioFormatado);
+            // labelDisco.push(registro.HorarioFormatado);
             dadosDisco.datasets[0].data.push(registro.dado);
         }
     });
@@ -300,7 +305,7 @@ function plotarGrafico(resposta, fkRobo) {
 
     // Criando estrutura para plotar gráfico - config
     const configDisco = {
-        type: "line",
+        type: "doughnut",
         data: dadosDisco,
     };
 
@@ -328,8 +333,8 @@ function plotarGrafico(resposta, fkRobo) {
                 label: "Latencia em milissegundos (ms)",
                 data: [],
                 fill: true,
-                backgroundColor: "rgb(156, 156, 156, 0.400)",
-                borderColor: "rgb(71, 71, 71)",
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
                 tension: 0.1,
             },
         ],
