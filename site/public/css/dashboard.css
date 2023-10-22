@@ -679,3 +679,14 @@ th, td {
     margin-left: 5%;
     font-size: 3.5vh;
 }
+
+.box-usb{
+    width: 48%;
+    height: inherit;
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 1.5vh;
+    display: flex;
+    flex-direction: column;
+}
