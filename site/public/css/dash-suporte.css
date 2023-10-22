@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.text-suporte {
+    margin-top: 3vh
+}
+
+.box-suporte {
+    height: 66vh;
+    width: 55%;
+    background: #195E63;
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10vh;
+    
+}
+
+.input {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    flex-direction: column;
+    height: 20vh;
+    border-radius: 3vh;
+    color: #FFFFFF;
+}
+
+.input-suporte1{
+    height: 6vh;
+    border-style: none;
+    background-color: #dcdcdc;
+    border-radius: 1vh;
+    padding-left: 2vw;
+    width: 30vw;
+}
+
+.input-suporte2 {
+    height: 20vh;
+    border-style: none;
+    background-color: #dcdcdc;
+    border-radius: 1vh;
+    padding-left: 2vw;
+    width: 30vw;
+    display: flex;
+
+}
+
+#enviar {
+    height: 5vh;
+    width: 15vw;
+    border-style: none;
+    background-color: #063940;
+    border-radius: 2vh;
+    color: white;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    margin-top: 10%;
+}
+
+.abrir-chamado{
+    margin-top: 5vh;
+    margin-left: -80vh
+}
+
+#enviar2 {
+    height: 10vh;
+    width: 20vw;
+    border-style: none;
+    background-color: #063940;
+    border-radius: 2vh;
+    color: white;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    margin-top: 10%;
+}

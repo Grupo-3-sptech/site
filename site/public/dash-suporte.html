@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedConnect | Cadastrar Cirurgia</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dash-suporte.css">
+    <!-- <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script> -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- <body onload=" atualizarFeed()"> -->
+
+<body>
+
+    <!-- <div class="janela">
+        <div class="header-left">
+        
+             <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+    
+            <div class="btn-nav">
+
+                <div id="grafico1">
+                </div>
+                <div id="grafico2">
+                </div>
+                <div id="grafico3">
+                </div>
+            </div>
+
+            <button class="btn-logout" onclick="voltarHome()">
+                <h3>Sair</h3>
+            </button>
+
+        </div>
+
+        <div class="dash">
+            <div id="alerta">
+            </div>
+
+            <div class="btns-dash" id="btnAquario">
+            </div>
+        </div>
+    </div> -->
+
+    <div class="principal">
+        <div class="sidebar">
+            <div class="content-sidebar">
+                <div class="logo-sidebar">
+                    <img src="../Img/logo horizontal sem fundo.png" alt="">
+                </div>
+
+                <div class="options-sidebar">
+                    <div class="opt">
+                        <img src="../Img/icons8-gráfico-combinado-30.png" alt="">
+                        <a href="dashboard.html">Dashboard Geral</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-robô-48.png" alt="">
+                        <a href="dash-robo.html">Dashboard Rôbos</a>
+                    </div>
+
+                    <div class="opt" id="gerenciar-usuarios">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="perfil.html">Perfil</a>
+                    </div>
+
+                    <div class="opt" id="aqui">
+                        <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
+                        <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-assistente-48.png" alt="">
+                        <a href="#">Suporte</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-alerta-30.png" alt="">
+                        <a href="#">Chamado</a>
+                    </div>
+                </div>
+
+                <div class="quit-button">
+                    <div class="opt">
+                        <img src="../Img/icons8-sair-30.png" alt="">
+                        <a href="index.html">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content" style="height: 100vh;">
+            <div class="header-content">
+                <div class="navbar-header" style="height: 10vh;">
+                    <h3>Suporte</h3>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
+                </div>
+            </div>
+
+            <div class="text-suporte">
+                <p>
+                    Está tendo problemas com a plataforma? Entre em contato conosco pela formulário abaixo ou abra um
+                    chamado na ferramenta de suporte
+                </p>
+            </div>
+
+            <div class="box-suporte">
+                <div class="input">
+                    Email
+                    <div class="input-suporte">
+                        <input type="text" id="input_nome" class="input-suporte1" style="background-color: #f3f3f3;">
+                    </div>
+                </div>
+                <div class="input">
+                    Mensagem
+                    <div class="input-suporte">
+                        <input type="email" id="input_email" class="input-suporte2" style="background-color: #f3f3f3;">
+                    </div>
+                </div>
+                <div>
+                    <input id="enviar" type="submit" value="Enviar">
+                </div>
+            </div>
+
+            <div class="text-suporte2">
+                <p class="abrir-chamado">
+                    Abra um chamado na plataforma de suporte:
+            </div>
+        </p>
+        <div><input id="enviar2" type="submit" value="Abrir um chamado">
+        </div>  
+        </div>
+
+</body>
+
+</html>
+
+<script>
+    cargo = sessionStorage.CARGO_USUARIO
+
+    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+    console.log(gerenciarUsuarios)
+
+    // if (cargo !== "Atendente") {
+    //     window.location = "dashboard.html"
+    // }
+
+    if (cargo !== "Admin") {
+        gerenciarUsuarios.style = 'display: none'
+    }
+
+    function voltarHome() {
+        window.location = '../index.html'
+    }
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    var id = 1
+
+    // window.onload = exibirComponentes(id);
+
+    var cargos;
+    fetch("/cargo/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
+
+            console.log(data)
+
+            cargos = data;
+
+            var selectElement = document.getElementById('cargoSelect');
+
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < cargos.length; i++) {
+                const cargo = cargos[i];
+
+                const optionElement = document.createElement('option');
+                optionElement.value = cargo.idEscalonamento;
+                optionElement.text = cargo.cargo;
+                selectElement.appendChild(optionElement);
+            }
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+
+    var funcionarios;
+    var idHospital = sessionStorage.ID_HOSPITAL
+
+    fetch(`/funcionarioAssociado/verificar/${idHospital}`)
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    funcionarios = json
+
+                    tabela = document.getElementById("tabela-funcionario")
+
+                    // Itera sobre o array de empresas e cria as opções do select
+                    for (let i = 0; i < funcionarios.length; i++) {
+                        const funcionario = funcionarios[i];
+                        const email = funcionario.email;
+                        const cargo = funcionario.cargo;
+                        const idAssociado = funcionario.idAssociado;
+
+                        var novaLinha = tabela.insertRow();
+                        novaLinha.id = idAssociado // Insere uma nova linha
+                        var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
+                        var celula2 = novaLinha.insertCell(1);
+                        var celula3 = novaLinha.insertCell(2)
+                        celula1.innerHTML = `${email}`;
+                        celula2.innerHTML = `${cargo}`;
+                        celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
+                    }
+                });
+
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
+        })
+
+    function salvar() {
+        var email = input_email.value;
+        var cargo = cargoSelect.value
+
+        if (email == "" || cargo == "") {
+
+        }
+        else {
+            fetch("/funcionarioAssociado/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: email,
+                    idHospitalServer: idHospital,
+                    idEscalonamentoServer: cargo
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json))
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000); // 
+
+                    })
+                } else {
+
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+
+            })
+        }
+    }
+
+    function remover(idAssociado) {
+
+        fetch(`/funcionarioAssociado/deletar`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idServer: idAssociado,
+            })
+        })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000); // 
+                        // funcionarios = json
+
+                        // tabela = document.getElementById("tabela-funcionario")
+
+                        // // Itera sobre o array de empresas e cria as opções do select
+                        // for (let i = 0; i < funcionarios.length; i++) {
+                        //     const funcionario = funcionarios[i];
+                        //     const email = funcionario.email;
+                        //     const cargo = funcionario.cargo;
+                        //     const idAssociado = funcionario.idAssociado;
+
+                        //     var novaLinha = tabela.insertRow();
+                        //     novaLinha.id = idAssociado // Insere uma nova linha
+                        //     var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
+                        //     var celula2 = novaLinha.insertCell(1);
+                        //     var celula3 = novaLinha.insertCell(2)
+                        //     celula1.innerHTML = `${email}`;
+                        //     celula2.innerHTML = `${cargo}`;
+                        //     celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(idAssociado)" alt="Excluir">`
+                        // }
+                    });
+
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+                Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
+            })
+    }
+
+
+    // function ajustarTabela() {
+    //   var tabela = document.getElementById("minhaTabela");
+    //   var larguraTela = window.innerWidth;
+
+    //   if (larguraTela < 600) {
+    //     for (var i = 0; i < tabela.rows.length; i++) {
+    //       tabela.rows[i].cells[2].style.display = "none";
+    //     }
+    //   } else {
+    //     for (var i = 0; i < tabela.rows.length; i++) {
+    //       tabela.rows[i].cells[2].style.display = "table-cell";
+    //     }
+    //   }
+    // }
+
+    // // Chama a função de ajuste da tabela quando a página carrega e quando a tela é redimensionada
+    // window.addEventListener("load", ajustarTabela);
+    // window.addEventListener("resize", ajustarTabela);
+
+</script>
