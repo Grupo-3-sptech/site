@@ -184,7 +184,7 @@
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
                                 <p>Qtd de Máquinas em Estado de Crítico esse mês</p>
-                                <h1>12</h1>
+                                <h1 id="qtdAlerta"></h1>
                             </div>
                         </div>
                     </div>
@@ -193,7 +193,7 @@
                             <div class="indicador green"></div>
                             <div class="conteudo-kpi">
                                 <p>Qtd de Máquinas em Estado Urgente esse mês</p>
-                                <h1>4</h1>
+                                <h1 id="qtdUrgente"></h1>
                             </div>
                         </div>
                     </div>
@@ -202,24 +202,23 @@
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
                                 <p>Qtd de Máquinas em Estado de Alerta esse mês</p>
-                                <h1>2</h1>
+                                <h1 id="qtdCritico"></h1>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="div-select">
+                    Visualizar por:
+                    <select name="" id="selectIntervalo">
+                        <option value="DAY">Dia</option>
+                        <option value="MONTH">Mês</option>
+                        <option value="YEAR">Ano</option>
+                    </select>
+                </div>
                 <div class="segunda-parte">
                     <div class="card-graph card-graph1" style="margin-bottom: 5%;">
                         <div class="conteudo-graph-g">
                             <h3>Relatório Geral</h3>
-                            <div class="div-select">
-                                Visualizar por:
-                                <select name="" id="">
-                                    <option value="dia">Dia</option>
-                                    <option value="mes">Mês</option>
-                                    <option value="ano">Ano</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -235,14 +234,26 @@
 </html>
 
 <script>
-    repetirFuncaoBuscarUltimosAlertas()
 
+    var elementoSelect = document.querySelector("#selectIntervalo")
+    var opcaoSelecionada = elementoSelect.options[elementoSelect.selectedIndex];
+    var intervalo = opcaoSelecionada.value;
+    elementoSelect.addEventListener("change", buscarQuantidadeDeAlertas(intervalo));
+
+    repetirFuncaoBuscarUltimosAlertas()
+ 
     function repetirFuncaoBuscarUltimosAlertas() {
+        var elementoSelect = document.querySelector("#selectIntervalo")
+        var opcaoSelecionada = elementoSelect.options[elementoSelect.selectedIndex];
+        var intervalo = opcaoSelecionada.value;
         setTimeout(function () {
             buscarUltimosAlertas()
+            buscarQuantidadeDeAlertas(intervalo)
             repetirFuncaoBuscarUltimosAlertas()
         }, 5000)
     }
+
+
 
     function voltarHome() {
         window.location = '../index.html'
@@ -296,17 +307,45 @@
             });
     }
 
+    function buscarQuantidadeDeAlertas(intervalo){
+        fetch(`/alertas/buscarQuantidadeDeAlertas/${intervalo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                exibirQuantidadeDeAlertas(resposta.atencao[0].alertas, "Alerta");
+                exibirQuantidadeDeAlertas(resposta.urgente[0].alertas, "Urgente");
+                exibirQuantidadeDeAlertas(resposta.critico[0].alertas, "Critico");
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
 
 
     function listarAlertas(alertas, tipoAlerta) {
-        console.log(`Entrei em Listar alerta!!`)
-        console.log(`DEBUG Alertas e tipoAlerta ${alertas}, ${tipoAlerta}`)
         const idContadorAlerta = "cont" + tipoAlerta
         const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
-
-        console.log(`DEBUG elementoHMTL ${contadorAlerta}`)
-        console.log(`DEBUG tamanho do objeto de alerta ${alertas.length}`)
         contadorAlerta.textContent = alertas.length
+    }
+
+    function exibirQuantidadeDeAlertas(alertas, tipoAlerta){
+        const idContadorAlerta = "qtd" + tipoAlerta
+
+        const elementoQuantidadeAlerta = document.querySelector(`#${idContadorAlerta}`)
+        elementoQuantidadeAlerta.textContent = alertas
+
     }
 
 </script>

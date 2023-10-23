@@ -13,12 +13,31 @@ async function buscarUltimosAlertas(req, res) {
             res.status(204).send("Nenhum resultado encontrado!");
             console.log(`Estou na controller, mas a consulta não retornou resultados.`);
         }
-    } catch (error) {g
+    } catch (error) {
+        console.error("Houve um erro ao buscar as últimas medidas:", error);
+        res.status(500).json({ error: "Houve um erro no servidor." });
+    }
+}
+
+async function buscarQuantidadeDeAlertas(req, res) {
+    try {
+        var intervalo =  req.params.intervalo
+        var data = await medidaModel.buscarQuantidadeDeAlertas(intervalo);
+
+        if (Object.keys(data).length > 0) {
+            res.status(200).json(data);
+            console.log(`Estou na controller, e a resposta foi bem-sucedida!`);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+            console.log(`Estou na controller, mas a consulta não retornou resultados.`);
+        }
+    } catch (error) {
         console.error("Houve um erro ao buscar as últimas medidas:", error);
         res.status(500).json({ error: "Houve um erro no servidor." });
     }
 }
 
 module.exports = {
-    buscarUltimosAlertas
+    buscarUltimosAlertas,
+    buscarQuantidadeDeAlertas
 }
