@@ -22,12 +22,12 @@
 
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
-    
+
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-<body>
+<body onload="buscarUltimosAlertas()">
 
     <!-- <div class="janela">
         <div class="header-left">
@@ -84,7 +84,7 @@
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
 
-                    <div class="opt" >
+                    <div class="opt">
                         <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="perfil.html">Perfil</a>
                     </div>
@@ -126,8 +126,17 @@
                         <div class="container-kpi">
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
-                                <p>Máquinas em Estado de Alerta</p>
-                                <h1 id ="contAlerta">12</h1>
+                                <p>Máquinas em Estado Crítico</p>
+                                <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select class="toggle">
+                                            <option value="">Visualizar Alertas</option>
+                                            <select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,7 +145,16 @@
                             <div class="indicador green"></div>
                             <div class="conteudo-kpi">
                                 <p>Máquinas em Estado Urgente</p>
-                                <h1 id="contUrgente">5</h1>
+                                <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contUrgente"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select class="toggle" alt="">
+                                            <option value="">Visualizar Alertas</option>
+                                            <select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,8 +162,17 @@
                         <div class="container-kpi">
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
-                                <p>Máquinas em Estado Crítico</p>
-                                <h1 id="contCritico">2</h1>
+                                <p>Máquinas em Estado de Alerta</p>
+                                <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contAlerta"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select class="toggle" alt="">
+                                            <option value="">Visualizar Alertas</option>
+                                            <select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -156,7 +183,7 @@
                         <div class="container-kpi">
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd de Máquinas em Estado de Alerta esse mês</p>
+                                <p>Qtd de Máquinas em Estado de Crítico esse mês</p>
                                 <h1>12</h1>
                             </div>
                         </div>
@@ -174,7 +201,7 @@
                         <div class="container-kpi">
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd de Máquinas em Estado Crítico esse mês</p>
+                                <p>Qtd de Máquinas em Estado de Alerta esse mês</p>
                                 <h1>2</h1>
                             </div>
                         </div>
@@ -208,7 +235,14 @@
 </html>
 
 <script>
-   
+    repetirFuncaoBuscarUltimosAlertas()
+
+    function repetirFuncaoBuscarUltimosAlertas() {
+        setTimeout(function () {
+            buscarUltimosAlertas()
+            repetirFuncaoBuscarUltimosAlertas()
+        }, 5000)
+    }
 
     function voltarHome() {
         window.location = '../index.html'
@@ -224,49 +258,55 @@
     gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
     console.log(gerenciarCirurgias)
 
-    if(cargo !== "Admin"){
+    if (cargo !== "Admin") {
         gerenciarUsuarios.style = 'display: none'
     }
 
-    if(cargo !== "Atendente" && cargo !== "Admin"){
+    if (cargo !== "Atendente" && cargo !== "Admin") {
         gerenciarCirurgias.style = 'display: none'
     }
 
-     console.log(buscarUltimosAlertas())
+
+
 
     function buscarUltimosAlertas() {
-    fetch(`/alertas/buscarUltimaMedida`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
-            return Promise.reject('Erro na resposta do servidor');
-        }
-    })
-    .then(resposta => {
-        console.log(`Dados analisados:`, resposta);
-    })
-    .catch(err => {
-        console.log(`Houve um erro no fetch dos dados: ${err}`);
-    });
-}
+        fetch(`/alertas/buscarUltimaMedida`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log(`Objetos com Alertas:`, resposta);
+                listarAlertas(resposta.critico, "Critico")
+                listarAlertas(resposta.urgente, "Urgente")
+                listarAlertas(resposta.atencao, "Alerta")
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
 
 
 
-function listarAlertas(alertas, tipoAlerta){
-    console.log(`Entrei em Listar alerta!!`)
-    console.log(`DEBUG Alertas e tipoAlerta ${alertas}, ${tipoAlerta}`)
-    const idContadorAlerta = "cont" + tipoAlerta
-    const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
+    function listarAlertas(alertas, tipoAlerta) {
+        console.log(`Entrei em Listar alerta!!`)
+        console.log(`DEBUG Alertas e tipoAlerta ${alertas}, ${tipoAlerta}`)
+        const idContadorAlerta = "cont" + tipoAlerta
+        const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
 
-    console.log(`DEBUG elementoHMTL ${contadorAlerta}`)
-    contadorAlerta.textContent = alertas.length
-}
+        console.log(`DEBUG elementoHMTL ${contadorAlerta}`)
+        console.log(`DEBUG tamanho do objeto de alerta ${alertas.length}`)
+        contadorAlerta.textContent = alertas.length
+    }
 
 </script>
