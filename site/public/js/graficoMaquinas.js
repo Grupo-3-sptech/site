@@ -1,5 +1,8 @@
 var contadorRegistro = 0;
 var contadorDadoEstavel = 0;
+var usoDisco = 0;
+var totalDisco = 0;
+
 
 function obterDadosGrafico() {
     fkRobo = document.getElementById("maquinas-ativas").value;
@@ -30,10 +33,11 @@ function obterDadosGrafico() {
         });
 }
 
+
 function obterDadosResumo() {
     fkRobo = document.getElementById("maquinas-ativas").value;
     tempoHistorico = document.getElementById("tempo-historico").value;
-
+    
     fetch(`/componentes/resumo/${fkRobo}/${tempoHistorico}`, {
         cache: "no-store",
     })
@@ -92,7 +96,7 @@ function plotarResumo(resposta, fkRobo, tempoHistorico) {
         } else if (registro.nomeComponente == "Velocidade da CPU") {
             cpu_velocidade.innerHTML = registro.dado + "GHz";
         } else if (registro.nomeComponente == "Processos da CPU") {
-            cpu_processos.innerHTML = registro.dado;
+            cpu_processos.innerHTML = Math.floor(registro.dado);
         } else if (registro.nomeComponente == "Tempo no sistema da CPU") {
             const dado = registro.dado;
 
@@ -110,8 +114,10 @@ function plotarResumo(resposta, fkRobo, tempoHistorico) {
             memoria_uso_swap.innerHTML = registro.dado + "GB";
         } else if (registro.nomeComponente == "Uso do Disco") {
             disco_uso.innerHTML = registro.dado + "GB";
+            usoDisco = registro.dado
         } else if (registro.nomeComponente == "Total do Disco") {
             disco_total.innerHTML = registro.dado + "GB";
+            discoTotal = registro.dado;
         } else if (registro.nomeComponente == "Porcentagem do Disco") {
             disco_porcentagem.innerHTML = Math.floor(registro.dado) + "%";
         } else if (registro.nomeComponente == "Tempo de Leitura do Disco") {
@@ -131,6 +137,31 @@ function plotarResumo(resposta, fkRobo, tempoHistorico) {
             }
         }
     });
+    plotarGraficoDisco(usoDisco, discoTotal)
+}
+
+function plotarUsb(fkRobo){
+    fkRobo = document.getElementById("maquinas-ativas").value;
+    console.log(fkRobo)
+    fetch(`/componentes/usb/${fkRobo}/`, {
+        cache: "no-store",
+    })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+
+                    resposta.forEach((registro) => {
+                        usb_conectado.innerHTML += `<h2>${registro.nome} - ${registro.dataHora}<h2>`
+                    })
+                });
+            } else {
+                console.error("Nenhum dado encontrado ou erro na API");
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
 }
 
 function plotarGrafico(resposta, fkRobo) {
@@ -254,74 +285,6 @@ function plotarGrafico(resposta, fkRobo) {
     );
 
     // ----------------------------------------------------------------------------------
-    // CRIANDO GRÁFICO DO DISCO
-    let labelDisco = [];
-
-    // Criando estrutura para plotar gráfico - dados
-    let dadosDisco = {
-        labels: [
-            'Disco Total',
-            'Disco Utilizado'
-          ],
-        datasets: [
-            {
-                label: "",
-                data: [100],
-                fill: true,
-                backgroundColor: [
-                    '#3E838C',
-                    '#78bec8'
-                  ],
-                tension: 0.1,
-            },
-        ],
-    };
-
-    console.log("----------------------------------------------");
-    console.log(
-        'Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":'
-    );
-    resposta.forEach((registro) => {
-        if (registro.nomeComponente == "Porcentagem do Disco") {
-            // labelDisco.push(registro.HorarioFormatado);
-            dadosDisco.datasets[0].data.push(registro.dado);
-        }
-    });
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-    // for (i = 0; i < resposta.length; i++) {
-    //     var registro = resposta[i];
-    //     labels.push(registro.HorarioDado);
-    //     dados.datasets[0].data.push(registro.dado);
-    //     // dados.datasets[1].data.push(registro.temperatura);
-    // }
-
-    console.log("----------------------------------------------");
-    console.log("O gráfico será plotado com os respectivos valores:");
-    console.log("Labels:");
-    console.log(labelMemoria);
-    console.log("Dados:");
-    console.log(dadosMemoria);
-    console.log("----------------------------------------------");
-
-    // Criando estrutura para plotar gráfico - config
-    const configDisco = {
-        type: "doughnut",
-        data: dadosDisco,
-    };
-
-    var grafico3 = document.getElementById(`myChartCanvas3`);
-
-    if (Chart.getChart(grafico3)) {
-        Chart.getChart(grafico3).destroy();
-    }
-
-    // Adicionando gráfico criado em div na tela
-    let myChart3 = new Chart(
-        document.getElementById(`myChartCanvas3`),
-        configDisco
-    );
-
-    // ----------------------------------------------------------------------------------
     // CRIANDO GRÁFICO DA REDE
     let labelRede = [];
 
@@ -409,15 +372,79 @@ function plotarGrafico(resposta, fkRobo) {
             atualizarGrafico(
                 fkRobo,
                 dadosCpu,
-                dadosDisco,
                 dadosMemoria,
                 dadosRede,
                 myChart,
                 myChart2,
-                myChart3,
                 myChart4
             ),
         10000
+    );
+}
+
+function plotarGraficoDisco(usoDisco, discoTotal){
+    let labelDisco = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosDisco = {
+        labels: [
+            'Disco Utilizado',
+            'Disco Livre'
+          ],
+        datasets: [
+            {
+                label: "",
+                data: [],
+                fill: true,
+                backgroundColor: [
+                    '#3E838C',
+                    '#78bec8'
+                  ],
+                tension: 0.1,
+            },
+        ],
+    };
+
+    console.log("----------------------------------------------");
+    console.log(
+        'Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":'
+    );
+    
+    dadosDisco.datasets[0].data.push(usoDisco);
+    dadosDisco.datasets[0].data.push(discoTotal - usoDisco);
+    
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    // for (i = 0; i < resposta.length; i++) {
+    //     var registro = resposta[i];
+    //     labels.push(registro.HorarioDado);
+    //     dados.datasets[0].data.push(registro.dado);
+    //     // dados.datasets[1].data.push(registro.temperatura);
+    // }
+
+    console.log("----------------------------------------------");
+    console.log("O gráfico será plotado com os respectivos valores:");
+    console.log("Labels:");
+    console.log(labelDisco);
+    console.log("Dados:");
+    console.log(dadosDisco);
+    console.log("----------------------------------------------");
+
+    // Criando estrutura para plotar gráfico - config
+    const configDisco = {
+        type: "doughnut",
+        data: dadosDisco,
+    };
+
+    var grafico3 = document.getElementById(`myChartCanvas3`);
+
+    if (Chart.getChart(grafico3)) {
+        Chart.getChart(grafico3).destroy();
+    }
+
+    // Adicionando gráfico criado em div na tela
+    let myChart3 = new Chart(
+        document.getElementById(`myChartCanvas3`),
+        configDisco
     );
 }
 
@@ -429,136 +456,154 @@ function plotarGrafico(resposta, fkRobo) {
 function atualizarGrafico(
     fkRobo,
     dadosCpu,
-    dadosDisco,
     dadosMemoria,
     dadosRede,
     myChart,
     myChart2,
-    myChart3,
     myChart4
 ) {
-    fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/1`, {
-        cache: "no-store",
-    })
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(novoRegistro);
-                    novoRegistro.forEach((registro) => {
-                        if (registro.nomeComponente == "Porcentagem da CPU") {
-                            if (
-                                registro.HorarioFormatado ==
-                                dadosCpu.labels[dadosCpu.labels.length - 1]
-                            ) {
-                                console.log(
-                                    "Como não há dados novos para captura de cpu, o gráfico não atualizará."
-                                );
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosCpu.labels.shift(); // apagar o primeiro
-                                dadosCpu.labels.push(registro.HorarioFormatado); // incluir um novo momento
 
-                                dadosCpu.datasets[0].data.shift(); // apagar o primeiro de umidade
-                                dadosCpu.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart.update();
+    if(tempoHistorico == "atual"){
+        fetch(`/componentes/medidas/${fkRobo}/${tempoHistorico}/1`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados atuais do gráfico:`);
+                        console.log(novoRegistro);
+                        novoRegistro.forEach((registro) => {
+                            if (registro.nomeComponente == "Porcentagem da CPU") {
+                                if (
+                                    registro.HorarioFormatado ==
+                                    dadosCpu.labels[dadosCpu.labels.length - 1]
+                                ) {
+                                    console.log(
+                                        "Como não há dados novos para captura de cpu, o gráfico não atualizará."
+                                    );
+                                } else {
+                                    // tirando e colocando valores no gráfico
+                                    dadosCpu.labels.shift(); // apagar o primeiro
+                                    dadosCpu.labels.push(registro.HorarioFormatado); // incluir um novo momento
+    
+                                    dadosCpu.datasets[0].data.shift(); // apagar o primeiro de umidade
+                                    dadosCpu.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+    
+                                    myChart.update();
+                                }
+                            } else if (registro.nomeComponente == "Porcentagem da Memoria") {
+                                if (
+                                    registro.HorarioFormatado ==
+                                    dadosMemoria.labels[dadosMemoria.labels.length - 1]
+                                ) {
+                                    console.log(
+                                        "Como não há dados novos para captura de memória, o gráfico não atualizará."
+                                    );
+                                } else {
+                                    // tirando e colocando valores no gráfico
+                                    dadosMemoria.labels.shift(); // apagar o primeiro
+                                    dadosMemoria.labels.push(registro.HorarioFormatado); // incluir um novo momento
+    
+                                    dadosMemoria.datasets[0].data.shift(); // apagar o primeiro de umidade
+                                    dadosMemoria.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+    
+                                    myChart2.update();
+                                }
+                            } else if (registro.nomeComponente == "Latencia de Rede") {
+                                if (
+                                    registro.HorarioFormatado ==
+                                    dadosRede.labels[dadosRede.labels.length - 1]
+                                ) {
+                                    console.log(
+                                        "Como não há dados novos para captura de rede, o gráfico não atualizará."
+                                    );
+                                } else {
+                                    // tirando e colocando valores no gráfico
+                                    dadosRede.labels.shift(); // apagar o primeiro
+                                    dadosRede.labels.push(registro.HorarioFormatado); // incluir um novo momento
+    
+                                    dadosRede.datasets[0].data.shift(); // apagar o primeiro de umidade
+                                    dadosRede.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+    
+                                    myChart4.update();
+                                }
                             }
-                        } else if (registro.nomeComponente == "Porcentagem da Memoria") {
-                            if (
-                                registro.HorarioFormatado ==
-                                dadosMemoria.labels[dadosMemoria.labels.length - 1]
-                            ) {
-                                console.log(
-                                    "Como não há dados novos para captura de memória, o gráfico não atualizará."
-                                );
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosMemoria.labels.shift(); // apagar o primeiro
-                                dadosMemoria.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosMemoria.datasets[0].data.shift(); // apagar o primeiro de umidade
-                                dadosMemoria.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart2.update();
-                            }
-                        } else if (registro.nomeComponente == "Porcentagem do Disco") {
-                            if (
-                                registro.HorarioFormatado ==
-                                dadosDisco.labels[dadosDisco.labels.length - 1]
-                            ) {
-                                console.log(
-                                    "Como não há dados novos para captura de disco, o gráfico não atualizará."
-                                );
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosDisco.labels.shift(); // apagar o primeiro
-                                dadosDisco.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosDisco.datasets[0].data.shift(); // apagar o primeiro de umidade
-                                dadosDisco.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart3.update();
-                            }
-                        } else if (registro.nomeComponente == "Rede") {
-                            if (
-                                registro.HorarioFormatado ==
-                                dadosRede.labels[dadosRede.labels.length - 1]
-                            ) {
-                                console.log(
-                                    "Como não há dados novos para captura de rede, o gráfico não atualizará."
-                                );
-                            } else {
-                                // tirando e colocando valores no gráfico
-                                dadosRede.labels.shift(); // apagar o primeiro
-                                dadosRede.labels.push(registro.HorarioFormatado); // incluir um novo momento
-
-                                dadosRede.datasets[0].data.shift(); // apagar o primeiro de umidade
-                                dadosRede.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-
-                                myChart4.update();
-                            }
-                        }
+                        });
+    
+                        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                        setTimeout(
+                            () =>
+                                atualizarGrafico(
+                                    fkRobo,
+                                    dadosCpu,
+                                    dadosMemoria,
+                                    dadosRede,
+                                    myChart,
+                                    myChart2,
+                                    myChart4
+                                ),
+                            10000
+                        );
                     });
-
+                } else {
+                    console.error("Nenhum dado encontrado ou erro na API");
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     setTimeout(
                         () =>
                             atualizarGrafico(
                                 fkRobo,
                                 dadosCpu,
-                                dadosDisco,
                                 dadosMemoria,
                                 dadosRede,
                                 myChart,
                                 myChart2,
-                                myChart3,
                                 myChart4
                             ),
                         10000
                     );
-                });
-            } else {
-                console.error("Nenhum dado encontrado ou erro na API");
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                setTimeout(
-                    () =>
-                        atualizarGrafico(
-                            fkRobo,
-                            dadosCpu,
-                            dadosDisco,
-                            dadosMemoria,
-                            dadosRede,
-                            myChart,
-                            myChart2,
-                            myChart3,
-                            myChart4
-                        ),
-                    10000
-                );
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    } else{
+        obterDadosGrafico()
+    }
+    
+}
+
+function limparDados(){
+    var grafico1 = document.getElementById(`myChartCanvas1`);
+    var grafico2 = document.getElementById(`myChartCanvas2`);
+    var grafico4 = document.getElementById(`myChartCanvas4`);
+    if (Chart.getChart(grafico2)) {
+        Chart.getChart(grafico2).destroy();
+    }
+
+    if (Chart.getChart(grafico1)) {
+        Chart.getChart(grafico1).destroy();
+    }
+
+    if (Chart.getChart(grafico4)) {
+        Chart.getChart(grafico4).destroy();
+    }
+
+    usb_conectado.innerHTML = ''
+    cpu_uso.innerHTML = "Indefinido";
+    cpu_disponivel.innerHTML = "Indefinido";
+    cpu_velocidade.innerHTML = "Indefinido";
+    cpu_processos.innerHTML = "Indefinido";
+    cpu_tempo.innerHTML = "Indefinido";
+    memoria_uso.innerHTML = "Indefinido";
+    memoria_disponivel.innerHTML = "Indefinido";
+    memoria_porcentagem_swap.innerHTML = "Indefinido";
+    memoria_uso_swap.innerHTML = "Indefinido";
+    disco_uso.innerHTML = "Indefinido";
+    disco_total.innerHTML = "Indefinido";
+    disco_porcentagem.innerHTML = "Indefinido";
+    disco_velocidade_leitura.innerHTML = "Indefinido";
+    disco_velocidade_escrita.innerHTML = "Indefinido";
+    rede_bytes_recebidos.innerHTML = "Indefinido";
+    rede_bytes_enviados.innerHTML = "Indefinido";
+    rede_status.innerHTML = "Indefinido";
 }

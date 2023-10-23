@@ -132,6 +132,10 @@ body {
     justify-content: space-between;
 }
 
+#usb_conectado{
+    font-size: 0.8rem;
+}
+
 .header-before {
     width: 90%;
     height: 140vh;
