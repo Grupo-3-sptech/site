@@ -11,6 +11,10 @@ router.get("/resumo/:id/:tempo", function (req, res) {
     componenteController.buscarMedidasResumo(req, res);
 });
 
+router.get("/usb/:id/", function (req, res) {
+    componenteController.buscarUsb(req, res);
+});
+
 // router.get("//:id", function (req, res) {
 //     medidaController.buscarMedidasEmTempoReal(req, res);
 // })

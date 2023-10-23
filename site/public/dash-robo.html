@@ -78,7 +78,7 @@
                 <div class="quit-button">
                     <div class="opt">
                         <img src="../Img/icons8-sair-30.png" alt="">
-                        <a href="index.html">Log Out</a>
+                        <a href="index.html" onclick="deslogar()">Log Out</a>
                     </div>
                 </div>
             </div>
@@ -308,6 +308,7 @@
                 <div class="box-ram" style="height: 45vh;">
                     <div class="box-usb">
                         <div class="label-grafico">USB's Conectados</div>
+                        <span id="usb_conectado"></span>
                     </div>
                     <div class="box-usb">
                         <div class="label-grafico">USB's Desconectados</div>
@@ -356,7 +357,14 @@ window.onload = async function () {
 };
 var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 var selectTempoHistorico = document.getElementById("tempo-historico");
-selectMaquinasAtivas.addEventListener("change", obterDadosGrafico, obterDadosResumo);
+selectMaquinasAtivas.addEventListener("change", function () {
+    
+    limparDados();
+    obterDadosGrafico();
+    obterDadosResumo();
+    plotarUsb();
+});
+
 selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
 async function buscarMaquinas(idHospital) {
@@ -391,6 +399,7 @@ async function buscarMaquinas(idHospital) {
             }
             obterDadosGrafico()
             obterDadosResumo()
+            plotarUsb()
         });
 }
 </script>

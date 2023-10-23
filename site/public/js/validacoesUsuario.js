@@ -14,3 +14,8 @@ function verificarAdmin(){
     }
 
   }
+
+  function deslogar(){
+    sessionStorage.clear();
+  }
+  
