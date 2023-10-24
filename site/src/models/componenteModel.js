@@ -310,10 +310,10 @@ function buscarMedidasResumo(id, tempo) {
 //     return database.executar(instrucaoSql);
 // }
 
-function buscarUsb(idRobo) {
-  console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+function buscarUsb(idRobo, conectado) {
+
   var instrucao = `
-  SELECT DISTINCT nome, DATE_FORMAT(MAX(dataHora),'%d/%m/%Y %H:%i:%s') as dataHora FROM dispositivos_usb WHERE conectado = 1 AND fkRoboUsb = ${idRobo}
+  SELECT DISTINCT nome, DATE_FORMAT(MAX(dataHora),'%d/%m/%Y %H:%i:%s') as dataHora FROM dispositivos_usb WHERE conectado = ${conectado} AND fkRoboUsb = ${idRobo}
   GROUP BY nome;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
