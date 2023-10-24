@@ -42,8 +42,9 @@ function buscarMedidasResumo(req, res) {
 function buscarUsb(req, res) {
 
     var idRobo = req.params.id;
+    var conectado = req.params.conectado;
 
-    componenteModel.buscarUsb(idRobo).then(function (resultado) {
+    componenteModel.buscarUsb(idRobo, conectado).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
