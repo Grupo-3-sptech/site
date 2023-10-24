@@ -250,10 +250,18 @@
 
 <script>
 
+    addEventListener("change", definirSessionStorageFkRobo())
+
     var elementoSelect = document.querySelector("#selectIntervalo")
     var opcaoSelecionada = elementoSelect.options[elementoSelect.selectedIndex];
     var intervalo = opcaoSelecionada.value;
+
+    
     elementoSelect.addEventListener("change", buscarQuantidadeDeAlertas(intervalo));
+
+    function definirSessionStorageMaquina(){
+        sessionStorage.setItem("fkRobo", document.querySelector("#visuAlerta").value)
+    }
 
     repetirFuncaoBuscarUltimosAlertas()
 
