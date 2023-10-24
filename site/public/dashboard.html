@@ -132,7 +132,7 @@
                                         <h1 class="texto-alertas" id="contCritico"></h1>
                                     </div>
                                     <div class="container-toogle">
-                                        <select class="toggle">
+                                        <select id="visuCritico" class="toggle">
                                             <option value="">Visualizar Alertas</option>
                                             <select>
                                     </div>
@@ -150,7 +150,7 @@
                                         <h1 class="texto-alertas" id="contUrgente"></h1>
                                     </div>
                                     <div class="container-toogle">
-                                        <select class="toggle" alt="">
+                                        <select id="visuUrgente" class="toggle" alt="">
                                             <option value="">Visualizar Alertas</option>
                                             <select>
                                     </div>
@@ -168,7 +168,7 @@
                                         <h1 class="texto-alertas" id="contAlerta"></h1>
                                     </div>
                                     <div class="container-toogle">
-                                        <select class="toggle" alt="">
+                                        <select id="visuCritico" class="toggle" alt="">
                                             <option value="">Visualizar Alertas</option>
                                             <select>
                                     </div>
@@ -217,13 +217,28 @@
                 </div>
                 <div class="segunda-parte">
                     <div class="card-graph card-graph1" style="margin-bottom: 5%;">
+                        <h3>Relatório Geral</h3>
                         <div class="conteudo-graph-g">
-                            <h3>Relatório Geral</h3>
+                            <div class="relatorio-geral">
+                                <div class="img-alerta">
+                                    <img src="./Img/alerta.png" alt="">
+                                </div>
+                                <div class="container-span">
+                                    <span id="spanDado">A CPU passou de 80%</span>
+                                </div>
+                                <div class="container-span">
+                                    <span id="spanDtHora">16/10/2023 18:00</span>
+                                </div>
+                                <div class="container-heading">
+                                    <span id="spanMaquina">Máquina 7</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -241,7 +256,7 @@
     elementoSelect.addEventListener("change", buscarQuantidadeDeAlertas(intervalo));
 
     repetirFuncaoBuscarUltimosAlertas()
- 
+
     function repetirFuncaoBuscarUltimosAlertas() {
         var elementoSelect = document.querySelector("#selectIntervalo")
         var opcaoSelecionada = elementoSelect.options[elementoSelect.selectedIndex];
@@ -301,13 +316,15 @@
                 listarAlertas(resposta.urgente, "Urgente")
                 listarAlertas(resposta.atencao, "Alerta")
 
+                repetirCriacaoElementos(resposta)
+
             })
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
     }
 
-    function buscarQuantidadeDeAlertas(intervalo){
+    function buscarQuantidadeDeAlertas(intervalo) {
         fetch(`/alertas/buscarQuantidadeDeAlertas/${intervalo}`, {
             method: "GET",
             headers: {
@@ -338,14 +355,83 @@
         const idContadorAlerta = "cont" + tipoAlerta
         const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
         contadorAlerta.textContent = alertas.length
-    }
 
-    function exibirQuantidadeDeAlertas(alertas, tipoAlerta){
+        // for(alerta in alertas){
+        //     const idVisuAlerta = "visu" + tipoAlerta
+        //     const visuAlerta = document.querySelector(`#${idVisuAlerta}`)
+        // visuAlerta.textContent = alertas.fkRobo
+        }
+        
+    // }
+
+    function exibirQuantidadeDeAlertas(alertas, tipoAlerta) {
         const idContadorAlerta = "qtd" + tipoAlerta
 
         const elementoQuantidadeAlerta = document.querySelector(`#${idContadorAlerta}`)
         elementoQuantidadeAlerta.textContent = alertas
 
     }
+
+    function repetirCriacaoElementos(alertas) {
+        limparElementos()
+        criarElementosRelatorioGeral(alertas.critico)
+        criarElementosRelatorioGeral(alertas.urgente)
+        criarElementosRelatorioGeral(alertas.atencao)
+    }
+
+    function criarElementosRelatorioGeral(alertaSeparado) {
+
+        for (alerta in alertaSeparado) {
+            if(alertaSeparado[alerta].fkRobo != undefined){
+                var divRelatorioGeral = document.createElement("div")
+            divRelatorioGeral.classList.add("relatorio-geral")
+
+            var divImgAlerta = document.createElement("div")
+            divImgAlerta.classList.add("img-alerta")
+            var imgAlerta = document.createElement("img")
+            imgAlerta.src = "./Img/alerta.png"
+            divImgAlerta.appendChild(imgAlerta)
+
+            var divSpanDado = document.createElement("div")
+            divSpanDado.classList.add("container-span")
+            var spanDado = document.createElement("span")
+            spanDado.id = "spanDado"
+            spanDado.textContent = alertaSeparado[alerta].nome_componente
+            divSpanDado.appendChild(spanDado)
+
+            var divSpanDtHora = document.createElement("div")
+            divSpanDtHora.classList.add("container-span")
+            var spanDtHora = document.createElement("span")
+            spanDtHora.id = "spanDtHora"
+            spanDtHora.textContent = alertaSeparado[alerta].data_formatada
+            divSpanDtHora.appendChild(spanDtHora)
+
+            var divSpanMaquina = document.createElement("div")
+            divSpanMaquina.classList.add("container-heading")
+            var spanMaquina = document.createElement("span")
+            spanMaquina.id = "spanMaquina"
+            spanMaquina.textContent = (`Máquina ${alertaSeparado[alerta].fkRobo}`)
+            divSpanMaquina.appendChild(spanMaquina)
+
+            divRelatorioGeral.appendChild(divImgAlerta)
+            divRelatorioGeral.appendChild(divSpanDado)
+            divRelatorioGeral.appendChild(divSpanDtHora)
+            divRelatorioGeral.appendChild(divSpanMaquina)
+
+            document.querySelector(".conteudo-graph-g").appendChild(divRelatorioGeral)
+            }
+           
+        }
+
+    }
+
+    function limparElementos() {
+            const elementos = document.querySelectorAll(".relatorio-geral")
+            for (elemento of elementos) {
+                elemento.remove()
+            }
+        }
+
+
 
 </script>

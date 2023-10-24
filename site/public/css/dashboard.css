@@ -207,8 +207,6 @@ body {
     justify-content: center;
 }
 
-
-
 .toggle{
     font-size: 16px;
     height: auto;
@@ -216,6 +214,8 @@ body {
     border-radius: 5px;
     outline: none;
 }
+
+
 
 
 
@@ -230,6 +230,10 @@ body {
 
 .orange {
     background-color: orange;
+}
+
+.yellow {
+    background-color: yellow;
 }
 
 .segunda-parte {
@@ -253,6 +257,10 @@ body {
     height: 65vh;
 }
 
+.card-graph h3{
+    padding-bottom: 2%;
+}
+
 .card-graph1 {
     width: 100%;
 }
@@ -264,11 +272,47 @@ body {
 .conteudo-graph-g {
     width: 85%;
     height: 55vh;
+    overflow-y: scroll;
+}
+
+.conteudo-graph-g h3{
+    padding-bottom: 4%;
 }
 
 .conteudo-graph-p {
     width: 85%;
     height: 48vh;
+    overflow-y: scroll;
+}
+
+.relatorio-geral{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: fit-content;
+    font-size: 20px;
+    padding-bottom: 2%;
+}
+
+.img-alerta{
+    width: 10%;
+    height: fit-content;
+}
+
+.img-alerta img{
+    width: 3vw;
+    height: 5vh;
+}
+
+.container-span{
+    width: 25%;
+}
+
+
+
+.container-heading{
+    width: 25%;
 }
 
 .div-select{
@@ -278,12 +322,18 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 2%;
+    padding-top: 2%;
 }
 
 .div-select select {
     width: 50%;
     height: 4vh;
     font-size: 2.5vh;
+}
+
+#selectIntervalo{
+    border-width: 0;
+    border-radius: 0;
 }
 
 /* tela de gerenciar usuarios */
