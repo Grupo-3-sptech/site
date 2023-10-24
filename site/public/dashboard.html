@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="container-toogle">
                                         <select id="visuCritico" class="toggle">
-                                            <option value="">Visualizar Alertas</option>
+                                            <option value="">Visualizar Máquinas</option>
                                             <select>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="container-toogle">
                                         <select id="visuUrgente" class="toggle" alt="">
-                                            <option value="">Visualizar Alertas</option>
+                                            <option value="">Visualizar Máquinas</option>
                                             <select>
                                     </div>
                                 </div>
@@ -168,8 +168,8 @@
                                         <h1 class="texto-alertas" id="contAlerta"></h1>
                                     </div>
                                     <div class="container-toogle">
-                                        <select id="visuCritico" class="toggle" alt="">
-                                            <option value="">Visualizar Alertas</option>
+                                        <select id="visuAlerta" class="toggle" alt="">
+                                            <option value="">Visualizar Máquinas</option>
                                             <select>
                                     </div>
                                 </div>
@@ -277,6 +277,7 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     cargo = sessionStorage.CARGO_USUARIO
+    
 
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
     console.log(gerenciarUsuarios)
@@ -356,13 +357,18 @@
         const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
         contadorAlerta.textContent = alertas.length
 
-        // for(alerta in alertas){
-        //     const idVisuAlerta = "visu" + tipoAlerta
-        //     const visuAlerta = document.querySelector(`#${idVisuAlerta}`)
-        // visuAlerta.textContent = alertas.fkRobo
+
+        limparElementosVisuAlerta(tipoAlerta)
+        for(alerta in alertas){
+            const idVisuAlerta = "visu" + tipoAlerta
+            const visuAlerta = document.querySelector(`#${idVisuAlerta}`)
+            const option = document.createElement("option")
+            option.value = alertas[alerta].fkRobo
+            option.textContent = (`Máquina ${alertas[alerta].fkRobo}`)
+            visuAlerta.appendChild(option)
         }
         
-    // }
+    }
 
     function exibirQuantidadeDeAlertas(alertas, tipoAlerta) {
         const idContadorAlerta = "qtd" + tipoAlerta
@@ -431,6 +437,16 @@
                 elemento.remove()
             }
         }
+
+    function limparElementosVisuAlerta(tipoAlerta){
+        const elementos = document.querySelectorAll(`#visu${tipoAlerta} option`)
+        for (elemento of elementos) {
+                if(elemento.textContent != "Visualizar Máquinas"){
+                    elemento.remove()
+                }
+
+            }
+    }
 
 
 
