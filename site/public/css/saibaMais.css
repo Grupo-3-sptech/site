@@ -53,6 +53,7 @@ body {
     padding: 0;
     background-size: cover;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
 
@@ -290,9 +291,78 @@ a:hover::after {
 /* new */
 
 .content{
-    width: 100%;
+    width: 100vw;
     height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+
+.banner2{
+    height: 70vh;
+    width: 100%;
+    background:linear-gradient( #3e838c6c 100%, #3E838c6c),url("../Img/doctor-79579_1280.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.banner2 h1, p{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#SUBTITLE{
+    width: 60%;
+    text-align: center;
+    margin-top: 2%;
+}
+
+#fcbtn{
+    margin-top: 2%;
+    width: 20%;
+    height: 5vh;
+    border-style: none;
+    background-color: #ffffff;
+    border-radius: 3vh;
+}
+
+.sobre-nos{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-sb{
+    height: 90vh;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.textbox{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: 80vh;
+}
+
+.textbox1{
+    width: 48%;
+    height: inherit;
+}
+
+.textbox1 p{
+    color: #7a7a7a;
+    font-size: 3.5vh;
 }
