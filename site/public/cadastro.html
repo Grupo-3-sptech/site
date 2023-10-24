@@ -7,48 +7,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro | MedConnect</title>
     <link rel="shortcut icon" href="Img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/cadastro.css">
-    <link rel="stylesheet" href="css/rodape.css">
-    <link rel="stylesheet" href="css/Menu.css">
+    <link rel="stylesheet" href="css/login.css">
+
 </head>
 
 <body>
-
-
-    <div class="navbar">
-        <div class="logo">
-            <a href="index.html"><img src="Img/logo horizontal sem fundo texto preto.png"></a>
-        </div>
-
-        <div class="opcoes">
-            <a href="index.html" class="linkMenu">Home</a>
-            <!-- <a href="saibaMais.html" class="linkMenu">Saiba Mais</a> -->
-            <a href="faleconosco.html" class="linkMenu">Fale Conosco</a>
-            <a href="empresas.html" class="linkMenu">Empresas</a>
-            <a class="linkMenu localizacaoSiteEntrar" href="login.html">Login</a>
-            <a class="linkMenu localizacaoSiteEntrar foco" href="cadastro.html">Cadastro</a>
-        </div>
-    </div>
-
-    <div class="fundo">
-        <div class="bloco">
-            <div class="blocoCadastro">
-                <p id="subtextCadastro">Ainda não possui uma conta?</p>
-                <p id="cadastro">Cadastre-se</p>
-                <div class="campos">
-                    <p class="geral1">Nome</p><input class="input" id="nome_input"placeholder="Informe o seu nome">
-                    <p class="geral2">E-mail</p><input class="input" id="email_input" type="email" placeholder="Informe o email">
-                    <p class="geral2">Senha</p><input class="input" id="senha_input" type="password" placeholder="Informe a senha">
-                    <p class="geralCS">Confirmação de senha </p><input class="input" id="confirmacao_input" type="password" placeholder="Confirme a sua senha">
-                    <p class="geralcpf">CPF</p><input class="input" id="cpf_input" type="text" placeholder="Informe o CPF">
-                    <p class="geralT">Telefone</p><input class="input" id="telefone_input" type="number" placeholder="Informe o telefone">
-                    <!-- <p class="geral">Cargo</p><input class="input" id="    codigo_input" type=""> -->
-                    <p class="geralT">Hospital</p>
-                    <select id="hospitalSelect" name="empresa" class="select">
-                        <option>Selecione seu hospital</option>
-                    </select>
+    <div class="all">
+        <div class="left">
+            <div class="content-left">
+                <img id="logo" src="Img/logo horizontal sem fundo.png" alt="">
+                <div class="bottom-left">
+                    <h2>Para associados</h2>
+                    <p>Conecte-se na área de trabalho de sua equipe e tenha acesso aos dashboards e relatórios</p>
+                    <p>Você precisa ser associado para realizar seu cadastro e login</p>
+                    <div class="icons">
+                        <i class="fa-solid fa-envelope" style="color: #ffffff;"></i>
+                        <i class="fa-brands fa-linkedin" style="color: #ffffff;"></i>
+                        <i class="fa-brands fa-facebook" style="color: #ffffff;"></i>
+                        <i class="fa-solid fa-phone" style="color: #ffffff;"></i>
+                    </div>
                 </div>
-                <button class="Criar" onclick="cadastrar()">Cadastrar</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="cadastro">
+
+                <div class="headerlogin">
+                    <h1>Bem vindo!</h1>
+                    <p>Realize seu cadastro e acesse a área de dashboards</p>
+                </div>
+
+                <div class="form-cadastro">
+
+                    <div class="form-left">
+                        <p class="geral1">Nome</p>
+                        <input class="input" id="nome_input" placeholder="Informe o seu nome">
+
+                        <p class="geral2">E-mail</p>
+                        <input class="input" id="email_input" type="email" placeholder="Informe o email">
+
+                        <p class="geralcpf">CPF</p>
+                        <input class="input" id="cpf_input" type="text" placeholder="Informe o CPF">
+
+                        <p class="geralT">Telefone</p>
+                        <input class="input" id="telefone_input" type="number" placeholder="Informe o telefone">
+                    </div>
+
+                    <div class="form-right">
+                        <p class="geral2">Senha</p>
+                        <input class="input" id="senha_input" type="password"
+                            placeholder="Informe a senha">
+
+                        <p class="geralCS">Confirmação de senha </p>
+                        <input class="input" id="confirmacao_input"
+                            type="password" placeholder="Confirme a sua senha">
+                        <p class="geralT">Hospital</p>
+
+                        <select id="hospitalSelect" name="empresa" class="select">
+                            <option>Selecione seu hospital</option>
+                        </select>
+                        <p> </p>
+                        <p></p>
+                        <button class="entrar2" onclick="cadastrar()">Cadastrar</button>
+                    </div>
+                </div>
+                
                 <div class="alerta_erro">
                     <div class="card_erro" id="cardErro">
                         <span id="mensagem_erro"></span>
@@ -59,53 +82,16 @@
                 </div>
             </div>
 
-            <img class="imgCadastro" src="Img/cadastro.jpg" alt="">
-
-
-
         </div>
     </div>
-    <div class="cabecario">
-
-    </div>
-
-    <div class="rodape_todo">
-        <div class="rodape_cima">
-
-            <p class="Entre_em_contato">Entre em Contato!</p>
-
-            <div class="email_contato">
-                <span>medconnect@contato.com</span>
-            </div>
-        </div>
-        <div class="rodape_meio">
-            <div class="rodape_meio_texto_direito">
-                <h1>Contato</h1>
-                <h3>Telefone: (11) 1234-4352</h3>
-                <h3>E-mail: medconnect@contato.com</h3>
-                <h3>Instagram: @medconnect</h3>
-            </div>
-
-            <div class="rodape_meio_texto_Esquerdo">
-                <h1>Conheça</h1>
-                <h3><a href="home.html">Home</a></h3>
-                <h3><a href="faleconosco.html">Fale Conosco</a></h3>
-                <h3><a href="cadastro.html">Cadastre-se</a></h3>
-                <h3><a href="login.html">Login</a></h3>
-
-            </div>
-        </div>
-        <div class="rodape_baixo">
-            <span class="span_rodape_baixo">Desenvolvido por MedConnect</span>
-        </div>
-
-
-    </div>
-
 
 </body>
 
+
 </html>
+
+<script src="https://kit.fontawesome.com/26c2ecd851.js" crossorigin="anonymous"></script>
+
 <script>
     var hospitais;
     fetch("/hospital/listar", {
@@ -176,84 +162,83 @@
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
                 "Sua senha precisa ter mais que 6 caracteres";
-        } else{
+        } else {
             fetch(`/funcionario/verificar/${hospitalVar}/${emailVar}`)
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!")
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO entrar()!")
 
-                if (resposta.ok) {
-                    console.log(resposta);
-                    if(resposta.status == 204){
-                        cardErro.style.display = "block";
-                        mensagem_erro.innerHTML =
-                        "Voce não foi cadastrado por esse hospital";
-                    }
-                
-                    resposta.json().then(json => {
-                        console.log(json);
-                        // var empresaCadastrada = json.some(objeto => {
-                        //     return objeto.email === email
-                        // })
-                        // console.log(empresaCadastrada)
-                        // console.log(email)
-                        if (json) {
-                            var cargoVar = json[0].fkEscalonamentoFuncionario;
-                            console.log(cargoVar)
-                            console.log(json)
-                            fetch("/usuarios/cadastrar", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    // crie um atributo que recebe o valor recuperado aqui
-                                    // Agora vá para o arquivo routes/usuario.js
-                                    nomeServer: nomeVar,
-                                    emailServer: emailVar,
-                                    senhaServer: senhaVar,
-                                    cpfServer: cpfVar,
-                                    telefoneServer: telefoneVar,
-                                    hospitalServer: hospitalVar,
-                                    cargoServer: cargoVar
-                                })
-                            }).then(function (resposta) {
-
-                                console.log("resposta: ", resposta);
-
-                                if (resposta.ok) {
-                                    setTimeout(() => {
-                                        window.location = "login.html";
-                                    }, "2000");
-
-
-                                    cardErro.style.display = "none";
-                                    cardAcerto.style.display = "block";
-                                    mensagem_acerto.innerHTML =
-                                        "Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!";
-
-
-                                } else {
-                                    
-                                }
-                            }).catch(function (resposta) {
-                                console.log(`#ERRO: ${resposta}`);
-                            });
-                            console.log('Foi')
-
-                        } else {
-                            // Swal.fire('O EMAIL NÃO FOI CADASTRADO PELA EMPRESA')
+                    if (resposta.ok) {
+                        console.log(resposta);
+                        if (resposta.status == 204) {
+                            cardErro.style.display = "block";
+                            mensagem_erro.innerHTML =
+                                "Voce não foi cadastrado por esse hospital";
                         }
 
-                    });
+                        resposta.json().then(json => {
+                            console.log(json);
+                            // var empresaCadastrada = json.some(objeto => {
+                            //     return objeto.email === email
+                            // })
+                            // console.log(empresaCadastrada)
+                            // console.log(email)
+                            if (json) {
+                                var cargoVar = json[0].fkEscalonamentoFuncionario;
+                                console.log(cargoVar)
+                                console.log(json)
+                                fetch("/usuarios/cadastrar", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        // crie um atributo que recebe o valor recuperado aqui
+                                        // Agora vá para o arquivo routes/usuario.js
+                                        nomeServer: nomeVar,
+                                        emailServer: emailVar,
+                                        senhaServer: senhaVar,
+                                        cpfServer: cpfVar,
+                                        telefoneServer: telefoneVar,
+                                        hospitalServer: hospitalVar,
+                                        cargoServer: cargoVar
+                                    })
+                                }).then(function (resposta) {
 
-                }
-            }).catch(function (erro) {
-                console.log(erro)
-                console.log("Empresa não cadastrada")
-            })
+                                    console.log("resposta: ", resposta);
+
+                                    if (resposta.ok) {
+                                        setTimeout(() => {
+                                            window.location = "login.html";
+                                        }, "2000");
+
+
+                                        cardErro.style.display = "none";
+                                        cardAcerto.style.display = "block";
+                                        mensagem_acerto.innerHTML =
+                                            "Cadastro realizado com sucesso! Apos receber seu cadastro, se logue conosco!";
+
+
+                                    } else {
+
+                                    }
+                                }).catch(function (resposta) {
+                                    console.log(`#ERRO: ${resposta}`);
+                                });
+                                console.log('Foi')
+
+                            } else {
+                                // Swal.fire('O EMAIL NÃO FOI CADASTRADO PELA EMPRESA')
+                            }
+
+                        });
+
+                    }
+                }).catch(function (erro) {
+                    console.log(erro)
+                    console.log("Empresa não cadastrada")
+                })
         }
     }
 
 </script>
 <script src="js/validacoesCadastro.js"></script>
-    

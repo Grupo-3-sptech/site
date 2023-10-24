@@ -9,42 +9,45 @@
     <link rel="shortcut icon" href="Img/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/rodape.css">
-    <link rel="stylesheet" href="css/Menu.css">
 </head>
 
 <body>
 
-
-    <div class="navbar">
-        <div class="logo">
-            <a href="index.html"><img src="Img/logo horizontal sem fundo texto preto.png"></a>
-        </div>
-
-        <div class="opcoes">
-            <a href="index.html" class="linkMenu">Home</a>
-            <!-- <a href="saibaMais.html" class="linkMenu">Saiba Mais</a> -->
-            <a href="faleconosco.html" class="linkMenu">Fale Conosco</a>
-            <a href="empresas.html" class="linkMenu">Empresas</a>
-            <a class="linkMenu localizacaoSiteEntrar foco" href="login.html">Login</a>
-            <a class="linkMenu localizacaoSiteEntrar" href="cadastro.html">Cadastro</a>
-        </div>
-    </div>
-
-    <div class="fundo">
-        <div class="bloco">
-            <div class="blocoLogin">
-                <div class="esquerda">
-                    <img src="Img/ajuda.png" class="esquerdaimg">
+    <div class="all">
+        <div class="left">
+            <div class="content-left">
+                <img id="logo" src="Img/logo horizontal sem fundo.png" alt="">
+                <div class="bottom-left">
+                    <h2>Para associados</h2>
+                    <p>Conecte-se na área de trabalho de sua equipe e tenha acesso aos dashboards e relatórios</p>
+                    <p>Você precisa ser associado para realizar seu cadastro e login</p>
+                    <div class="icons">
+                        <i class="fa-solid fa-envelope" style="color: #ffffff;"></i>
+                        <i class="fa-brands fa-linkedin" style="color: #ffffff;"></i>
+                        <i class="fa-brands fa-facebook" style="color: #ffffff;"></i>
+                        <i class="fa-solid fa-phone" style="color: #ffffff;"></i>
+                    </div>
                 </div>
-                <div class="direita">
-                    <p id="subtextLogin">Bem vindo novamente!</p>
-                    <span id="Login">Login</span>
-                    <p class="gerall">E-mail</p><input class="input2" id="email_input" type="email" placeholder="Digite seu email">
-                    <p class="gerall">Senha</p><input class="input2" id="senha_input" type="password" placeholder="Digite sua senha">
-                    <a class="esqueceu" href="aba_de_redefir_senha">Esqueceu a senha?</a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="login">
+
+                <div class="headerlogin">
+                    <h1>Bem vindo de volta!</h1>
+                    <p>Realize seu login e acesse a área de dashboards</p>
+                </div>
+               
+
+                <div class="form">
+                    <p class="gerall">E-mail</p>
+                    <input class="input2" id="email_input" type="email" placeholder="Digite seu email">
+
+                    <p class="gerall">Senha</p>
+                    <input class="input2" id="senha_input" type="password" placeholder="Digite sua senha">
                     <button class="entrar" onclick="entrar()">Entrar</button>
-                    <div class="alerta_erro">
+                    <p>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+                    <div class="alerta_erro" style="display: none;">
                         <div class="card_erro" id="cardErro">
                             <span id="mensagem_erro"></span>
                         </div>
@@ -53,52 +56,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-        </div>
-    </div>
-    <div class="cabecario">
-
-    </div>
-
-    <div class="rodape_todo">
-        <div class="rodape_cima">
-
-            <p class="Entre_em_contato">Entre em Contato!</p>
-
-            <div class="email_contato">
-                <span>medconnect@contato.com</span>
-            </div>
-        </div>
-        <div class="rodape_meio">
-            <div class="rodape_meio_texto_direito">
-                <h1>Contato</h1>
-                <h3>Telefone: (11) 1234-4352</h3>
-                <h3>E-mail: medconnect@contato.com</h3>
-                <h3>Instagram: @medconnect</h3>
-            </div>
-
-            <div class="rodape_meio_texto_Esquerdo">
-                <h1>Conheça</h1>
-                <h3><a href="home.html">Home</a></h3>
-                <h3><a href="faleconosco.html">Fale Conosco</a></h3>
-                <h3><a href="cadastro.html">Cadastre-se</a></h3>
-                <h3><a href="login.html">Login</a></h3>
 
             </div>
         </div>
-        <div class="rodape_baixo">
-            <span class="span_rodape_baixo">Desenvolvido por MedConnect</span>
-        </div>
-
-
-    </div>
-
 
 </body>
 
 </html>
+
+<script src="https://kit.fontawesome.com/26c2ecd851.js" crossorigin="anonymous"></script>
+
 <script>
     function entrar() {
         var email = email_input.value
@@ -120,9 +87,9 @@
                     senhaServer: senha
                 })
             }).then(function (resposta) {
-                if(resposta.status == 403){
-                cardErro.style.display = "block"
-                mensagem_erro.innerHTML = "O Login está inválido";
+                if (resposta.status == 403) {
+                    cardErro.style.display = "block"
+                    mensagem_erro.innerHTML = "O Login está inválido";
                 }
                 console.log("ESTOU NO THEN DO entrar()!")
 
@@ -143,8 +110,8 @@
                         cardAcerto.style.display = "none";
                         cardAcerto.style.display = "block";
                         mensagem_acerto.innerHTML =
-                        "Login realizado com sucesso! voce está sendo redirecionado...";
-                        
+                            "Login realizado com sucesso! voce está sendo redirecionado...";
+
                         sessionStorage.CARGO_USUARIO = json.cargo
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.EMAIL_USUARIO = json.email;
@@ -218,7 +185,7 @@
                 console.log(erro);
                 cardErro.style.display = "block"
                 mensagem_erro.innerHTML = "O Login está inválido";
-                
+
             })
         }
 
