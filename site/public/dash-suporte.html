@@ -70,37 +70,37 @@
 
                 <div class="options-sidebar">
                     <div class="opt">
-                        <img src="../Img/icons8-gráfico-combinado-30.png" alt="">
+                        <img src="Img/icons8-gráfico-combinado-30.png" alt="">
                         <a href="dashboard.html">Dashboard Geral</a>
                     </div>
 
                     <div class="opt">
-                        <img src="../Img/icons8-robô-48.png" alt="">
+                        <img src="Img/icons8-robô-48.png" alt="">
                         <a href="dash-robo.html">Dashboard Rôbos</a>
                     </div>
 
                     <div class="opt" id="gerenciar-usuarios">
-                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <img src="Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
                     </div>
 
                     <div class="opt">
-                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <img src="Img/icons8-usuário-30.png" id="diminuir" alt="">
                         <a href="perfil.html">Perfil</a>
                     </div>
 
-                    <div class="opt" id="aqui">
+                    <div class="opt">
                         <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
                         <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
                     </div>
 
-                    <div class="opt">
-                        <img src="../Img/icons8-assistente-48.png" alt="">
-                        <a href="#">Suporte</a>
+                    <div class="opt" id="aqui">
+                        <img src="Img/icons8-assistente-48.png" alt="">
+                        <a href="dash-suporte.html">Suporte</a>
                     </div>
 
                     <div class="opt">
-                        <img src="../Img/icons8-alerta-30.png" alt="">
+                        <img src="Img/icons8-alerta-30.png" alt="">
                         <a href="#">Chamado</a>
                     </div>
                 </div>
@@ -146,14 +146,11 @@
                     <input id="enviar" type="submit" value="Enviar">
                 </div>
             </div>
-
-            <div class="text-suporte2">
-                <p class="abrir-chamado">
-                    Abra um chamado na plataforma de suporte:
+            
+            <div id="enviar2">
+                <img id="img-pipefy" src="Img/pipefy-logo-01.png" alt="">
             </div>
-        </p>
-        <div><input id="enviar2" type="submit" value="Abrir um chamado">
-        </div>  
+            
         </div>
 
 </body>
@@ -166,10 +163,6 @@
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
     console.log(gerenciarUsuarios)
 
-    // if (cargo !== "Atendente") {
-    //     window.location = "dashboard.html"
-    // }
-
     if (cargo !== "Admin") {
         gerenciarUsuarios.style = 'display: none'
     }
@@ -180,201 +173,6 @@
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    var id = 1
 
-    // window.onload = exibirComponentes(id);
-
-    var cargos;
-    fetch("/cargo/listar", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
-            }
-            return response.json();
-        }).then(data => {
-
-            console.log(data)
-
-            cargos = data;
-
-            var selectElement = document.getElementById('cargoSelect');
-
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < cargos.length; i++) {
-                const cargo = cargos[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = cargo.idEscalonamento;
-                optionElement.text = cargo.cargo;
-                selectElement.appendChild(optionElement);
-            }
-
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
-
-    var funcionarios;
-    var idHospital = sessionStorage.ID_HOSPITAL
-
-    fetch(`/funcionarioAssociado/verificar/${idHospital}`)
-        .then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    funcionarios = json
-
-                    tabela = document.getElementById("tabela-funcionario")
-
-                    // Itera sobre o array de empresas e cria as opções do select
-                    for (let i = 0; i < funcionarios.length; i++) {
-                        const funcionario = funcionarios[i];
-                        const email = funcionario.email;
-                        const cargo = funcionario.cargo;
-                        const idAssociado = funcionario.idAssociado;
-
-                        var novaLinha = tabela.insertRow();
-                        novaLinha.id = idAssociado // Insere uma nova linha
-                        var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
-                        var celula2 = novaLinha.insertCell(1);
-                        var celula3 = novaLinha.insertCell(2)
-                        celula1.innerHTML = `${email}`;
-                        celula2.innerHTML = `${cargo}`;
-                        celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
-                    }
-                });
-
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
-        })
-
-    function salvar() {
-        var email = input_email.value;
-        var cargo = cargoSelect.value
-
-        if (email == "" || cargo == "") {
-
-        }
-        else {
-            fetch("/funcionarioAssociado/cadastrar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    emailServer: email,
-                    idHospitalServer: idHospital,
-                    idEscalonamentoServer: cargo
-                })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!")
-
-                if (resposta.ok) {
-                    console.log(resposta);
-
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json))
-
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1000); // 
-
-                    })
-                } else {
-
-                }
-
-            }).catch(function (erro) {
-                console.log(erro);
-
-            })
-        }
-    }
-
-    function remover(idAssociado) {
-
-        fetch(`/funcionarioAssociado/deletar`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idServer: idAssociado,
-            })
-        })
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!")
-
-                if (resposta.ok) {
-                    console.log(resposta);
-
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1000); // 
-                        // funcionarios = json
-
-                        // tabela = document.getElementById("tabela-funcionario")
-
-                        // // Itera sobre o array de empresas e cria as opções do select
-                        // for (let i = 0; i < funcionarios.length; i++) {
-                        //     const funcionario = funcionarios[i];
-                        //     const email = funcionario.email;
-                        //     const cargo = funcionario.cargo;
-                        //     const idAssociado = funcionario.idAssociado;
-
-                        //     var novaLinha = tabela.insertRow();
-                        //     novaLinha.id = idAssociado // Insere uma nova linha
-                        //     var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
-                        //     var celula2 = novaLinha.insertCell(1);
-                        //     var celula3 = novaLinha.insertCell(2)
-                        //     celula1.innerHTML = `${email}`;
-                        //     celula2.innerHTML = `${cargo}`;
-                        //     celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(idAssociado)" alt="Excluir">`
-                        // }
-                    });
-
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-                Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
-            })
-    }
-
-
-    // function ajustarTabela() {
-    //   var tabela = document.getElementById("minhaTabela");
-    //   var larguraTela = window.innerWidth;
-
-    //   if (larguraTela < 600) {
-    //     for (var i = 0; i < tabela.rows.length; i++) {
-    //       tabela.rows[i].cells[2].style.display = "none";
-    //     }
-    //   } else {
-    //     for (var i = 0; i < tabela.rows.length; i++) {
-    //       tabela.rows[i].cells[2].style.display = "table-cell";
-    //     }
-    //   }
-    // }
-
-    // // Chama a função de ajuste da tabela quando a página carrega e quando a tela é redimensionada
-    // window.addEventListener("load", ajustarTabela);
-    // window.addEventListener("resize", ajustarTabela);
 
 </script>

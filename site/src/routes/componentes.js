@@ -11,7 +11,7 @@ router.get("/resumo/:id/:tempo", function (req, res) {
     componenteController.buscarMedidasResumo(req, res);
 });
 
-router.get("/usb/:id/", function (req, res) {
+router.get("/usb/:id/:conectado", function (req, res) {
     componenteController.buscarUsb(req, res);
 });
 

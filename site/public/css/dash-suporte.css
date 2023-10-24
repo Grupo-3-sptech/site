@@ -22,7 +22,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: 10vh;
+    margin-top: 5vh;
     
 }
 
@@ -46,7 +46,7 @@ body {
 }
 
 .input-suporte2 {
-    height: 20vh;
+    height: 15vh;
     border-style: none;
     background-color: #dcdcdc;
     border-radius: 1vh;
@@ -65,22 +65,27 @@ body {
     color: white;
     transition: 0.4s ease-in-out;
     cursor: pointer;
-    margin-top: 10%;
 }
 
-.abrir-chamado{
-    margin-top: 5vh;
-    margin-left: -80vh
+.text-suporte{
+    display: flex;
 }
+
 
 #enviar2 {
-    height: 10vh;
-    width: 20vw;
+    height: 15vh;
+    width: 30vw;
     border-style: none;
-    background-color: #063940;
+    background-color: #195e63d0;
     border-radius: 2vh;
     color: white;
     transition: 0.4s ease-in-out;
     cursor: pointer;
-    margin-top: 10%;
+    margin-bottom: 5%;
+    margin-top: 3%;
+}
+
+#img-pipefy{
+    width: inherit;
+    height: inherit;
 }
