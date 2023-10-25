@@ -147,7 +147,7 @@
                 </div>
             </div>
             
-            <div id="enviar2">
+            <div onclick="suporte()" id="enviar2">
                 <img id="img-pipefy" src="Img/pipefy-logo-01.png" alt="">
             </div>
             
@@ -158,6 +158,12 @@
 </html>
 
 <script>
+
+    function suporte(){
+        var a = 'https://app.pipefy.com/public/form/HOFtqh52'
+
+        window.location = a
+    }
     cargo = sessionStorage.CARGO_USUARIO
 
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
