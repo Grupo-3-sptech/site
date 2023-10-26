@@ -184,7 +184,7 @@
                         <div class="container-kpi">
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd de Máquinas em Estado de Crítico esse mês</p>
+                                <p id="quantidadeAlertaCritico">Qtd de alertas em Estado Crítico hoje</p>
                                 <h1 id="qtdAlerta"></h1>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                         <div class="container-kpi">
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd de Máquinas em Estado Urgente esse mês</p>
+                                <p id="quantidadeAlertaUrgente">Qtd de alertas em Estado Urgente hoje</p>
                                 <h1 id="qtdUrgente"></h1>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                         <div class="container-kpi">
                             <div class="indicador yellow"></div>
                             <div class="conteudo-kpi">
-                                <p>Qtd de Máquinas em Estado de Alerta esse mês</p>
+                                <p id="quantidadeAlertaAlerta">Qtd de alertas em Estado Alerta hoje</p>
                                 <h1 id="qtdCritico"></h1>
                             </div>
                         </div>
@@ -292,6 +292,39 @@
             repetirFuncaoBuscarUltimosAlertas()
         }, 5000)
     }
+
+    var elementoSelectIntervalo = document.querySelector("#selectIntervalo")
+    elementoSelectIntervalo.addEventListener("change", mudarValoresPorTempo)
+
+    function mudarValoresPorTempo() {
+        var elementoSelectIntervalo = document.querySelector("#selectIntervalo")
+        const valorIntervalo = elementoSelectIntervalo.value
+        console.log(`DEBUG valor do intervalo: ${valorIntervalo}`)
+        const fraseIntervaloCritico = "Qtd de alertas em Estado Crítico"
+        const fraseIntervaloUrgente = "Qtd de alertas em Estado Alerta"
+        const fraseIntervaloAlerta = "Qtd de alertas em Estado Alerta"
+
+        if (valorIntervalo == "DAY") {
+            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} hoje`
+            document.querySelector(`#quantidadeAlertaUrgente`).textContent = `${fraseIntervaloUrgente} hoje`
+            document.querySelector(`#quantidadeAlertaAlerta`).textContent = `${fraseIntervaloAlerta} hoje`
+        }
+
+        if (valorIntervalo == "MONTH") {
+            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} nos últimos 30 dias`	
+            document.querySelector(`#quantidadeAlertaUrgente`).textContent = `${fraseIntervaloUrgente} nos últimos 30 dias`
+            document.querySelector(`#quantidadeAlertaAlerta`).textContent = `${fraseIntervaloAlerta} nos últimos 30 dias`
+        }
+
+        if (valorIntervalo == "YEAR") {
+            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} nos últimos 365 dias`
+            document.querySelector(`#quantidadeAlertaUrgente`).textContent = `${fraseIntervaloUrgente} nos últimos 365 dias`
+            document.querySelector(`#quantidadeAlertaAlerta`).textContent = `${fraseIntervaloAlerta} nos últimos 365 dias`
+        }
+    }
+
+
+
 
 
 
