@@ -311,7 +311,7 @@
         }
 
         if (valorIntervalo == "MONTH") {
-            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} nos últimos 30 dias`	
+            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} nos últimos 30 dias`
             document.querySelector(`#quantidadeAlertaUrgente`).textContent = `${fraseIntervaloUrgente} nos últimos 30 dias`
             document.querySelector(`#quantidadeAlertaAlerta`).textContent = `${fraseIntervaloAlerta} nos últimos 30 dias`
         }
@@ -410,6 +410,7 @@
 
 
 
+
     function listarAlertas(alertas, tipoAlerta) {
         const idContadorAlerta = "cont" + tipoAlerta
         const contadorAlerta = document.querySelector(`#${idContadorAlerta}`)
@@ -417,6 +418,20 @@
 
 
         limparElementosVisuAlerta(tipoAlerta)
+        criarOptionsVisuAlerta(alertas, tipoAlerta)
+    }
+
+    function limparElementosVisuAlerta(tipoAlerta) {
+        const elementos = document.querySelectorAll(`#visu${tipoAlerta} option`)
+        for (elemento of elementos) {
+            if (elemento.textContent != "Visualizar Máquinas") {
+                elemento.remove()
+            }
+
+        }
+    }
+
+    function criarOptionsVisuAlerta(alertas, tipoAlerta) {
         for (alerta in alertas) {
             const idVisuAlerta = "visu" + tipoAlerta
             const visuAlerta = document.querySelector(`#${idVisuAlerta}`)
@@ -425,7 +440,6 @@
             option.textContent = (`Máquina ${alertas[alerta].fkRobo}`)
             visuAlerta.appendChild(option)
         }
-
     }
 
     function exibirQuantidadeDeAlertas(alertas, tipoAlerta) {
@@ -441,6 +455,13 @@
         criarElementosRelatorioGeral(alertas.critico)
         criarElementosRelatorioGeral(alertas.urgente)
         criarElementosRelatorioGeral(alertas.atencao)
+    }
+
+    function limparElementos() {
+        const elementos = document.querySelectorAll(".relatorio-geral")
+        for (elemento of elementos) {
+            elemento.remove()
+        }
     }
 
     function criarElementosRelatorioGeral(alertaSeparado) {
@@ -489,22 +510,9 @@
 
     }
 
-    function limparElementos() {
-        const elementos = document.querySelectorAll(".relatorio-geral")
-        for (elemento of elementos) {
-            elemento.remove()
-        }
-    }
 
-    function limparElementosVisuAlerta(tipoAlerta) {
-        const elementos = document.querySelectorAll(`#visu${tipoAlerta} option`)
-        for (elemento of elementos) {
-            if (elemento.textContent != "Visualizar Máquinas") {
-                elemento.remove()
-            }
 
-        }
-    }
+
 
 
 
