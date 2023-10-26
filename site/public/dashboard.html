@@ -419,6 +419,7 @@
 
         limparElementosVisuAlerta(tipoAlerta)
         criarOptionsVisuAlerta(alertas, tipoAlerta)
+        removerOptionsDuplicadas(tipoAlerta)
     }
 
     function limparElementosVisuAlerta(tipoAlerta) {
@@ -431,6 +432,7 @@
         }
     }
 
+
     function criarOptionsVisuAlerta(alertas, tipoAlerta) {
         for (alerta in alertas) {
             const idVisuAlerta = "visu" + tipoAlerta
@@ -441,6 +443,19 @@
             visuAlerta.appendChild(option)
         }
     }
+
+    function removerOptionsDuplicadas(tipoAlerta) {
+    const options = document.querySelectorAll(`#visu${tipoAlerta} option`);
+    const valores = [];
+
+    options.forEach((option, i) => {
+        if (valores.includes(option.value)) {
+            option.remove();
+        } else {
+            valores.push(option.value);
+        }
+    });
+}
 
     function exibirQuantidadeDeAlertas(alertas, tipoAlerta) {
         const idContadorAlerta = "qtd" + tipoAlerta
