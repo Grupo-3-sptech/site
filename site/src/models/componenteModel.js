@@ -226,7 +226,7 @@ function buscarMedidasResumo(id, tempo) {
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = 1
+    WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
     GROUP BY MesFormatado, nomeComponente
     ORDER BY MesFormatado;`;
@@ -237,7 +237,7 @@ function buscarMedidasResumo(id, tempo) {
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = 1
+    WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
     GROUP BY MesFormatado, nomeComponente
     ORDER BY MesFormatado;`;
@@ -255,7 +255,7 @@ function buscarMedidasResumo(id, tempo) {
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = 1
+    WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= NOW() - INTERVAL 365 DAY AND HorarioDado <= NOW()
     GROUP BY AnoFormatado, nomeComponente
     ORDER BY AnoFormatado;`;
@@ -266,7 +266,7 @@ function buscarMedidasResumo(id, tempo) {
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
-    WHERE r.fkRoboRegistro = 1
+    WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= NOW() - INTERVAL 365 DAY AND HorarioDado <= NOW()
     GROUP BY AnoFormatado, nomeComponente
     ORDER BY AnoFormatado;`;
