@@ -1,95 +1,133 @@
 @media screen and (max-width: 850px) {
-    .blocoImgBannerDaVinci {
+    body{
+        overflow-x: hidden;
+    }
+
+    /* .ag-format-container{
+        
+    } */
+
+    .ag-courses_box{
+        padding: 150px 0;
         display: none;
-        width: 100%;
     }
 
-    .textoBannerDaVinci {
-        width: 100vh;
+    #before-banner{
+        height: 85vh;
     }
 
-    .textoBannerDaVinci2 {
-        width: 110vh;
+    #img-davinci{
+        display: none;
     }
 
-    .fundoDaVinci {
-        margin-bottom: 80vh;
-        height: 170vh;
-    }
-
-    .bannerNumeros {
-        flex-wrap: wrap;
-        margin-top: 20vh;
-        /* margin-bottom: 20vh; */
-    }
-
-    .blocoNumero,
-    .blocoNumero2,
-    .blocoNumero3,
-    .blocoNumero4 {
-        display: block;
-        margin-top: 20vh;
-    }
-
-    .blocoNumero:hover,
-    .blocoNumero2:hover,
-    .blocoNumero3:hover,
-    .blocoNumero4:hover {
-        -webkit-transform: scale(1.05);
-        transform: scale(1.05);
-    }
-
-    .textoBannerInovacao {
-        font-size: 3.7rem;
-        position: relative;
-        right: -10vh;
-    }
-
-    .blocoAllInovacao {
-        display: block;
-
-    }
-
-    .bannerInovacao {
-        width: 80%;
-        display: flex;
+    #sobre-davinci{
+        width: 100vw;
         justify-content: center;
-        margin-right: 10vh;
+        
     }
 
-    .fundoInovacao {
-        margin-bottom: 30vh;
-
-    }
-
-    .cardBannerEquipe2 {
+    .img-davinci img{
         display: none;
     }
 
-    .imgBannerInovacao {
-        display: none;
+    #text-davinci{
+        width: 80%;
     }
 
-    .inove {
-        max-width: 100vh;
+    #text-davinci span{
+        font-size: 2vh;
     }
 
-    .tituloBannerInovacao {
-        margin-left: -10vh;
+    #indicador p{
+        font-size: 2vh;
     }
 
-    .textoBannerDaVinci2 {
-        margin-bottom: 80vh;
+    #indicador2 p{
+        font-size: 2vh;
     }
 
-    .imgBannerEquipe {
-        max-width: 18vh;
-
-        margin-left: 1vh;
-        margin-right: 3vh;
+    #indicador3 p{
+        font-size: 2vh;
     }
 
+    #indicador4 p{
+        font-size: 2vh;
+    }
+
+
+
+    #indicador h1{
+        font-size: 3vh;
+    }
+
+    #indicador2 h1{
+        font-size: 3vh;
+    }
+
+    #indicador3 h1{
+        font-size: 3vh;
+    }
+
+    #indicador4 h1{
+        font-size: 3vh;
+    }
+
+    .a{
+        width: 25%;
+    }
+
+
+    #logoimg{
+        height: 7.5vh;
+    }
+
+    #login-icon{
+        width: 50%;
+    }
+
+    #linklogin{
+        font-size: 2vh;
+    }
+
+    #bottom{
+        width: 110%;
+    }
+
+    #bottom ul li a{
+        
+        font-size: 2vh;
+    }
+
+    #text-banner{
+        width: 60%;
+    }
+
+    #text-banner button{
+        font-size: 2vh;
+    }
+
+    #text-banner p{
+        font-size: 2vh;
+    }
+
+    #text-banner h1{
+        font-size: 3vh;
+    }
+
+    #content-sobre-nos h1{
+        font-size: 4vh;
+    }
+
+    .ag-format-container {
+        width: 96%;
+        margin-top: 23vh;
+    }
+
+   
 }
+
+
+
 
 * {
     margin: 0;
@@ -105,6 +143,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
     /* background-image: linear-gradient(to bottom, white, white, white, rgba(253, 183, 92, 0.20),white, white, #8ebdb63e, #8ebdb63e); */
+    width: 100vw;
 }
 
 .navbar {
@@ -295,7 +334,7 @@ a:hover::after {
 }
 
 .img-davinci img {
-    height: 70vh;
+    height: 60vh;
     width: auto;
 }
 
@@ -327,7 +366,7 @@ a:hover::after {
 .indicadores {
     width: 100%;
     height: 35vh;
-    background-color: #3E838C;
+    background:linear-gradient( #3e838cae 100%, #3e838cae 100%),url("../Img/doctor-79579_1280.jpg");
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,7 +383,7 @@ a:hover::after {
 
 .indicador {
     width: 20%;
-    height: inherit;
+    height: 25vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -352,6 +391,8 @@ a:hover::after {
     text-align: center;
     color: white;
     font-size: 3.3vh;
+    border: 1px solid rgba(255, 255, 255, 0.343);
+    border-radius: 3vh;
 }
 
 .indicador p {
@@ -510,6 +551,47 @@ a:hover::after {
 @media only screen and (max-width: 767px) {
     .ag-format-container {
         width: 96%;
+        margin-top: 23vh;
+    }
+
+    #content-parte{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #parte-esquerda{
+        width: 90%;
+    }
+
+    #parte-direita{
+        width: 90%;
+        font-size: 2.3vh;
+    }
+
+    #setaBannerEquipe{
+        height: 5vh;
+    }
+
+    #card1Equipe{
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    #card2Equipe{
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    #remove{
+        display: none;
+    }
+
+    #links-footer{
+        width: 50%;
+    }
+
+    #icons-footer{
+        width: 42vw;
     }
 
 }

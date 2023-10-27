@@ -251,18 +251,34 @@
 
 <script>
 
-    addEventListener("change", definirSessionStorageFkRobo())
+    // addEventListener("change", definirSessionStorageFkRobo())
 
     var elementoSelect = document.querySelector("#selectIntervalo")
     var opcaoSelecionada = elementoSelect.options[elementoSelect.selectedIndex];
     var intervalo = opcaoSelecionada.value;
 
-    
-    elementoSelect.addEventListener("change", buscarQuantidadeDeAlertas(intervalo));
 
-    function definirSessionStorageMaquina(){
-        sessionStorage.setItem("fkRobo", document.querySelector("#visuAlerta").value)
+    const visuAlerta = document.querySelector("#visuAlerta");
+    const visuUrgente = document.querySelector("#visuUrgente");
+    const visuCritico = document.querySelector("#visuCritico");
+
+    visuAlerta.addEventListener("change", () => {
+        definirSessionStorageMaquina(visuAlerta);
+    });
+    visuUrgente.addEventListener("change", () => {
+        definirSessionStorageMaquina(visuUrgente);
+    });
+    visuCritico.addEventListener("change", () => {
+        definirSessionStorageMaquina(visuCritico);
+    });
+
+    function definirSessionStorageMaquina(elementoSelect) {
+        const optionSelecionada = elementoSelect.value;
+        if (optionSelecionada !== "Visualizar Maquina") {
+            sessionStorage.setItem("FK_ROBO", optionSelecionada);
+        }
     }
+
 
     repetirFuncaoBuscarUltimosAlertas()
 
@@ -286,7 +302,7 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     cargo = sessionStorage.CARGO_USUARIO
-    
+
 
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
     console.log(gerenciarUsuarios)
@@ -368,7 +384,7 @@
 
 
         limparElementosVisuAlerta(tipoAlerta)
-        for(alerta in alertas){
+        for (alerta in alertas) {
             const idVisuAlerta = "visu" + tipoAlerta
             const visuAlerta = document.querySelector(`#${idVisuAlerta}`)
             const option = document.createElement("option")
@@ -376,7 +392,7 @@
             option.textContent = (`Máquina ${alertas[alerta].fkRobo}`)
             visuAlerta.appendChild(option)
         }
-        
+
     }
 
     function exibirQuantidadeDeAlertas(alertas, tipoAlerta) {
@@ -397,64 +413,64 @@
     function criarElementosRelatorioGeral(alertaSeparado) {
 
         for (alerta in alertaSeparado) {
-            if(alertaSeparado[alerta].fkRobo != undefined){
+            if (alertaSeparado[alerta].fkRobo != undefined) {
                 var divRelatorioGeral = document.createElement("div")
-            divRelatorioGeral.classList.add("relatorio-geral")
+                divRelatorioGeral.classList.add("relatorio-geral")
 
-            var divImgAlerta = document.createElement("div")
-            divImgAlerta.classList.add("img-alerta")
-            var imgAlerta = document.createElement("img")
-            imgAlerta.src = "./Img/alerta.png"
-            divImgAlerta.appendChild(imgAlerta)
+                var divImgAlerta = document.createElement("div")
+                divImgAlerta.classList.add("img-alerta")
+                var imgAlerta = document.createElement("img")
+                imgAlerta.src = "./Img/alerta.png"
+                divImgAlerta.appendChild(imgAlerta)
 
-            var divSpanDado = document.createElement("div")
-            divSpanDado.classList.add("container-span")
-            var spanDado = document.createElement("span")
-            spanDado.id = "spanDado"
-            spanDado.textContent = alertaSeparado[alerta].nome_componente
-            divSpanDado.appendChild(spanDado)
+                var divSpanDado = document.createElement("div")
+                divSpanDado.classList.add("container-span")
+                var spanDado = document.createElement("span")
+                spanDado.id = "spanDado"
+                spanDado.textContent = alertaSeparado[alerta].nome_componente
+                divSpanDado.appendChild(spanDado)
 
-            var divSpanDtHora = document.createElement("div")
-            divSpanDtHora.classList.add("container-span")
-            var spanDtHora = document.createElement("span")
-            spanDtHora.id = "spanDtHora"
-            spanDtHora.textContent = alertaSeparado[alerta].data_formatada
-            divSpanDtHora.appendChild(spanDtHora)
+                var divSpanDtHora = document.createElement("div")
+                divSpanDtHora.classList.add("container-span")
+                var spanDtHora = document.createElement("span")
+                spanDtHora.id = "spanDtHora"
+                spanDtHora.textContent = alertaSeparado[alerta].data_formatada
+                divSpanDtHora.appendChild(spanDtHora)
 
-            var divSpanMaquina = document.createElement("div")
-            divSpanMaquina.classList.add("container-heading")
-            var spanMaquina = document.createElement("span")
-            spanMaquina.id = "spanMaquina"
-            spanMaquina.textContent = (`Máquina ${alertaSeparado[alerta].fkRobo}`)
-            divSpanMaquina.appendChild(spanMaquina)
+                var divSpanMaquina = document.createElement("div")
+                divSpanMaquina.classList.add("container-heading")
+                var spanMaquina = document.createElement("span")
+                spanMaquina.id = "spanMaquina"
+                spanMaquina.textContent = (`Máquina ${alertaSeparado[alerta].fkRobo}`)
+                divSpanMaquina.appendChild(spanMaquina)
 
-            divRelatorioGeral.appendChild(divImgAlerta)
-            divRelatorioGeral.appendChild(divSpanDado)
-            divRelatorioGeral.appendChild(divSpanDtHora)
-            divRelatorioGeral.appendChild(divSpanMaquina)
+                divRelatorioGeral.appendChild(divImgAlerta)
+                divRelatorioGeral.appendChild(divSpanDado)
+                divRelatorioGeral.appendChild(divSpanDtHora)
+                divRelatorioGeral.appendChild(divSpanMaquina)
 
-            document.querySelector(".conteudo-graph-g").appendChild(divRelatorioGeral)
+                document.querySelector(".conteudo-graph-g").appendChild(divRelatorioGeral)
             }
-           
+
         }
 
     }
 
     function limparElementos() {
-            const elementos = document.querySelectorAll(".relatorio-geral")
-            for (elemento of elementos) {
-                elemento.remove()
-            }
+        const elementos = document.querySelectorAll(".relatorio-geral")
+        for (elemento of elementos) {
+            elemento.remove()
         }
+    }
 
-    function limparElementosVisuAlerta(tipoAlerta){
+    function limparElementosVisuAlerta(tipoAlerta) {
         const elementos = document.querySelectorAll(`#visu${tipoAlerta} option`)
         for (elemento of elementos) {
-                if(elemento.textContent != "Visualizar Máquinas"){
-                    elemento.remove()
-                }
-
+            if (elemento.textContent != "Visualizar Máquinas") {
+                elemento.remove()
             }
+
+        }
     }
 
 

@@ -1,20 +1,185 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
-@media screen and (max-width: 800px){
-    .contato2{
+
+@media only screen and (max-width: 767px) {
+    .ag-format-container {
+        width: 96%;
+        margin-top: 23vh;
+    }
+
+    #content-parte{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #parte-esquerda{
+        width: 90%;
+    }
+
+    #parte-direita{
+        width: 90%;
+        font-size: 2.3vh;
+    }
+
+    #setaBannerEquipe{
+        height: 5vh;
+    }
+
+    #card1Equipe{
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    #card2Equipe{
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    #remove{
         display: none;
-        width: -300vh;
     }
-    .imgContato{
-        width: 10vh;
+
+    #links-footer{
+        width: 50%;
     }
-    .duvida{
-        margin-left: 5vh;
+
+    #icons-footer{
+        width: 42vw;
     }
 
 }
+
+@media screen and (max-width: 850px) {
+    body{
+        overflow-x: hidden;
+    }
+
+    /* .ag-format-container{
+        
+    } */
+
+    .ag-courses_box{
+        padding: 150px 0;
+        display: none;
+    }
+
+    #before-banner{
+        height: 85vh;
+    }
+
+    #img-davinci{
+        display: none;
+    }
+
+    #sobre-davinci{
+        width: 100vw;
+        justify-content: center;
+        
+    }
+
+    .img-davinci img{
+        display: none;
+    }
+
+    #text-davinci{
+        width: 80%;
+    }
+
+    #text-davinci span{
+        font-size: 2vh;
+    }
+
+    #indicador p{
+        font-size: 2vh;
+    }
+
+    #indicador2 p{
+        font-size: 2vh;
+    }
+
+    #indicador3 p{
+        font-size: 2vh;
+    }
+
+    #indicador4 p{
+        font-size: 2vh;
+    }
+
+
+
+    #indicador h1{
+        font-size: 3vh;
+    }
+
+    #indicador2 h1{
+        font-size: 3vh;
+    }
+
+    #indicador3 h1{
+        font-size: 3vh;
+    }
+
+    #indicador4 h1{
+        font-size: 3vh;
+    }
+
+    .a{
+        width: 25%;
+    }
+
+
+    #logoimg{
+        height: 7.5vh;
+    }
+
+    #login-icon{
+        width: 50%;
+    }
+
+    #linklogin{
+        font-size: 2vh;
+    }
+
+    #bottom{
+        width: 110%;
+    }
+
+    #bottom ul li a{
+        
+        font-size: 2vh;
+    }
+
+    #text-banner{
+        width: 60%;
+    }
+
+    #text-banner button{
+        font-size: 2vh;
+    }
+
+    #text-banner p{
+        font-size: 2vh;
+    }
+
+    #text-banner h1{
+        font-size: 3vh;
+    }
+
+    #content-sobre-nos h1{
+        font-size: 4vh;
+    }
+
+    .ag-format-container {
+        width: 96%;
+        margin-top: 23vh;
+    }
+
+   
+}
+
 
 * {
     margin: 0;

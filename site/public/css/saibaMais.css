@@ -1,44 +1,206 @@
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 767px) {
+    .ag-format-container {
+        width: 96%;
+        margin-top: 23vh;
+    }
 
+    #content-parte{
+        display: flex;
+        flex-direction: column;
+    }
 
-    .SaibaFoto1{
+    #parte-esquerda{
+        width: 90%;
+    }
+
+    #parte-direita{
+        width: 90%;
+        font-size: 2.3vh;
+    }
+
+    #setaBannerEquipe{
+        height: 5vh;
+    }
+
+    #card1Equipe{
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    #card2Equipe{
+        flex-direction: column;
+        height: 40vh;
+    }
+
+    #remove{
         display: none;
     }
-    .SaibaFoto2{
+
+    #links-footer{
+        width: 50%;
+    }
+
+    #icons-footer{
+        width: 42vw;
+    }
+
+}
+
+@media screen and (max-width: 850px) {
+    body{
+        overflow-x: hidden;
+    }
+
+    /* .ag-format-container{
+        
+    } */
+
+    .ag-courses_box{
+        padding: 150px 0;
         display: none;
     }
-.txt2{
+
+    #before-banner{
+        height: 85vh;
+    }
+
+    #img-davinci{
+        display: none;
+    }
+
+    #sobre-davinci{
+        width: 100vw;
+        justify-content: center;
+        
+    }
+
+    .img-davinci img{
+        display: none;
+    }
+
+    #text-davinci{
+        width: 80%;
+    }
+
+    #text-davinci span{
+        font-size: 2vh;
+    }
+
+    #indicador p{
+        font-size: 2vh;
+    }
+
+    #indicador2 p{
+        font-size: 2vh;
+    }
+
+    #indicador3 p{
+        font-size: 2vh;
+    }
+
+    #indicador4 p{
+        font-size: 2vh;
+    }
+
+
+
+    #indicador h1{
+        font-size: 3vh;
+    }
+
+    #indicador2 h1{
+        font-size: 3vh;
+    }
+
+    #indicador3 h1{
+        font-size: 3vh;
+    }
+
+    #indicador4 h1{
+        font-size: 3vh;
+    }
+
+    .a{
+        width: 25%;
+    }
+
+
+    #logoimg{
+        height: 7.5vh;
+    }
+
+    #login-icon{
+        width: 50%;
+    }
+
+    #linklogin{
+        font-size: 2vh;
+    }
+
+    #bottom{
+        width: 110%;
+    }
+
+    #bottom ul li a{
+        
+        font-size: 2vh;
+    }
+
+    #text-banner{
+        width: 60%;
+    }
+
+    #text-banner button{
+        font-size: 2vh;
+    }
+
+    #text-banner p{
+        font-size: 2vh;
+    }
+
+    #text-banner h1{
+        font-size: 3vh;
+    }
+
+    #content-sobre-nos h1{
+        font-size: 4vh;
+    }
+
+    .ag-format-container {
+        width: 96%;
+        margin-top: 23vh;
+    }
+
+    #SUBTITLE{
+        font-size: 3vh;
+        width: 90vw;
+    }
+
+   #content{
+    height: 167vh;
+    justify-content: space-between;
+   }
+
+   #textbox1{
+    width: 90vw;
+   }
+
+   #textbox2{
     display: none;
+   }
 
+   #textbox{
+    height: 88vh;
+    font-size: 3vh;
+   }
 
+   #sobre-nos{
+    height: 114vh;
+   }
+
+   
 }
-.txt1{
-    max-width: 135vh;
-}
-    .blocoSaiba{
-        display: block;
-    }
-    .bannerSaibaMais {
-        height: 200vh;
 
-    }
-
-    .tituloSaibaMais {
-
-        font-size: 1rem;
-    }
-
-    .SaibaTexto1 {
-        font-size: 0.6rem;
-        width: 60vh;
-
-    }
-
-    .SaibaTexto2 {
-        font-size: 0.6rem;
-    }
-
-}
 
 * {
     margin: 0;
@@ -53,6 +215,7 @@ body {
     padding: 0;
     background-size: cover;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
 
@@ -290,9 +453,78 @@ a:hover::after {
 /* new */
 
 .content{
-    width: 100%;
+    width: 100vw;
     height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+
+.banner2{
+    height: 70vh;
+    width: 100%;
+    background:linear-gradient( #3e838c6c 100%, #3E838c6c),url("../Img/doctor-79579_1280.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.banner2 h1, p{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#SUBTITLE{
+    width: 60%;
+    text-align: center;
+    margin-top: 2%;
+}
+
+#fcbtn{
+    margin-top: 2%;
+    width: 20%;
+    height: 5vh;
+    border-style: none;
+    background-color: #ffffff;
+    border-radius: 3vh;
+}
+
+.sobre-nos{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-sb{
+    height: 90vh;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.textbox{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: 80vh;
+}
+
+.textbox1{
+    width: 48%;
+    height: inherit;
+}
+
+.textbox1 p{
+    color: #7a7a7a;
+    font-size: 3.5vh;
 }

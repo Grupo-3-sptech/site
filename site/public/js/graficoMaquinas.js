@@ -160,26 +160,26 @@ function plotarUsb(fkRobo){
                 console.error("Nenhum dado encontrado ou erro na API");
             }
 
-            conectado = 0
-            fetch(`/componentes/usb/${fkRobo}/${conectado}`, {
-                cache: "no-store",
-            })
-                .then(function (response) {
-                    if (response.ok) {
-                        response.json().then(function (resposta) {
-                            console.log(resposta);
+            // conectado = 0
+            // fetch(`/componentes/usb/${fkRobo}/${conectado}`, {
+            //     cache: "no-store",
+            // })
+            //     .then(function (response) {
+            //         if (response.ok) {
+            //             response.json().then(function (resposta) {
+            //                 console.log(resposta);
         
-                            resposta.forEach((registro) => {
-                                usb_desconectado.innerHTML += `<h2>${registro.nome} - ${registro.dataHora}<h2>`
-                            })
-                        });
-                    } else {
-                        console.error("Nenhum dado encontrado ou erro na API");
-                    }
-                })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
+            //                 // resposta.forEach((registro) => {
+            //                 //     usb_desconectado.innerHTML += `<h2>${registro.nome} - ${registro.dataHora}<h2>`
+            //                 // })
+            //             });
+            //         } else {
+            //             console.error("Nenhum dado encontrado ou erro na API");
+            //         }
+            //     })
+            //     .catch(function (error) {
+            //         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            //     });
         })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
@@ -611,7 +611,6 @@ function limparDados(){
     }
 
     usb_conectado.innerHTML = '';
-    usb_desconectado.innerHTML = ''
     cpu_uso.innerHTML = "Indefinido";
     cpu_disponivel.innerHTML = "Indefinido";
     cpu_velocidade.innerHTML = "Indefinido";
