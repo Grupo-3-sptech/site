@@ -359,11 +359,6 @@
     TODO: Criar link de conexão do option para dashBoard específica
     mudando o valor do option da máquina da dashboard Específica para a da fkRobo.
 
-    TODO: Adicionar no trigger o tipo de alerta e o dado do registro,
-    exibindo uma mensagem nessa forma ${A porcentagem uso CPU} (componente) está em ${0.70} (dado)
-
-    TODO: Adicionar uma função que exibe o svg com uma cor de diferente dependendo do tipo
-    de alerta a qual ela entrou.
     */
 
     function buscarUltimosAlertas() {
@@ -518,7 +513,9 @@
                 divSpanDado.classList.add("container-span")
                 var spanDado = document.createElement("span")
                 spanDado.id = "spanDado"
-                spanDado.textContent = alertaSeparado[alerta].nome_componente
+                var tipoComponente = alertaSeparado[alerta].nome_componente
+                var dadoComponente = alertaSeparado[alerta].dado              
+                spanDado.textContent = `${tipoComponente} está em ${dadoComponente}` 
                 divSpanDado.appendChild(spanDado)
 
                 var divSpanDtHora = document.createElement("div")
