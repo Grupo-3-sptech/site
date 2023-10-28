@@ -79,19 +79,19 @@ function buscarQuantidadeDeAlertas(intervalo) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
             SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
-            WHERE dtHora <= date_sub(now(), INTERVAL 1 ${intervalo})
+            WHERE dtHora >= date_sub(now(), INTERVAL 1 ${intervalo})
             AND tipo_alerta = "critico"
             `;
 
         instrucaoSql2 = `
             SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
-            WHERE dtHora <= date_sub(now(), INTERVAL 1 ${intervalo})
+            WHERE dtHora >= date_sub(now(), INTERVAL 1 ${intervalo})
             AND tipo_alerta = "urgente"
             `;
 
         instrucaoSql3 = `
             SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
-            WHERE dtHora <= date_sub(now(), INTERVAL 1 ${intervalo})
+            WHERE dtHora >= date_sub(now(), INTERVAL 1 ${intervalo})
             AND tipo_alerta = "alerta"
             `;
 
