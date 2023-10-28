@@ -78,22 +78,21 @@ function buscarQuantidadeDeAlertas(intervalo) {
                         order by id desc`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-            SELECT count(idAlerta) as alertas FROM Alerta WHERE 
-            tipo_alerta = "critico"
-            AND dtHora >=  date_sub(now(), INTERVAL 1 ${intervalo});
-
+            SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
+            WHERE dtHora <= date_sub(now(), INTERVAL 1 ${intervalo})
+            AND tipo_alerta = "critico"
             `;
 
         instrucaoSql2 = `
-            SELECT count(idAlerta) as alertas FROM Alerta WHERE 
-            tipo_alerta = "urgente"
-            AND dtHora >=  date_sub(now(), INTERVAL 1 ${intervalo});
+            SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
+            WHERE dtHora <= date_sub(now(), INTERVAL 1 ${intervalo})
+            AND tipo_alerta = "urgente"
             `;
 
         instrucaoSql3 = `
-            SELECT count(idAlerta) as alertas FROM Alerta WHERE 
-            tipo_alerta = "alerta"
-            AND dtHora >=  date_sub(now(), INTERVAL 1 ${intervalo});
+            SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
+            WHERE dtHora <= date_sub(now(), INTERVAL 1 ${intervalo})
+            AND tipo_alerta = "alerta"
             `;
 
     } else {

@@ -184,7 +184,7 @@
                         <div class="container-kpi">
                             <div class="indicador red"></div>
                             <div class="conteudo-kpi">
-                                <p id="quantidadeAlertaCritico">Qtd de alertas em Estado Crítico hoje</p>
+                                <p id="quantidadeAlertaCritico">Qtd de alertas em Estado Crítico nas últimas 24 horas</p>
                                 <h1 id="qtdAlerta"></h1>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                         <div class="container-kpi">
                             <div class="indicador orange"></div>
                             <div class="conteudo-kpi">
-                                <p id="quantidadeAlertaUrgente">Qtd de alertas em Estado Urgente hoje</p>
+                                <p id="quantidadeAlertaUrgente">Qtd de alertas em Estado Urgente nas últimas 24 horas</p>
                                 <h1 id="qtdUrgente"></h1>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                         <div class="container-kpi">
                             <div class="indicador yellow"></div>
                             <div class="conteudo-kpi">
-                                <p id="quantidadeAlertaAlerta">Qtd de alertas em Estado Alerta hoje</p>
+                                <p id="quantidadeAlertaAlerta">Qtd de alertas em Estado Alerta nas últimas 24 horas</p>
                                 <h1 id="qtdCritico"></h1>
                             </div>
                         </div>
@@ -301,13 +301,13 @@
         const valorIntervalo = elementoSelectIntervalo.value
         console.log(`DEBUG valor do intervalo: ${valorIntervalo}`)
         const fraseIntervaloCritico = "Qtd de alertas em Estado Crítico"
-        const fraseIntervaloUrgente = "Qtd de alertas em Estado Alerta"
+        const fraseIntervaloUrgente = "Qtd de alertas em Estado Urgente"
         const fraseIntervaloAlerta = "Qtd de alertas em Estado Alerta"
 
         if (valorIntervalo == "DAY") {
-            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} hoje`
-            document.querySelector(`#quantidadeAlertaUrgente`).textContent = `${fraseIntervaloUrgente} hoje`
-            document.querySelector(`#quantidadeAlertaAlerta`).textContent = `${fraseIntervaloAlerta} hoje`
+            document.querySelector(`#quantidadeAlertaCritico`).textContent = `${fraseIntervaloCritico} nas últimas 24 horas`
+            document.querySelector(`#quantidadeAlertaUrgente`).textContent = `${fraseIntervaloUrgente} nas últimas 24 horas`
+            document.querySelector(`#quantidadeAlertaAlerta`).textContent = `${fraseIntervaloAlerta} nas últimas 24 horas`
         }
 
         if (valorIntervalo == "MONTH") {
@@ -352,7 +352,16 @@
     }
 
 
+    /*
+    TODO: Criar link de conexão do option para dashBoard específica
+    mudando o valor do option da máquina da dashboard Específica para a da fkRobo.
 
+    TODO: Adicionar no trigger o tipo de alerta e o dado do registro,
+    exibindo uma mensagem nessa forma ${A porcentagem uso CPU} (componente) está em ${0.70} (dado)
+
+    TODO: Adicionar uma função que exibe o svg com uma cor de diferente dependendo do tipo
+    de alerta a qual ela entrou.
+    */
 
     function buscarUltimosAlertas() {
         fetch(`/alertas/buscarUltimaMedida`, {
