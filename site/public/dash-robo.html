@@ -44,9 +44,31 @@
                         <a href="dashboard.html">Dashboard Geral</a>
                     </div>
 
-                    <div class="opt" id="aqui">
+                    <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
                         <a href="#">Dashboard Rôbos</a>
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <div style="display: none;" id="drop_menu" class="drop-menu">
+                            <div class="item-menu">
+                                <a href="dash_bianca.html">Dash Bianca</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_boos.html">Dash Boos</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_enzo.html">Dash Enzo</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_kayky.html">Dash Kayky</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_danilo.html">Dash Danilo</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="opt" id="gerenciarUsuarios">
@@ -327,6 +349,22 @@
 </html>
 
 <script>
+
+var menu = 0;
+
+function mostrarMenu() {
+    var drop_menu = document.getElementById('drop_menu'); 
+
+    if (menu === 0) {
+        drop_menu.style.display = 'flex';
+        menu = 1;
+    } else {
+        drop_menu.style.display = 'none';
+        menu = 0;
+    }
+}
+
+
     verificarAdmin()
 
 function voltarHome() {

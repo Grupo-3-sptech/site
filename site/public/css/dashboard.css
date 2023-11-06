@@ -616,6 +616,37 @@ body {
     flex-direction: column;
 }
 
+.drop-menu{
+    width: 16.3vw;
+    height: 35vh;
+    top: 43px;
+    background-color: #b0c9cd;
+    position: absolute;
+    z-index: 9999;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-menu{
+    height: 6vh;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.item-menu a{
+    margin-left: 20px;
+}
+
+.item-menu:hover{
+    background-color: #7abdc6;
+}
+
 .container-perfil{
     width: 85%;
     height: 50vh;

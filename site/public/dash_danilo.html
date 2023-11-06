@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedConnect | Dashboard </title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <!-- <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script> -->
+
+    <link rel="shortcut icon" href="../Img/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="js/graficoMaquinas.js"></script>
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/validacoesUsuario.js"></script>
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- <body onload=" atualizarFeed()"> -->
+
+<body>
+
+    <div class="principal">
+        <div class="sidebar">
+            <div class="content-sidebar">
+                <div class="logo-sidebar">
+                    <img src="../Img/logo horizontal sem fundo.png" alt="">
+                </div>
+
+                <div class="options-sidebar">
+                    <div class="opt">
+                        <img src="../Img/icons8-gráfico-combinado-30.png" alt="">
+                        <a href="dashboard.html">Dashboard Geral</a>
+                    </div>
+
+                    <div style="position: relative;" class="opt" id="aqui">
+                        <img src="../Img/icons8-robô-48.png" alt="">
+                        <a href="#">Dashboard Rôbos</a>
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <div style="display: none;" id="drop_menu" class="drop-menu">
+                            <div class="item-menu">
+                                <a href="dash_bianca.html">Dash Bianca</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_boos.html">Dash Boos</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_enzo.html">Dash Enzo</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_kayky.html">Dash Kayky</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_danilo.html">Dash Danilo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opt" id="gerenciarUsuarios">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="perfil.html">Perfil</a>
+                    </div>
+
+                    <div class="opt" id="gerenciar-cirurgias">
+                        <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
+                        <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-assistente-48.png" alt="">
+                        <a href="dash-suporte.html">Suporte</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-alerta-30.png" alt="">
+                        <a href="#">Chamado</a>
+                    </div>
+                </div>
+
+                <div class="quit-button">
+                    <div class="opt">
+                        <img src="../Img/icons8-sair-30.png" alt="">
+                        <a href="index.html" onclick="deslogar()">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content" style="height: fit-content;">
+
+            <div class="header-content">
+                <div class="navbar-header" style="height: 10vh;">
+                    <h3>Dashboard Danilo</h3>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
+                </div>
+            </div>
+            <div class="header-before2">
+                <div class="maquinas" style="height: 85vh;"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+<script>
+
+var menu = 0;
+
+function mostrarMenu() {
+    var drop_menu = document.getElementById('drop_menu'); 
+
+    if (menu === 0) {
+        drop_menu.style.display = 'flex';
+        menu = 1;
+    } else {
+        drop_menu.style.display = 'none';
+        menu = 0;
+    }
+}
+
+
+    verificarAdmin()
+
+function voltarHome() {
+    window.location = '../index.html'
+}
+
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+cargo = sessionStorage.CARGO_USUARIO
+
+gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+console.log(gerenciarUsuarios)
+
+gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+console.log(gerenciarCirurgias)
+
+// if(cargo !== "Admin"){
+//     gerenciarUsuarios.style = 'display: none'
+// }
+
+if (cargo !== "Atendente" && cargo !== "Admin") {
+    gerenciarCirurgias.style = 'display: none'
+}
+
+var idHospital = sessionStorage.ID_HOSPITAL;
+
+window.onload = async function () {
+    await buscarMaquinas(idHospital);
+};
+var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+var selectTempoHistorico = document.getElementById("tempo-historico");
+selectMaquinasAtivas.addEventListener("change", function () {
+    
+    limparDados();
+    obterDadosGrafico();
+    obterDadosResumo();
+    plotarUsb();
+});
+
+selectTempoHistorico.addEventListener("change", obterDadosGrafico);
+
+async function buscarMaquinas(idHospital) {
+    fetch(`/robo/listar/${idHospital}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
+
+            console.log(data)
+
+            maquinas = data;
+
+            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < maquinas.length; i++) {
+                const maquina = maquinas[i];
+
+                const optionElement = document.createElement('option');
+                optionElement.value = maquina.idRobo;
+                optionElement.text = "Robo " + (i+1);
+                selectMaquinasAtivas.appendChild(optionElement);
+                optionElement.setAttribute('data-info', maquina.idProcess);
+            }
+            obterDadosGrafico()
+            obterDadosResumo()
+            plotarUsb()
+        });
+}
+</script>
