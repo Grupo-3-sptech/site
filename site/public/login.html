@@ -100,25 +100,14 @@
                         console.log(json);
                         console.log(JSON.stringify(json));
 
-                        // sessionStorage.EMAIL_USUARIO = json.email;
-                        // sessionStorage.NOME_USUARIO = json.nome;
-                        // sessionStorage.ID_USUARIO = json.idUsuario;
-                        // // sessionStorage.fk_EMPRESA = json.fkEmpresa;
-                        // // SALVANDO FK EMPRESA COMO 1 SO PARA TESTE NO CADASTRO DO LOCAL, ENQUANTO NAO RESOLVEMOS O PROBLEMA DE LISTAR AS EMPRESAS NO CADASTRO DE USUARIO
-                        // sessionStorage.fk_EMPRESA = json.fkEmpresa;
+                    
                         cardErro.style.display = "none"
                         cardAcerto.style.display = "none";
                         cardAcerto.style.display = "block";
                         mensagem_acerto.innerHTML =
-<<<<<<< Updated upstream
                             "Login realizado com sucesso! voce está sendo redirecionado...";
 
                         sessionStorage.CARGO_USUARIO = json.cargo
-=======
-                        "Login realizado com sucesso! voce está sendo redirecionado...";
-                        
-                        sessionStorage.CARGO_USUARIO = json.cargo;
->>>>>>> Stashed changes
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.EMAIL_USUARIO = json.email;
                         sessionStorage.CPF_USUARIO = json.CPF;
