@@ -139,7 +139,7 @@ body {
     width: 75vw;
     height: 70vh;
     background-color: #dcdcdc;
-    border-radius: 29px 29px 29px 29px;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .navbar-header {
@@ -164,7 +164,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 29px 29px 29px 29px;
+    border-radius: 10px 10px 10px 10px;
     padding: 1vh;
     background-color: #063940;
 }
@@ -209,18 +209,25 @@ body {
     color: white;
 }
 
+.select-label {
+    border-width: 0px;
+    border-color: white;
+    border-radius: 10px;
+}
+
 .label-filter{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     width: 14vw;
 }
 
 .edge-left {
-    border-bottom-left-radius: 29px;
-    border-top-left-radius: 29px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 .edge-right {
-    border-bottom-right-radius: 29px;
-    border-top-right-radius: 29px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .yellow{
@@ -242,3 +249,105 @@ body {
 .dark-green{
     background-color: #063940;
 }
+
+.container-table{
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    height: 68%;
+    margin-top: 1vh;
+}
+
+.container-tuple{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 13%;
+    padding-left: 4vh;
+}
+
+.box-tuple{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-tuple-data{
+    display: flex;
+    width: 25%;
+    justify-content: center;
+}
+
+.box-tuple-alerta{
+    display: flex;
+    width: 11%;
+    justify-content: center;
+}
+
+.box-tuple-urgente{
+    display: flex;
+    width: 13%;
+    justify-content: center;
+}
+
+.box-tuple-critico{
+    display: flex;
+    width: 12%;
+    justify-content: center;
+}
+
+.box-tuple-tipo-dado{
+    display: flex;
+    width: 11%;
+    justify-content: center;
+}
+
+
+.box-tuple-button{
+    display: flex;
+    width: 12%;
+    justify-content: center;
+}
+
+.btn-editar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7vw;
+    height: 5vh;
+    background-color: #063940;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.btn-salvar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7vw;
+    height: 5vh;
+    background-color: #8CCD21;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.btn-excluir{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7vw;
+    height: 5vh;
+    background-color: #FF0000;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+}
+
+
+
+
+
+
