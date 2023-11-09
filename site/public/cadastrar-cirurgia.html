@@ -28,38 +28,6 @@
 
 <body>
 
-    <!-- <div class="janela">
-        <div class="header-left">
-        
-             <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-    
-            <div class="btn-nav">
-
-                <div id="grafico1">
-                </div>
-                <div id="grafico2">
-                </div>
-                <div id="grafico3">
-                </div>
-            </div>
-
-            <button class="btn-logout" onclick="voltarHome()">
-                <h3>Sair</h3>
-            </button>
-
-        </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-            </div>
-        </div>
-    </div> -->
-
     <div class="principal">
         <div class="sidebar">
             <div class="content-sidebar">
@@ -473,82 +441,9 @@
 
     // window.onload = exibirComponentes(id);
 
-    var cargos;
-    fetch("/cargo/listar", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
-            }
-            return response.json();
-        }).then(data => {
-
-            console.log(data)
-
-            cargos = data;
-
-            var selectElement = document.getElementById('cargoSelect');
-
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < cargos.length; i++) {
-                const cargo = cargos[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = cargo.idEscalonamento;
-                optionElement.text = cargo.cargo;
-                selectElement.appendChild(optionElement);
-            }
-
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
 
     var funcionarios;
-    var idHospital = sessionStorage.ID_HOSPITAL
-
-    fetch(`/funcionarioAssociado/verificar/${idHospital}`)
-        .then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    funcionarios = json
-
-                    tabela = document.getElementById("tabela-funcionario")
-
-                    // Itera sobre o array de empresas e cria as opções do select
-                    for (let i = 0; i < funcionarios.length; i++) {
-                        const funcionario = funcionarios[i];
-                        const email = funcionario.email;
-                        const cargo = funcionario.cargo;
-                        const idAssociado = funcionario.idAssociado;
-
-                        var novaLinha = tabela.insertRow();
-                        novaLinha.id = idAssociado // Insere uma nova linha
-                        var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
-                        var celula2 = novaLinha.insertCell(1);
-                        var celula3 = novaLinha.insertCell(2)
-                        celula1.innerHTML = `${email}`;
-                        celula2.innerHTML = `${cargo}`;
-                        celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
-                    }
-                });
-
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
-        })
+    var idHospital = sessionStorage.ID_HOSPITAL;
 
     function salvar() {
         var email = input_email.value;

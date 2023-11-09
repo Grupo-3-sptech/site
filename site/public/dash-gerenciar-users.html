@@ -29,38 +29,6 @@
 
 <body>
 
-    <!-- <div class="janela">
-        <div class="header-left">
-        
-             <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-    
-            <div class="btn-nav">
-
-                <div id="grafico1">
-                </div>
-                <div id="grafico2">
-                </div>
-                <div id="grafico3">
-                </div>
-            </div>
-
-            <button class="btn-logout" onclick="voltarHome()">
-                <h3>Sair</h3>
-            </button>
-
-        </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-            </div>
-        </div>
-    </div> -->
-
     <div class="principal">
         <div class="sidebar">
             <div class="content-sidebar">
@@ -89,7 +57,7 @@
                         <a href="perfil.html">Perfil</a>
                     </div>
 
-                    <div class="opt" id="gerenciar-cirurgias">
+                    <div class="opt">
                         <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
                         <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
                     </div>
@@ -108,65 +76,174 @@
                 <div class="quit-button">
                     <div class="opt">
                         <img src="../Img/icons8-sair-30.png" alt="">
-                        <a href="index.html" onclick="deslogar()">Log Out</a>
+                        <a href="index.html">Log Out</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="content" style="
-            height: 100vh; 
-           
-        ">
-
+        <div class="content" style="height: fit-content;">
             <div class="header-content">
                 <div class="navbar-header" style="height: 10vh;">
-                    <h3>Gerenciar Usuários</h3>
-                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario">Admin</span></p>
+                    <h3>Gerenciar Usuarios</h3>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
-            <div class="header-before">
-                <div class="double-cards">
-                    <div class="card-cadastro">
-                        <div class="container-cadastro">
-                            <h2><img src="../Img/icons8-usuário-30.png" alt=""> Cadastre um usuário</h2>
-                            <p>Cadastre o email de um funcionário e possibilite o cadastro dele no Site Intitucional.
-                            </p>
-                            <div class="input">
-                                Email <input type="email" id="input_email" class="input-cadastro-admin">
+
+            <div class="container-cirurgia" style="height: fit-content;">
+
+                <div class="content-listagem">
+                    <div class="listagem">
+                        <h3 style="margin-top: 3%;">Usuários Criados</h3>
+
+                        <div class="cirurgia">
+                            <div class="item-cirurgia">
+                                <b>Nome</b>
+                                <span id="nome_medico">Gabriel Boos</span>
                             </div>
-                            <div class="input">
-                                <select id="cargoSelect" name="empresa" class="select">
-                                    <option>Selecione o cargo</option>
+                            <div class="item-cirurgia">
+                                <b>Email</b>
+                                <span id="data_inicio">24/01/2000</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>CPF</b>
+                                <span id="horario_inicio">21:00:02</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Telefone</b>
+                                <span id="duracao_minutos">123m</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Senha</b>
+                                <span id="duracao_minutos">123m</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Cargo</b>
+                                <span id="duracao_minutos">123m</span>
+                            </div>
+                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="">
+                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="drop-cadastrar">
+                    <h3>
+                        Cadastrar Cirurgia
+                        <img src="./Img/icons8-divisa-circulada-à-direita-24.png" alt="" onclick="dropCadastro()">
+                    </h3>
+                    <div style="display: none;" class="form-cirurgia" id="form_cirurgia">
+                        <div class="content-form-cirurgia">
+                            <div class="div1">
+                                <div class="input-cirurgia">
+                                    Nome
+                                    <input type="text">
+                                </div>
+                                <div class="input-cirurgia">
+                                    Email
+                                    <input type="text">
+                                </div>
+                                <div class="input-cirurgia">
+                                    <select id="cargoSelect" name="empresa">
+                                        <option>Cargo</option>
+                                    </select>
+                                </div>
+                                <div class="input-cirurgia">
+                                    CPF
+                                    <input type="Number">
+                                </div>
+                                <div class="input-cirurgia">
+                                    Telefone
+                                    <input type="Number">
+                                </div>
+                                <div class="input-cirurgia">
+                                    Senha
+                                    <input type="text">
+                                </div>
+                                <div class="input-cirurgia">
+                                    Hospital
+                                    <input type="text" disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="div1">
+                            <button style="background-color: rgb(50, 125, 50);">Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drop-cadastrar" style="margin-top: 2%; margin-bottom: 2%;">
+                <h3>
+                    Editar Cirurgia
+                    <img src="./Img/icons8-divisa-circulada-à-direita-24.png" alt="" onclick="dropEditar()">
+                </h3>
+                <div style="display: none;" class="form-cirurgia" id="form_cirurgia2">
+                    <div class="content-form-cirurgia">
+                        <div class="div1">
+                            <div class="input-cirurgia">
+                                Nome do médico
+                                <input type="text">
+                            </div>
+                            <div class="input-cirurgia">
+                                Data de início
+                                <input type="date">
+                            </div>
+                            <div class="input-cirurgia">
+                                Horário de início
+                                <input type="time">
+                            </div>
+                            <div class="input-cirurgia">
+                                Duração esperada em minutos
+                                <input type="number">
+                            </div>
+
+                        </div>
+                        <div class="div1">
+                            <div class="input-cirurgia">
+                                Nome do paciente
+                                <input type="text">
+                            </div>
+                            <div class="input-cirurgia">
+                                Sala de cirurgia
+                                <select name="" id=""></select>
+                            </div>
+                            <div class="input-cirurgia">
+                                Categoria Cirúrgica
+                                <select name="" id="">
+                                    <option value="Cardiologia">Cardiologia</option>
+                                    <option value="Cardiologia">Neurologia</option>
+                                    <option value="Cardiologia">Ortopedia</option>
+                                    <option value="Cardiologia">Ginecologia</option>
+                                    <option value="Cardiologia">Geral</option>
+                                    <option value="Cardiologia">Epigástrica</option>
+                                    <option value="Cardiologia">Oftalmologia</option>
+                                    <option value="Cardiologia">Otorrinolaringologia</option>
+                                    <option value="Cardiologia">Pediátrica</option>
+                                    <option value="Cardiologia">Plástica</option>
+                                    <option value="Cardiologia">Proctologia</option>
+                                    <option value="Cardiologia">Vascular</option>
+                                    <option value="Cardiologia">Urologia</option>
                                 </select>
+
                             </div>
-                            <input id="submit" type="submit" onclick="salvar()">
+                            <div class="input-cirurgia">
+                                Risco Cirúrgico
+                                <input type="range" min="1" max="5">
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-lista">
-                        <div class="container-cadastro2" id="emails-cadastrados">
-                            <h2> Lista Funcionarios</h2>
-                            <table id="tabela-funcionario">
-                                <tr>
-                                    <th style="padding-left: 1vw;" data-label="Email">Email</th>
-                                    <th style="padding-left: 1vw;" data-label="Cargo">Cargo</th>
-                                    <th style="padding-left: 1vw; " data-label="Excluir">Excluir</th>
-                                </tr>
-                                <tr>
-                                    <td>bianca.reis@sptech</td>
-                                    <td>Atendente</td>
-                                    <td><img src="Img/excluir.png" alt="Excluir"></td>
-                                </tr>
-                            </table>
-                            <!-- <div class="user">
-                                <div class="img-user"></div>
-                                <a id="nome_user" href="#">bianca.reis@sptech</a>
-                            </div> -->
+                        <div class="div1">
+                            <button style="background-color: rgb(193, 95, 46);">Editar</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
+    </div>
     </div>
 
 
@@ -177,20 +254,35 @@
 </html>
 
 <script>
-    cargo = sessionStorage.CARGO_USUARIO
 
-    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-    console.log(gerenciarUsuarios)
+    var drop = 0
+    function dropCadastro() {
+        if (drop == 0) {
+            form_cirurgia.style.display = "flex"
+            drop = 1
+        } else {
+            form_cirurgia.style.display = "none"
+            drop = 0
+        }
 
-    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-    console.log(gerenciarCirurgias)
-
-    if (cargo !== "Admin") {
-        gerenciarUsuarios.style = 'display: none'
     }
 
+    var drop2 = 0
+    function dropEditar() {
+        if (drop2 == 0) {
+            form_cirurgia2.style.display = "flex"
+            drop2 = 1
+        } else {
+            form_cirurgia2.style.display = "none"
+            drop2 = 0
+        }
+
+    }
+
+    cargo = sessionStorage.CARGO_USUARIO
+
     if (cargo !== "Atendente" && cargo !== "Admin") {
-        gerenciarCirurgias.style = 'display: none'
+        voltarHome()
     }
 
     function voltarHome() {
@@ -198,87 +290,84 @@
     }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    var id = 1
-
     // window.onload = exibirComponentes(id);
 
     var cargos;
-    fetch("/cargo/listar", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
-            }
-            return response.json();
-        }).then(data => {
+    // fetch("/cargo/listar", {
+    //     method: "GET",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Erro ao fazer a solicitação GET');
+    //         }
+    //         return response.json();
+    //     }).then(data => {
 
-            console.log(data)
+    //         console.log(data)
 
-            cargos = data;
+    //         cargos = data;
 
-            var selectElement = document.getElementById('cargoSelect');
+    //         var selectElement = document.getElementById('cargoSelect');
 
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < cargos.length; i++) {
-                const cargo = cargos[i];
+    //         // Itera sobre o array de empresas e cria as opções do select
+    //         for (let i = 0; i < cargos.length; i++) {
+    //             const cargo = cargos[i];
 
-                const optionElement = document.createElement('option');
-                optionElement.value = cargo.idEscalonamento;
-                optionElement.text = cargo.cargo;
-                selectElement.appendChild(optionElement);
-            }
+    //             const optionElement = document.createElement('option');
+    //             optionElement.value = cargo.idEscalonamento;
+    //             optionElement.text = cargo.cargo;
+    //             selectElement.appendChild(optionElement);
+    //         }
 
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
 
 
     var funcionarios;
     var idHospital = sessionStorage.ID_HOSPITAL
 
-    fetch(`/funcionarioAssociado/verificar/${idHospital}`)
-        .then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+    // fetch(`/funcionarioAssociado/verificar/${idHospital}`)
+    //     .then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO entrar()!")
 
-            if (resposta.ok) {
-                console.log(resposta);
+    //         if (resposta.ok) {
+    //             console.log(resposta);
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
+    //             resposta.json().then(json => {
+    //                 console.log(json);
+    //                 console.log(JSON.stringify(json));
 
-                    funcionarios = json
+    //                 funcionarios = json
 
-                    tabela = document.getElementById("tabela-funcionario")
+    //                 tabela = document.getElementById("tabela-funcionario")
 
-                    // Itera sobre o array de empresas e cria as opções do select
-                    for (let i = 0; i < funcionarios.length; i++) {
-                        const funcionario = funcionarios[i];
-                        const email = funcionario.email;
-                        const cargo = funcionario.cargo;
-                        const idAssociado = funcionario.idAssociado;
+    //                 // Itera sobre o array de empresas e cria as opções do select
+    //                 for (let i = 0; i < funcionarios.length; i++) {
+    //                     const funcionario = funcionarios[i];
+    //                     const email = funcionario.email;
+    //                     const cargo = funcionario.cargo;
+    //                     const idAssociado = funcionario.idAssociado;
 
-                        var novaLinha = tabela.insertRow();
-                        novaLinha.id = idAssociado // Insere uma nova linha
-                        var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
-                        var celula2 = novaLinha.insertCell(1);
-                        var celula3 = novaLinha.insertCell(2)
-                        celula1.innerHTML = `${email}`;
-                        celula2.innerHTML = `${cargo}`;
-                        celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
-                    }
-                });
+    //                     var novaLinha = tabela.insertRow();
+    //                     novaLinha.id = idAssociado // Insere uma nova linha
+    //                     var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
+    //                     var celula2 = novaLinha.insertCell(1);
+    //                     var celula3 = novaLinha.insertCell(2)
+    //                     celula1.innerHTML = `${email}`;
+    //                     celula2.innerHTML = `${cargo}`;
+    //                     celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
+    //                 }
+    //             });
 
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
-        })
+    //         }
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //         Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
+    //     })
 
     function salvar() {
         var email = input_email.value;
