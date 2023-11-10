@@ -992,3 +992,9 @@ td {
     align-items: center;
     justify-content: center;
 }
+
+#mensagem_erro_cadastro{
+    background-color: rgb(190, 37, 37);
+    display: none;
+    height: fit-content;
+}
