@@ -263,7 +263,7 @@ a:hover::after {
 .banner {
     width: 100%;
     height: 65vh;
-    background-image: url('https://www.gazetaderiopreto.com.br/wp-content/uploads/2023/07/robo-.jpeg');
+    background: linear-gradient( #3e838c6c 100%, #3E838c6c),url('https://www.gazetaderiopreto.com.br/wp-content/uploads/2023/07/robo-.jpeg');
     background-size: cover;
     display: flex;
     align-items: center;

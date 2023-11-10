@@ -1,0 +1,7 @@
+.kpis-bianca{
+    width: 90%;
+    height: 25vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

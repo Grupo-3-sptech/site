@@ -9,6 +9,7 @@
     <title>MedConnect | Dashboard </title>
 
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dash-bianca.css">
     <!-- <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script> -->
 
@@ -47,7 +48,8 @@
                     <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
                         <a href="#">Dashboard Rôbos</a>
-                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
+                            src="./Img/icons8-mais-40.png" alt="">
                         <div style="display: none;" id="drop_menu" class="drop-menu">
                             <div class="item-menu">
                                 <a href="dash_bianca.html">Dash Bianca</a>
@@ -115,12 +117,76 @@
                 </div>
             </div>
             <div class="header-before2">
-                <div class="maquinas" style="height: 85vh;">
-                    
+                <div class="maquinas" style="height: 10vh;">
+                    <div class="input-maquina">
+                        <p>Robos Ativos 🟢</p>
+                        <select name="maquinas-ligadas" id="maquinas-ativas">
+                        </select>
+                    </div>
+                    <div class="box-id">
+                        <p>ID da Máquina</p>
+                        <p id="id_maquina"></p>
+                    </div>
+                </div>
+                <div class="kpis-bianca">
+                    <div class="kpi">
+                        <div class="container-kpi">
+                            <div class="indicador blue"></div>
+                            <div class="conteudo-kpi">
+                                <p>Qtd. de Processos em Exec.</p>
+                                <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select id="visuCritico" class="toggle">
+                                            <option value="">Visualizar Máquinas</option>
+                                            <select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi">
+                        <div class="container-kpi">
+                            <div class="indicador blue"></div>
+                            <div class="conteudo-kpi">
+                                <p>Total de Threads</p>
+                                <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select id="visuCritico" class="toggle">
+                                            <option value="">Visualizar Máquinas</option>
+                                            <select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="kpi">
+                        <div class="container-kpi">
+                            <div class="indicador blue"></div>  
+                            <div class="conteudo-kpi">
+                                <p>Pico de Temperatura (1min)</p>
+                                <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select id="visuCritico" class="toggle">
+                                            <option value="">Visualizar Máquinas</option>
+                                            <select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
@@ -131,95 +197,95 @@
 
 <script>
 
-var menu = 0;
+    var menu = 0;
 
-function mostrarMenu() {
-    var drop_menu = document.getElementById('drop_menu'); 
+    function mostrarMenu() {
+        var drop_menu = document.getElementById('drop_menu');
 
-    if (menu === 0) {
-        drop_menu.style.display = 'flex';
-        menu = 1;
-    } else {
-        drop_menu.style.display = 'none';
-        menu = 0;
+        if (menu === 0) {
+            drop_menu.style.display = 'flex';
+            menu = 1;
+        } else {
+            drop_menu.style.display = 'none';
+            menu = 0;
+        }
     }
-}
 
 
     verificarAdmin()
 
-function voltarHome() {
-    window.location = '../index.html'
-}
+    function voltarHome() {
+        window.location = '../index.html'
+    }
 
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-cargo = sessionStorage.CARGO_USUARIO
+    cargo = sessionStorage.CARGO_USUARIO
 
-gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-console.log(gerenciarUsuarios)
+    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+    console.log(gerenciarUsuarios)
 
-gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-console.log(gerenciarCirurgias)
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
 
-// if(cargo !== "Admin"){
-//     gerenciarUsuarios.style = 'display: none'
-// }
+    // if(cargo !== "Admin"){
+    //     gerenciarUsuarios.style = 'display: none'
+    // }
 
-if (cargo !== "Atendente" && cargo !== "Admin") {
-    gerenciarCirurgias.style = 'display: none'
-}
+    if (cargo !== "Atendente" && cargo !== "Admin") {
+        gerenciarCirurgias.style = 'display: none'
+    }
 
-var idHospital = sessionStorage.ID_HOSPITAL;
+    var idHospital = sessionStorage.ID_HOSPITAL;
 
-window.onload = async function () {
-    await buscarMaquinas(idHospital);
-};
-var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-var selectTempoHistorico = document.getElementById("tempo-historico");
-selectMaquinasAtivas.addEventListener("change", function () {
-    
-    limparDados();
-    obterDadosGrafico();
-    obterDadosResumo();
-    plotarUsb();
-});
+    window.onload = async function () {
+        await buscarMaquinas(idHospital);
+    };
+    var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+    var selectTempoHistorico = document.getElementById("tempo-historico");
+    selectMaquinasAtivas.addEventListener("change", function () {
 
-selectTempoHistorico.addEventListener("change", obterDadosGrafico);
+        limparDados();
+        obterDadosGrafico();
+        obterDadosResumo();
+        plotarUsb();
+    });
 
-async function buscarMaquinas(idHospital) {
-    fetch(`/robo/listar/${idHospital}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
+    selectTempoHistorico.addEventListener("change", obterDadosGrafico);
+
+    async function buscarMaquinas(idHospital) {
+        fetch(`/robo/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            return response.json();
-        }).then(data => {
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
 
-            console.log(data)
+                console.log(data)
 
-            maquinas = data;
+                maquinas = data;
 
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+                var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
+                // Itera sobre o array de empresas e cria as opções do select
+                for (let i = 0; i < maquinas.length; i++) {
+                    const maquina = maquinas[i];
 
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
-            }
-            obterDadosGrafico()
-            obterDadosResumo()
-            plotarUsb()
-        });
-}
+                    const optionElement = document.createElement('option');
+                    optionElement.value = maquina.idRobo;
+                    optionElement.text = "Robo " + (i + 1);
+                    selectMaquinasAtivas.appendChild(optionElement);
+                    optionElement.setAttribute('data-info', maquina.idProcess);
+                }
+                obterDadosGrafico()
+                obterDadosResumo()
+                plotarUsb()
+            });
+    }
 </script>
