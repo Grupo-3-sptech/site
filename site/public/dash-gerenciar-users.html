@@ -93,44 +93,44 @@
             <div class="container-cirurgia" style="height: fit-content;">
 
                 <div class="content-listagem">
-                    <div class="listagem">
+                    <div class="listagem" id="listagem">
                         <h3 style="margin-top: 3%;">Usuários Criados</h3>
 
-                        <div class="cirurgia">
+                        <!-- <div class="cirurgia">
                             <div class="item-cirurgia">
                                 <b>Nome</b>
                                 <span id="nome_medico">Gabriel Boos</span>
                             </div>
                             <div class="item-cirurgia">
                                 <b>Email</b>
-                                <span id="data_inicio">24/01/2000</span>
+                                <span id="data_inicio">gabriel.boos@hotmail.com</span>
                             </div>
                             <div class="item-cirurgia">
                                 <b>CPF</b>
-                                <span id="horario_inicio">21:00:02</span>
+                                <span id="horario_inicio">523.525.322.123</span>
                             </div>
                             <div class="item-cirurgia">
                                 <b>Telefone</b>
-                                <span id="duracao_minutos">123m</span>
+                                <span id="duracao_minutos">11929458258</span>
                             </div>
                             <div class="item-cirurgia">
                                 <b>Senha</b>
-                                <span id="duracao_minutos">123m</span>
+                                <span id="duracao_minutos">5152ttt2</span>
                             </div>
                             <div class="item-cirurgia">
                                 <b>Cargo</b>
-                                <span id="duracao_minutos">123m</span>
+                                <span id="duracao_minutos">Admin</span>
                             </div>
                             <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="">
                             <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
 
                 <div class="drop-cadastrar">
                     <h3>
-                        Cadastrar Cirurgia
+                        Cadastrar Usuário
                         <img src="./Img/icons8-divisa-circulada-à-direita-24.png" alt="" onclick="dropCadastro()">
                     </h3>
                     <div style="display: none;" class="form-cirurgia" id="form_cirurgia">
@@ -138,11 +138,11 @@
                             <div class="div1">
                                 <div class="input-cirurgia">
                                     Nome
-                                    <input type="text">
+                                    <input type="text" id="input_nome">
                                 </div>
                                 <div class="input-cirurgia">
                                     Email
-                                    <input type="text">
+                                    <input type="text" id="input_email">
                                 </div>
                                 <div class="input-cirurgia">
                                     <select id="cargoSelect" name="empresa">
@@ -151,25 +151,28 @@
                                 </div>
                                 <div class="input-cirurgia">
                                     CPF
-                                    <input type="Number">
+                                    <input type="text" id="cpf_input">
                                 </div>
+                            </div>
+                            <div class="div1">
                                 <div class="input-cirurgia">
                                     Telefone
-                                    <input type="Number">
+                                    <input type="Number" id="telefone_input">
                                 </div>
                                 <div class="input-cirurgia">
                                     Senha
-                                    <input type="text">
+                                    <input type="password" id="input_senha">
                                 </div>
                                 <div class="input-cirurgia">
                                     Hospital
-                                    <input type="text" disabled>
+                                    <input type="text" disabled id="input_hospital">
                                 </div>
-
                             </div>
-                        </div>
-                        <div class="div1">
-                            <button style="background-color: rgb(50, 125, 50);">Cadastrar</button>
+                            <div class="div1" style="display: flex; justify-content: start;">
+                                <button style="background-color: rgb(50, 125, 50); margin-right: 3vw;"
+                                    onclick="cadastrar()">Cadastrar</button>
+                                <button id="mensagem_erro_cadastro">Erro</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,65 +180,48 @@
 
             <div class="drop-cadastrar" style="margin-top: 2%; margin-bottom: 2%;">
                 <h3>
-                    Editar Cirurgia
+                    Editar Usuário
                     <img src="./Img/icons8-divisa-circulada-à-direita-24.png" alt="" onclick="dropEditar()">
                 </h3>
                 <div style="display: none;" class="form-cirurgia" id="form_cirurgia2">
                     <div class="content-form-cirurgia">
                         <div class="div1">
                             <div class="input-cirurgia">
-                                Nome do médico
-                                <input type="text">
+                                Nome
+                                <input type="text" id="nome_input_edit">
                             </div>
                             <div class="input-cirurgia">
-                                Data de início
-                                <input type="date">
+                                Email
+                                <input type="text" id="email_input_edit">
                             </div>
                             <div class="input-cirurgia">
-                                Horário de início
-                                <input type="time">
-                            </div>
-                            <div class="input-cirurgia">
-                                Duração esperada em minutos
-                                <input type="number">
-                            </div>
-
-                        </div>
-                        <div class="div1">
-                            <div class="input-cirurgia">
-                                Nome do paciente
-                                <input type="text">
-                            </div>
-                            <div class="input-cirurgia">
-                                Sala de cirurgia
-                                <select name="" id=""></select>
-                            </div>
-                            <div class="input-cirurgia">
-                                Categoria Cirúrgica
-                                <select name="" id="">
-                                    <option value="Cardiologia">Cardiologia</option>
-                                    <option value="Cardiologia">Neurologia</option>
-                                    <option value="Cardiologia">Ortopedia</option>
-                                    <option value="Cardiologia">Ginecologia</option>
-                                    <option value="Cardiologia">Geral</option>
-                                    <option value="Cardiologia">Epigástrica</option>
-                                    <option value="Cardiologia">Oftalmologia</option>
-                                    <option value="Cardiologia">Otorrinolaringologia</option>
-                                    <option value="Cardiologia">Pediátrica</option>
-                                    <option value="Cardiologia">Plástica</option>
-                                    <option value="Cardiologia">Proctologia</option>
-                                    <option value="Cardiologia">Vascular</option>
-                                    <option value="Cardiologia">Urologia</option>
+                                <select id="cargoSelectEdit" name="empresa">
+                                    <option>Cargo</option>
                                 </select>
-
                             </div>
                             <div class="input-cirurgia">
-                                Risco Cirúrgico
-                                <input type="range" min="1" max="5">
+                                CPF
+                                <input type="text" id="cpf_input_edit" disabled>
                             </div>
                         </div>
                         <div class="div1">
-                            <button style="background-color: rgb(193, 95, 46);">Editar</button>
+                            <div class="input-cirurgia">
+                                Telefone
+                                <input type="Number" id="telefone_input_edit">
+                            </div>
+                            <div class="input-cirurgia">
+                                Senha
+                                <input type="password" id="senha_input_edit">
+                            </div>
+                            <div class="input-cirurgia">
+                                Hospital
+                                <input type="text" id="hospital_input_edit" disabled>
+                            </div>
+                        </div>
+                        <div class="div1" style="display: flex; justify-content: start;">
+                            <button style="background-color: rgb(50, 125, 50); margin-right: 3vw;"
+                                onclick="editar()">Editar</button>
+                            <button id="mensagem_erro_cadastro">Erro</button>
                         </div>
                     </div>
                 </div>
@@ -279,6 +265,8 @@
 
     }
 
+
+
     cargo = sessionStorage.CARGO_USUARIO
 
     if (cargo !== "Atendente" && cargo !== "Admin") {
@@ -290,102 +278,138 @@
     }
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-    // window.onload = exibirComponentes(id);
+    input_hospital.value = sessionStorage.NOME_HOSPITAL;
+    hospital_input_edit.value = sessionStorage.NOME_HOSPITAL;
 
     var cargos;
-    // fetch("/cargo/listar", {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     }
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Erro ao fazer a solicitação GET');
-    //         }
-    //         return response.json();
-    //     }).then(data => {
+    fetch("/cargo/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
 
-    //         console.log(data)
+            console.log(data)
 
-    //         cargos = data;
+            cargos = data;
 
-    //         var selectElement = document.getElementById('cargoSelect');
+            var selectElement = document.getElementById('cargoSelect');
 
-    //         // Itera sobre o array de empresas e cria as opções do select
-    //         for (let i = 0; i < cargos.length; i++) {
-    //             const cargo = cargos[i];
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < cargos.length; i++) {
+                const cargo = cargos[i];
 
-    //             const optionElement = document.createElement('option');
-    //             optionElement.value = cargo.idEscalonamento;
-    //             optionElement.text = cargo.cargo;
-    //             selectElement.appendChild(optionElement);
-    //         }
+                const optionElement = document.createElement('option');
+                optionElement.value = cargo.idEscalonamento;
+                optionElement.text = cargo.cargo;
+                selectElement.appendChild(optionElement);
+            }
 
-    //     }).catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //     });
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    var usuarios;
+    fetch("/usuarios/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
+
+            console.log(data)
+
+            usuarios = data;
 
 
-    var funcionarios;
-    var idHospital = sessionStorage.ID_HOSPITAL
+            for (let i = 0; i < usuarios.length; i++) {
+                const usuario = usuarios[i];
 
-    // fetch(`/funcionarioAssociado/verificar/${idHospital}`)
-    //     .then(function (resposta) {
-    //         console.log("ESTOU NO THEN DO entrar()!")
+                listagem.innerHTML += `<div class="cirurgia">
+                            <div class="item-cirurgia">
+                                <b>Nome</b>
+                                <span id="nome_medico">${usuario.nome}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Email</b>
+                                <span id="data_inicio">${usuario.email}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>CPF</b>
+                                <span id="horario_inicio">${usuario.cpf}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Telefone</b>
+                                <span id="duracao_minutos">${usuario.telefone}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Senha</b>
+                                <span id="duracao_minutos">${usuario.senha}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Cargo</b>
+                                <span id="duracao_minutos">${usuario.cargo}</span>
+                            </div>
+                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="" onclick="pegarDadosEdicao('${usuario.nome}', '${usuario.email}', '${usuario.cpf}', '${usuario.telefone}', '${usuario.senha}','${usuario.cargo}', '${usuario.idCargo}', '${usuario.idUsuario}')">
+                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="" onclick="deletar(${usuario.idUsuario})">
+                        </div>`
+            }
 
-    //         if (resposta.ok) {
-    //             console.log(resposta);
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
 
-    //             resposta.json().then(json => {
-    //                 console.log(json);
-    //                 console.log(JSON.stringify(json));
-
-    //                 funcionarios = json
-
-    //                 tabela = document.getElementById("tabela-funcionario")
-
-    //                 // Itera sobre o array de empresas e cria as opções do select
-    //                 for (let i = 0; i < funcionarios.length; i++) {
-    //                     const funcionario = funcionarios[i];
-    //                     const email = funcionario.email;
-    //                     const cargo = funcionario.cargo;
-    //                     const idAssociado = funcionario.idAssociado;
-
-    //                     var novaLinha = tabela.insertRow();
-    //                     novaLinha.id = idAssociado // Insere uma nova linha
-    //                     var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
-    //                     var celula2 = novaLinha.insertCell(1);
-    //                     var celula3 = novaLinha.insertCell(2)
-    //                     celula1.innerHTML = `${email}`;
-    //                     celula2.innerHTML = `${cargo}`;
-    //                     celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(${idAssociado})" alt="Excluir">`
-    //                 }
-    //             });
-
-    //         }
-    //     }).catch(function (erro) {
-    //         console.log(erro);
-    //         Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
-    //     })
-
-    function salvar() {
+    function cadastrar() {
+        var nome = input_nome.value;
         var email = input_email.value;
+        var cpf = cpf_input.value;
+        var telefone = telefone_input.value;
+        var senha = input_senha.value
         var cargo = cargoSelect.value
+        var hospital = sessionStorage.ID_HOSPITAL;
 
-        if (email == "" || cargo == "") {
+        console.log(cargo)
+        if (nome == "" || email == "" || cpf == "" || telefone == "" || senha == "" || cargo == "Cargo" || hospital == "") {
+            mensagem_erro_cadastro.innerHTML = "Todos os campos precisam ser preenchidos"
+            mensagem_erro_cadastro.style.display = "block"
+            limparMensagem()
+        } else if (email.indexOf("@") < 0) {
+            mensagem_erro_cadastro.innerHTML = "Email está no formato inválido"
+            mensagem_erro_cadastro.style.display = "block"
 
+            limparMensagem()
+        } else if (senha.length < 6) {
+            mensagem_erro_cadastro.innerHTML = "A senha precisa ter 6 dígitos"
+            mensagem_erro_cadastro.style.display = "block"
+
+            limparMensagem()
         }
         else {
-            fetch("/funcionarioAssociado/cadastrar", {
+            fetch("/usuarios/cadastrar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    nomeServer: nome,
                     emailServer: email,
-                    idHospitalServer: idHospital,
-                    idEscalonamentoServer: cargo
+                    cpfServer: cpf,
+                    telefoneServer: telefone,
+                    senhaServer: senha,
+                    cargoServer: cargo,
+                    hospitalServer: hospital
                 })
             }).then(function (resposta) {
                 console.log("ESTOU NO THEN DO entrar()!")
@@ -396,6 +420,11 @@
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json))
+
+
+                        mensagem_erro_cadastro.style = "background-color: green;"
+                        mensagem_erro_cadastro.innerHTML = "Usuário cadastrado com sucesso"
+                        mensagem_erro_cadastro.style.display = "block"
 
                         setTimeout(function () {
                             location.reload();
@@ -413,15 +442,111 @@
         }
     }
 
-    function remover(idAssociado) {
+    function pegarDadosEdicao(nome, email, cpf, telefone, senha, cargo, idCargo, idUsuario) {
+        var hospital = sessionStorage.ID_HOSPITAL;
+        dropEditar()
+        nome_input_edit.value = nome
+        email_input_edit.value = email
+        cpf_input_edit.value = cpf
+        telefone_input_edit.value = telefone
+        senha_input_edit.value = senha
+        sessionStorage.idUsuarioEditado = idUsuario
 
-        fetch(`/funcionarioAssociado/deletar`, {
+
+        fetch("/cargo/listar", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+
+                console.log(data)
+
+                cargos = data;
+
+                var selectElement = document.getElementById('cargoSelectEdit');
+
+                while (selectElement.options.length > 0) {
+                    selectElement.remove(0);
+                }
+
+                // Itera sobre o array de empresas e cria as opções do select
+                for (let i = 0; i < cargos.length; i++) {
+                    const cargoAtual = cargos[i];
+
+                    const optionElement = document.createElement('option');
+                    optionElement.value = cargoAtual.idEscalonamento;
+                    optionElement.text = cargoAtual.cargo;
+                    selectElement.appendChild(optionElement);
+                    if (optionElement.text == cargo) {
+                        selectElement.value = optionElement.value
+                    }
+                }
+
+
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function editar(){
+        idUsuario = sessionStorage.idUsuarioEditado;
+        nome = nome_input_edit.value;
+        email = email_input_edit.value; 
+        idCargo = cargoSelectEdit.value;
+        telefone = telefone_input_edit.value; 
+        senha = senha_input_edit.value;
+        
+        fetch(`/usuarios/editar`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                cargoServer: idCargo,
+                telefoneServer: telefone,
+                senhaServer: senha,
+                idUsuarioServer: idUsuario
+            })
+        })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000); // 
+                    
+                    });
+
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+    }
+
+    function deletar(idUsuario) {
+        fetch(`/usuarios/deletar`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idServer: idAssociado,
+                idServer: idUsuario,
             })
         })
             .then(function (resposta) {
@@ -461,28 +586,15 @@
                 }
             }).catch(function (erro) {
                 console.log(erro);
-                Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
             })
     }
 
 
-    // function ajustarTabela() {
-    //   var tabela = document.getElementById("minhaTabela");
-    //   var larguraTela = window.innerWidth;
-
-    //   if (larguraTela < 600) {
-    //     for (var i = 0; i < tabela.rows.length; i++) {
-    //       tabela.rows[i].cells[2].style.display = "none";
-    //     }
-    //   } else {
-    //     for (var i = 0; i < tabela.rows.length; i++) {
-    //       tabela.rows[i].cells[2].style.display = "table-cell";
-    //     }
-    //   }
-    // }
-
-    // // Chama a função de ajuste da tabela quando a página carrega e quando a tela é redimensionada
-    // window.addEventListener("load", ajustarTabela);
-    // window.addEventListener("resize", ajustarTabela);
+    function limparMensagem() {
+        setTimeout(() => {
+            mensagem_erro_cadastro.style.display = "none"
+        }, 3000)
+    }
 
 </script>
+<script src="js/validacoesCadastro.js"></script>
