@@ -379,20 +379,21 @@
         var senha = input_senha.value
         var cargo = cargoSelect.value
         var hospital = sessionStorage.ID_HOSPITAL;
+        mensagem_erro = document.getElementById("mensagem_erro_cadastro")
 
-        console.log(cargo)
+        
         if (nome == "" || email == "" || cpf == "" || telefone == "" || senha == "" || cargo == "Cargo" || hospital == "") {
-            mensagem_erro_cadastro.innerHTML = "Todos os campos precisam ser preenchidos"
-            mensagem_erro_cadastro.style.display = "block"
+            mensagem_erro.innerHTML = "Todos os campos precisam ser preenchidos"
+            mensagem_erro.style.display = "block"
             limparMensagem()
         } else if (email.indexOf("@") < 0) {
-            mensagem_erro_cadastro.innerHTML = "Email está no formato inválido"
-            mensagem_erro_cadastro.style.display = "block"
+            mensagem_erro.innerHTML = "Email está no formato inválido"
+            mensagem_erro.style.display = "block"
 
             limparMensagem()
         } else if (senha.length < 6) {
-            mensagem_erro_cadastro.innerHTML = "A senha precisa ter 6 dígitos"
-            mensagem_erro_cadastro.style.display = "block"
+            mensagem_erro.innerHTML = "A senha precisa ter 6 dígitos"
+            mensagem_erro.style.display = "block"
 
             limparMensagem()
         }
@@ -422,9 +423,9 @@
                         console.log(JSON.stringify(json))
 
 
-                        mensagem_erro_cadastro.style = "background-color: green;"
-                        mensagem_erro_cadastro.innerHTML = "Usuário cadastrado com sucesso"
-                        mensagem_erro_cadastro.style.display = "block"
+                        mensagem_erro.style = "background-color: green;"
+                        mensagem_erro.innerHTML = "Usuário cadastrado com sucesso"
+                        mensagem_erro.style.display = "block"
 
                         setTimeout(function () {
                             location.reload();
@@ -592,7 +593,7 @@
 
     function limparMensagem() {
         setTimeout(() => {
-            mensagem_erro_cadastro.style.display = "none"
+            document.getElementById("mensagem_erro_cadastro").style.display = "none"
         }, 3000)
     }
 
