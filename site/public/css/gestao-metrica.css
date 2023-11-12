@@ -308,6 +308,8 @@ body {
     display: flex;
     width: 12%;
     justify-content: center;
+    border-width: 0px;
+    background-color: rgb(220, 220, 220);
 }
 
 .btn-editar{

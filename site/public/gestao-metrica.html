@@ -26,7 +26,7 @@
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-<body>
+<body onload="buscarMetricas()">
 
     <div class="principal">
         <div class="sidebar">
@@ -137,121 +137,6 @@
                         </div>
                     </div>
                     <div class="container-table">
-                        <div class="container-tuple">
-                            <div class="box-tuple-data">
-                                <span>Porcentagem de CPU</span>
-                            </div>
-                            <div class="box-tuple-alerta">
-                                <span>70%</span>
-                            </div>
-                            <div class="box-tuple-urgente">
-                                <span>80%</span>
-                            </div>
-                            <div class="box-tuple-critico">
-                                <span>90%</span>
-                            </div>
-                            <div class="box-tuple-tipo-dado">
-                                <span>%</span>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-editar">Editar</button>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-excluir">Excluir</button>
-                            </div>
-                        </div>
-                        <div class="container-tuple">
-                            <div class="box-tuple-data">
-                                <span>Porcentagem de CPU</span>
-                            </div>
-                            <div class="box-tuple-alerta">
-                                <span>70%</span>
-                            </div>
-                            <div class="box-tuple-urgente">
-                                <span>80%</span>
-                            </div>
-                            <div class="box-tuple-critico">
-                                <span>90%</span>
-                            </div>
-                            <div class="box-tuple-tipo-dado">
-                                <span>%</span>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-editar">Editar</button>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-excluir">Excluir</button>
-                            </div>
-                        </div>
-                        <div class="container-tuple">
-                            <div class="box-tuple-data">
-                                <span>Porcentagem de CPU</span>
-                            </div>
-                            <div class="box-tuple-alerta">
-                                <span>70%</span>
-                            </div>
-                            <div class="box-tuple-urgente">
-                                <span>80%</span>
-                            </div>
-                            <div class="box-tuple-critico">
-                                <span>90%</span>
-                            </div>
-                            <div class="box-tuple-tipo-dado">
-                                <span>%</span>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-editar">Editar</button>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-excluir">Excluir</button>
-                            </div>
-                        </div>
-                        <div class="container-tuple">
-                            <div class="box-tuple-data">
-                                <span>Porcentagem de CPU</span>
-                            </div>
-                            <div class="box-tuple-alerta">
-                                <span>70%</span>
-                            </div>
-                            <div class="box-tuple-urgente">
-                                <span>80%</span>
-                            </div>
-                            <div class="box-tuple-critico">
-                                <span>90%</span>
-                            </div>
-                            <div class="box-tuple-tipo-dado">
-                                <span>%</span>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-editar">Editar</button>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-excluir">Excluir</button>
-                            </div>
-                        </div>
-                        <div class="container-tuple">
-                            <div class="box-tuple-data">
-                                <span>Porcentagem de CPU</span>
-                            </div>
-                            <div class="box-tuple-alerta">
-                                <span>70%</span>
-                            </div>
-                            <div class="box-tuple-urgente">
-                                <span>80%</span>
-                            </div>
-                            <div class="box-tuple-critico">
-                                <span>90%</span>
-                            </div>
-                            <div class="box-tuple-tipo-dado">
-                                <span>%</span>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-editar">Editar</button>
-                            </div>
-                            <div class="box-tuple-button">
-                                <button class="btn-excluir">Excluir</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -263,11 +148,6 @@
 
 <script>
 
-    function suporte(){
-        var a = 'https://app.pipefy.com/public/form/HOFtqh52'
-
-        window.location = a
-    }
     cargo = sessionStorage.CARGO_USUARIO
 
     gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
@@ -283,6 +163,120 @@
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
+    function buscarMetricas() {
+        fetch(`/metricas/buscarMetricas`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Cheguei aqui no HTML!")
+                construirObjetoMetrica(resposta)
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+        }
 
+        function construirObjetoMetrica(metricas){
+
+            metricas.forEach(metrica => {
+                var objetoMetrica = {
+                    fkMetrica: metrica.fkMetrica,
+                    nome_componente: metrica.nome,
+                    alertaAlerta: metrica.alerta,
+                    alertaUrgente: metrica.urgente,
+                    alertaCritico: metrica.critico,
+                    unidade: metrica.unidade
+                }
+
+                criarElementosMetricas(objetoMetrica)
+            });
+                
+            }
+
+        function criarElementosMetricas(objetoMetrica){
+           var nome_componente = objetoMetrica.nome_componente
+           var alertaAlerta = objetoMetrica.alertaAlerta
+           var alertaUrgente = objetoMetrica.alertaUrgente
+           var alertaCritico = objetoMetrica.alertaCritico
+           var tipo_dado = objetoMetrica.unidade
+           var fkMetrica = objetoMetrica.fkMetrica
+
+           var divContainerTuple = document.createElement("div")
+           divContainerTuple.classList.add("container-tuple")
+
+
+           var divComponente = document.createElement("div")
+           divComponente.classList.add("box-tuple-data")
+        
+           var spanComponente = document.createElement("span")
+           spanComponente.textContent = nome_componente
+           divComponente.appendChild(spanComponente)
+
+           var divAlerta = document.createElement("div")
+           divAlerta.classList.add("box-tuple-alerta")
+           
+           var spanAlerta = document.createElement("div")
+           spanAlerta.textContent = alertaAlerta
+           divAlerta.appendChild(spanAlerta)
+
+           var divAlertaUrgente = document.createElement("div")
+           divAlertaUrgente.classList.add("box-tuple-urgente")
+           
+           var spanAlertaUrgente = document.createElement("span")
+           spanAlertaUrgente.textContent = alertaUrgente
+           divAlertaUrgente.appendChild(spanAlertaUrgente)
+
+           var divAlertaCritico = document.createElement("div")
+           divAlertaCritico.classList.add("box-tuple-critico")
+
+           var spanAlertaCritico = document.createElement("span")
+           spanAlertaCritico.textContent = alertaCritico
+           divAlertaCritico.appendChild(spanAlertaCritico)
+
+           var divTipoDado = document.createElement("div")
+           divTipoDado.classList.add("box-tuple-tipo-dado")
+           
+           var spanTipoDado = document.createElement("span")
+           spanTipoDado.textContent = tipo_dado
+           divTipoDado.appendChild(spanTipoDado)
+
+           var divButtonEditar = document.createElement("button")
+           divButtonEditar.classList.add("box-tuple-button")
+
+           var buttonEditar = document.createElement("button")
+           buttonEditar.classList.add("btn-editar")
+           buttonEditar.textContent = "Editar"
+           divButtonEditar.appendChild(buttonEditar)
+
+           var divButtonExcluir = document.createElement("div")
+           divButtonExcluir.classList.add("box-tuple-button")
+           
+           var buttonExcluir = document.createElement("button")
+           buttonExcluir.classList.add("btn-excluir")    
+           buttonExcluir.textContent = "Excluir"
+           divButtonExcluir.appendChild(buttonExcluir)
+           
+           divContainerTuple.appendChild(divComponente)
+           divContainerTuple.appendChild(divAlerta)
+           divContainerTuple.appendChild(divAlertaUrgente)
+           divContainerTuple.appendChild(divAlertaCritico)
+           divContainerTuple.appendChild(divTipoDado)
+           divContainerTuple.appendChild(divButtonEditar)
+           divContainerTuple.appendChild(divButtonExcluir)
+
+           var divContainerTable = document.querySelector(".container-table")
+           divContainerTable.appendChild(divContainerTuple)
+        }
 
 </script>
