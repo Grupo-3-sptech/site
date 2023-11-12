@@ -7,14 +7,38 @@ function buscarUltimosAlertas() {
     var instrucaoSql3 = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top ${limite_linhas}
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,  
-                        momento,
-                        FORMAT(momento, 'HH:mm:ss') as momento_grafico
-                    from medida
-                    where fk_aquario = ${idAquario}
-                    order by id desc`;
+        instrucaoSql = `
+        SELECT
+            *,
+        FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        FROM Alerta
+        WHERE
+        tipo_alerta = 'critico'
+        AND dtHora >= DATEADD(MINUTE, -1, GETDATE());
+
+        `;
+
+        instrucaoSql2 = `
+        SELECT
+            *,
+        FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        FROM Alerta
+        WHERE
+        tipo_alerta = 'urgente'
+        AND dtHora >= DATEADD(MINUTE, -1, GETDATE());
+
+        `;
+
+        instrucaoSql3 = `
+        SELECT
+            *,
+        FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        FROM Alerta
+        WHERE
+        tipo_alerta = 'alerta'
+        AND dtHora >= DATEADD(MINUTE, -1, GETDATE());
+
+        `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT
@@ -68,14 +92,23 @@ function buscarQuantidadeDeAlertas(intervalo) {
     var instrucaoSql3 = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top ${limite_linhas}
-            dht11_temperatura as temperatura, 
-            dht11_umidade as umidade,  
-                            momento,
-                            FORMAT(momento, 'HH:mm:ss') as momento_grafico
-                        from medida
-                        where fk_aquario = ${idAquario}
-                        order by id desc`;
+        instrucaoSql = `
+            SELECT count(idAlerta) as alertas FROM Alerta WHERE 
+            tipo_alerta = "critico"
+            AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE()));
+            `;
+
+        instrucaoSql2 = `
+            SELECT count(idAlerta) as alertas FROM Alerta WHERE 
+            tipo_alerta = "urgente"
+            AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE()));
+            `;
+
+        instrucaoSql3 = `
+            SELECT count(idAlerta) as alertas FROM Alerta WHERE 
+            tipo_alerta = "alerta"
+            AND dtHora >= DATEADD(${intervalo}, -1, GETDATE()));
+            `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
             SELECT count(idAlerta) as alertas FROM Alerta WHERE 

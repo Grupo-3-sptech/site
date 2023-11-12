@@ -7,7 +7,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
       instrucaoSql = `WITH LinhasComponentes AS (
           SELECT
             r.idRegistro,
-            DATE_FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
+            FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
             r.dado,
             c.nome AS nomeComponente,
             ROW_NUMBER() OVER (PARTITION BY c.nome ORDER BY r.idRegistro DESC) AS linha_num
@@ -48,14 +48,14 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
   } else if (tempo == "dia") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%d/%m/%Y %H') as HorarioFormatado,
+      FORMAT(HorarioDado, '%d/%m/%Y %H') as HorarioFormatado,
       round(AVG(dado),2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 24 HOUR AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente
+    AND HorarioDado >= DATEADD(DAY, -1, GETDATE()) AND HorarioDado <= GETDATE()
+    GROUP BY FORMAT(HorarioDado, '%d/%m/%Y %H'), nomeComponente
     ORDER BY HorarioFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       instrucaoSql = `SELECT
@@ -77,14 +77,14 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
   } else if (tempo == "mes") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
+      FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
       round(AVG(dado),2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
+    AND HorarioDado >= DATEADD(MONTH, -1, GETDATE()) AND HorarioDado <= GETDATE()
+    GROUP BY FORMAT(HorarioDado, '%d/%m/%Y'), nomeComponente
     ORDER BY HorarioFormatado 
     LIMIT 90;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -108,14 +108,14 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
   } else if (tempo == "ano") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%m/%Y') as HorarioFormatado,
+      FORMAT(HorarioDado, '%m/%Y') as HorarioFormatado,
       round(AVG(dado),2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
-    AND HorarioDado >= NOW() - INTERVAL 1 YEAR AND HorarioDado <= NOW()
-    GROUP BY DATE_FORMAT(HorarioDado, '%m/%Y'), nomeComponente
+    AND HorarioDado >= DATEADD(YEAR, -1, GETDATE()) AND HorarioDado <= GETDATE()
+    GROUP BY FORMAT(HorarioDado, '%m/%Y'), nomeComponente
     ORDER BY HorarioFormatado 
     LIMIT 36;
     `;
@@ -151,7 +151,7 @@ function buscarMedidasResumo(id, tempo) {
       instrucaoSql = `WITH LinhasComponentes AS (
               SELECT
                 r.idRegistro,
-                DATE_FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
+                FORMAT(r.HorarioDado, '%HH:%mm:%ss') AS HorarioFormatado,
                 r.dado,
                 c.nome AS nomeComponente,
                 ROW_NUMBER() OVER (PARTITION BY c.nome ORDER BY r.idRegistro DESC) AS linha_num
@@ -192,13 +192,13 @@ function buscarMedidasResumo(id, tempo) {
   } else if (tempo == "dia") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-          DATE_FORMAT(HorarioDado, '%d/%m/%Y') as DiaFormatado,
+          FORMAT(HorarioDado, '%d/%m/%Y') as DiaFormatado,
           round(AVG(dado), 2) AS dado,
           c.nome AS nomeComponente
         FROM Registros r
         JOIN componentes c ON r.fkComponente = c.idComponentes
         WHERE r.fkRoboRegistro = ${id}
-          AND HorarioDado >= NOW() - INTERVAL 24 HOUR AND HorarioDado <= NOW()
+          AND HorarioDado >= DATEADD(DAY, -1, GETDATE()) AND HorarioDado <= GETDATE()
         GROUP BY DiaFormatado, nomeComponente
         ORDER BY DiaFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -221,13 +221,13 @@ function buscarMedidasResumo(id, tempo) {
   } else if (tempo == "mes"){
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%m/%Y') as MesFormatado,
+      FORMAT(HorarioDado, '%m/%Y') as MesFormatado,
       round(AVG(dado), 2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
-      AND HorarioDado >= NOW() - INTERVAL 30 DAY AND HorarioDado <= NOW()
+      AND HorarioDado >= DATEADD(MONTH, -1, GETDATE()) AND HorarioDado <= GETDATE()
     GROUP BY MesFormatado, nomeComponente
     ORDER BY MesFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -250,13 +250,13 @@ function buscarMedidasResumo(id, tempo) {
   } else if (tempo == "ano"){
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
-      DATE_FORMAT(HorarioDado, '%Y') as AnoFormatado,
+      FORMAT(HorarioDado, '%Y') as AnoFormatado,
       ROUND(AVG(dado), 2) AS dado,
       c.nome AS nomeComponente
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
-      AND HorarioDado >= NOW() - INTERVAL 365 DAY AND HorarioDado <= NOW()
+      AND HorarioDado >= DATEADD(YEAR, -1, GETDATE()) AND HorarioDado <= GETDATE()
     GROUP BY AnoFormatado, nomeComponente
     ORDER BY AnoFormatado;`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
