@@ -214,8 +214,8 @@
 
            var divContainerTuple = document.createElement("div")
            divContainerTuple.classList.add("container-tuple")
-
-
+           divContainerTuple.id = fkMetrica
+    
            var divComponente = document.createElement("div")
            divComponente.classList.add("box-tuple-data")
         
@@ -229,6 +229,7 @@
            var spanAlerta = document.createElement("div")
            spanAlerta.textContent = alertaAlerta
            divAlerta.appendChild(spanAlerta)
+           spanAlerta.id = "span"
 
            var divAlertaUrgente = document.createElement("div")
            divAlertaUrgente.classList.add("box-tuple-urgente")
@@ -236,6 +237,7 @@
            var spanAlertaUrgente = document.createElement("span")
            spanAlertaUrgente.textContent = alertaUrgente
            divAlertaUrgente.appendChild(spanAlertaUrgente)
+           spanAlertaUrgente.id = "span"
 
            var divAlertaCritico = document.createElement("div")
            divAlertaCritico.classList.add("box-tuple-critico")
@@ -243,6 +245,7 @@
            var spanAlertaCritico = document.createElement("span")
            spanAlertaCritico.textContent = alertaCritico
            divAlertaCritico.appendChild(spanAlertaCritico)
+           spanAlertaCritico.id = "span"
 
            var divTipoDado = document.createElement("div")
            divTipoDado.classList.add("box-tuple-tipo-dado")
@@ -251,13 +254,15 @@
            spanTipoDado.textContent = tipo_dado
            divTipoDado.appendChild(spanTipoDado)
 
-           var divButtonEditar = document.createElement("button")
+           var divButtonEditar = document.createElement("div")
            divButtonEditar.classList.add("box-tuple-button")
 
-           var buttonEditar = document.createElement("button")
-           buttonEditar.classList.add("btn-editar")
-           buttonEditar.textContent = "Editar"
-           divButtonEditar.appendChild(buttonEditar)
+           divButtonEditar.innerHTML =
+           `
+           <button id=${fkMetrica} class="btn-editar" onclick="editarMetrica(this.id)">
+            Editar
+           </button>
+           `
 
            var divButtonExcluir = document.createElement("div")
            divButtonExcluir.classList.add("box-tuple-button")
@@ -265,6 +270,7 @@
            var buttonExcluir = document.createElement("button")
            buttonExcluir.classList.add("btn-excluir")    
            buttonExcluir.textContent = "Excluir"
+           buttonExcluir.id = fkMetrica
            divButtonExcluir.appendChild(buttonExcluir)
            
            divContainerTuple.appendChild(divComponente)
@@ -278,5 +284,71 @@
            var divContainerTable = document.querySelector(".container-table")
            divContainerTable.appendChild(divContainerTuple)
         }
+
+
+        function editarMetrica(fkMetrica){
+            const divContainerTuple = document.getElementById(`${fkMetrica}`)
+            const elementosTuple = divContainerTuple.children
+            const listaElementoValores = []
+
+            let i = 1
+            for (; i <= 3; i++){
+                    var divElemento = elementosTuple[i]
+                    var spanElemento = divElemento.querySelector("#span")
+                    var valorSpanElemento = spanElemento.textContent
+                    listaElementoValores.push(valorSpanElemento)
+
+                    spanElemento.remove()
+                    var inputDado = document.createElement("input")
+                    inputDado.value = valorSpanElemento
+                    inputDado.id = "input"
+                    divElemento.appendChild(inputDado)
+                }
+                
+                const divButtonEditar = elementosTuple[5]
+                const buttonEditar = elementosTuple[5].firstChild
+                const buttonExcluir = elementosTuple[6].firstChild
+                
+                buttonEditar.remove()
+                buttonExcluir.remove()
+
+                divButtonEditar.innerHTML =
+                `
+                <button id=${fkMetrica} class="btn-salvar" onclick="validarEdicao(this.id, [${listaElementoValores}])">
+                    Salvar
+                </button>
+                `
+            
+            }
+
+        function validarEdicao(fkMetrica, listaElementoValores){
+            const listaValidacao = []
+            const divContainerTable = document.getElementById(`${fkMetrica}`)
+            const elementosTuple = divContainerTable.children
+
+            let i = 1
+            for (; i <= 3; i++){
+                    var divElemento = elementosTuple[i]
+                    var elementoInput = divElemento.querySelector("#input")
+                    var valorElementoInput = elementoInput.value
+                    listaValidacao.push(valorElementoInput)
+
+                }
+            
+            i = 0
+            for (; i < listaElementoValores.length -1; i++){
+                var valorAntigo = Number(listaElementoValores[i])
+                var valorModificado = Number(listaValidacao[i])
+
+                if(valorModificado != valorAntigo){
+                    console.log(`Esse valor foi modificado: ${valorAntigo}`)
+                    // editarMetricaDoBanco(listaValidacao)
+                    return 
+                }
+            }
+        }
+
+            
+        
 
 </script>
