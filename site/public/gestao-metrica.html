@@ -215,8 +215,8 @@
         }
 
 
-        function excluirMetrica(fkMetrica) {
-        fetch(`/metricas/updateMetricas/${fkMetrica}`, {
+        function excluirMetrica(idMetrica) {
+        fetch(`/metricas/updateMetricas/${idMetrica}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -244,6 +244,7 @@
             metricas.forEach(metrica => {
                 var objetoMetrica = {
                     fkMetrica: metrica.fkMetrica,
+                    idMetrica: metrica.idMetrica,
                     nome_componente: metrica.nome,
                     alertaAlerta: metrica.alerta,
                     alertaUrgente: metrica.urgente,
@@ -263,6 +264,7 @@
            var alertaCritico = objetoMetrica.alertaCritico
            var tipo_dado = objetoMetrica.unidade
            var fkMetrica = objetoMetrica.fkMetrica
+           var idMetrica = objetoMetrica.idMetrica
 
            var divContainerTuple = document.createElement("div")
            divContainerTuple.classList.add("container-tuple")
@@ -318,13 +320,14 @@
 
            var divButtonExcluir = document.createElement("div")
            divButtonExcluir.classList.add("box-tuple-button")
-           
-           var buttonExcluir = document.createElement("button")
-           buttonExcluir.classList.add("btn-excluir")    
-           buttonExcluir.textContent = "Excluir"
-           buttonExcluir.id = fkMetrica
-           divButtonExcluir.appendChild(buttonExcluir)
-           
+
+           divButtonExcluir.innerHTML = 
+           `
+           <button id=${idMetrica} class="btn-excluir" onclick="excluirMetrica(this.id)">
+            Excluir
+            </button>
+           `
+
            divContainerTuple.appendChild(divComponente)
            divContainerTuple.appendChild(divAlerta)
            divContainerTuple.appendChild(divAlertaUrgente)
@@ -358,8 +361,8 @@
                 }
                 
                 const divButtonEditar = elementosTuple[5]
-                const buttonEditar = elementosTuple[5].firstChild
-                const buttonExcluir = elementosTuple[6].firstChild
+                const buttonEditar = elementosTuple[5].childNodes[1]
+                const buttonExcluir = elementosTuple[6].childNodes[1]
                 
                 buttonEditar.remove()
                 buttonExcluir.remove()
