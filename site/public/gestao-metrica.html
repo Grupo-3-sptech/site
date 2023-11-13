@@ -17,6 +17,8 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
+
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -187,6 +189,56 @@
             });
         }
 
+        
+
+        function updateMetricas(fkMetrica, alerta, urgente, critico) {
+        fetch(`/metricas/updateMetricas/${fkMetrica}/${alerta}/${urgente}/${critico}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Cheguei aqui no HTML!")
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+        }
+
+
+        function excluirMetrica(fkMetrica) {
+        fetch(`/metricas/updateMetricas/${fkMetrica}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Cheguei aqui no HTML!")
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+        }
+        
+
         function construirObjetoMetrica(metricas){
 
             metricas.forEach(metrica => {
@@ -340,14 +392,19 @@
                 var valorAntigo = Number(listaElementoValores[i])
                 var valorModificado = Number(listaValidacao[i])
 
+                var alerta = listaValidacao[0]
+                var urgente = listaValidacao[1]
+                var critico = listaValidacao[2]
+
                 if(valorModificado != valorAntigo){
                     console.log(`Esse valor foi modificado: ${valorAntigo}`)
-                    // editarMetricaDoBanco(listaValidacao)
+                    updateMetricas(fkMetrica, alerta, urgente, critico)
+                    location.reload()
                     return 
                 }
             }
         }
-
+        
             
         
 

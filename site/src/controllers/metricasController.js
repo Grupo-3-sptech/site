@@ -20,7 +20,57 @@ async function buscarMetricas(req, res) {
     }
 }
 
+function updateMetricas(req, res) {
+    var fkMetrica = req.params.fkMetrica;
+    var alerta = req.params.alerta;
+    var urgente = req.params.urgente;
+    var critico = req.params.critico;
+
+    console.log(`fkMetrica: ${fkMetrica}`)
+    console.log(`alerta: ${alerta}`)
+    console.log(`urgnete: ${urgente}`)
+    console.log(`critico: ${critico}`)
+
+    // Certifique-se de que os dados foram recebidos corretamente
+    if (fkMetrica === undefined || alerta === undefined || urgente === undefined || critico === undefined) {
+        return res.status(400).json({ error: 'Dados incompletos na requisição' });
+    }
+
+    // Realize a lógica de atualização no banco de dados aqui
+    // Certifique-se de que o modelo 'metricasModel' está configurado corretamente
+
+    metricasModel.updateMetricas(fkMetrica, alerta, urgente, critico)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+
+         
+}
+
+function excluirMetricas(req, res) {
+    var idMetrica = req.params.idMetrica;
+
+    metricasModel.excluirMetricas(idMetrica)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+
+         
+}
+
 
 module.exports = {
-    buscarMetricas
+    buscarMetricas,
+    updateMetricas,
+    excluirMetricas
 }
