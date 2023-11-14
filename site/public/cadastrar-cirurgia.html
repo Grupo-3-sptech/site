@@ -92,9 +92,9 @@
             <div class="container-cirurgia" style="height: fit-content;">
 
                 <div class="content-listagem">
-                    <div class="listagem">
+                    <div class="listagem" id="listagem">
                         <h3 style="margin-top: 3%;">Cirurgias Recentes</h3>
-    
+                        <!--     
                         <div class="cirurgia">
                             <div class="item-cirurgia">
                                 <b>Médico</b>
@@ -131,125 +131,14 @@
                             <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="">
                             <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="">
                         </div>
-    
-    
-                        <div class="cirurgia">
-                            <div class="item-cirurgia">
-                                <b>Médico</b>
-                                <span id="nome_medico">Gabriel Boos</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Data Início</b>
-                                <span id="data_inicio">24/01/2000</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Horário Início</b>
-                                <span id="horario_inicio">21:00:02</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Duração Min.</b>
-                                <span id="duracao_minutos">123m</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Paciente</b>
-                                <span id="nome_paciente">Bianca Reis</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Sala</b>
-                                <span id="sala_cirurgia">3</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Categoria</b>
-                                <span id="categoria_cirurgia">Neurologia</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Risco</b>
-                                <span id="risco_cirurgia">5</span>
-                            </div>
-                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="">
-                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="">
-                        </div>
-    
-                        <div class="cirurgia">
-                            <div class="item-cirurgia">
-                                <b>Médico</b>
-                                <span id="nome_medico">Gabriel Boos</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Data Início</b>
-                                <span id="data_inicio">24/01/2000</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Horário Início</b>
-                                <span id="horario_inicio">21:00:02</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Duração Min.</b>
-                                <span id="duracao_minutos">123m</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Paciente</b>
-                                <span id="nome_paciente">Bianca Reis</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Sala</b>
-                                <span id="sala_cirurgia">3</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Categoria</b>
-                                <span id="categoria_cirurgia">Neurologia</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Risco</b>
-                                <span id="risco_cirurgia">5</span>
-                            </div>
-                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="">
-                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="">
-                        </div>
-    
-                        <div class="cirurgia">
-                            <div class="item-cirurgia">
-                                <b>Médico</b>
-                                <span id="nome_medico">Gabriel Boos</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Data Início</b>
-                                <span id="data_inicio">24/01/2000</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Horário Início</b>
-                                <span id="horario_inicio">21:00:02</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Duração Min.</b>
-                                <span id="duracao_minutos">123m</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Paciente</b>
-                                <span id="nome_paciente">Bianca Reis</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Sala</b>
-                                <span id="sala_cirurgia">3</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Categoria</b>
-                                <span id="categoria_cirurgia">Neurologia</span>
-                            </div>
-                            <div class="item-cirurgia">
-                                <b>Risco</b>
-                                <span id="risco_cirurgia">5</span>
-                            </div>
-                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="">
-                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="">
-                        </div>
+     -->
                     </div>
                 </div>
 
 
                 <div class="drop-cadastrar">
                     <h3>
-                        Cadastrar Cirurgia 
+                        Cadastrar Cirurgia
                         <img src="./Img/icons8-divisa-circulada-à-direita-24.png" alt="" onclick="dropCadastro()">
                     </h3>
                     <div style="display: none;" class="form-cirurgia" id="form_cirurgia">
@@ -257,34 +146,36 @@
                             <div class="div1">
                                 <div class="input-cirurgia">
                                     Nome do médico
-                                    <input type="text">
+                                    <input type="text" id="input_nome_medico">
                                 </div>
                                 <div class="input-cirurgia">
                                     Data de início
-                                    <input type="date">
-                                </div>  
+                                    <input type="text" id="input_data_inicio">
+                                </div>
                                 <div class="input-cirurgia">
                                     Horário de início
-                                    <input type="time">
-                                </div>  
+                                    <input type="text" id="input_horario_inicio">
+                                </div>
                                 <div class="input-cirurgia">
                                     Duração esperada em minutos
-                                    <input type="number">
-                                </div>  
-                                
+                                    <input type="number" id="input_duracao">
+                                </div>
+
                             </div>
                             <div class="div1">
                                 <div class="input-cirurgia">
                                     Nome do paciente
-                                    <input type="text">
+                                    <input type="text" id="input_nome_paciente">
                                 </div>
                                 <div class="input-cirurgia">
                                     Sala de cirurgia
-                                    <select name="" id=""></select>
+                                    <select name="" id="select_sala_cadastro">
+                                        <option value="">Sala</option>
+                                    </select>
                                 </div>
                                 <div class="input-cirurgia">
                                     Categoria Cirúrgica
-                                    <select name="" id="" >
+                                    <select name="" id="input_categoria">
                                         <option value="Cardiologia">Cardiologia</option>
                                         <option value="Cardiologia">Neurologia</option>
                                         <option value="Cardiologia">Ortopedia</option>
@@ -299,15 +190,17 @@
                                         <option value="Cardiologia">Vascular</option>
                                         <option value="Cardiologia">Urologia</option>
                                     </select>
-                                    
+
                                 </div>
                                 <div class="input-cirurgia">
                                     Risco Cirúrgico
-                                    <input type="range" min="1" max="5">
-                                </div>  
+                                    <input type="range" min="1" max="5" id="input_risco">
+                                </div>
                             </div>
                             <div class="div1">
-                                <button style="background-color: rgb(50, 125, 50);">Cadastrar</button>
+                                <button onclick="cadastrar()"
+                                    style="background-color: rgb(50, 125, 50);">Cadastrar</button>
+                                <button id="mensagem_erro_cadastro">Erro</button>
                             </div>
                         </div>
                     </div>
@@ -315,7 +208,7 @@
 
                 <div class="drop-cadastrar" style="margin-top: 2%; margin-bottom: 2%;">
                     <h3>
-                        Editar Cirurgia 
+                        Editar Cirurgia
                         <img src="./Img/icons8-divisa-circulada-à-direita-24.png" alt="" onclick="dropEditar()">
                     </h3>
                     <div style="display: none;" class="form-cirurgia" id="form_cirurgia2">
@@ -323,64 +216,64 @@
                             <div class="div1">
                                 <div class="input-cirurgia">
                                     Nome do médico
-                                    <input type="text">
+                                    <input type="text" id="input_nome_medico_edit">
                                 </div>
                                 <div class="input-cirurgia">
                                     Data de início
-                                    <input type="date">
-                                </div>  
+                                    <input type="text" id="input_data_inicio_edit">
+                                </div>
                                 <div class="input-cirurgia">
                                     Horário de início
-                                    <input type="time">
-                                </div>  
+                                    <input type="text" id="input_horario_inicio_edit">
+                                </div>
                                 <div class="input-cirurgia">
                                     Duração esperada em minutos
-                                    <input type="number">
-                                </div>  
-                                
+                                    <input type="number" id="input_duracao_esperada_edit">
+                                </div>
+
                             </div>
                             <div class="div1">
                                 <div class="input-cirurgia">
                                     Nome do paciente
-                                    <input type="text">
+                                    <input type="text" id="input_nome_paciente_edit">
                                 </div>
                                 <div class="input-cirurgia">
                                     Sala de cirurgia
-                                    <select name="" id=""></select>
+                                    <select itemid="sala_cirurgia_select" name="" id="select_sala_edit"></select>
                                 </div>
                                 <div class="input-cirurgia">
                                     Categoria Cirúrgica
-                                    <select name="" id="" >
+                                    <select id="select_categoria_edit" name="" id="">
                                         <option value="Cardiologia">Cardiologia</option>
-                                        <option value="Cardiologia">Neurologia</option>
-                                        <option value="Cardiologia">Ortopedia</option>
-                                        <option value="Cardiologia">Ginecologia</option>
-                                        <option value="Cardiologia">Geral</option>
-                                        <option value="Cardiologia">Epigástrica</option>
-                                        <option value="Cardiologia">Oftalmologia</option>
-                                        <option value="Cardiologia">Otorrinolaringologia</option>
-                                        <option value="Cardiologia">Pediátrica</option>
-                                        <option value="Cardiologia">Plástica</option>
-                                        <option value="Cardiologia">Proctologia</option>
-                                        <option value="Cardiologia">Vascular</option>
-                                        <option value="Cardiologia">Urologia</option>
+                                        <option value="Neurologia">Neurologia</option>
+                                        <option value="Ortopedia">Ortopedia</option>
+                                        <option value="Ginecologia">Ginecologia</option>
+                                        <option value="Geral">Geral</option>
+                                        <option value="Epigástrica">Epigástrica</option>
+                                        <option value="Oftalmologia">Oftalmologia</option>
+                                        <option value="Otorrinolaringologia">Otorrinolaringologia</option>
+                                        <option value="Pediátrica">Pediátrica</option>
+                                        <option value="Plástica">Plástica</option>
+                                        <option value="Proctologia">Proctologia</option>
+                                        <option value="Vascular">Vascular</option>
+                                        <option value="Urologia">Urologia</option>
                                     </select>
-                                    
+
                                 </div>
                                 <div class="input-cirurgia">
                                     Risco Cirúrgico
-                                    <input type="range" min="1" max="5">
-                                </div>  
+                                    <input id="input_risco_edit" type="range" min="1" max="5">
+                                </div>
                             </div>
                             <div class="div1">
-                                <button style="background-color: rgb(193, 95, 46);">Editar</button>
+                                <button onclick="editar()" style="background-color: rgb(193, 95, 46);">Editar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </div>
 
@@ -394,27 +287,27 @@
 <script>
 
     var drop = 0
-    function dropCadastro(){
-        if(drop == 0){
+    function dropCadastro() {
+        if (drop == 0) {
             form_cirurgia.style.display = "flex"
             drop = 1
-        } else{
+        } else {
             form_cirurgia.style.display = "none"
             drop = 0
         }
-       
+
     }
-    
+
     var drop2 = 0
-    function dropEditar(){
-        if(drop2 == 0){
+    function dropEditar() {
+        if (drop2 == 0) {
             form_cirurgia2.style.display = "flex"
             drop2 = 1
-        } else{
+        } else {
             form_cirurgia2.style.display = "none"
             drop2 = 0
         }
-       
+
     }
 
 
@@ -437,67 +330,335 @@
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
+    idCirurgia = sessionStorage.idUsuarioEditado;
+
     var id = 1
 
     // window.onload = exibirComponentes(id);
 
+    var salas;
+    fetch("/sala/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
 
-    var funcionarios;
-    var idHospital = sessionStorage.ID_HOSPITAL;
+            console.log(data)
 
-    function salvar() {
-        var email = input_email.value;
-        var cargo = cargoSelect.value
+            salas = data;
 
-        if (email == "" || cargo == "") {
+            var selectElement = document.getElementById('select_sala_cadastro');
 
+            // Itera sobre o array de empresas e cria as opções do select
+            for (let i = 0; i < salas.length; i++) {
+                const sala = salas[i];
+
+                const optionElement = document.createElement('option');
+                optionElement.value = sala.idSala;
+                optionElement.text = sala.numero;
+                selectElement.appendChild(optionElement);
+            }
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    var cirurgia;
+    fetch("/cirurgia/listar", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação GET');
+            }
+            return response.json();
+        }).then(data => {
+
+            console.log(data)
+
+            cirurgias = data;
+
+
+            for (let i = 0; i < cirurgias.length; i++) {
+                const c = cirurgias[i];
+
+                listagem.innerHTML += `<div class="cirurgia">
+                            <div class="item-cirurgia">
+                                <b>Médico</b>
+                                <span id="nome_medico">${c.nomeMedico}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Dt. Início</b>
+                                <span id="data_inicio">${c.dataInicio}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Horário. Início</b>
+                                <span id="horario_inicio">${c.dataHorario}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Duração min.</b>
+                                <span id="duracao_minutos">${c.duracao}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Paciente</b>
+                                <span id="nome_paciente">${c.nomePaciente}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Sala</b>
+                                <span id="sala">${c.sala}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Categoria</b>
+                                <span id="sala">${c.tipo}</span>
+                            </div>
+                            <div class="item-cirurgia">
+                                <b>Risco</b>
+                                <span id="sala">${c.fkCategoria}</span>
+                            </div>
+                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lápis-20.png" alt="" onclick="pegarDadosEdicao('${c.nomeMedico}', '${c.dataInicio}', '${c.dataHorario}', '${c.duracao}', '${c.nomePaciente}','${c.sala}','${c.tipo}','${c.fkCategoria}', '${c.idCirurgia}')">
+                            <img style="height: 4vh; width: auto;" src="./Img/icons8-lixo-20.png" alt="" onclick="deletar(${c.idCirurgia})">
+                        </div>`
+            }
+
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+
+    function cadastrar() {
+        var nome_medico = input_nome_medico.value;
+        var data_inicio = input_data_inicio.value;
+        var horario_inicio = input_horario_inicio.value;
+        var duracao = input_duracao.value;
+        var nome_paciente = input_nome_paciente.value
+        var sala = select_sala_cadastro.value
+        var categoria = input_categoria.value
+        var risco = input_risco.value
+
+
+        var hospital = sessionStorage.ID_HOSPITAL;
+
+        console.log(cargo)
+        if (nome_medico == "" || data_inicio == "" || horario_inicio == "" || duracao == "" || nome_paciente == "" || sala == "" || categoria == "" || risco == "") {
+            mensagem_erro_cadastro.innerHTML = "Todos os campos precisam ser preenchidos"
+            mensagem_erro_cadastro.style.display = "block"
+            limparMensagem()
         }
         else {
-            fetch("/funcionarioAssociado/cadastrar", {
-                method: "POST",
+            fetch(`/sala/robo/${sala}`, {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    emailServer: email,
-                    idHospitalServer: idHospital,
-                    idEscalonamentoServer: cargo
-                })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!")
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao fazer a solicitação GET');
+                    }
+                    return response.json();
+                }).then(data => {
 
-                if (resposta.ok) {
-                    console.log(resposta);
+                    console.log(data)
 
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json))
+                    fkRoboCirurgia = data[0].fkRoboSala;
 
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1000); // 
+                    fetch("/cirurgia/cadastrar", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            nome_medicoServer: nome_medico,
+                            data_inicioServer: data_inicio,
+                            horario_inicioServer: horario_inicio,
+                            duracaoServer: duracao,
+                            nome_pacienteServer: nome_paciente,
+                            fkRoboCirurgiaServer: fkRoboCirurgia,
+                            categoriaServer: categoria,
+                            riscoServer: risco
+                        })
+                    }).then(function (resposta) {
+                        console.log("ESTOU NO THEN DO entrar()!")
+
+                        if (resposta.ok) {
+                            console.log(resposta);
+
+                            resposta.json().then(json => {
+                                console.log(json);
+                                console.log(JSON.stringify(json))
+
+
+                                mensagem_erro_cadastro.style = "background-color: green;"
+                                mensagem_erro_cadastro.innerHTML = "Cirurgia cadastrado com sucesso"
+                                mensagem_erro_cadastro.style.display = "block"
+
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000); // 
+
+                            })
+                        } else {
+
+                        }
+
+                    }).catch(function (erro) {
+                        console.log(erro);
 
                     })
-                } else {
+                }).catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
 
-                }
 
-            }).catch(function (erro) {
-                console.log(erro);
-
-            })
         }
     }
 
-    function remover(idAssociado) {
+    function pegarDadosEdicao(nome_medico, data_inicio, horario_inicio, duracao, nome_paciente, sala, categoria, risco, idCirurgia) {
 
-        fetch(`/funcionarioAssociado/deletar`, {
+        var hospital = sessionStorage.ID_HOSPITAL;
+        dropEditar();
+        input_nome_medico_edit.value = nome_medico;
+        input_data_inicio_edit.value = data_inicio;
+        input_horario_inicio_edit.value = horario_inicio;
+        input_duracao_esperada_edit.value = duracao;
+        input_nome_paciente_edit.value = nome_paciente;
+        select_categoria_edit.value = categoria;
+        input_risco_edit.value = risco;
+
+        sessionStorage.idCirurgiaEditado = idCirurgia;
+
+        fetch("/sala/listar", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+
+                console.log(data)
+
+                salas = data;
+
+                var selectElement = document.getElementById('select_sala_edit');
+
+                while (selectElement.options.length > 0) {
+                    selectElement.remove(0);
+                }
+
+                // Itera sobre o array de empresas e cria as opções do select
+                for (let i = 0; i < salas.length; i++) {
+                    const salaPercorrida = salas[i];
+
+                    const optionElement = document.createElement('option');
+                    optionElement.value = salaPercorrida.idSala;
+                    optionElement.text = salaPercorrida.numero;
+                    selectElement.appendChild(optionElement);
+                    if (optionElement.text == sala) {
+                        selectElement.value = optionElement.value
+                    }
+                }
+
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+
+    function editar() {
+        //idUsuario = sessionStorage.idUsuarioEditado;
+        nome_medico = input_nome_medico_edit.value;
+        data_inicio = input_data_inicio_edit.value;
+        horario_inicio = input_horario_inicio_edit.value;
+        duracao = input_duracao_esperada_edit.value;
+        nome_paciente = input_nome_paciente_edit.value;
+        sala = select_sala_edit.value;
+        categoria = select_categoria_edit.value;
+        risco = input_risco_edit.value;
+
+
+        fetch(`/sala/robo/${sala}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+
+                console.log(data)
+
+                fkRoboCirurgia = data[0].fkRoboSala;
+                idCirurgia = sessionStorage.idCirurgiaEditado;
+
+                fetch(`/cirurgia/editar`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nome_medicoServer: nome_medico,
+                        data_inicioServer: data_inicio,
+                        horario_inicioServer: horario_inicio,
+                        duracaoServer: duracao,
+                        nome_pacienteServer: nome_paciente,
+                        fkRoboCirurgiaServer: fkRoboCirurgia,
+                        categoriaServer: categoria,
+                        riscoServer: risco,
+                        cirurgiaServer: idCirurgia
+                    })
+                })
+                    .then(function (resposta) {
+                        console.log("ESTOU NO THEN DO entrar()!")
+
+                        if (resposta.ok) {
+                            console.log(resposta);
+
+
+                            resposta.json().then(json => {
+                                console.log(json);
+                                console.log(JSON.stringify(json));
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1000); // 
+
+                            });
+
+                        }
+                    }).catch(function (erro) {
+                        console.log(erro);
+                    })
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function deletar(idCirurgia) {
+        fetch(`/usuarios/deletar`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idServer: idAssociado,
+                idServer: idUsuario,
             })
         })
             .then(function (resposta) {
@@ -537,28 +698,7 @@
                 }
             }).catch(function (erro) {
                 console.log(erro);
-                Swal.fire('É PRECISO LOGAR PARA CADASTRAR UM EMAIL')
             })
     }
-
-
-    // function ajustarTabela() {
-    //   var tabela = document.getElementById("minhaTabela");
-    //   var larguraTela = window.innerWidth;
-
-    //   if (larguraTela < 600) {
-    //     for (var i = 0; i < tabela.rows.length; i++) {
-    //       tabela.rows[i].cells[2].style.display = "none";
-    //     }
-    //   } else {
-    //     for (var i = 0; i < tabela.rows.length; i++) {
-    //       tabela.rows[i].cells[2].style.display = "table-cell";
-    //     }
-    //   }
-    // }
-
-    // // Chama a função de ajuste da tabela quando a página carrega e quando a tela é redimensionada
-    // window.addEventListener("load", ajustarTabela);
-    // window.addEventListener("resize", ajustarTabela);
 
 </script>

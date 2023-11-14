@@ -1,7 +1,110 @@
-.kpis-bianca{
+.kpis-bianca {
     width: 90%;
     height: 25vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
+.resto {
+    height: 90vh;
+    width: 90%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resto-esquerdo {
+    width: 51%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.grafico-b {
+    width: 100%;
+    height: 45vh;
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.graficos-gauges {
+    width: 100%;
+    height: 40vh;
+}
+
+.resto-direito {
+    width: 46%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-processos {
+    height: inherit;
+    width: 99%;
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background: rgb(220, 220, 220);
+    /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #2a585e;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+}
+
+.tupla {
+    width: 85%;
+    height: 20vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.img-tupla {
+    width: 20%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.processo {
+    width: 80%;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
