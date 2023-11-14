@@ -216,7 +216,7 @@
 
 
         function excluirMetrica(idMetrica) {
-        fetch(`/metricas/updateMetricas/${idMetrica}`, {
+        fetch(`/metricas/excluirMetricas/${idMetrica}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -224,7 +224,7 @@
         })
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                    return response.json()
                 } else {
                     console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
                     return Promise.reject('Erro na resposta do servidor');
@@ -236,6 +236,11 @@
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
+        }
+
+        function excluirMetricaERecarregarPagina(idMetrica){
+            excluirMetrica(idMetrica)
+            location.reload()
         }
         
 
@@ -323,7 +328,7 @@
 
            divButtonExcluir.innerHTML = 
            `
-           <button id=${idMetrica} class="btn-excluir" onclick="excluirMetrica(this.id)">
+           <button id=${idMetrica} class="btn-excluir" onclick="excluirMetricaERecarregarPagina(this.id)">
             Excluir
             </button>
            `
@@ -391,7 +396,7 @@
                 }
             
             i = 0
-            for (; i < listaElementoValores.length -1; i++){
+            for (; i < listaElementoValores.length; i++){
                 var valorAntigo = Number(listaElementoValores[i])
                 var valorModificado = Number(listaValidacao[i])
 
