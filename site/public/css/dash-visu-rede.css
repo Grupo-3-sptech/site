@@ -1,0 +1,56 @@
+
+
+.content-rede, .content-kpi {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}
+
+.container-grafico{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+}
+
+.box-grafico{
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 1.5vh;
+    background-color: white;
+}
+
+.header-grafico{
+    width: 77%;
+    height: 8%;
+    padding: 1vh;
+    background-color: #8EBDB6;
+    border-radius: 1.5vh;
+    margin-top: 3%;
+    margin-left: 9%;
+}
+
+.span-grafico{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: black;
+}
+
+
+.box-content {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 15vh;
+    margin-top: 2.5%;
+    align-self: center;
+    justify-content: space-between;
+}
+
+
+

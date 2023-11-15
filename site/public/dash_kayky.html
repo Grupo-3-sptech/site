@@ -9,6 +9,7 @@
     <title>MedConnect | Dashboard </title>
 
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dash-visu-rede.css">
     <!-- <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script> -->
 
@@ -110,12 +111,32 @@
 
             <div class="header-content">
                 <div class="navbar-header" style="height: 10vh;">
-                    <h3>Dashboard Kayky</h3>
+                    <h3>Visualização de Rede</h3>
                     <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
             <div class="header-before2">
-                <div class="maquinas" style="height: 85vh;"></div>
+                <div class="maquinas" style="height: 85vh;">
+                    <div class="content-rede">
+                        <div class="container-grafico">
+                            <div class="box-grafico">
+                                <div class="header-grafico">
+                                    <span class="span-grafico">Latência em Milissegundos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-grafico">
+                            <div class="box-grafico">
+                                <div class="header-grafico">
+                                    <span class="span-grafico">Velocidade da Rede em MB/s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-kpi">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -170,54 +191,5 @@ if (cargo !== "Atendente" && cargo !== "Admin") {
 
 var idHospital = sessionStorage.ID_HOSPITAL;
 
-window.onload = async function () {
-    await buscarMaquinas(idHospital);
-};
-var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-var selectTempoHistorico = document.getElementById("tempo-historico");
-selectMaquinasAtivas.addEventListener("change", function () {
-    
-    limparDados();
-    obterDadosGrafico();
-    obterDadosResumo();
-    plotarUsb();
-});
 
-selectTempoHistorico.addEventListener("change", obterDadosGrafico);
-
-async function buscarMaquinas(idHospital) {
-    fetch(`/robo/listar/${idHospital}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
-            }
-            return response.json();
-        }).then(data => {
-
-            console.log(data)
-
-            maquinas = data;
-
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
-            }
-            obterDadosGrafico()
-            obterDadosResumo()
-            plotarUsb()
-        });
-}
 </script>
