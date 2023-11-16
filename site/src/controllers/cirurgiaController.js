@@ -121,15 +121,15 @@ function listar(req, res) {
 
 function deletar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var idUsuario = req.body.idServer;
+    var idCirurgia = req.body.idCirurgiaServer;
 
 
     // Faça as validações dos valores
-    if (idUsuario == undefined) {
-        res.status(400).send("Seu nome está undefined!");
+    if (idCirurgia == undefined) {
+        res.status(400).send("Não foi possível encontrar a cirurgia pelo ID!");
     } else {
         // Passe os valores como parâmetro e vá para o arquivo funcionarioAssociadoModel.js
-        cirurgiaModel.deletar(idUsuario)
+        cirurgiaModel.deletar(idCirurgia)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -141,7 +141,7 @@ function deletar(req, res) {
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
                         erro.sqlMessage
                     );
-                    erro = "esse email ja foi cadastrado"
+                    erro = "Não foi possível deletar a cirurgia."
                     res.status(500).json(erro);
                 }
             );

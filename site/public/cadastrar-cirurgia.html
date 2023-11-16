@@ -652,13 +652,13 @@
     }
 
     function deletar(idCirurgia) {
-        fetch(`/usuarios/deletar`, {
+        fetch(`/cirurgia/deletar`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idServer: idUsuario,
+                idCirurgiaServer: idCirurgia,
             })
         })
             .then(function (resposta) {
@@ -673,26 +673,7 @@
                         setTimeout(function () {
                             location.reload();
                         }, 1000); // 
-                        // funcionarios = json
-
-                        // tabela = document.getElementById("tabela-funcionario")
-
-                        // // Itera sobre o array de empresas e cria as opções do select
-                        // for (let i = 0; i < funcionarios.length; i++) {
-                        //     const funcionario = funcionarios[i];
-                        //     const email = funcionario.email;
-                        //     const cargo = funcionario.cargo;
-                        //     const idAssociado = funcionario.idAssociado;
-
-                        //     var novaLinha = tabela.insertRow();
-                        //     novaLinha.id = idAssociado // Insere uma nova linha
-                        //     var celula1 = novaLinha.insertCell(0); // Insere uma célula na posição 0
-                        //     var celula2 = novaLinha.insertCell(1);
-                        //     var celula3 = novaLinha.insertCell(2)
-                        //     celula1.innerHTML = `${email}`;
-                        //     celula2.innerHTML = `${cargo}`;
-                        //     celula3.innerHTML = `<img src="Img/excluir.png" onclick="remover(idAssociado)" alt="Excluir">`
-                        // }
+                       
                     });
 
                 }

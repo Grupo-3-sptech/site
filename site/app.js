@@ -25,6 +25,7 @@ var salaRouter = require("./src/routes/salas");
 
 
 
+
 // // Defina o mecanismo de visualização e o diretório de visualizações
 // app.set('view engine', 'ejs'); // Use o EJS como mecanismo de visualização
 // app.set('views', path.join(__dirname, 'views')); // Especifique o diretório de visualizações
