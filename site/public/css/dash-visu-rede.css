@@ -183,6 +183,15 @@
     height: 10%
 }
 
+.box-select{
+    margin-bottom: 2%;
+    margin-left: 4%;
+}
+.container-select{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 
 
