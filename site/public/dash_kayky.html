@@ -306,5 +306,51 @@ if (cargo !== "Atendente" && cargo !== "Admin") {
 
 var idHospital = sessionStorage.ID_HOSPITAL;
 
+function buscarDadosRede() {
+        fetch(`/rede/buscarDadosRede`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Objetos da Resposta:", (resposta))
+                exibirDadosRede(resposta)
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+   function exibirDadosRede(dadosRede){
+    const statusRede = dadosRede.statusRede
+    const latenciaRede = dadosRede.latenciaRede
+    const bytesEnviados = dadosRede.bytesEnviados
+    const bytesRecebidos = dadosRede.bytesRecebidos
+    const velocidadeRede = dadosRede.velocidadeRede
+
+    const divRelatorioGeral = document.querySelector(".box-kpi-data")
+    const listaElementos = divRelatorioGeral.children
+    const spanLatencia = listaElementos[2].childNodes[0]
+    const spanVelocidadeRede = listaElementos[2].childNodes[1]
+    const spanBytesEnviados =  listaElementos[4].childNodes[0]
+    const spanBytesRecebidos =  listaElementos[4].childNodes[1]
+
+    spanLatencia.textContent = Object.keys(latenciaRede).at(-1)
+    spanVelocidadeRede.textContent = Object.keys(spanVelocidadeRede).at(-1)
+    spanBytesEnviados.textContent = Object.keys(spanBytesEnviados).at(-1)
+    spanBytesRecebidos.textContent = Object.keys(spanBytesEnviados).at(-1)
+   }
+
+   buscarDadosRede()
+
 
 </script>

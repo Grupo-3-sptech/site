@@ -20,6 +20,7 @@ var funcionarioAssociadoRouter = require("./src/routes/funcionarioAssociado");
 var roboRouter = require("./src/routes/robos"); 
 var alertasRouter = require("./src/routes/alertas")
 var empresasRouter = require("./src/routes/empresas");
+var redeRouter = require("./src/routes/rede")
 
 
 // // Defina o mecanismo de visualização e o diretório de visualizações
@@ -55,6 +56,7 @@ app.use("/funcionario", funcionarioRouter);
 app.use("/funcionarioAssociado", funcionarioAssociadoRouter);
 app.use("/robo", roboRouter);
 app.use("/alertas", alertasRouter)
+app.use("/rede", redeRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
