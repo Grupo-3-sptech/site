@@ -339,15 +339,15 @@ function buscarDadosRede() {
 
     const divRelatorioGeral = document.querySelector(".box-kpi-data")
     const listaElementos = divRelatorioGeral.children
-    const spanLatencia = listaElementos[2].childNodes[0]
-    const spanVelocidadeRede = listaElementos[2].childNodes[1]
-    const spanBytesEnviados =  listaElementos[4].childNodes[0]
-    const spanBytesRecebidos =  listaElementos[4].childNodes[1]
+    const spanLatencia = listaElementos[1].childNodes[1]
+    const spanVelocidadeRede = listaElementos[1].childNodes[3]
+    const spanBytesEnviados =  listaElementos[3].childNodes[1]
+    const spanBytesRecebidos =  listaElementos[3].childNodes[3]
 
-    spanLatencia.textContent = Object.keys(latenciaRede).at(-1)
-    spanVelocidadeRede.textContent = Object.keys(spanVelocidadeRede).at(-1)
-    spanBytesEnviados.textContent = Object.keys(spanBytesEnviados).at(-1)
-    spanBytesRecebidos.textContent = Object.keys(spanBytesEnviados).at(-1)
+    spanLatencia.textContent = latenciaRede[latenciaRede.length - 1].dado
+    spanVelocidadeRede.textContent = velocidadeRede[velocidadeRede.length -1].dado
+    spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length -1].dado
+    spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length -1].dado
    }
 
    buscarDadosRede()
