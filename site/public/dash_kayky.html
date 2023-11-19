@@ -305,9 +305,10 @@ if (cargo !== "Atendente" && cargo !== "Admin") {
 }
 
 var idHospital = sessionStorage.ID_HOSPITAL;
+var fkRobo = 1;
 
-function buscarDadosRede() {
-        fetch(`/rede/buscarDadosRede`, {
+function buscarDadosRede(fkRobo) {
+        fetch(`/rede/buscarDadosRede/${fkRobo}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -324,11 +325,13 @@ function buscarDadosRede() {
             .then(resposta => {
                 console.log("Objetos da Resposta:", (resposta))
                 exibirDadosRede(resposta)
+                plotarGraficosRede(resposta)
             })
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
     }
+
 
    function exibirDadosRede(dadosRede){
     const statusRede = dadosRede.statusRede
@@ -350,7 +353,180 @@ function buscarDadosRede() {
     spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length -1].dado
    }
 
-   buscarDadosRede()
+   buscarDadosRede(fkRobo)
 
+   
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGraficoRede(resposta) {
+        graficoLatencia(resposta.latenciaRede, fkRobo)
+        graficoVelocidade(resposta.latenciaRede, fkRobo)
+    }
+
+    function graficoLatencia(latenciaRede, fkRobo) {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Latência',
+                data: [],
+                borderWidth: 3,
+                tension: 0.1,
+                fill: false,
+                showLine: true,
+                borderColor: 'rgb(0,255,0)',
+                backgroundColor: 'rgb(0,255,0)'
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < latenciaRede.length; i++) {
+            labels.push(latenciaRede[i].HorarioFormatado);
+            dados.datasets[0].data.push(latenciaRede[i].dado);
+           
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Adicionando gráfico criado em div na tela
+        const graficolm35 = document.getElementById(`lm35Temperatura`)
+        let myChartLM35 = new Chart(graficolm35,
+            {
+                type: 'line',
+                data: dados,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    }
+                }
+            }
+
+        );
+
+        setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
+    }
+
+    
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas,
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGraficoLM35(placa, dados, myChartLM35) {
+        fetch(`/medidas/tempo-real-Graficos/${placa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    // obterdados(placa);
+                    // alertar(novoRegistro, placa);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(JSON.stringify(dados));
+
+                    // let avisoCaptura = document.getElementById(`avisoCaptura${placa}`)
+                    // avisoCaptura.innerHTML = ""
+                    if (novoRegistro[0].data_formatado == dados.labels[dados.labels.length - 1]) {
+                        console.log(dados + ' <= Aqui Estão os dados')
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Não há novos dados")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].data_formatado)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].data_formatado); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de umidade
+                        myChartLM35.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function atualizarGraficoDHT11(placa, dados, myChartDHT11) {
+        fetch(`/medidas/tempo-real-Graficos/${placa}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    // obterdados(placa);
+                    // alertar(novoRegistro, placa);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log('dados' + dados);
+
+                    // let avisoCaptura = document.getElementById(`avisoCaptura${placa}`)
+                    // avisoCaptura.innerHTML = ""
+                    console.log(novoRegistro)
+                    if (novoRegistro[1].data_formatado == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Não há novos dados")
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[1].data_formatado + 'umidade')
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1] + 'umidade')
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[1].data_formatado); // incluir um novo momento
+                        console.log(novoRegistro[1].umidade)
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[1].umidade); // incluir uma nova medida de umidade
+                        myChartDHT11.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGraficoDHT11(placa, dados, myChartDHT11), 5000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGraficoDHT11(placa, dados, myChartDHT11), 5000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
 
 </script>

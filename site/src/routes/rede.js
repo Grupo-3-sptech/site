@@ -3,7 +3,7 @@ var router = express.Router();
 
 var redeController = require("../controllers/redeController");
 
-router.get("/buscarDadosRede", function (req,res) {
+router.get("/buscarDadosRede/:fkRobo", function (req,res) {
     redeController.buscarDadosRede(req,res);
 });
 

@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 
-function buscarDadosRede() {
+function buscarDadosRede(fkRobo) {
 
     var instrucaoSql = ''
     const listaInstrucao = []
@@ -11,7 +11,8 @@ function buscarDadosRede() {
         while(i <= 19){
             instrucaoSql = `
             SELECT * FROM VW_dadosRede WHERE idComponentes = ${i}
-            AND HorarioDado >= DATEADD(MINUTE, -1, GETDATE());
+            AND HorarioDado >= DATEADD(MINUTE, -1, GETDATE())
+            AND fkRoboRegistro = ${fkRobo};
             `;
             i++
             listaInstrucao.push(instrucaoSql)
@@ -21,7 +22,8 @@ function buscarDadosRede() {
         while(i <= 19){
             instrucaoSql = `
             SELECT * FROM VW_dadosRede WHERE idComponentes = ${i}
-            AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
+            AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+            AND fkRoboRegistro = ${fkRobo};
             `;
             i++
             listaInstrucao.push(instrucaoSql)

@@ -2,7 +2,8 @@ var redeModel = require("../models/redeModel");
 
 async function buscarDadosRede(req, res) {
     try {
-        var data = await redeModel.buscarDadosRede()
+        const fkRobo = req.params.fkRobo
+        var data = await redeModel.buscarDadosRede(fkRobo)
 
         console.log(`DEBUG tipo da response dentro da controller: ${typeof data}`)
         
