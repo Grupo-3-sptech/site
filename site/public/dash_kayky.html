@@ -180,8 +180,7 @@
                             <div class="container-select">
                                 <div class="box-select">
                                     <span>Selecionar Máquina:</span>
-                                    <select name="" id="">
-                                        <option value="">Máquina 1</option>
+                                    <select name="" id="select-robo">
                                     </select>
                                 </div>
                                 <div class="box-select">
@@ -373,6 +372,33 @@
             });
     }
 
+    function listarMaquinas(idHospital) {
+        fetch(`/robo/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Objetos das Máquinas:", (resposta))
+                exibirOptionsRobo(resposta)
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    
+    listarMaquinas(idHospital)
 
     function exibirDadosRede(dadosRede) {
         const statusRede = dadosRede.statusRede
@@ -392,6 +418,20 @@
         spanVelocidadeRede.textContent = velocidadeRede[velocidadeRede.length - 1].dado
         spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length - 1].dado
         spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
+    }
+
+    function exibirOptionsRobo(robos){
+       const selectRobo = document.querySelector("#select-robo")
+       for(let i = 0; i <= robos.length - 1; i++){
+        var idRobo = robos[i].idRobo
+        var nomeRobo = `Máquina ${i + 1}`
+
+        var optionRobo = document.createElement("option")
+        optionRobo.value = idRobo
+        optionRobo.textContent = nomeRobo
+        selectRobo.appendChild(optionRobo)
+    }
+
     }
 
 
@@ -414,10 +454,10 @@
                 data: [],
                 borderWidth: 3,
                 tension: 0.1,
-                fill: false,
+                fill: true,
                 showLine: true,
-                borderColor: 'rgb(0,255,0)',
-                backgroundColor: 'rgb(0,255,0)'
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
             }]
         };
 
@@ -479,10 +519,10 @@
                 data: [],
                 borderWidth: 3,
                 tension: 0.1,
-                fill: false,
+                fill: true,
                 showLine: true,
-                borderColor: 'rgb(0,255,0)',
-                backgroundColor: 'rgb(0,255,0)'
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
             }]
         };
 
