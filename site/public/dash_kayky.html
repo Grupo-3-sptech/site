@@ -48,7 +48,8 @@
                     <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
                         <a href="#">Dashboard Rôbos</a>
-                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
+                            src="./Img/icons8-mais-40.png" alt="">
                         <div style="display: none;" id="drop_menu" class="drop-menu">
                             <div class="item-menu">
                                 <a href="dash_bianca.html">Dash Bianca</a>
@@ -123,12 +124,19 @@
                                 <div class="header-grafico">
                                     <span class="span-grafico">Latência em Milissegundos</span>
                                 </div>
+                                <div class="container-canvas">
+                                    <canvas class="canvas" id="grafico-latencia"></canvas>
+                                </div>
                             </div>
+
                         </div>
                         <div class="container-grafico">
                             <div class="box-grafico">
                                 <div class="header-grafico">
                                     <span class="span-grafico">Velocidade da Rede em MB/s</span>
+                                </div>
+                                <div class="container-canvas">
+                                    <canvas class="canvas" id="grafico-velocidade"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +183,7 @@
                                     <select name="" id="">
                                         <option value="">Máquina 1</option>
                                     </select>
-                                </div>      
+                                </div>
                                 <div class="box-select">
                                     <span>Visualizar conexões por:</span>
                                     <select name="" id="">
@@ -183,7 +191,7 @@
                                         <option value="">Mês</option>
                                         <option value="">Ano</option>
                                     </select>
-                                </div>                      
+                                </div>
                             </div>
                         </div>
                         <div class="container-conexao">
@@ -247,7 +255,7 @@
                                         <span>Máquina 1</span>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -265,49 +273,98 @@
 
 <script>
 
-var menu = 0;
+    var menu = 0;
 
-function mostrarMenu() {
-    var drop_menu = document.getElementById('drop_menu'); 
+    function mostrarMenu() {
+        var drop_menu = document.getElementById('drop_menu');
 
-    if (menu === 0) {
-        drop_menu.style.display = 'flex';
-        menu = 1;
-    } else {
-        drop_menu.style.display = 'none';
-        menu = 0;
+        if (menu === 0) {
+            drop_menu.style.display = 'flex';
+            menu = 1;
+        } else {
+            drop_menu.style.display = 'none';
+            menu = 0;
+        }
     }
-}
 
 
     verificarAdmin()
 
-function voltarHome() {
-    window.location = '../index.html'
-}
+    function voltarHome() {
+        window.location = '../index.html'
+    }
 
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-cargo = sessionStorage.CARGO_USUARIO
+    cargo = sessionStorage.CARGO_USUARIO
 
-gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-console.log(gerenciarUsuarios)
+    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+    console.log(gerenciarUsuarios)
 
-gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-console.log(gerenciarCirurgias)
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
 
-// if(cargo !== "Admin"){
-//     gerenciarUsuarios.style = 'display: none'
-// }
+    // if(cargo !== "Admin"){
+    //     gerenciarUsuarios.style = 'display: none'
+    // }
 
-if (cargo !== "Atendente" && cargo !== "Admin") {
-    gerenciarCirurgias.style = 'display: none'
-}
+    if (cargo !== "Atendente" && cargo !== "Admin") {
+        gerenciarCirurgias.style = 'display: none'
+    }
 
-var idHospital = sessionStorage.ID_HOSPITAL;
-var fkRobo = 1;
+    var idHospital = sessionStorage.ID_HOSPITAL;
+    var fkRobo = 1;
 
-function buscarDadosRede(fkRobo) {
+    let labels = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+        labels: labels,
+        datasets: [{
+            data: [],
+            borderWidth: 3,
+            tension: 0.1,
+            fill: false,
+            showLine: true,
+            borderColor: 'rgb(0,255,0)',
+            backgroundColor: 'rgb(0,255,0)'
+        }]
+    };
+
+    const graficoLatenciaRede = document.getElementById(`grafico-latencia`)
+    graficoLatenciaRede.classList.add("canvas")
+    let myChart = new Chart(graficoLatenciaRede,
+        {
+            type: 'line',
+            data: dados,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        }
+
+    );
+    const graficoVelocidade = document.getElementById(`grafico-velocidade`)
+    graficoVelocidade.classList.add("canvas")
+    let chartVelocidade = new Chart(graficoVelocidade,
+        {
+            type: 'line',
+            data: dados,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        }
+
+    );
+
+    function buscarDadosRede(fkRobo) {
         fetch(`/rede/buscarDadosRede/${fkRobo}`, {
             method: "GET",
             headers: {
@@ -333,29 +390,29 @@ function buscarDadosRede(fkRobo) {
     }
 
 
-   function exibirDadosRede(dadosRede){
-    const statusRede = dadosRede.statusRede
-    const latenciaRede = dadosRede.latenciaRede
-    const bytesEnviados = dadosRede.bytesEnviados
-    const bytesRecebidos = dadosRede.bytesRecebidos
-    const velocidadeRede = dadosRede.velocidadeRede
+    function exibirDadosRede(dadosRede) {
+        const statusRede = dadosRede.statusRede
+        const latenciaRede = dadosRede.latenciaRede
+        const bytesEnviados = dadosRede.bytesEnviados
+        const bytesRecebidos = dadosRede.bytesRecebidos
+        const velocidadeRede = dadosRede.velocidadeRede
 
-    const divRelatorioGeral = document.querySelector(".box-kpi-data")
-    const listaElementos = divRelatorioGeral.children
-    const spanLatencia = listaElementos[1].childNodes[1]
-    const spanVelocidadeRede = listaElementos[1].childNodes[3]
-    const spanBytesEnviados =  listaElementos[3].childNodes[1]
-    const spanBytesRecebidos =  listaElementos[3].childNodes[3]
+        const divRelatorioGeral = document.querySelector(".box-kpi-data")
+        const listaElementos = divRelatorioGeral.children
+        const spanLatencia = listaElementos[1].childNodes[1]
+        const spanVelocidadeRede = listaElementos[1].childNodes[3]
+        const spanBytesEnviados = listaElementos[3].childNodes[1]
+        const spanBytesRecebidos = listaElementos[3].childNodes[3]
 
-    spanLatencia.textContent = latenciaRede[latenciaRede.length - 1].dado
-    spanVelocidadeRede.textContent = velocidadeRede[velocidadeRede.length -1].dado
-    spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length -1].dado
-    spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length -1].dado
-   }
+        spanLatencia.textContent = latenciaRede[latenciaRede.length - 1].dado
+        spanVelocidadeRede.textContent = velocidadeRede[velocidadeRede.length - 1].dado
+        spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length - 1].dado
+        spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
+    }
 
-   buscarDadosRede(fkRobo)
+    buscarDadosRede(fkRobo)
 
-   
+
 
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
@@ -394,7 +451,7 @@ function buscarDadosRede(fkRobo) {
         for (i = 0; i < latenciaRede.length; i++) {
             labels.push(latenciaRede[i].HorarioFormatado);
             dados.datasets[0].data.push(latenciaRede[i].dado);
-           
+
         }
 
         console.log('----------------------------------------------')
@@ -425,7 +482,7 @@ function buscarDadosRede(fkRobo) {
         setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
     }
 
-    
+
 
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,

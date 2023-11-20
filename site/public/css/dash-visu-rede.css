@@ -35,6 +35,25 @@
     background-color: white;
 }
 
+.container-canvas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 72%;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.canvas{
+    display: flex !important;
+    width: 54vh !important;
+    height: 29vh !important;
+    box-sizing: unset !important;
+}
+
 .box-estabilidade, .box-relatorio{
     display: flex;
     margin-top: 4%;
