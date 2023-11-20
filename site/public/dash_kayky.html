@@ -315,56 +315,31 @@
     var idHospital = sessionStorage.ID_HOSPITAL;
     var fkRobo = 1;
 
-    let labels = [];
 
-    // Criando estrutura para plotar gráfico - dados
-    let dados = {
-        labels: labels,
-        datasets: [{
-            data: [],
-            borderWidth: 3,
-            tension: 0.1,
-            fill: false,
-            showLine: true,
-            borderColor: 'rgb(0,255,0)',
-            backgroundColor: 'rgb(0,255,0)'
-        }]
-    };
+    var sinal = 0
+    var chartLatencia = ""
+    var chartVelocidade = ""
+    var dadosLatencia = ""
+    var dadosVelocidade = ""
+    var labelsLatencia = ""
+    var labelsVelocidade = ""
 
-    const graficoLatenciaRede = document.getElementById(`grafico-latencia`)
-    graficoLatenciaRede.classList.add("canvas")
-    let myChart = new Chart(graficoLatenciaRede,
-        {
-            type: 'line',
-            data: dados,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: false
-                    }
-                }
-            }
-        }
 
-    );
-    const graficoVelocidade = document.getElementById(`grafico-velocidade`)
-    graficoVelocidade.classList.add("canvas")
-    let chartVelocidade = new Chart(graficoVelocidade,
-        {
-            type: 'line',
-            data: dados,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: false
-                    }
-                }
-            }
-        }
+    buscarDadosRede(fkRobo, sinal)
+    atualizacaoDinamica()
 
-    );
 
-    function buscarDadosRede(fkRobo) {
+    function atualizacaoDinamica() {
+        setTimeout(() => {
+            buscarDadosRede(fkRobo, sinal)
+            sinal++
+            atualizacaoDinamica()
+        }, 10000)
+    }
+
+
+
+    function buscarDadosRede(fkRobo, sinal) {
         fetch(`/rede/buscarDadosRede/${fkRobo}`, {
             method: "GET",
             headers: {
@@ -381,8 +356,17 @@
             })
             .then(resposta => {
                 console.log("Objetos da Resposta:", (resposta))
-                exibirDadosRede(resposta)
-                plotarGraficosRede(resposta)
+                if (sinal == 0) {
+                    exibirDadosRede(resposta)
+                    plotarGraficosRede(resposta)
+                } else {
+                    exibirDadosRede(resposta)
+                    atualizarGraficoLatencia(resposta.latenciaRede, chartLatencia)
+                    atualizarGraficoVelocidade(resposta.velocidadeRede, chartVelocidade)
+                }
+
+
+
             })
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
@@ -410,27 +394,21 @@
         spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
     }
 
-    buscarDadosRede(fkRobo)
 
-
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGraficoRede(resposta) {
-        graficoLatencia(resposta.latenciaRede, fkRobo)
-        graficoVelocidade(resposta.latenciaRede, fkRobo)
+    function plotarGraficosRede(resposta) {
+        graficoLatencia(resposta.latenciaRede)
+        graficoVelocidade(resposta.velocidadeRede)
     }
 
-    function graficoLatencia(latenciaRede, fkRobo) {
+    function graficoLatencia(latenciaRede) {
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+        labelsLatencia = [];
 
         // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
+        dadosLatencia = {
+            labels: labelsLatencia,
             datasets: [{
                 label: 'Latência',
                 data: [],
@@ -445,145 +423,156 @@
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+        console.log(latenciaRede)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < latenciaRede.length; i++) {
-            labels.push(latenciaRede[i].HorarioFormatado);
-            dados.datasets[0].data.push(latenciaRede[i].dado);
+            labelsLatencia.push(latenciaRede[i].data_formatada);
+            dadosLatencia.datasets[0].data.push(latenciaRede[i].dado);
 
         }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
-        console.log(labels)
+        console.log(labelsLatencia)
         console.log('Dados:')
-        console.log(dados.datasets)
+        console.log(dadosLatencia.datasets)
         console.log('----------------------------------------------')
 
         // Adicionando gráfico criado em div na tela
-        const graficolm35 = document.getElementById(`lm35Temperatura`)
-        let myChartLM35 = new Chart(graficolm35,
+        const graficoLatenciaRede = document.getElementById(`grafico-latencia`)
+        graficoLatenciaRede.classList.add("canvas")
+        chartLatencia = new Chart(graficoLatenciaRede,
             {
                 type: 'line',
-                data: dados,
+                label: "Latência",
+                data: dadosLatencia,
                 options: {
                     scales: {
                         y: {
                             beginAtZero: false
                         }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
                 }
             }
+        )
 
-        );
-
-        setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
     }
 
+    function graficoVelocidade(velocidadeRede) {
+        console.log('iniciando plotagem do gráfico...');
 
+        // Criando estrutura para plotar gráfico - labels
+        labelsVelocidade = [];
 
+        // Criando estrutura para plotar gráfico - dados
+        dadosVelocidade = {
+            labels: labelsVelocidade,
+            datasets: [{
+                label: 'Velocidade',
+                data: [],
+                borderWidth: 3,
+                tension: 0.1,
+                fill: false,
+                showLine: true,
+                borderColor: 'rgb(0,255,0)',
+                backgroundColor: 'rgb(0,255,0)'
+            }]
+        };
 
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas,
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(velocidadeRede)
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGraficoLM35(placa, dados, myChartLM35) {
-        fetch(`/medidas/tempo-real-Graficos/${placa}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    // obterdados(placa);
-                    // alertar(novoRegistro, placa);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(JSON.stringify(dados));
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < velocidadeRede.length; i++) {
+            labelsVelocidade.push(velocidadeRede[i].data_formatada);
+            dadosVelocidade.datasets[0].data.push(velocidadeRede[i].dado);
 
-                    // let avisoCaptura = document.getElementById(`avisoCaptura${placa}`)
-                    // avisoCaptura.innerHTML = ""
-                    if (novoRegistro[0].data_formatado == dados.labels[dados.labels.length - 1]) {
-                        console.log(dados + ' <= Aqui Estão os dados')
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Não há novos dados")
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].data_formatado)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].data_formatado); // incluir um novo momento
+        }
 
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de umidade
-                        myChartLM35.update();
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsVelocidade)
+        console.log('Dados:')
+        console.log(dadosVelocidade.datasets)
+        console.log('----------------------------------------------')
+
+        // Adicionando gráfico criado em div na tela
+        const graficoVelocidadeRede = document.getElementById(`grafico-velocidade`)
+        graficoVelocidadeRede.classList.add("canvas")
+        chartVelocidade = new Chart(graficoVelocidadeRede,
+            {
+                type: 'line',
+                label: "Velocidade",
+                data: dadosVelocidade,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoLM35(placa, dados, myChartLM35), 5000);
+                }
             }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+        )
+
 
     }
 
-    function atualizarGraficoDHT11(placa, dados, myChartDHT11) {
-        fetch(`/medidas/tempo-real-Graficos/${placa}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    // obterdados(placa);
-                    // alertar(novoRegistro, placa);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log('dados' + dados);
 
-                    // let avisoCaptura = document.getElementById(`avisoCaptura${placa}`)
-                    // avisoCaptura.innerHTML = ""
-                    console.log(novoRegistro)
-                    if (novoRegistro[1].data_formatado == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Não há novos dados")
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[1].data_formatado + 'umidade')
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1] + 'umidade')
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[1].data_formatado); // incluir um novo momento
-                        console.log(novoRegistro[1].umidade)
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[1].umidade); // incluir uma nova medida de umidade
-                        myChartDHT11.update();
-                    }
 
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGraficoDHT11(placa, dados, myChartDHT11), 5000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGraficoDHT11(placa, dados, myChartDHT11), 5000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
 
+
+    function atualizarGraficoLatencia(latenciaRede, chartLatencia) {
+    console.log(`Dados recebidos: ${JSON.stringify(latenciaRede)}`);
+
+    if (latenciaRede.length !== 0) {
+        dadosLatencia.labels.push(latenciaRede[0].data_formatada);
+        dadosLatencia.datasets[0].data.push(latenciaRede[0].dado);
+
+        
+        if (dadosLatencia.labels.length > 10) {
+            dadosLatencia.labels.shift();
+            dadosLatencia.datasets[0].data.shift();
+        }
+
+        chartLatencia.data.labels = dadosLatencia.labels;
+        chartLatencia.data.datasets[0].data = dadosLatencia.datasets[0].data;
+        chartLatencia.update();
     }
+}
+
+    
+
+
+
+    function atualizarGraficoVelocidade(velocidadeRede, chartVelocidade) {
+        console.log(`Dados recebidos: ${JSON.stringify(velocidadeRede)}`);
+        if (velocidadeRede.length != 0) {
+            dadosVelocidade.labels.shift(); // apagar o primeiro
+            dadosVelocidade.labels.push(velocidadeRede[0].data_formatada); // incluir um novo momento
+
+            dadosVelocidade.datasets[0].data.shift();  // apagar o primeiro de umidade
+            dadosVelocidade.datasets[0].data.push(velocidadeRede[0].dado); // incluir uma nova medida de umidade
+            chartVelocidade.update();
+
+        }
+    }
+
+
+
+
 
 </script>
