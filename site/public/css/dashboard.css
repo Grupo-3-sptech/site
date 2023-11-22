@@ -314,7 +314,7 @@ body {
     height: fit-content;
 }
 
-.img-alerta img {
+.img-alerta svg{
     width: 3vw;
     height: 5vh;
 }
