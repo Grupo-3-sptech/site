@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedConnect | Dashboard </title>
 
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="/css/dash_boos.css">
     <!-- <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script> -->
 
@@ -22,6 +22,7 @@
     <script src="js/graficoMaquinas.js"></script>
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/validacoesUsuario.js"></script>
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
@@ -47,7 +48,8 @@
                     <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
                         <a href="#">Dashboard Rôbos</a>
-                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
+                            src="./Img/icons8-mais-40.png" alt="">
                         <div style="display: none;" id="drop_menu" class="drop-menu">
                             <div class="item-menu">
                                 <a href="dash_bianca.html">Dash Bianca</a>
@@ -114,8 +116,36 @@
                     <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
-            <div class="header-before2">
-                <div class="maquinas" style="height: 85vh;"></div>
+            <div class="header-before3">
+                <div class="menu_cirurgia_componente" id="menu_alerta_cirurgia">
+                    <h3>Cirurgias em Alerta</h3>
+                    <div class="selecao_cirurgia_componente">
+                        <div class="info_cirurgia_componente" onclick="aplicarDados()">
+                            <div class="text_cirurgia_componente">
+                                <p>18/11/2023 23:19:45</p>
+                                <p>Máquina 1</p>
+                            </div>
+                            <div class="text_cirurgia_componente">
+                                <p>A CPU chegou a 76%</p>
+                                <p>Risco Cirurgico: 3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="maquinas_alerta_cirurgia">
+                    <h3 class="title_alerta_cirurgia">Informações Cirurgicas</h3>
+                    <!-- <svg id="grafico" width="400" height="400"></svg> -->
+                    <div class="info_alerta_cirurgia">Teste</div>
+                    <div class="grafico_componente_cirurgia">
+                        <div class="label-grafico">Porcentagem CPU</div>
+                        <div id="grafico1" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <canvas id="grafico"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -129,95 +159,99 @@
 
 <script>
 
-var menu = 0;
+    var menu = 0;
 
-function mostrarMenu() {
-    var drop_menu = document.getElementById('drop_menu'); 
+    function mostrarMenu() {
+        var drop_menu = document.getElementById('drop_menu');
 
-    if (menu === 0) {
-        drop_menu.style.display = 'flex';
-        menu = 1;
-    } else {
-        drop_menu.style.display = 'none';
-        menu = 0;
-    }
-}
-
-
-    verificarAdmin()
-
-function voltarHome() {
-    window.location = '../index.html'
-}
-
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-cargo = sessionStorage.CARGO_USUARIO
-
-gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-console.log(gerenciarUsuarios)
-
-gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-console.log(gerenciarCirurgias)
-
-// if(cargo !== "Admin"){
-//     gerenciarUsuarios.style = 'display: none'
-// }
-
-if (cargo !== "Atendente" && cargo !== "Admin") {
-    gerenciarCirurgias.style = 'display: none'
-}
-
-var idHospital = sessionStorage.ID_HOSPITAL;
-
-window.onload = async function () {
-    await buscarMaquinas(idHospital);
-};
-var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-var selectTempoHistorico = document.getElementById("tempo-historico");
-selectMaquinasAtivas.addEventListener("change", function () {
-    
-    limparDados();
-    obterDadosGrafico();
-    obterDadosResumo();
-    plotarUsb();
-});
-
-selectTempoHistorico.addEventListener("change", obterDadosGrafico);
-
-async function buscarMaquinas(idHospital) {
-    fetch(`/robo/listar/${idHospital}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
+        if (menu === 0) {
+            drop_menu.style.display = 'flex';
+            menu = 1;
+        } else {
+            drop_menu.style.display = 'none';
+            menu = 0;
         }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
+    }
+
+    function voltarHome() {
+        window.location = '../index.html'
+    }
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    cargo = sessionStorage.CARGO_USUARIO
+
+    gerenciarUsuarios = document.getElementById("gerenciarUsuarios")
+    console.log(gerenciarUsuarios)
+
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
+
+    if (cargo !== "Admin") {
+        gerenciarUsuarios.style = 'display: none'
+    }
+
+    if (cargo !== "Atendente" && cargo !== "Admin") {
+        gerenciarCirurgias.style = 'display: none'
+    }
+
+
+    var idHospital = sessionStorage.ID_HOSPITAL;
+
+    // var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+    // var selectTempoHistorico = document.getElementById("tempo-historico");
+    // selectMaquinasAtivas.addEventListener("change", function () {
+
+    //     limparDados();
+    //     obterDadosGrafico();
+    //     obterDadosResumo();
+    //     plotarUsb();
+    // });
+
+    // selectTempoHistorico.addEventListener("change", obterDadosGrafico);
+
+    async function buscarAlertasCirurgia(idHospital) {
+        fetch(`cirurgiaComponente/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            return response.json();
-        }).then(data => {
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+                console.log(data)
+                var alertasCirurgia = data
 
-            console.log(data)
+                alertasCirurgia.forEach(cirurgia => {
+                    menu_alerta_cirurgia.innerHTML += `
+                <div class="selecao_cirurgia_componente">
+                        <div class="info_cirurgia_componente" onclick="buscarPrevisao('cpu'), aplicarDados()">
+                            <div class="text_cirurgia_componente">
+                                <p>${cirurgia.dtHoraCirurgia}</p>
+                                <p>Máquina ${cirurgia.fkRobo}</p>
+                            </div>
+                            <div class="text_cirurgia_componente">
+                                <p>${cirurgia.nome_componente} chegou a ${cirurgia.dado}</p>
+                                <p>Risco Cirurgico: ${cirurgia.risco}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+                });
 
-            maquinas = data;
+            });
+    }
 
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
-            }
-            obterDadosGrafico()
-            obterDadosResumo()
-            plotarUsb()
+    function aplicarDados() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
-}
+
+
+    }
 </script>
