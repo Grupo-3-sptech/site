@@ -312,9 +312,8 @@
     }
 
     var idHospital = sessionStorage.ID_HOSPITAL;
-    var fkRobo = 1;
 
-
+    var fkRobo = 1
     var sinal = 0
     var chartLatencia = ""
     var chartVelocidade = ""
@@ -323,6 +322,13 @@
     var labelsLatencia = ""
     var labelsVelocidade = ""
 
+    const selectMaquinas = document.querySelector("#select-robo")
+    selectMaquinas.addEventListener("change", () => {
+        var indice = selectMaquinas.selectedIndex
+        var valorOptions = selectMaquinas.options[indice].value
+        sessionStorage.setItem("FK_ROBO", valorOptions)
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+    })
 
     buscarDadosRede(fkRobo, sinal)
     atualizacaoDinamica()
@@ -397,7 +403,7 @@
             });
     }
 
-    
+
     listarMaquinas(idHospital)
 
     function exibirDadosRede(dadosRede) {
@@ -420,17 +426,17 @@
         spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
     }
 
-    function exibirOptionsRobo(robos){
-       const selectRobo = document.querySelector("#select-robo")
-       for(let i = 0; i <= robos.length - 1; i++){
-        var idRobo = robos[i].idRobo
-        var nomeRobo = `Máquina ${i + 1}`
+    function exibirOptionsRobo(robos) {
+        const selectRobo = document.querySelector("#select-robo")
+        for (let i = 0; i <= robos.length - 1; i++) {
+            var idRobo = robos[i].idRobo
+            var nomeRobo = `Máquina ${i + 1}`
 
-        var optionRobo = document.createElement("option")
-        optionRobo.value = idRobo
-        optionRobo.textContent = nomeRobo
-        selectRobo.appendChild(optionRobo)
-    }
+            var optionRobo = document.createElement("option")
+            optionRobo.value = idRobo
+            optionRobo.textContent = nomeRobo
+            selectRobo.appendChild(optionRobo)
+        }
 
     }
 
@@ -576,40 +582,46 @@
 
 
     function atualizarGraficoLatencia(latenciaRede, chartLatencia) {
-    console.log(`Dados recebidos: ${JSON.stringify(latenciaRede)}`);
+        console.log(`Dados recebidos: ${JSON.stringify(latenciaRede)}`);
 
-    if (latenciaRede.length !== 0) {
-        dadosLatencia.labels.push(latenciaRede[0].data_formatada);
-        dadosLatencia.datasets[0].data.push(latenciaRede[0].dado);
+        if (latenciaRede.length !== 0) {
+            dadosLatencia.labels.push(latenciaRede[0].data_formatada);
+            dadosLatencia.datasets[0].data.push(latenciaRede[0].dado);
 
-        
-        if (dadosLatencia.labels.length > 10) {
-            dadosLatencia.labels.shift();
-            dadosLatencia.datasets[0].data.shift();
+
+            if (dadosLatencia.labels.length > 10) {
+                dadosLatencia.labels.shift();
+                dadosLatencia.datasets[0].data.shift();
+            }
+
+            chartLatencia.data.labels = dadosLatencia.labels;
+            chartLatencia.data.datasets[0].data = dadosLatencia.datasets[0].data;
+            chartLatencia.update();
         }
-
-        chartLatencia.data.labels = dadosLatencia.labels;
-        chartLatencia.data.datasets[0].data = dadosLatencia.datasets[0].data;
-        chartLatencia.update();
     }
-}
 
-    
+
 
 
 
     function atualizarGraficoVelocidade(velocidadeRede, chartVelocidade) {
-        console.log(`Dados recebidos: ${JSON.stringify(velocidadeRede)}`);
-        if (velocidadeRede.length != 0) {
-            dadosVelocidade.labels.shift(); // apagar o primeiro
-            dadosVelocidade.labels.push(velocidadeRede[0].data_formatada); // incluir um novo momento
+    console.log(`Dados recebidos: ${JSON.stringify(velocidadeRede)}`);
 
-            dadosVelocidade.datasets[0].data.shift();  // apagar o primeiro de umidade
-            dadosVelocidade.datasets[0].data.push(velocidadeRede[0].dado); // incluir uma nova medida de umidade
-            chartVelocidade.update();
+    if (velocidadeRede.length !== 0) {
+        dadosVelocidade.labels.push(velocidadeRede[0].data_formatada);
+        dadosVelocidade.datasets[0].data.push(velocidadeRede[0].dado);
 
+        if (dadosVelocidade.labels.length > 10) {
+            dadosVelocidade.labels.shift();
+            dadosVelocidade.datasets[0].data.shift();
         }
+
+        chartVelocidade.data.labels = dadosVelocidade.labels;
+        chartVelocidade.data.datasets[0].data = dadosVelocidade.datasets[0].data;
+        chartVelocidade.update();
     }
+}
+
 
 
 
