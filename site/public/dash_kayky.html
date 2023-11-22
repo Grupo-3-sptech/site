@@ -333,7 +333,7 @@
             buscarDadosRede(fkRobo, sinal)
             sinal++
             atualizacaoDinamica()
-        }, 10000)
+        }, 5000)
     }
 
 
@@ -414,8 +414,8 @@
         const spanBytesEnviados = listaElementos[3].childNodes[1]
         const spanBytesRecebidos = listaElementos[3].childNodes[3]
 
-        spanLatencia.textContent = latenciaRede[latenciaRede.length - 1].dado
-        spanVelocidadeRede.textContent = velocidadeRede[velocidadeRede.length - 1].dado
+        spanLatencia.textContent = `${latenciaRede[latenciaRede.length - 1].dado} ms`
+        spanVelocidadeRede.textContent = `${velocidadeRede[velocidadeRede.length - 1].dado} Mb/s`
         spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length - 1].dado
         spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
     }
