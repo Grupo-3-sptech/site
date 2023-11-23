@@ -34,7 +34,7 @@ function buscarDadosRede(fkRobo) {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
     }
-  
+    
     return executarQueryEDevolverObjetoJSON(listaInstrucao)
 }
 
