@@ -218,7 +218,7 @@ function buscarMedidasResumo(id, tempo) {
       );
       return;
     }
-  } else if (tempo == "mes"){
+  } else if (tempo == "mes") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
       FORMAT(HorarioDado, '%m/%Y') as MesFormatado,
@@ -247,7 +247,7 @@ function buscarMedidasResumo(id, tempo) {
       );
       return;
     }
-  } else if (tempo == "ano"){
+  } else if (tempo == "ano") {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
       instrucaoSql = `SELECT
       FORMAT(HorarioDado, '%Y') as AnoFormatado,

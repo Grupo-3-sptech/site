@@ -403,7 +403,7 @@ selectMaquinasAtivas.addEventListener("change", function () {
     obterDadosResumo();
     plotarUsb();
 });
-
+ 
 selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
 async function buscarMaquinas(idHospital) {
@@ -428,6 +428,8 @@ async function buscarMaquinas(idHospital) {
 
             // Itera sobre o array de empresas e cria as opções do select
             for (let i = 0; i < maquinas.length; i++) {
+
+                
                 const maquina = maquinas[i];
 
                 const optionElement = document.createElement('option');

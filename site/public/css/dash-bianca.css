@@ -90,7 +90,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgb(189, 189, 189);
+    box-shadow: 4px 4px 20px -1px rgba(0, 0, 0, 0.167);
+    border-radius: 3vh;
 }
 
 .img-tupla {
@@ -98,6 +99,11 @@
     height: inherit;
     display: flex;
     align-items: center;
+    margin-left: 10%;
+}
+
+#verde{
+    color: green;
 }
 
 .processo {
