@@ -15,58 +15,107 @@ function listar(fkHospital) {
     console.log("ACESSEI O associado MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
 
     if(process.env.AMBIENTE_PROCESSO == "producao"){
-        var instrucao = `
+        var instrucao = `WITH AlertasNumerados AS (
+            SELECT 
+                a.tipo_alerta,
+                a.dado,
+                a.fkRobo,
+                DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
+                a.nome_componente,
+                cn.unidade,
+                s.numero,
+                DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
+                DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
+                c.duracao,
+                c.nomePaciente,
+                c.nomeMedico,
+                c.tipo,
+                cr.niveisPericuloridade as risco,
+                ROW_NUMBER() OVER (PARTITION BY a.nome_componente ORDER BY a.dado DESC) AS numAlerta
+            FROM 
+                alerta a
+            JOIN 
+                salaCirurgiao s ON s.fkRoboSala = a.fkRobo
+            JOIN 
+                cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
+            JOIN 
+                RoboCirurgiao r ON r.fkHospital = ${fkHospital}
+            JOIN 
+                categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria
+            JOIN 
+                componentes cn ON a.nome_componente = cn.nome
+        )
         SELECT 
-    a.tipo_alerta,
-    a.dado,
-    a.fkRobo,
-    DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
-    a.nome_componente,
-    s.numero,
-    DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
-    DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
-    c.duracao,
-    c.nomePaciente,
-    c.nomeMedico,
-    c.tipo,
-    cr.niveisPericuloridade as risco
+            tipo_alerta,
+            dado,
+            fkRobo,
+            dtHoraComponente,
+            nome_componente,
+            unidade,
+            numero,
+            dtHoraCirurgia,
+            dtHoraFimCirurgia,
+            duracao,
+            nomePaciente,
+            nomeMedico,
+            tipo,
+            risco
         FROM 
-            alerta a
-        JOIN 
-            salaCirurgiao s ON s.fkRoboSala = a.fkRobo
-        JOIN 
-            cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
-		JOIN 
-			RoboCirurgiao r ON r.fkHospital = ${fkHospital}
-        JOIN 
-            categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria;
+            AlertasNumerados
+        WHERE 
+            numAlerta <= 1;
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         var instrucao = `
+        WITH AlertasNumerados AS (
+            SELECT 
+                a.tipo_alerta,
+                a.dado,
+                a.fkRobo,
+                DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
+                a.nome_componente,
+                cn.unidade,
+                s.numero,
+                DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
+                DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
+                c.duracao,
+                c.nomePaciente,
+                c.nomeMedico,
+                c.tipo,
+                cr.niveisPericuloridade as risco,
+                ROW_NUMBER() OVER (PARTITION BY a.nome_componente ORDER BY a.dado DESC) AS numAlerta
+            FROM 
+                alerta a
+            JOIN 
+                salaCirurgiao s ON s.fkRoboSala = a.fkRobo
+            JOIN 
+                cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
+            JOIN 
+                RoboCirurgiao r ON r.fkHospital = ${fkHospital}
+            JOIN 
+                categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria
+            JOIN 
+                componentes cn ON a.nome_componente = cn.nome
+        )
         SELECT 
-    a.tipo_alerta,
-    a.dado,
-    a.fkRobo,
-    DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
-    a.nome_componente,
-    s.numero,
-    DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
-    DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
-    c.duracao,
-    c.nomePaciente,
-    c.nomeMedico,
-    c.tipo,
-    cr.niveisPericuloridade as risco
+            tipo_alerta,
+            dado,
+            fkRobo,
+            dtHoraComponente,
+            nome_componente,
+            unidade,
+            numero,
+            dtHoraCirurgia,
+            dtHoraFimCirurgia,
+            duracao,
+            nomePaciente,
+            nomeMedico,
+            tipo,
+            risco
         FROM 
-            alerta a
-        JOIN 
-            salaCirurgiao s ON s.fkRoboSala = a.fkRobo
-        JOIN 
-            cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
-        JOIN 
-            RoboCirurgiao r ON r.fkHospital = ${fkHospital}
-        JOIN 
-            categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria;;
+            AlertasNumerados
+        WHERE 
+            numAlerta <= 1;
         `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -104,3 +153,28 @@ module.exports = {
     listar,
     cadastrar
 };
+
+// SELECT 
+//     a.tipo_alerta,
+//     a.dado,
+//     a.fkRobo,
+//     DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
+//     a.nome_componente,
+//     s.numero,
+//     DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
+//     DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
+//     c.duracao,
+//     c.nomePaciente,
+//     c.nomeMedico,
+//     c.tipo,
+//     cr.niveisPericuloridade as risco
+//         FROM 
+//             alerta a
+//         JOIN 
+//             salaCirurgiao s ON s.fkRoboSala = a.fkRobo
+//         JOIN 
+//             cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
+// 		JOIN 
+// 			RoboCirurgiao r ON r.fkHospital = 1
+//         JOIN 
+//             categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria;

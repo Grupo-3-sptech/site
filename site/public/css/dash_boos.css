@@ -1004,41 +1004,66 @@ td {
 }
 
 .menu_cirurgia_componente{
-    width: 50%;
+    width: 59%;
     margin-top: 2.5%;
-    height: 75vh;
+    height: 67vh;
     /* border-right: 2px solid #5e5c5c; */
-    align-self: center;
     display: flex;
     overflow-y: auto;
     flex-direction: column;
     margin-left: 3vw;
+    background-color: #FFFFFF;
+    align-items: center;    
+    border-radius: 1.5vh;
+    
 }
 
 .selecao_cirurgia_componente{
     margin-top: 5vh;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
+    width: 90%;
     cursor: pointer;
-    background-color: #c5c4c4;
+    box-shadow: 4px 4px 20px -1px rgba(0,0,0,0.267);
+     /* background-color: #c5c4c4; */
 }
 
 .selecao_cirurgia_componente:hover{
-    background-color: #007bff;
+    background-color: #2a585e41;
+    height: 15vh;
+    /* box-shadow: 4px 4px 20px -1px rgba(20, 130, 219, 0.567); */
 }
 
 .info_cirurgia_componente{
     height: 15vh;
-    margin-right: 2vw;
-    margin-left: 2vw;
+    margin-left: 1vw;
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+
+.selecao_cirurgia_componente.selecionado {
+    box-shadow: 0 0 10px 5px rgba(13, 88, 107, 0.5);
 }
 
 .text_cirurgia_componente{
     display: flex;
     justify-content: space-around;
 }
+
+.panel_alerta_cirurgia{
+    display: flex;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    justify-content: space-evenly;
+}
+
+.panel_info_alerta_cirurgia{
+    display: flex;
+    flex-direction: column;
+    margin-right: 2vw;
+}
+
 
 .header-before3 {
     display: flex;
@@ -1053,7 +1078,6 @@ td {
     display: flex;
     flex-direction: column;
     width: 90%;
-    margin-top: 2.5%;
     align-items: center;
 }
 
@@ -1063,16 +1087,43 @@ td {
 }
 
 .info_alerta_cirurgia{
-    height: 40%;
+    height: inherit;
+    width: 70%;
+    height: 30vh;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    border-radius: 1.5vh;
+    display: flex;
+    flex-direction: column;
 }
+
+.card_alerta_cirurgia{
+    height: 30vh;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .grafico_componente_cirurgia {
     width: 70%;
     height: inherit;
     background: #FFFFFF;
     /* border: 1px solid #8a8a8a; */
+    margin-top: 5vh;
     box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
     border-radius: 1.5vh;
     display: flex;
     flex-direction: column;
+}
+
+.text_cirurgia_componente_direita{
+    margin-right: 3vw;
+}
+
+.grafico_alerta_componente{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
