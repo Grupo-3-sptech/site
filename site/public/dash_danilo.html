@@ -122,14 +122,15 @@
                             <h3>Suas próximas Cirurgias do dia:</h3>
                             <div class="container-select">
                                 <select class="select-cirurgias" id="slc-cirurgia">
-                                    <option value="">21/11/2023 - 14:00:00</option>
-                                    <option value="">21/11/2023 - 14:00:00</option>
-                                    <option value="">21/11/2023 - 14:00:00</option>
+                                    <option value="">21/11/2023 - 14:00:00 - Maquina 1</option>
+                                    <option value="">21/11/2023 - 14:00:00 - Maquina 2</option>
+                                    <option value="">21/11/2023 - 14:00:00 - Maquina 1</option>
                                 </select>
-
-                                <p>Robos Ativos 🟢</p>
-                        <select name="maquinas-ligadas" id="maquinas-ativas">
-                        </select>
+                                <div class="select-cirurgias">
+                                    <p>Robos Ativos 🟢</p>
+                                    <select name="maquinas-ligadas" id="maquinas-ativas">
+                                    </select>
+                                </div>
                             </div>
 
                         </div>
@@ -148,14 +149,14 @@
                                     <div class="tipo-dado">RAM</div>
                                     <div class="tipo-dado">Disco</div>
                                     <div class="tipo-dado">CPU</div>
-                                    <div class="tipo-dado">Temperatura  </div>
+                                    <div class="tipo-dado">Temperatura </div>
                                 </div>
                                 <div class="dado-situacao-geral">
-                                    <span class="dado">40ms</span>
-                                    <span class="dado">20%</span>
-                                    <span class="dado">39ºC</span>
-                                    <span class="dado">50%</span>
-                                    <span class="dado">40%</span>
+                                    <span class="dado">40ms - Estável</span>
+                                    <span class="dado">20% - Estável</span>
+                                    <span class="dado">39ºC - Estável</span>
+                                    <span class="dado">50% - Estável</span>
+                                    <span class="dado">40º - Estável</span>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +169,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador orange"></div>
+                                    <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Latência de Rede nas últimas 24h </p>
                                         <h2 id="qtdUrgente">20%</h2>
@@ -178,7 +179,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador orange"></div>
+                                    <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de RAM nas últimas 24h</p>
                                         <h2 id="qtdUrgente">40%</h2>
@@ -188,7 +189,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador orange"></div>
+                                    <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de de uso Disco nas ultimas 24h</p>
                                         <h2 id="qtdUrgente">42°</h2>
@@ -196,22 +197,22 @@
                                 </div>
                             </div>
 
-                        </div> 
+                        </div>
                         <div class="container-kpis">
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador orange"></div>
+                                    <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de CPU nas últimas 24h</p>
                                         <h2 id="qtdUrgente">20 ms</h2>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador orange"></div>
+                                    <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Qtd de Cirurgias nos últimos 30 dias</p>
                                         <h2 id="qtdUrgente">32</h2>
@@ -221,7 +222,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador orange"></div>
+                                    <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Cirurgias bem sucedidas</p>
                                         <h2 id="qtdUrgente">42°</h2>
@@ -230,7 +231,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="container-kpis">
                             <div class="kpi">
                                 <div class="container-kpi">
@@ -261,16 +262,16 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                         </div>
-              
-                            
-                        </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
@@ -318,45 +319,67 @@
 
     var idHospital = sessionStorage.ID_HOSPITAL;
     window.onload = async function () {
-    await buscarMaquinas(idHospital);
-};
+        await buscarMaquinas(idHospital);
+    };
 
     async function buscarMaquinas(idHospital) {
-    fetch(`/robo/listar/${idHospital}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
+        fetch(`/robo/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            return response.json();
-        }).then(data => {
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
 
-            console.log(data)
+                console.log(data)
 
-            maquinas = data;
+                maquinas = data;
 
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+                var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
+                // Itera sobre o array de empresas e cria as opções do select
+                for (let i = 0; i < maquinas.length; i++) {
+                    const maquina = maquinas[i];
 
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
+                    const optionElement = document.createElement('option');
+                    optionElement.value = maquina.idRobo;
+                    optionElement.text = "Robo " + (i + 1);
+                    selectMaquinasAtivas.appendChild(optionElement);
+                    optionElement.setAttribute('data-info', maquina.idProcess);
+                }
+
+            });
+    }
+
+    capturarComponentes(1)
+    function capturarComponentes(fkRobo) {
+        fetch(`/danilo/capturarComponentes/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            
-        });
-}
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log(`Objetos `, resposta);
 
-function capturarComponentes(fkRobo) {
-    
-}
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
 
 </script>
