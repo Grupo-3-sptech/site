@@ -17,6 +17,7 @@ var hospitalRouter = require("./src/routes/hospital");
 var cargoRouter = require("./src/routes/cargo");
 var funcionarioRouter = require("./src/routes/funcionario");
 var funcionarioAssociadoRouter = require("./src/routes/funcionarioAssociado");
+var janelasRouter = require("./src/routes/janelas");
 var roboRouter = require("./src/routes/robos"); 
 var alertasRouter = require("./src/routes/alertas")
 var empresasRouter = require("./src/routes/empresas");
@@ -58,6 +59,7 @@ app.use("/hospital", hospitalRouter);
 app.use("/cargo", cargoRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/funcionarioAssociado", funcionarioAssociadoRouter);
+app.use("/janelas", janelasRouter);
 app.use("/robo", roboRouter);
 app.use("/alertas", alertasRouter)
 app.use("/cirurgia", cirurgiaRouter)
