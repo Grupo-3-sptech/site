@@ -23,6 +23,7 @@ var empresasRouter = require("./src/routes/empresas");
 var cirurgiaRouter = require("./src/routes/cirurgia");
 var salaRouter = require("./src/routes/salas");
 var cirurgiaComponente = require("./src/routes/cirurgiaComponente");
+var individualDaniloRouter = require("./src/routes/daniloIndividual")
 
 
 
@@ -62,6 +63,7 @@ app.use("/alertas", alertasRouter)
 app.use("/cirurgia", cirurgiaRouter)
 app.use("/sala", salaRouter)
 app.use("/cirurgiaComponente", cirurgiaComponente)
+app.use("/danilo", individualDaniloRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

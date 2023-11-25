@@ -10,7 +10,7 @@ function capturarComponentes(fkRobo) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        select * from registros where fkComponente = 1 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 19 and fkRoboRegistro = 1;
         `;
 
         instrucaoSql2 = `
@@ -24,18 +24,16 @@ function capturarComponentes(fkRobo) {
         `;
 
         instrucaoSql4 = `
-        select * from registros where fkComponente = 19 and fkRoboRegistro = 1;
-
+        select * from registros where fkComponente = 1 and fkRoboRegistro = 1;
         `;
 
         instrucaoSql5 = `
-        select * from registros where fkComponente = 6 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 5 and fkRoboRegistro = 1;
 
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `
-        select * from registros where fkComponente = 1 and fkRoboRegistro = 1;
-
+        instrucaoSql = ` 
+        select * from registros where fkComponente = 19 and fkRoboRegistro = 1;
         `;
 
         instrucaoSql2 = `
@@ -49,12 +47,12 @@ function capturarComponentes(fkRobo) {
         `;
 
         instrucaoSql4 = `
-        select * from registros where fkComponente = 19 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 1 and fkRoboRegistro = 1;
 
         `;
 
         instrucaoSql5 = `
-        select * from registros where fkComponente = 6 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 5 and fkRoboRegistro = 1;
 
         `;
 
@@ -66,10 +64,9 @@ function capturarComponentes(fkRobo) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql + instrucaoSql2 + instrucaoSql3 + instrucaoSql4 + instrucaoSql5);
 
 
-    return executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3)
+    return executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3, instrucaoSql4, instrucaoSql5)
 
 }
-
 
 async function executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3, instrucaoSql4, instrucaoSql5) {
 
@@ -79,11 +76,11 @@ async function executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, ins
     const cpu = await database.executar(instrucaoSql4)
     const temperatura = await database.executar(instrucaoSql5)
 
-    console.log(`DEBUG atencao: ${latencia}`)
-    console.log(`DEBUG urgente: ${ram}`)
-    console.log(`DEBUG critico: ${disco}`)
-    console.log(`DEBUG critico: ${cpu}`)
-    console.log(`DEBUG critico: ${temperatura}`)
+    console.log(`DEBUG Latencia de internet: ${latencia}`)
+    console.log(`DEBUG RAM: ${ram}`)
+    console.log(`DEBUG Disco: ${disco}`)
+    console.log(`DEBUG CPU: ${cpu}`)
+    console.log(`DEBUG Temperatura: ${temperatura}`)
 
     return {
         latencia: latencia,
