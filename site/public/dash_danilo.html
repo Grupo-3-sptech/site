@@ -152,12 +152,21 @@
                                     <div class="tipo-dado">Temperatura </div>
                                 </div>
                                 <div class="dado-situacao-geral">
-                                    <span class="dado">40ms - Estável</span>
-                                    <span class="dado">20% - Estável</span>
-                                    <span class="dado">39ºC - Estável</span>
-                                    <span class="dado">50% - Estável</span>
-                                    <span class="dado">40º - Estável</span>
+                                    <span class="dado"></span>
+                                    <span class="dado"></span>
+                                    <span class="dado"></span>
+                                    <span class="dado"></span>
+                                    <span class="dado"></span>
                                 </div>
+
+                                <div class="dado-estado-geral">
+                                    <span class="estado" id="estadoInternet"></span>
+                                    <span class="estado" id="estadoRam"></span>
+                                    <span class="estado" id="estadoDisco"></span>
+                                    <span class="estado" id="estadoCpu"></span>
+                                    <span class="estado" id="estadoTemperatura"></span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -356,6 +365,121 @@
             });
     }
 
+    buscarUltimosAlertas()
+    function buscarUltimosAlertas() {
+        fetch(`/alertas/buscarUltimaMedida`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log(`Objetos com Alertas:`, resposta);
+                validarEstadoComponentes(resposta.critico, "Perigo")
+                validarEstadoComponentes(resposta.urgente, "Atenção")
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    function validarEstadoComponentes(alerta, estado) {
+        const elementoEstadoInternet = document.querySelector("#estadoInternet")
+        const elementoEstadoRam = document.querySelector("#estadoRam")
+        const elementoEstadoDisco = document.querySelector("#estadoDisco")
+        const elementoEstadoCpu = document.querySelector("#estadoCpu")
+        var elementoEstadoTemperatura = document.querySelector("#estadoTemperatura")
+
+
+        var estadoInternet = "Estável"
+        var estadoRam = "Estável"
+        var estadoDisco = "Estável"
+        var estadoCpu = "Estável"
+        var estadoTemperatura = "Estável"
+
+        elementoEstadoInternet.classList.add("font-green")
+        elementoEstadoRam.classList.add("font-green")
+        elementoEstadoDisco.classList.add("font-green")
+        elementoEstadoCpu.classList.add("font-green")
+        elementoEstadoTemperatura.classList.add("font-green")
+
+        if (Object.values(alerta).length > 0) {
+            for (let i = 0; i <= Object.values(alerta).length; i++) {
+
+                if (Object.values(alerta)[i].nome_componente == "Latencia de Rede"){
+                    estadoInternet = estado
+                    elementoEstadoInternet.classList.remove("font-green")
+                    
+                    if(estado == "Perigo"){
+                        elementoEstadoInternet.classList.remove("font-orange")
+                        elementoEstadoInternet.classList.add("font-red")
+                    } else{
+                        elementoEstadoInternet.classList.remove("font-red")
+                        elementoEstadoInternet.classList.add("font-orange")
+                    }
+                } 
+
+                if (Object.values(alerta)[i].nome_componente == "Porcentagem da Memoria"){
+                    estadoRam = estado
+                    elementoEstadoRam.classList.remove("font-green")
+
+                    if(estado == "Perigo"){
+                        elementoEstadoRam.classList.remove("font-orange")
+                        elementoEstadoRam.classList.add("font-red")
+                    } else{
+                        elementoEstadoRam.classList.remove("font-red")
+                        elementoEstadoRam.classList.add("font-orange")
+                    }
+                } 
+
+                if (Object.values(alerta)[i].nome_componente == "Porcentagem do Disco"){
+                    estadoDisco = estado
+                    elementoEstadoDisco.classList.remove("font-green")
+
+                    if(estado == "Perigo"){
+                        elementoEstadoDisco.classList.remove("font-orange")
+                        elementoEstadoDisco.classList.add("font-red")
+                    } else{
+                        elementoEstadoDisco.classList.remove("font-red")
+                        elementoEstadoDisco.classList.add("font-orange")
+                    }
+                } 
+
+                if (Object.values(alerta)[i].nome_componente == "Porcentagem da CPU"){
+                    estadoCpu = estado
+                    elementoEstadoCpu.classList.remove("font-green")
+
+                    if(estado == "Perigo"){
+                        elementoEstadoCpu.classList.remove("font-orange")
+                        elementoEstadoCpu.classList.add("font-red")
+                    } else{
+                        elementoEstadoCpu.classList.remove("font-red")
+                        elementoEstadoCpu.classList.add("font-orange")
+                    }
+                } 
+
+                // // if(Object.values(alerta)[i].nome_componente == "Temperatura da CPU") estadoTemperatura = estado
+            }
+
+        }
+
+        elementoEstadoInternet.textContent = estadoInternet
+        elementoEstadoRam.textContent = estadoRam
+        elementoEstadoDisco.textContent = estadoDisco
+        elementoEstadoCpu.textContent = estadoCpu
+        // elementoEstadoTemperatura.textContent = estado
+    }
+
+
     capturarComponentes(1)
     function capturarComponentes(fkRobo) {
         fetch(`/danilo/capturarComponentes/${fkRobo}`, {
@@ -373,13 +497,28 @@
                 }
             })
             .then(resposta => {
-                console.log(`Objetos `, resposta);
-
+                console.log(`Objetos `, resposta)
+                exibirDadosComponentes(
+                    resposta.latencia,
+                    resposta.ram,
+                    resposta.disco,
+                    resposta.cpu,
+                    resposta.temperatura)
             })
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
     }
+
+    function exibirDadosComponentes(latencia, ram, disco, cpu, temperatura) {
+        const listaElementosComponentes = document.querySelectorAll(".dado")
+        listaElementosComponentes[0].textContent = `${Math.round(latencia[latencia.length - 1].dado)} ms`
+        listaElementosComponentes[1].textContent = `${ram[ram.length - 1].dado} %`
+        listaElementosComponentes[2].textContent = `${disco[disco.length - 1].dado} %`
+        listaElementosComponentes[3].textContent = `${cpu[cpu.length - 1].dado} %`
+        listaElementosComponentes[4].textContent = temperatura[temperatura.length - 1].dado
+    }
+
 
 
 </script>
