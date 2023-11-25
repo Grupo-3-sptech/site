@@ -377,7 +377,7 @@
             })
             .then(resposta => {
                 console.log("Objetos da Resposta:", (resposta))
-                if (sinal == 0) {
+                if (sinal == 0 || dadosLatencia == '') {
                     exibirDadosRede(resposta)
                     plotarGraficosRede(resposta)
                 } else {
@@ -446,7 +446,7 @@
     function transformarDadosUpload(objetoUpload){
         const bytesParaMB = 1048576
         for(let i = 0; i <= objetoUpload.length - 1; i++){
-            objetoUpload[i].dado = (objetoUpload[i].dado/bytesParaMB)
+            objetoUpload[i].dado = Math.round((objetoUpload[i].dado/bytesParaMB))
         }
 
         return objetoUpload
