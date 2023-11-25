@@ -153,3 +153,28 @@ module.exports = {
     listar,
     cadastrar
 };
+
+// SELECT 
+//     a.tipo_alerta,
+//     a.dado,
+//     a.fkRobo,
+//     DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
+//     a.nome_componente,
+//     s.numero,
+//     DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
+//     DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
+//     c.duracao,
+//     c.nomePaciente,
+//     c.nomeMedico,
+//     c.tipo,
+//     cr.niveisPericuloridade as risco
+//         FROM 
+//             alerta a
+//         JOIN 
+//             salaCirurgiao s ON s.fkRoboSala = a.fkRobo
+//         JOIN 
+//             cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
+// 		JOIN 
+// 			RoboCirurgiao r ON r.fkHospital = 1
+//         JOIN 
+//             categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria;
