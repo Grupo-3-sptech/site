@@ -119,17 +119,6 @@
             <div class="header-before3">
                 <div class="menu_cirurgia_componente" id="menu_alerta_cirurgia">
                     <div class="label-grafico" style="height: 10vh;">Cirurgias em Alerta <span id="numero_cirurgias_alerta"></span></div>
-                    <div class="selecao_cirurgia_componente" onclick="mudarCorSelecao(this)">
-                        <div class="info_cirurgia_componente" onclick="aplicarDados()">
-                            <div class="text_cirurgia_componente">
-                                <p>18/11/2023 23:19:45</p>
-                            </div>
-                            <div class="text_cirurgia_componente">
-                                <p>A CPU chegou a 76%</p>
-                                <p>Risco Cirurgico: 3</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="maquinas_alerta_cirurgia">
                     <h3 class="title_alerta_cirurgia">Alerta - Máquina <span id="painel_numero_maquina"></span></h3>
@@ -175,9 +164,10 @@
                                 <canvas id="myChartCanvas1"></canvas>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
+                <button class="botao_previsao" onclick="redirecionarPrevisao()">Previsão do Componente</button>
         </div>
     </div>
 
@@ -310,6 +300,10 @@
         painel_numero_maquina.innerHTML = fkMaquina;
         painel_nome_componente.innerHTML = nomeComponente;
 
+    }
+
+    function redirecionarPrevisao(){
+        window.location = "dash_boos2.html"
     }
 
     function limparDadosAntigos(){

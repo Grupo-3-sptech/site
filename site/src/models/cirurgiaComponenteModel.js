@@ -10,6 +10,14 @@ function cadastrar(nome_medico, data_inicio, horario_inicio, duracao, nome_pacie
     return database.executar(instrucao);
 }
 
+function listarMetricas() {
+    var instrucao = `
+    SELECT * FROM metrica;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 function listar(fkHospital) {
     console.log("ACESSEI O associado MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
@@ -149,6 +157,7 @@ function editar(nome_medico, data_inicio, horario_inicio, duracao, nome_paciente
 
 module.exports = {
     editar,
+    listarMetricas,
     deletar,
     listar,
     cadastrar

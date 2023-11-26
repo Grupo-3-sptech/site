@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedConnect | Dashboard </title>
+
+    <link rel="stylesheet" href="/css/dash_boos.css">
+    <!-- <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script> -->
+
+    <link rel="shortcut icon" href="../Img/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="js/dashboardBoos.js"></script>
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="js/validacoesUsuario.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- <body onload=" atualizarFeed()"> -->
+
+<body>
+
+    <div class="principal">
+        <div class="sidebar">
+            <div class="content-sidebar">
+                <div class="logo-sidebar">
+                    <img src="../Img/logo horizontal sem fundo.png" alt="">
+                </div>
+
+                <div class="options-sidebar">
+                    <div class="opt">
+                        <img src="../Img/icons8-gráfico-combinado-30.png" alt="">
+                        <a href="dashboard.html">Dashboard Geral</a>
+                    </div>
+
+                    <div style="position: relative;" class="opt" id="aqui">
+                        <img src="../Img/icons8-robô-48.png" alt="">
+                        <a href="#">Dashboard Rôbos</a>
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
+                            src="./Img/icons8-mais-40.png" alt="">
+                        <div style="display: none;" id="drop_menu" class="drop-menu">
+                            <div class="item-menu">
+                                <a href="dash_bianca.html">Dash Bianca</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_boos.html">Dash Boos</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_enzo.html">Dash Enzo</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_kayky.html">Dash Kayky</a>
+                            </div>
+
+                            <div class="item-menu">
+                                <a href="dash_danilo.html">Dash Danilo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opt" id="gerenciarUsuarios">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="dash-gerenciar-users.html">Gerenciar Usuários</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-usuário-30.png" id="diminuir" alt="">
+                        <a href="perfil.html">Perfil</a>
+                    </div>
+
+                    <div class="opt" id="gerenciar-cirurgias">
+                        <img src="Img/icons8-hospital-50.png" id="diminuir" alt="">
+                        <a href="cadastrar-cirurgia.html">Gerenciar Cirurgia</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-assistente-48.png" alt="">
+                        <a href="dash-suporte.html">Suporte</a>
+                    </div>
+
+                    <div class="opt">
+                        <img src="../Img/icons8-alerta-30.png" alt="">
+                        <a href="#">Chamado</a>
+                    </div>
+                </div>
+
+                <div class="quit-button">
+                    <div class="opt">
+                        <img src="../Img/icons8-sair-30.png" alt="">
+                        <a href="index.html" onclick="deslogar()">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content" style="height: fit-content;">
+
+            <div class="header-content">
+                <div class="navbar-header" style="height: 10vh;">
+                    <h3>Dashboard Boos</h3>
+                    <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
+                </div>
+            </div>
+            <div class="header_previsao">
+                <div class="menu_previsao">
+                    <div class="title_alerta_previsao">Tendencia dos Componentes</div>
+                    <div class="painel_previsao">
+                        <div class="selecao-componente-robo">
+                            Selecione o Componente
+                            <select name="" id="select_componente_previsao" class="input-selecao-previsao">
+                                <option value="Porcentagem da CPU">Porcentagem da CPU</option>
+                                <option value="Velocidade da CPU">Velocidade da CPU</option>
+                                <option value="Processos da CPU">Processos da CPU</option>
+                                <option value="Porcentagem da Memoria">Porcentagem da Memoria RAM</option>
+                                <option value="Porcentagem da Memoria Swap">Porcentagem da Memoria Swap</option>
+                                <option value="Porcentagem do Disco">Porcentagem do Disco</option>
+                                <option value="Latencia de Rede">Latencia da Rede</option>
+                            </select>
+                            Selecione o Rôbo
+                            <select name="" id="maquinas_ativas" class="input-selecao-previsao"></select>
+                            <button onclick="buscarPrevisao()">Buscar</button>
+                        </div>
+                        <div>
+                            <h3 class="mensagem_erro" id="mensagem_erro">Busque para visualizar o gráfico</h3>
+                            <div class="graph" style="width: 100%;">
+                                <canvas id="grafico"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi_pai" id="kpi_pai">
+                    <div class="kpi">
+                        <div class="container-kpi">
+                            <div class="indicador blue" id="kpi1_indicador"></div>
+                            <div class="conteudo-kpi" id="kpi1_content">
+                                <p>Pico de Temperatura (1min)</p>
+                                <!-- <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">  
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi">
+                        <div class="container-kpi">
+                            <div class="indicador blue" id="kpi2_indicador"></div>
+                            <div class="conteudo-kpi" id="kpi2_content">
+                                <p>Pico de Temperatura (1min)</p>
+                                <!-- <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi">
+                        <div class="container-kpi">
+                            <div class="indicador blue" id="kpi3_indicador"></div>
+                            <div class="conteudo-kpi" id="kpi3_content">
+                                <p></p>
+                                <!-- <div class="conteudo-alertas">
+                                    <div class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    </div>
+                                    <div class="container-toogle">
+                                        <select id="visuCritico" class="toggle">
+                                            <option value="">Visualizar Máquinas</option>
+                                            <select>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+<script>
+    function voltarHome() {
+        window.location = '../index.html'
+    }
+
+    var idHospital = sessionStorage.ID_HOSPITAL;
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    cargo = sessionStorage.CARGO_USUARIO
+
+    gerenciarUsuarios = document.getElementById("gerenciarUsuarios")
+    console.log(gerenciarUsuarios)
+
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
+
+    if (cargo !== "Admin") {
+        gerenciarUsuarios.style = 'display: none'
+    }
+
+    if (cargo !== "Atendente" && cargo !== "Admin") {
+        gerenciarCirurgias.style = 'display: none'
+    }
+
+    if (cargo !== "Admin" && cargo !== "Engenheiro de NOC") {
+        voltarHome()
+    }
+
+    if (sessionStorage.fk_maquina_alerta_componente) {
+        maquinas_ativas.value = sessionStorage.fk_maquina_alerta_componente
+    }
+
+    kpi_pai.style.display = "none"
+    mensagem_erro.style.display = "block"
+
+    var idHospital = sessionStorage.ID_HOSPITAL;
+    var componente = select_componente_previsao.value
+
+    window.onload = async function () {
+        await buscarMaquinas(idHospital);
+    };
+
+    async function buscarMaquinas(idHospital) {
+        fetch(`/robo/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+
+                console.log(data)
+
+                maquinas = data;
+
+                var selectMaquinasAtivas = document.getElementById("maquinas_ativas");
+
+                // Itera sobre o array de empresas e cria as opções do select
+                for (let i = 0; i < maquinas.length; i++) {
+                    const maquina = maquinas[i];
+
+                    const optionElement = document.createElement('option');
+                    optionElement.value = maquina.idRobo;
+                    optionElement.text = "Robo " + (i + 1);
+                    selectMaquinasAtivas.appendChild(optionElement);
+                    optionElement.setAttribute('data-info', maquina.idProcess);
+                }
+            });
+    }
+
+    async function buscarPrevisao() {
+        var componente = select_componente_previsao.value
+        var idRobo = maquinas_ativas.value
+        var limite_linhas = 100
+        try {
+            const response = await fetch(`cirurgiaComponente/getLinearRegression/${idRobo}/${componente}/${limite_linhas}`);
+            const result = await response.text();
+            var resultStringify = result.replace(/\'/g, '"');
+            var resultObject = JSON.parse(resultStringify);
+
+            console.log(resultObject);
+            kpi_pai.style.display = "flex"
+            mensagem_erro.style.display = "none"
+
+            // Coeficientes da função linear
+            var a = Number(resultObject.CoeficienteAngular);
+            var b = Number(resultObject.Interceptacao);
+
+
+            var dados = [];
+            for (var x = 0; x <= 50; x++) {
+                dados.push({ x: x, y: a * x + b });
+            }
+
+            puxarMetricas(a, b, componente)
+            // var dados = [];
+            // for (var x = -10; x <= 10; x++) {
+            //     var yValue = parseFloat(a*x + b);
+            //     dados.push([x, yValue]);
+            // }
+
+            console.log(dados)
+
+            //     google.charts.load('current', { packages: ['corechart'] });
+            // google.charts.setOnLoadCallback(drawChart);
+
+            // function drawChart() {
+            //     // Adicione colunas para os rótulos e dados
+            //     var data = new google.visualization.arrayToDataTable([
+            //         ['X', 'Y'],
+            //         ...dados
+            //     ]);
+
+            //     // Opções do gráfico
+            //     var options = {
+            //         title: 'Função Linear',
+            //         hAxis: {
+            //             title: 'X'
+            //         },
+            //         vAxis: {
+            //             title: 'Y'
+            //         },
+            //         legend: 'none'
+            //     };
+
+            //     // Crie e desenhe o gráfico
+            //     var chart = new google.visualization.LineChart(document.getElementById('grafico'));
+            //     chart.draw(data, options);
+            // }
+
+
+            // Obtenha o contexto do canvas
+            var ctx = document.getElementById('grafico').getContext('2d');
+
+            if (Chart.getChart(ctx)) {
+                Chart.getChart(ctx).destroy();
+            }
+
+            // Crie o gráfico
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dados.map(item => item.x),
+                    datasets: [{
+                        label: 'Função Linear',
+                        data: dados.map(item => item.y),
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: "rgb(75, 192, 192, 0.400)",
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'linear',
+                            position: 'bottom',
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Eixo X'
+                            }
+                        }],
+                        yAxes: [{
+                            type: 'linear',
+                            position: 'left',
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Eixo Y'
+                            }
+                        }]
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error('Erro ao obter a regressão linear:', error);
+        }
+    }
+
+    function puxarMetricas(a, b, componente) {
+        fetch(`cirurgiaComponente/listarMetricas/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+                metricas = data
+                console.log(metricas)
+
+                metricas.forEach(metrica => {
+                    if (componente !== "Velocidade") {
+                        if (metrica.tipo_dado == componente) {
+                            console.log(`Identifiqueo o componente ${metrica}`)
+                            console.log("kpi indicador:" + kpi1_indicador.classList)
+                            kpi1_indicador.className = ""
+                            kpi2_indicador.className = ""
+                            kpi3_indicador.className = ""
+                            kpi1_indicador.classList.add("indicador")
+                            kpi2_indicador.classList.add("indicador")
+                            kpi3_indicador.classList.add("indicador")
+
+                            if (b < metrica.alerta) {
+                                kpi1_content.innerHTML = ``
+                                kpi1_content.innerHTML = "A interceptação do gráfico começa antes do estado alerta"
+                                kpi1_indicador.classList.add("green")
+                                if (a > 0) {
+                                    var registrosAteAlerta = Math.ceil((metrica.alerta - b) / a)
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos ${registrosAteAlerta} registros,
+                                ${componente} chegará no estado de alerta`
+                                    kpi3_indicador.classList.add("blue")
+                                } else if (a == 0) {
+                                    var unidade = ""
+                                    if (componente == "Velocidade da CPU") {
+                                        unidade = "GHz"
+                                    } else if (componente == "Porcentagem do Disco") {
+                                        unidade = "GB"
+                                    }
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos registros,
+                                ${componente} tende a continuar com ${b}${unidade} e não chegará no alerta`
+                                    kpi3_indicador.classList.add("blue")
+                                }
+
+                            } else if (b > metrica.alerta && b < metrica.urgente) {
+                                kpi1_content.innerHTML = ``
+                                kpi1_content.innerHTML = "A interceptação do gráfico já começa no estado de alerta"
+                                kpi1_indicador.classList.add("orange")
+
+                                if (a > 0) {
+                                    var registrosAteAlerta = Math.ceil((metrica.critico - b) / a)
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos ${registrosAteAlerta} registros,
+                                ${componente} chegará no estado de urgencia`
+                                    kpi3_indicador.classList.add("orange")
+                                } else if (a == 0) {
+                                    var unidade = ""
+                                    if (componente == "Velocidade da CPU") {
+                                        unidade = "GHz"
+                                    } else if (componente == "Porcentagem do Disco") {
+                                        unidade = "GB"
+                                    }
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos registros,
+                                ${componente} tende a continuar com ${b}${unidade}, portanto permanecerá em alerta`
+                                    kpi3_indicador.classList.add("orange")
+                                }
+
+                            } else if (b > metrica.urgente && b < metrica.critico) {
+                                kpi1_content.innerHTML = ``
+                                kpi1_content.innerHTML = "A interceptação do gráfico já começa no estado de urgencia"
+                                kpi1_indicador.classList.add("yellow")
+
+                                if (a > 0) {
+                                    var registrosAteAlerta = Math.ceil((metrica.critico - b) / a)
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos ${registrosAteAlerta} registros,
+                                ${componente} chegará no estado crítico`
+                                    kpi3_indicador.classList.add("yellow")
+                                } else if (a == 0) {
+                                    var unidade = ""
+                                    if (componente == "Velocidade da CPU") {
+                                        unidade = "GHz"
+                                    } else if (componente == "Porcentagem do Disco") {
+                                        unidade = "GB"
+                                    }
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos registros,
+                                ${componente} tende a continuar com ${b}${unidade}, portanto permanecerá em urgencia`
+                                    kpi3_indicador.classList.add("yellow")
+                                }
+
+                            } else {
+                                kpi1_content.innerHTML = ``
+                                kpi1_content.innerHTML = "A interceptação do gráfico já começa no estado crítico"
+                                kpi1_indicador.classList.add("red")
+
+                                if (a > 0) {
+                                    var registrosAteAlerta = Math.ceil((metrica.alerta - b) / a)
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que tende a aumentar ainda mais,
+                                    estando no estado crítico`
+                                    kpi3_indicador.classList.add("red")
+                                } else if (a == 0) {
+                                    var unidade = ""
+                                    if (componente == "Velocidade da CPU") {
+                                        unidade = "GHz"
+                                    } else if (componente == "Porcentagem do Disco") {
+                                        unidade = "GB"
+                                    }
+                                    kpi3_content.innerHTML = ``
+                                    kpi3_content.innerHTML = `O gráfico indica que nos próximos registros,
+                                ${componente} tende a continuar com ${b}${unidade}, portanto permanecerá em estádo crítico`
+                                    kpi3_indicador.classList.add("red")
+                                }
+                            }
+
+                            if (a < 0) {
+                                kpi2_content.innerHTML = ``
+                                kpi2_content.innerHTML = `O gráfico está descendo de maneira moderada, ${componente} 
+                                tende a diminuir`
+                                kpi2_indicador.classList.add("green")
+                            } else if (a == 0) {
+                                kpi2_content.innerHTML = ``
+                                kpi2_content.innerHTML = `A gráfico está constante, ${componente} tende
+                                a continuar de maneira equidistante`
+                                kpi2_indicador.classList.add("blue")
+                            } else if (a < 0.2 && a > 0) {
+                                kpi2_content.innerHTML = ``
+                                kpi2_content.innerHTML = `A gráfico está subindo de maneira moderada, ${componente} tende
+                                a aumentar gradativamente`
+                                kpi2_indicador.classList.add("orange")
+                            } else if (a > 0.2 && a < 0.5) {
+                                kpi2_content.innerHTML = ``
+                                kpi2_content.innerHTML = `A gráfico está subindo de maneira rápida, ${componente} tende
+                                a aumentar de maneira veloz`
+                                kpi2_indicador.classList.add("yellow")
+                            } else {
+                                kpi2_content.innerHTML = ``
+                                kpi2_content.innerHTML = `A gráfico está subindo de maneira extremamente rápida, 
+                                ${componente} tende a aumentar de maneira brusca`
+                                kpi2_indicador.classList.add("red")
+                            }
+                        }
+                    }
+                });
+                console.log(componente, a, b)
+            });
+    }
+
+    async function buscarAlertasCirurgia(idHospital) {
+        // fetch(`cirurgiaComponente/listar/${idHospital}`, {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     }
+        // })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('Erro ao fazer a solicitação GET');
+        //         }
+        //         return response.json();
+        //     }).then(data => {
+        //         console.log(data)
+        //         var alertasCirurgia = data
+
+        //         alertasCirurgia.forEach(cirurgia => {
+        //             menu_alerta_cirurgia.innerHTML += `
+        //         <div class="selecao_cirurgia_componente">
+        //                 <div class="info_cirurgia_componente" onclick="buscarPrevisao('cpu'), aplicarDados()">
+        //                     <div class="text_cirurgia_componente">
+        //                         <p>${cirurgia.dtHoraCirurgia}</p>
+        //                         <p>Máquina ${cirurgia.fkRobo}</p>
+        //                     </div>
+        //                     <div class="text_cirurgia_componente">
+        //                         <p>${cirurgia.nome_componente} chegou a ${cirurgia.dado}</p>
+        //                         <p>Risco Cirurgico: ${cirurgia.risco}</p>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         `
+        //         });
+
+        //     });
+    }
+
+    function aplicarDados() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+
+    }
+</script>

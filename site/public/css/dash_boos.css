@@ -112,7 +112,7 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .header-content {
@@ -1015,6 +1015,7 @@ td {
     background-color: #FFFFFF;
     align-items: center;    
     border-radius: 1.5vh;
+    flex-grow: 1;
     
 }
 
@@ -1079,6 +1080,7 @@ td {
     flex-direction: column;
     width: 90%;
     align-items: center;
+    flex-grow: 2;
 }
 
 .title_alerta_cirurgia{
@@ -1126,4 +1128,136 @@ td {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+
+.botao_previsao {
+    position: absolute;
+    right: 64vw; 
+    top: 85vh;
+    height: 10vh;
+    margin-left: 3vw;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    background-color: #ffffff;
+    border: none;
+    /* border-radius: 2vh; */
+    color: #000000; /* Cor do texto */
+    font-size: 1em; /* Tamanho da fonte */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    flex-grow: 0
+}
+
+.botao_previsao:hover {
+    background-color: #2a585e41;
+}
+
+.menu_previsao{
+    width: 80%;
+    height: 60%;
+    display: flex;
+    background-color: #FFF;
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.164);
+    flex-direction: column;
+    margin-top: 2vh;
+}
+
+.header_previsao{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+}
+
+.selecao-componente-robo{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3vh;
+    margin-left: 2vw;
+}
+
+.input-selecao-previsao{
+    width: 100%;
+    height: inherit;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    font-size: 2.3vh;
+}
+
+.painel_previsao{
+    display: flex;
+    justify-content: space-around;
+}
+
+.title_alerta_previsao{
+    text-align: center;
+    align-self: center;
+    justify-content: center;
+    width: 80%;
+    height: 7vh;
+    background-color: #2a585e41;
+    margin-top: 2%;
+    border-radius: 2vh;
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.064);
+    display: flex;
+    align-items: center;
+}
+
+
+.kpis {
+    display: flex;
+    flex-direction: row;
+    height: 12vh;
+    width: 100%;
+    margin-top: 5%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.kpi {
+    background: #FFFFFF;
+    /* border: 1px solid #8a8a8a; */
+    box-shadow: 4px 4px 15px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 4vh;
+    display: flex;
+    flex-direction: row;
+    height: 21vh;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.kpi{
+    margin-right: 3vw;
+}
+
+.kpi:nth-child(n+3) {
+    margin-right: 0;
+}
+
+.kpi_pai{
+    display: flex; 
+    flex-direction: row;
+    padding: 2vw;
+}
+
+.mensagem_erro{
+    color: red;
+    margin-top: 10vh;
+    display: none;
+    opacity: 45%;
 }

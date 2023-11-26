@@ -15,6 +15,13 @@ var cirurgiaComponenteController = require("../controllers/cirurgiaComponenteCon
 router.get("/listar/:hospital", function (req, res) {
     cirurgiaComponenteController.listar(req, res);
 });
+router.get("/listarMetricas", function (req, res) {
+    cirurgiaComponenteController.listarMetricas(req, res);
+});
+
+router.get("/getLinearRegression/:roboId/:nomeComponente/:limite_linhas", function (req, res) {
+    cirurgiaComponenteController.getLinearRegression(req, res);
+});
 
 // router.delete("/deletar", function (req, res) {
 //     cirurgiaComponenteController.deletar(req, res);
