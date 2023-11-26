@@ -46,7 +46,7 @@ function buscarUltimosAlertas() {
         DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
         FROM Alerta
         WHERE
-        tipo_alerta = 'critico'
+        tipo_alerta = 'alerta'
         AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
 
         `;
@@ -68,7 +68,7 @@ function buscarUltimosAlertas() {
         DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
         FROM Alerta
         WHERE
-        tipo_alerta = 'alerta'
+        tipo_alerta = 'critico'
         AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
 
         `;
