@@ -46,7 +46,7 @@ function buscarUltimosAlertas() {
         DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
         FROM Alerta
         WHERE
-        tipo_alerta = 'critico'
+        tipo_alerta = 'alerta'
         AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
 
         `;
@@ -68,7 +68,7 @@ function buscarUltimosAlertas() {
         DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
         FROM Alerta
         WHERE
-        tipo_alerta = 'alerta'
+        tipo_alerta = 'critico'
         AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
 
         `;
@@ -94,7 +94,7 @@ function buscarQuantidadeDeAlertas(intervalo) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
             SELECT count(idAlerta) as alertas FROM Alerta WHERE 
-            tipo_alerta = "critico"
+            tipo_alerta = "alerta"
             AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE()));
             `;
 
@@ -106,14 +106,14 @@ function buscarQuantidadeDeAlertas(intervalo) {
 
         instrucaoSql3 = `
             SELECT count(idAlerta) as alertas FROM Alerta WHERE 
-            tipo_alerta = "alerta"
+            tipo_alerta = "critico"
             AND dtHora >= DATEADD(${intervalo}, -1, GETDATE()));
             `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
             SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
             WHERE dtHora >= date_sub(now(), INTERVAL 1 ${intervalo})
-            AND tipo_alerta = "critico"
+            AND tipo_alerta = "alerta"
             `;
 
         instrucaoSql2 = `
@@ -125,7 +125,7 @@ function buscarQuantidadeDeAlertas(intervalo) {
         instrucaoSql3 = `
             SELECT COUNT(idQuantidadeAlerta) as alertas FROM quantidadeAlerta 
             WHERE dtHora >= date_sub(now(), INTERVAL 1 ${intervalo})
-            AND tipo_alerta = "alerta"
+            AND tipo_alerta = "critico"
             `;
 
     } else {
