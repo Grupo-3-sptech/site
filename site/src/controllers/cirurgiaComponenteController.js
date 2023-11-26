@@ -43,7 +43,7 @@ function getLinearRegression(req, res) {
     const roboId = req.params.roboId;
     const nomeComponente = req.params.nomeComponente;
     const limite_linhas = req.params.limite_linhas;
-    const pythonProcess = spawn('C:\Users\Administrator\AppData\Local\Programs\Python\Python311\\python.exe',
+    const pythonProcess = spawn('C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\python.exe',
         ['./individual-boos.py',
             roboId.toString(),
             nomeComponente,
