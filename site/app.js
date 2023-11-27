@@ -26,6 +26,7 @@ var salaRouter = require("./src/routes/salas");
 var cirurgiaComponente = require("./src/routes/cirurgiaComponente");
 var individualDaniloRouter = require("./src/routes/daniloIndividual")
 
+var redeRouter = require("./src/routes/rede")
 
 
 // // Defina o mecanismo de visualização e o diretório de visualizações
@@ -66,6 +67,7 @@ app.use("/cirurgia", cirurgiaRouter)
 app.use("/sala", salaRouter)
 app.use("/cirurgiaComponente", cirurgiaComponente)
 app.use("/danilo", individualDaniloRouter)
+app.use("/rede", redeRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
