@@ -440,7 +440,7 @@ function plotarGrafico(resposta, fkRobo) {
                 dadosProcesso,
                 myChart,
                 myChart2,
-                // myChart3 descomentar aqui e configurar a att
+                myChart3 //descomentar aqui e configurar a att
             ),
         10000
     );
@@ -457,8 +457,10 @@ function atualizarGrafico(
     fkRobo,
     dadosCpu,
     dadosMemoria,
+    dadosProcesso,
     myChart,
-    myChart2
+    myChart2,
+    myChart3
 ) {
 
     if(tempoHistorico == "atual"){
@@ -508,6 +510,25 @@ function atualizarGrafico(
                                     myChart2.update();
                                 }
                             } 
+                            else if (registro.nomeComponente == "Processos da CPU") {
+                                if (
+                                    registro.HorarioFormatado ==
+                                    dadosProcesso.labels[dadosProcesso.labels.length - 1]
+                                ) {
+                                    console.log(
+                                        "Como não há dados novos para captura de memória, o gráfico não atualizará."
+                                    );
+                                } else {
+                                    // tirando e colocando valores no gráfico
+                                    dadosProcesso.labels.shift(); // apagar o primeiro
+                                    dadosProcesso.labels.push(registro.HorarioFormatado); // incluir um novo momento
+    
+                                    dadosProcesso.datasets[0].data.shift(); // apagar o primeiro de umidade
+                                    dadosProcesso.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+    
+                                    myChart3.update();
+                                }
+                            } 
                         });
     
                         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
@@ -517,9 +538,10 @@ function atualizarGrafico(
                                     fkRobo,
                                     dadosCpu,
                                     dadosMemoria,
-                
+                                    dadosProcesso,
                                     myChart,
-                                    myChart2
+                                    myChart2,
+                                    myChart3
                                 ),
                             10000
                         );
@@ -533,9 +555,10 @@ function atualizarGrafico(
                                 fkRobo,
                                 dadosCpu,
                                 dadosMemoria,
-            
+                                dadosProcesso,
                                 myChart,
                                 myChart2,
+                                myChart3,
                                 myChart4
                             ),
                         10000
