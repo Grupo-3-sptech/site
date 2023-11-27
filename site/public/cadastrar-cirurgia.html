@@ -452,7 +452,6 @@
         if (nome_medico == "" || data_inicio == "" || horario_inicio == "" || duracao == "" || nome_paciente == "" || sala == "" || categoria == "" || risco == "") {
             mensagem_erro_cadastro.innerHTML = "Todos os campos precisam ser preenchidos"
             mensagem_erro_cadastro.style.display = "block"
-            limparMensagem()
         }
         else {
             fetch(`/sala/robo/${sala}`, {

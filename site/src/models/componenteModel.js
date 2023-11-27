@@ -53,7 +53,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
       c.nome AS nomeComponente
   FROM Registros r
   JOIN componentes c ON r.fkComponente = c.idComponentes
-  WHERE r.fkRoboRegistro = @id
+  WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= DATEADD(DAY, -1, SYSDATETIME()) AND HorarioDado <= SYSDATETIME()
   GROUP BY FORMAT(HorarioDado, 'dd/MM/yyyy HH'), c.nome
   ORDER BY HorarioFormatado;`;
@@ -82,7 +82,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
       c.nome AS nomeComponente
   FROM Registros r
   JOIN componentes c ON r.fkComponente = c.idComponentes
-  WHERE r.fkRoboRegistro = @id
+  WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= DATEADD(MONTH, -1, SYSDATETIME()) AND HorarioDado <= SYSDATETIME()
   GROUP BY FORMAT(HorarioDado, 'dd/MM/yyyy'), c.nome
   ORDER BY HorarioFormatado
@@ -93,7 +93,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
       instrucaoSql = `SELECT
       DATE_FORMAT(HorarioDado, '%d/%m/%Y') as HorarioFormatado,
       round(AVG(dado),2) AS dado,
-      c.nome AS nomeComponente
+      c.nome AS c.nome
     FROM Registros r
     JOIN componentes c ON r.fkComponente = c.idComponentes
     WHERE r.fkRoboRegistro = ${id}
@@ -117,7 +117,7 @@ function buscarUltimasMedidas(id, tempo, limite_linhas) {
   JOIN componentes c ON r.fkComponente = c.idComponentes
   WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= DATEADD(YEAR, -1, SYSDATETIME()) AND HorarioDado <= SYSDATETIME()
-  GROUP BY FORMAT(HorarioDado, 'MM/yyyy'), nomeComponente
+  GROUP BY FORMAT(HorarioDado, 'MM/yyyy'), c.nome
   ORDER BY HorarioFormatado;
     `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -260,7 +260,7 @@ WHERE linha_num <= 1;
       c.nome AS nomeComponente
   FROM Registros r
   JOIN componentes c ON r.fkComponente = c.idComponentes
-  WHERE r.fkRoboRegistro = @id
+  WHERE r.fkRoboRegistro = ${id}
       AND HorarioDado >= DATEADD(YEAR, -1, SYSDATETIME()) AND HorarioDado <= SYSDATETIME()
   GROUP BY FORMAT(HorarioDado, 'yyyy'), c.nome
   ORDER BY AnoFormatado;
@@ -332,7 +332,7 @@ function buscarUltimasMedidasPorNome(id, tempo, limite_linhas, nomeComponente) {
         JOIN componentes c ON r.fkComponente = c.idComponentes
         JOIN cirurgia cr ON cr.fkRoboCirurgia = r.fkRoboRegistro
         WHERE r.fkRoboRegistro = ${id}
-        AND c.nome = ${nomeComponente}
+        AND c.nome = '${nomeComponente}'
     )
     SELECT
         idRegistro,
@@ -384,7 +384,7 @@ function buscarUltimasMedidasPorNome(id, tempo, limite_linhas, nomeComponente) {
         JOIN componentes c ON r.fkComponente = c.idComponentes
         JOIN cirurgia cr ON cr.fkRoboCirurgia = r.fkRoboRegistro
         WHERE r.fkRoboRegistro = ${id}
-        AND c.nome = ${nomeComponente}
+        AND c.nome = '${nomeComponente}'
         AND r.HorarioDado BETWEEN cr.dataInicio AND DATEADD(MINUTE, cr.duracao, cr.dataInicio)
     )
     SELECT
