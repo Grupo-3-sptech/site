@@ -44,7 +44,7 @@ function deletar(idUsuario) {
 function editar(email, senha, nome, cargo, telefone, idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha, nome, cargo, telefone, idUsuario)
     var instrucao = `
-    UPDATE Usuario SET email = "${email}", senha = "${senha}", nome = "${nome}", telefone = "${telefone}",
+    UPDATE Usuario SET email = '${email}', senha = '${senha}', nome = '${nome}', telefone = '${telefone}',
     fkEscalonamento = ${cargo} WHERE idUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
