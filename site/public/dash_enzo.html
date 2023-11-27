@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedConnect | Dashboard </title>
+    <title>MedConnect | Dashboard Robôs</title>
 
     <link rel="stylesheet" href="../css/dashboard.css">
     <!-- <script src="../js/sessao.js"></script>
@@ -19,7 +19,7 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <script src="js/graficoMaquinas.js"></script>
+    <script src="js/dash-enzo.js"></script>
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/validacoesUsuario.js"></script>
@@ -110,12 +110,78 @@
 
             <div class="header-content">
                 <div class="navbar-header" style="height: 10vh;">
-                    <h3>Dashboard Enzo</h3>
+                    <h3>Dashboard Janelas</h3>
                     <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
             <div class="header-before2">
-                <div class="maquinas" style="height: 85vh;"></div>
+                <div class="maquinas">
+                    <div class="input-maquina">
+                        <p>Robos Ativos 🟢</p>
+                        <select name="maquinas-ligadas" id="maquinas-ativas">
+                        </select>
+                    </div>
+                    <div class="input-maquina">
+                        <p>Tempo Historico </p>
+                        <select name="maquinas-desligadas" id="tempo-historico">
+                            <option value="atual">Atual</option>
+                            <option value="dia">Dia</option>
+                            <option value="mes">Mes</option>
+                            <option value="ano">Ano</option>
+                        </select>
+                    </div>
+                    <div class="box-id">
+                        <p>ID da Máquina</p>
+                        <p id="id_maquina"></p>
+                    </div>
+                </div>
+
+                <div class="box-ram">
+                    <div class="grafico-geral">
+                        <div class="label-grafico">Porcentagem CPU</div>
+                        <div id="grafico1" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-ram">
+                    <div class="grafico-geral">
+                        <div class="label-grafico">
+                            Porcentagem RAM
+                        </div>
+                        <div id="grafico2" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-ram">
+                    <div class="grafico-geral">
+                        <div class="label-grafico">
+                            Quantidade de Processos na Máquina
+                        </div>
+                        <div id="grafico2" class="display-none">
+                            <div class="graph">
+                                <canvas id="myChartCanvas3"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        
+                    <!-- <div class="box-usb">
+                        <div class="label-grafico">USB's Desconectados</div>
+                        <span id="usb_desconectado"></span>
+                    </div> -->
+                </div>
+                <h4>Janelas:<span id="janelas"></span></h4>
+                <button onclick="jal()">exibir ultima janela</button>
+                <button onclick="fecharJa()">Fechar Janla</button>
             </div>
         </div>
     </div>
@@ -130,6 +196,23 @@
 <script>
 
 var menu = 0;
+
+
+function jal(){
+    colJanela()
+}
+
+async function chamarColJanela() {
+            while (true) {
+                colJanela();
+                await new Promise(resolve => setTimeout(resolve, 500)); 
+            }
+        }
+
+    
+function fecharJa(){
+    fecharJanela()  
+}
 
 function mostrarMenu() {
     var drop_menu = document.getElementById('drop_menu'); 
@@ -177,10 +260,8 @@ var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 var selectTempoHistorico = document.getElementById("tempo-historico");
 selectMaquinasAtivas.addEventListener("change", function () {
     
-    limparDados();
+    // limparDados();
     obterDadosGrafico();
-    obterDadosResumo();
-    plotarUsb();
 });
 
 selectTempoHistorico.addEventListener("change", obterDadosGrafico);
@@ -192,32 +273,30 @@ async function buscarMaquinas(idHospital) {
             "Content-Type": "application/json"
         }
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
-            }
-            return response.json();
-        }).then(data => {
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao fazer a solicitação GET');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
 
-            console.log(data)
+        maquinas = data;
 
-            maquinas = data;
+        var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+        // Itera sobre o array de empresas e cria as opções do select
+        for (let i = 0; i < maquinas.length; i++) {
+            const maquina = maquinas[i];
 
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
-            }
-            obterDadosGrafico()
-            obterDadosResumo()
-            plotarUsb()
-        });
+            const optionElement = document.createElement('option');
+            optionElement.value = maquina.idRobo;
+            optionElement.text = "Robo " + (i + 1);
+            selectMaquinasAtivas.appendChild(optionElement);
+            optionElement.setAttribute('data-info', maquina.idProcess);
+        }
+        obterDadosGrafico();
+    });
 }
 </script>

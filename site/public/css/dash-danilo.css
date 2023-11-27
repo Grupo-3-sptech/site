@@ -42,6 +42,33 @@ body {
     flex-direction: column;
 }
 
+.drop-menu {
+    width: 16.3vw;
+    height: 35vh;
+    top: 43px;
+    background-color: #b0c9cd;
+    position: absolute;
+    z-index: 9999;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-menu {
+    height: 6vh;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.item-menu a {
+    margin-left: 20px;
+}
+
 .logo-sidebar {
     width: 100%;
     height: 20vh;
@@ -223,27 +250,6 @@ body {
     border-width: 0;
     border-radius: 5px;
     outline: none;
-}
-
-
-
-
-
-
-.red {
-    background-color: red;
-}
-
-.green {
-    background-color: green;
-}
-
-.orange {
-    background-color: orange;
-}
-
-.yellow {
-    background-color: yellow;
 }
 
 .segunda-parte {
@@ -531,6 +537,7 @@ body {
     display: flex;
     width: 50%;
     border-radius: 10px;
+    justify-content: space-around;
     font-size: 18px;
 }
 
@@ -589,7 +596,7 @@ body {
     margin-bottom: 2%;
 }
 
-.tipo-dado-situacao-geral, .dado-situacao-geral{
+.tipo-dado-situacao-geral, .dado-situacao-geral, .dado-estado-geral{
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -600,14 +607,14 @@ body {
     align-items: center;
 }
 
-.tipo-dado, .dado{
+.tipo-dado, .dado, .estado{
     display: flex;
     width: 100%;
     height: 30%;
     font-size: 20px;
 }
 
-.dado{
+.dado, .estado{
     justify-content: center;
 }
 
@@ -703,3 +710,25 @@ body {
     background-color: yellow;
 }
 
+.font-red {
+    color: red;
+}
+
+.font-green {
+    color: green;
+}
+
+.font-orange {
+    color: orange;
+}
+
+.font-yellow {
+    color: yellow;
+}
+
+
+.container-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

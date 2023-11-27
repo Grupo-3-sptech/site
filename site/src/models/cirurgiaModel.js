@@ -27,12 +27,42 @@ function cadastrar(nome_medico, data_inicio, horario_inicio,duracao, nome_pacien
 
 function listar() {
     console.log("ACESSEI O associado MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
-    var instrucao = `
+    
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        var instrucao = `SELECT 
+        c.idCirurgia,
+        c.nomeMedico, 
+        FORMAT(c.dataInicio, 'yyyy-MM-dd') AS dataInicio, 
+        FORMAT(c.dataInicio, 'HH:mm:ss') AS dataHorario, 
+        c.duracao, 
+        c.nomePaciente, 
+        c.tipo, 
+        s.numero AS sala, 
+        c.fkCategoria 
+    FROM 
+        cirurgia c
+    JOIN 
+        RoboCirurgiao r ON r.idRobo = c.fkRoboCirurgia
+    JOIN 
+        categoriaCirurgia g ON g.idCategoria = c.fkCategoria
+    JOIN 
+        salacirurgiao s ON s.fkRoboSala = r.idRobo;
+      `;
+      } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        var instrucao = `
     SELECT idCirurgia,nomeMedico, DATE_FORMAT(dataInicio, '%Y-%m-%d') AS dataInicio, DATE_FORMAT(dataInicio, '%H:%i:%s') AS dataHorario, duracao, nomePaciente, tipo, numero as sala, fkCategoria FROM cirurgia c
     JOIN RoboCirurgiao r ON r.idRobo = c.fkRoboCirurgia
     JOIN categoriaCirurgia g ON g.idCategoria = c.fkCategoria
     JOIN salacirurgiao s ON s.fkRoboSala = r.idRobo;
     `;
+      } else {
+        console.log(
+          "\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n"
+        );
+        return;
+      }
+        ;
+
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }

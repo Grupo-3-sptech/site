@@ -365,7 +365,7 @@ function mostrarMenu() {
 }
 
 
-    verificarAdmin()
+verificarAdmin()
 
 function voltarHome() {
     window.location = '../index.html'
@@ -397,7 +397,6 @@ window.onload = async function () {
 var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
 var selectTempoHistorico = document.getElementById("tempo-historico");
 selectMaquinasAtivas.addEventListener("change", function () {
-    
     limparDados();
     obterDadosGrafico();
     obterDadosResumo();

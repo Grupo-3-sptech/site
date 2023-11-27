@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedConnect | Dashboard </title>
 
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="/css/dash_boos.css">
     <!-- <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script> -->
 
@@ -19,9 +19,10 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <script src="js/graficoMaquinas.js"></script>
+    <script src="js/dashboardBoos.js"></script>
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/validacoesUsuario.js"></script>
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
@@ -47,7 +48,8 @@
                     <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
                         <a href="#">Dashboard Rôbos</a>
-                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
+                            src="./Img/icons8-mais-40.png" alt="">
                         <div style="display: none;" id="drop_menu" class="drop-menu">
                             <div class="item-menu">
                                 <a href="dash_bianca.html">Dash Bianca</a>
@@ -114,9 +116,58 @@
                     <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
-            <div class="header-before2">
-                <div class="maquinas" style="height: 85vh;"></div>
+            <div class="header-before3">
+                <div class="menu_cirurgia_componente" id="menu_alerta_cirurgia">
+                    <div class="label-grafico" style="height: 10vh;">Cirurgias em Alerta <span id="numero_cirurgias_alerta"></span></div>
+                </div>
+                <div class="maquinas_alerta_cirurgia">
+                    <h3 class="title_alerta_cirurgia">Alerta - Máquina <span id="painel_numero_maquina"></span></h3>
+                    <!-- <svg id="grafico" width="400" height="400"></svg> -->
+                        <div class="info_alerta_cirurgia">
+                            <div class="label-grafico" >Informações Cirurgicas</div>
+                            <div class="panel_alerta_cirurgia">
+                                <div class="panel_info_alerta_cirurgia">
+                                    <p><img src="Img/medico.png"> Nome:</p>
+                                    <div id="painel_nome_medico"><p>Dr. Exemplo</p></div>
+                                </div>
+                                <div class="panel_info_alerta_cirurgia">
+                                    <p><img src="Img/paciente.png"> Nome:</p>
+                                    <div id="painel_nome_paciente"><p>Alberto Soarez</p></div>
+                                </div>
+                            </div>
+                            <div class="panel_alerta_cirurgia">
+                                <div class="panel_info_alerta_cirurgia">
+                                    <p>Sala:</p>
+                                    <div id="painel_numero_sala"><p>201</p></div>
+                                </div>
+                                <div class="panel_info_alerta_cirurgia">
+                                    <p>Ínicio:</p>
+                                    <div id="painel_inicio"><p>20/04/2023 20:21:00</p></div>
+                                </div>
+                                <div class="panel_info_alerta_cirurgia" >
+                                    <p>Término:</p>
+                                    <div id="painel_termino"><p>20/04/2023 23:30:20</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="grafico_componente_cirurgia">
+                        <div class="label-grafico" id="painel_nome_componente"></div>
+                        <div id="grafico1" class="display-none grafico_alerta_componente">
+                            <div class="input-maquina" style="margin-right: 3vw; margin-top:2vh">
+                                <p>Tempo Historico </p>
+                                <select name="maquinas-desligadas" id="tempo-historico">
+                                    <option value="cirurgia">Durante Cirurgia</option>
+                                    <option value="atual">Tempo Real</option>
+                                </select>
+                            </div>
+                            <div class="graph" style="width: 100%;">
+                                <canvas id="myChartCanvas1"></canvas>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
             </div>
+                <button class="botao_previsao" onclick="redirecionarPrevisao()">Previsão do Componente</button>
         </div>
     </div>
 
@@ -129,95 +180,144 @@
 
 <script>
 
-var menu = 0;
+    limparDadosAntigos()
 
-function mostrarMenu() {
-    var drop_menu = document.getElementById('drop_menu'); 
-
-    if (menu === 0) {
-        drop_menu.style.display = 'flex';
-        menu = 1;
-    } else {
-        drop_menu.style.display = 'none';
-        menu = 0;
+    function voltarHome() {
+        window.location = '../index.html'
     }
-}
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    cargo = sessionStorage.CARGO_USUARIO
+
+    gerenciarUsuarios = document.getElementById("gerenciarUsuarios")
+    console.log(gerenciarUsuarios)
+
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
+
+    if (cargo !== "Admin") {
+        gerenciarUsuarios.style = 'display: none'
+    }
+
+    if (cargo !== "Atendente" && cargo !== "Admin") {
+        gerenciarCirurgias.style = 'display: none'
+    }
+
+    if(cargo !== "Admin"){
+        voltarHome()
+    }
 
 
-    verificarAdmin()
+    var idHospital = sessionStorage.ID_HOSPITAL;
 
-function voltarHome() {
-    window.location = '../index.html'
-}
+    window.onload = async function () {
+        await buscarAlertasCirurgia(idHospital);
+    };
+    // var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+    // var selectTempoHistorico = document.getElementById("tempo-historico");
+    // selectMaquinasAtivas.addEventListener("change", function () {
 
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    //     limparDados();
+    //     obterDadosGrafico();
+    //     obterDadosResumo();
+    //     plotarUsb();
+    // });
 
-cargo = sessionStorage.CARGO_USUARIO
+    // selectTempoHistorico.addEventListener("change", obterDadosGrafico);
+    function mudarCorSelecao(element) {
+    // Adiciona a classe 'clicked' à div clicada
+    var selecoes = document.querySelectorAll('.selecao_cirurgia_componente');
 
-gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-console.log(gerenciarUsuarios)
+    // Remove a classe 'clicked' de todas as divs
+    selecoes.forEach(function(selecao) {
+        selecao.classList.remove('selecionado');
+    });
 
-gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-console.log(gerenciarCirurgias)
+    // Adiciona a classe 'clicked' à div clicada
+    element.classList.add('selecionado');
+    }
 
-// if(cargo !== "Admin"){
-//     gerenciarUsuarios.style = 'display: none'
-// }
+    fkMaquinaAtual = sessionStorage.fk_maquina_alerta_componente;
 
-if (cargo !== "Atendente" && cargo !== "Admin") {
-    gerenciarCirurgias.style = 'display: none'
-}
+    var selectTempoHistorico = document.getElementById("tempo-historico");
+    selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
-var idHospital = sessionStorage.ID_HOSPITAL;
-
-window.onload = async function () {
-    await buscarMaquinas(idHospital);
-};
-var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-var selectTempoHistorico = document.getElementById("tempo-historico");
-selectMaquinasAtivas.addEventListener("change", function () {
-    
-    limparDados();
-    obterDadosGrafico();
-    obterDadosResumo();
-    plotarUsb();
-});
-
-selectTempoHistorico.addEventListener("change", obterDadosGrafico);
-
-async function buscarMaquinas(idHospital) {
-    fetch(`/robo/listar/${idHospital}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
+    async function buscarAlertasCirurgia(idHospital) {
+        fetch(`cirurgiaComponente/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            return response.json();
-        }).then(data => {
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+                console.log(data)
+                var alertasCirurgia = data
+                
 
-            console.log(data)
+                alertasCirurgia.forEach(cirurgia => {
+                    if(cirurgia.unidade == null){
+                        cirurgia.unidade = ""
+                    }
 
-            maquinas = data;
+                    menu_alerta_cirurgia.innerHTML += `
+                <div class="selecao_cirurgia_componente" onclick="mudarCorSelecao(this)">
+                    <div class="info_cirurgia_componente" onclick="aplicarDados('${cirurgia.nomeMedico}', '${cirurgia.nomePaciente}', ${cirurgia.numero }, 
+                    '${cirurgia.dtHoraCirurgia}', '${cirurgia.dtHoraFimCirurgia}', '${cirurgia.fkRobo}', '${cirurgia.nome_componente}')">
+                            <div class="text_cirurgia_componente">
+                                <p>${cirurgia.dtHoraComponente}</p>
+                            </div>
+                            <div class="text_cirurgia_componente text_cirurgia_componente_direita">
+                                <p>${cirurgia.nome_componente} chegou a ${cirurgia.dado.toFixed(2)}${cirurgia.unidade}</p>
+                                <p>Risco Cirurgico: ${cirurgia.risco}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+                }
+                );
+                if(alertasCirurgia.length > 0){
+                    numero_cirurgias_alerta.innerHTML = `(${alertasCirurgia.length})`
+                }
+            });
+    }
 
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
-            }
-            obterDadosGrafico()
-            obterDadosResumo()
-            plotarUsb()
+    function aplicarDados(nomeMedico, nomePaciente, sala, dtHorainicio, dtHoraFim, fkMaquina, nomeComponente) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
-}
+        sessionStorage.fk_maquina_alerta_componente = fkMaquina
+        sessionStorage.fk_nome_componente = nomeComponente
+
+        limparDadosAntigos()
+        obterDadosGrafico()
+        painel_nome_medico.innerHTML = nomeMedico;
+        painel_nome_paciente.innerHTML = nomePaciente;
+        painel_numero_sala.innerHTML = sala;
+        painel_inicio.innerHTML = dtHorainicio;
+        painel_termino.innerHTML = dtHoraFim;
+        painel_numero_maquina.innerHTML = fkMaquina;
+        painel_nome_componente.innerHTML = nomeComponente;
+
+    }
+
+    function redirecionarPrevisao(){
+        window.location = "dash_boos2.html"
+    }
+
+    function limparDadosAntigos(){
+        painel_nome_medico.innerHTML = ``;
+        painel_nome_paciente.innerHTML = ``;
+        painel_numero_sala.innerHTML = ``;
+        painel_inicio.innerHTML = ``;
+        painel_termino.innerHTML = ``;
+        painel_numero_maquina.innerHTML = 0;
+        painel_nome_componente.innerHTML = "";
+    }
 </script>

@@ -1,10 +1,10 @@
-process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-// process.env.AMBIENTE_PROCESSO = "producao";
+// process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
+var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 3333 : 80;
 
 var app = express();
 
@@ -17,13 +17,15 @@ var hospitalRouter = require("./src/routes/hospital");
 var cargoRouter = require("./src/routes/cargo");
 var funcionarioRouter = require("./src/routes/funcionario");
 var funcionarioAssociadoRouter = require("./src/routes/funcionarioAssociado");
+var janelasRouter = require("./src/routes/janelas");
 var roboRouter = require("./src/routes/robos"); 
 var alertasRouter = require("./src/routes/alertas")
 var empresasRouter = require("./src/routes/empresas");
 var cirurgiaRouter = require("./src/routes/cirurgia");
 var salaRouter = require("./src/routes/salas");
 var biancaAlertasRouter = require("./src/routes/biancaAlertas");
-
+var cirurgiaComponente = require("./src/routes/cirurgiaComponente");
+var individualDaniloRouter = require("./src/routes/daniloIndividual")
 
 
 
@@ -58,12 +60,15 @@ app.use("/hospital", hospitalRouter);
 app.use("/cargo", cargoRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/funcionarioAssociado", funcionarioAssociadoRouter);
+app.use("/janelas", janelasRouter);
 app.use("/robo", roboRouter);
 app.use("/alertas", alertasRouter)
 app.use("/cirurgia", cirurgiaRouter)
 app.use("/sala", salaRouter)
 app.use("/biancaAlertas", biancaAlertasRouter)
 
+app.use("/cirurgiaComponente", cirurgiaComponente)
+app.use("/danilo", individualDaniloRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

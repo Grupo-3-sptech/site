@@ -1,19 +1,21 @@
 var mysql = require("mysql2");
-var sql = require('mssql');
+var sql = require("mssql");
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "SEU_SERVIDOR",
-    database: "SEU_BANCO_DE_DADOS",
-    user: "SEU_USUARIO",
-    password: "SUA_SENHA",
+    port: parseInt(1433,10),
+    server: "52.7.105.138",
+    database: "medconnect",
+    user: "sa",
+    password: "medconnect123",
     pool: {
         max: 10,
         min: 0,
         idleTimeoutMillis: 30000
     },
     options: {
-        encrypt: true, // for azure
+        encrypt: true,
+        trustServerCertificate: true // for azure
     }
 }
 
@@ -21,8 +23,8 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "medconnect",
-    user: "admin",
-    password: "admin",
+    user: "medconnect",
+    password: "medconnect123",
 };
 
 function executar(instrucao) {
