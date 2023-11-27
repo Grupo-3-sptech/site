@@ -10,7 +10,7 @@ function buscarUltimosAlertas() {
         instrucaoSql = `
         SELECT
             *,
-        FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        FORMAT(dtHora, 'dd/MM/yyyy HH:mm:ss') AS data_formatada
         FROM Alerta
         WHERE
         tipo_alerta = 'critico'
@@ -21,7 +21,7 @@ function buscarUltimosAlertas() {
         instrucaoSql2 = `
         SELECT
             *,
-        FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        FORMAT(dtHora, 'dd/MM/yyyy HH:mm:ss') AS data_formatada
         FROM Alerta
         WHERE
         tipo_alerta = 'urgente'
@@ -32,7 +32,7 @@ function buscarUltimosAlertas() {
         instrucaoSql3 = `
         SELECT
             *,
-        FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        FORMAT(dtHora, 'dd/MM/yyyy HH:mm:ss') AS data_formatada
         FROM Alerta
         WHERE
         tipo_alerta = 'alerta'

@@ -10,6 +10,14 @@ function cadastrar(nome_medico, data_inicio, horario_inicio, duracao, nome_pacie
     return database.executar(instrucao);
 }
 
+function listarMetricas() {
+    var instrucao = `
+    SELECT * FROM metrica;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 function listar(fkHospital) {
     console.log("ACESSEI O associado MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
@@ -20,12 +28,12 @@ function listar(fkHospital) {
                 a.tipo_alerta,
                 a.dado,
                 a.fkRobo,
-                DATE_FORMAT(a.dtHora, '%d/%m/%Y %H:%i:%s') as dtHoraComponente,
+                CONVERT(VARCHAR, a.dtHora, 103) + ' ' + CONVERT(VARCHAR, a.dtHora, 108) as dtHoraComponente,
                 a.nome_componente,
                 cn.unidade,
                 s.numero,
-                DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
-                DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
+                CONVERT(VARCHAR, c.dataInicio, 103) + ' ' + CONVERT(VARCHAR, c.dataInicio, 108) as dtHoraCirurgia,
+                CONVERT(VARCHAR, DATEADD(MINUTE, c.duracao, c.dataInicio), 103) + ' ' + CONVERT(VARCHAR, DATEADD(MINUTE, c.duracao, c.dataInicio), 108) as dtHoraFimCirurgia,
                 c.duracao,
                 c.nomePaciente,
                 c.nomeMedico,
@@ -37,7 +45,7 @@ function listar(fkHospital) {
             JOIN 
                 salaCirurgiao s ON s.fkRoboSala = a.fkRobo
             JOIN 
-                cirurgia c ON a.dtHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
+                cirurgia c ON a.dtHora BETWEEN c.dataInicio AND DATEADD(MINUTE, c.duracao, c.dataInicio)
             JOIN 
                 RoboCirurgiao r ON r.fkHospital = ${fkHospital}
             JOIN 
@@ -63,7 +71,7 @@ function listar(fkHospital) {
         FROM 
             AlertasNumerados
         WHERE 
-            numAlerta <= 1;
+            numAlerta <= 1;        
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         var instrucao = `
@@ -149,6 +157,7 @@ function editar(nome_medico, data_inicio, horario_inicio, duracao, nome_paciente
 
 module.exports = {
     editar,
+    listarMetricas,
     deletar,
     listar,
     cadastrar
