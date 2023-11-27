@@ -1261,3 +1261,12 @@ td {
     display: none;
     opacity: 45%;
 }
+
+
+.situacao_geral_tendencia{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6vh;
+    margin-top: 2vh;
+}

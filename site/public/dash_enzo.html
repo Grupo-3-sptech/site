@@ -180,8 +180,7 @@
                     </div> -->
                 </div>
                 <h4>Janelas:<span id="janelas"></span></h4>
-                 <button onclick="jal()">oioi</button>
-                            <button onclick="fecharJa()">fechar janela exibida</button>      
+                <button onclick="fecharJa()">Fechar Janla</button>
             </div>
         </div>
     </div>
@@ -201,6 +200,14 @@ var menu = 0;
 function jal(){
     colJanela()
 }
+async function chamarColJanela() {
+            while (true) {
+                colJanela();
+                await new Promise(resolve => setTimeout(resolve, 500)); 
+            }
+        }
+
+        chamarColJanela();
 function fecharJa(){
     fecharJanela()  
 }

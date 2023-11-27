@@ -63,6 +63,8 @@ function obterDadosGrafico() {
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        // setInterval(obterDadosGrafico, 5000)
     }
 
 }
