@@ -258,8 +258,13 @@
             }).then(data => {
                 console.log(data)
                 var alertasCirurgia = data
+                
 
                 alertasCirurgia.forEach(cirurgia => {
+                    if(cirurgia.unidade == null){
+                        cirurgia.unidade = ""
+                    }
+
                     menu_alerta_cirurgia.innerHTML += `
                 <div class="selecao_cirurgia_componente" onclick="mudarCorSelecao(this)">
                     <div class="info_cirurgia_componente" onclick="aplicarDados('${cirurgia.nomeMedico}', '${cirurgia.nomePaciente}', ${cirurgia.numero }, 
