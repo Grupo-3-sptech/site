@@ -9,7 +9,9 @@ function fechar(janela, id) {
     var instrucaoSql1 = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql1 = ``;
+        instrucaoSql1 = `INSERT INTO Janela_fechada (janela_a_fechar, sinal_terminacao, fkMaquina1)
+        VALUES ('${janela}', 1, ${id});
+        `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql1 = `
             INSERT INTO Janela_fechada (janela_a_fechar, sinal_terminacao, fkMaquina1)
@@ -49,7 +51,11 @@ function buscarUltimasMedidasJa(id) {
 function colJanela(id) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-      var instrucao = ``;
+      var instrucao = `SELECT Janela_atual
+      FROM Janela
+      WHERE fkMaquina = ${id}
+      ORDER BY idJanela DESC
+      LIMIT 1;`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       var instrucao = `SELECT Janela_atual
       FROM Janela
