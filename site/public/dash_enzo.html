@@ -180,6 +180,7 @@
                     </div> -->
                 </div>
                 <h4>Janelas:<span id="janelas"></span></h4>
+                <button onclick="jal()">exibir ultima janela</button>
                 <button onclick="fecharJa()">Fechar Janla</button>
             </div>
         </div>
@@ -200,6 +201,7 @@ var menu = 0;
 function jal(){
     colJanela()
 }
+
 async function chamarColJanela() {
             while (true) {
                 colJanela();
@@ -207,7 +209,7 @@ async function chamarColJanela() {
             }
         }
 
-        chamarColJanela();
+    
 function fecharJa(){
     fecharJanela()  
 }
