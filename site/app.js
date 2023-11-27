@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 //process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+=======
+// process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+>>>>>>> a4bd74dc248c4d5fe7e8efcacf7bcd6274b36dc6
 process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 80 : 80;
+var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 3333 : 80;
 
 var app = express();
 

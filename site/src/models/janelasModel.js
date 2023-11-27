@@ -51,11 +51,10 @@ function buscarUltimasMedidasJa(id) {
 function colJanela(id) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-      var instrucao = `SELECT Janela_atual
+      var instrucao = `SELECT TOP 1 Janela_atual
       FROM Janela
       WHERE fkMaquina = ${id}
-      ORDER BY idJanela DESC
-      LIMIT 1;`;
+      ORDER BY idJanela DESC`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       var instrucao = `SELECT Janela_atual
       FROM Janela
