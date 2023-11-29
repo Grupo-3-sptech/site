@@ -1274,6 +1274,7 @@ td {
 #usbs_desconectados{
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .desconectado{
