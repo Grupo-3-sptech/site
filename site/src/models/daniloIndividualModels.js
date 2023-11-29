@@ -91,7 +91,35 @@ async function executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, ins
     }
 }
 
+function dadosConsultaMedico(nomeUsuario) {
+    var instrucaoSql = ""
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+        SELECT * FROM VW_Cirurgia
+        WHERE nomeMedico LIKE ${nomeUsuario}
+        AND nome LIKE ${nomeUsuario};`
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = ` 
+        SELECT * FROM VW_Cirurgia
+        WHERE nomeMedico LIKE ${nomeUsuario}
+        AND nome LIKE ${nomeUsuario};`
+    }
+    else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+
+    return database.executar(instrucaoSql);
+
+    
+
+}
 
 module.exports = {
-    capturarComponentes
+    capturarComponentes,
+    dadosConsultaMedico
 }
