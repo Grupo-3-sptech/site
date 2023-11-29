@@ -57,7 +57,7 @@
 
                     <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
-                        <a href="#">Dashboard Rôbos</a>
+                        <a href="#">Dashboard Robôs</a>
                         <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
                             src="./Img/icons8-mais-40.png" alt="">
                         <div style="display: none;" id="drop_menu" class="drop-menu">
@@ -133,10 +133,10 @@
                         <select name="maquinas-ligadas" id="maquinas-ativas">
                         </select>
                     </div>
-                    <div class="box-id">
+                    <!-- <div class="box-id">
                         <b>ID da Máquina</b>
                         <p id="id_maquina"></p>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="kpis-bianca">
                     <div class="kpi">
@@ -284,7 +284,7 @@
         fkRobo = sessionStorage.getItem("FK_ROBO")
 
         obterDadosGrafico(fkRobo)
-    
+
     });
 
 
@@ -352,7 +352,7 @@
             })
             .finally(function () {
 
-                setTimeout(obterDadosResumo, 1000);
+                setTimeout(obterDadosResumo, 2000);
             });
 
     }
@@ -423,7 +423,7 @@
             });
     }
 
-    setInterval(listarProcessos(fkRobo), 1000)
+    setInterval(listarProcessos(fkRobo), 5000)
 
     function capturarPorcentagem(fkRobo) {
 
@@ -453,7 +453,7 @@
                 const gaugeData = [
                     ['Label', 'Value'],
                     ['CPU (%)', dados[dados.length - 1].dado],
-                    ['Temperatura', 40 + Math.round(60 * Math.random())]
+                    ['Temperatura', 60 + Math.round(35.3 * Math.random())]
                 ];
 
                 const gauge = document.querySelector('#chart_div');
@@ -481,12 +481,12 @@
                     setInterval(function () {
                         data.setValue(0, 1, Number(dados[dados.length - 1].dado));
                         chart.draw(data, options);
-                    }, 1000);
+                    }, 10000);
 
-                    // setInterval(function () {
-                    //     data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-                    //     chart.draw(data, options);
-                    // }, 5000);
+                    setInterval(function () {
+                        data.setValue(1, 1, 60 + Math.round(25.3 * Math.random()));
+                        chart.draw(data, options);
+                    }, 10000);
                 }
             })
             .catch(err => {
@@ -496,7 +496,7 @@
 
     setInterval(function () {
         capturarPorcentagem(fkRobo);
-    }, 1000);
+    }, 10000);
 
     function capturarTemperatura(fkRobo) {
         fkRobo = sessionStorage.getItem("FK_ROBO")
@@ -553,12 +553,12 @@
                     setInterval(function () {
                         data.setValue(0, 1, Number(dados[dados.length - 1].dado));
                         chart.draw(data, options);
-                    }, 1000);
+                    }, 10000);
 
                     setInterval(function () {
                         data.setValue(1, 1, dados[dados.length - 1].dado);
                         chart.draw(data, options);
-                    }, 5000);
+                    }, 10000);
                 }
             })
             .catch(err => {
@@ -566,9 +566,9 @@
             });
     }
 
-    setInterval(function () {
-        capturarTemperatura(fkRobo);
-    }, 20000);
+    // setInterval(function () {
+    //     capturarTemperatura(fkRobo);
+    // }, 10000);
 
     function getIdRobo(fkRobo) {
 
@@ -686,43 +686,48 @@
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(document.getElementById(`myChart`), configCpu);
+
+        setInterval(function () {
+            atualizarGrafico(fkRobo, dados, myChart);
+        }, 10000);
     }
 
 
     function atualizarGrafico(fkRobo, dados, myChart) {
-    fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/1`, { cache: 'no-store' })
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(novoRegistro);
-                    novoRegistro.forEach((registro) => {
-                        if (registro.HorarioDado == dados.labels[dados.labels.length - 1]) {
-                            console.log("Como não há dados novos para captura de cpu, o gráfico não atualizará.");
-                        } else {
+        fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/1`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log(`Dados atuais do gráfico:`);
+                        console.log(novoRegistro);
+                        novoRegistro.forEach((registro) => {
+
                             // tirando e colocando valores no gráfico
                             dados.labels.shift(); // apagar o primeiro
                             dados.labels.push(registro.HorarioDado); // incluir um novo momento
-    
+
                             dados.datasets[0].data.shift(); // apagar o primeiro de umidade
                             dados.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
-    
+
                             myChart.update();
-                        }
+
+                        });
+                        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                        //setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
                     });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
+
+                    //setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
 
 
 

@@ -593,20 +593,21 @@ body {
 .tituloJanela{
     background-color: #71c2cdc0;
     height: 10vh;
- width: 175px;
+ width: 400px;
 border-radius: 15px;
+right:75px;
 }
 
 .tituloJanela:hover{
     background-color: #3e838cd6;
     height: 10vh;
- width: 175px;
+ width: 400px;
 border-radius: 15px;
 }
 
 .tituloJanela h4 {
      position: relative;
- left: 9.5vh;
+ left:1vh;
  border-radius: 20px;
  font-size: 13px;
 
@@ -618,7 +619,7 @@ border-radius: 15px;
    width: 80px;
    height: 40px;
  position: relative;
- left: 1vh;
+ left: 13vh;
  bottom: 10vh;
  border-radius: 20px;
  border: 0;
@@ -633,7 +634,7 @@ border-radius: 15px;
    width: 80px;
    height: 40px;
  position: relative;
- left: 1vh;
+ left: 13vh;
  bottom: 10vh;
  border-radius: 20px;
  border: 0;

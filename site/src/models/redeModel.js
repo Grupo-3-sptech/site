@@ -8,7 +8,7 @@ function buscarDadosRede(fkRobo) {
    
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         i = 15
-        while(i <= 19){
+        while(i <= 18){
             instrucaoSql = `
             SELECT * FROM VW_dadosRede WHERE idComponentes = ${i}
             AND HorarioDado >= DATEADD(MINUTE, -1, GETDATE())
@@ -19,7 +19,7 @@ function buscarDadosRede(fkRobo) {
         }  
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         i = 15
-        while(i <= 19){
+        while(i <= 18){
             instrucaoSql = `
             SELECT * FROM VW_dadosRede WHERE idComponentes = ${i}
             AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
@@ -43,14 +43,12 @@ async function executarQueryEDevolverObjetoJSON(listaInstrucao) {
     const latenciaRede = await database.executar(listaInstrucao[1])
     const bytesEnviados = await database.executar(listaInstrucao[2])
     const bytesRecebidos = await database.executar(listaInstrucao[3])
-    const velocidadeRede = await database.executar(listaInstrucao[4])
 
     return {
         statusRede: statusRede,
         latenciaRede: latenciaRede,
         bytesEnviados: bytesEnviados,
         bytesRecebidos: bytesRecebidos,
-        velocidadeRede: velocidadeRede
     }
 }
 
