@@ -43,6 +43,28 @@ function buscarUltimasMedidasPorNome(req, res) {
     });
 }
 
+function buscarUltimasMedidasPorUsb(req, res) {
+
+    const limite_linhas = req.params.linhas;
+    const tempo = req.params.tempo;
+    var id = req.params.id;
+    var nomeComponente = req.params.nome
+
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+
+    componenteModel.buscarUltimasMedidasPorUSB(id, tempo, limite_linhas,nomeComponente).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function buscarMedidasResumo(req, res) {
 
     const tempo = req.params.tempo;
@@ -101,6 +123,7 @@ function buscarUsb(req, res) {
 
 module.exports = {
     buscarUltimasMedidas,
+    buscarUltimasMedidasPorUsb,
     // buscarMedidasEmTempoReal,
     buscarUltimasMedidasPorNome,
     buscarMedidasResumo,
