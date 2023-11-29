@@ -583,7 +583,6 @@ function buscarUltimasMedidasPorUSB(id, tempo, limite_linhas, nomeComponente) {
     WITH LinhasComponentesUsb AS (
       SELECT
       d.id as idRegistro,
-  d.nome, 
       FORMAT(d.dataHora, 'MM-dd HH:mm:ss') AS HorarioFormatado, 
       d.conectado, 
       d.fkRoboUsb,
