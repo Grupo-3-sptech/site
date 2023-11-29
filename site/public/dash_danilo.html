@@ -521,10 +521,10 @@
 
     function exibirDadosKPI(latencia, ram , disco, cpu){
         listaElementosKPIS = document.querySelectorAll("#dado-kpi")
-        listaElementosKPIS[0].textContent = latencia[latencia.length - 1].dado
-        listaElementosKPIS[1].textContent = ram[ram.length - 1].dado
-        listaElementosKPIS[2].textContent = disco[disco.length-1].dado
-        listaElementosKPIS[3].textContent = cpu[cpu.length - 1].dado
+        listaElementosKPIS[0].textContent = `${Math.round(latencia[latencia.length - 1].dado)} ms` 
+        listaElementosKPIS[1].textContent = `${ram[ram.length - 1].dado} %`
+        listaElementosKPIS[2].textContent = `${disco[disco.length-1].dado} %`
+        listaElementosKPIS[3].textContent = `${cpu[cpu.length - 1].dado} %` 
     }
 
 </script>
