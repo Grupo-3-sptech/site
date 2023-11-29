@@ -280,7 +280,11 @@
         var valorOption = selectMaquina.options[indice].value
 
         sessionStorage.setItem("FK_ROBO", valorOption)
-        obterDadosGrafico()
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+        obterDadosGrafico(fkRobo)
+    
     });
 
 
@@ -606,7 +610,7 @@
 
     function obterDadosGrafico(fkRobo) {
 
-        fkRobo = sessionStorage.getItem("FK_ROBO")
+        //fkRobo = sessionStorage.getItem("FK_ROBO")
 
         fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/7`, { cache: 'no-store' })
 
