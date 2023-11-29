@@ -178,7 +178,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador red"></div>
+                                    <div class="indicador"></div>
                                     <div class="conteudo-kpi">
                                         <p>Latência de Rede nas últimas 24h </p>
                                         <h2 id="dado-kpi">20%</h2>
@@ -188,7 +188,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador green"></div>
+                                    <div class="indicador "></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de RAM nas últimas 24h</p>
                                         <h2 id="dado-kpi" class="dado"></h2>
@@ -198,7 +198,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador green"></div>
+                                    <div class="indicador "></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de de uso Disco nas ultimas 24h</p>
                                         <h2 id="dado-kpi">42°</h2>
@@ -211,7 +211,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador green"></div>
+                                    <div class="indicador "></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de CPU nas últimas 24h</p>
                                         <h2 id="dado-kpi">20 ms</h2>
@@ -221,7 +221,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador red"></div>
+                                    <div class="indicador "></div>
                                     <div class="conteudo-kpi">
                                         <p>Qtd de Cirurgias nos últimos 30 dias</p>
                                         <h2 id="dado-kpi">32</h2>
@@ -231,7 +231,7 @@
 
                             <div class="kpi">
                                 <div class="container-kpi">
-                                    <div class="indicador red"></div>
+                                    <div class="indicador "></div>
                                     <div class="conteudo-kpi">
                                         <p>Cirurgias bem sucedidas</p>
                                         <h2 id="dado-kpi">31</h2>
@@ -374,6 +374,11 @@
         const elementoRamKPI = listaElementosCorKPI[1]
         const elementoDiscoKPI = listaElementosCorKPI[2]
         const elementoCpuKPI = listaElementosCorKPI[3]
+
+        elementoInternetKPI.classList.add("green")
+        elementoRamKPI.classList.add("green")
+        elementoDiscoKPI.classList.add("green")
+        elementoCpuKPI.classList.add("green")
 
         var estadoInternet = "Estável"
         var estadoRam = "Estável"
