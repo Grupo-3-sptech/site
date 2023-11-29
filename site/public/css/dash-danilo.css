@@ -498,10 +498,9 @@ body {
 
 .maquinas {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 90%;
     height: 15vh;
-    margin-top: 2.5%;
     align-self: center;
     justify-content: space-between;
 }
@@ -546,7 +545,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 50%;
+    height: 100%;
     background-color: white;
     border-radius: 10px;
     border-style: outset;
@@ -581,7 +580,7 @@ body {
 .color-ball{
     background: #96CD21;
     border-radius: 50%;
-    width: 70%;
+    width: 40%;
     margin-left: 1%;
     height: 20px;
 }
@@ -623,17 +622,16 @@ body {
     display: flex;
     width: 100%;
     height: 50%;
-    margin-top: 10%;
-    margin-left: 2%;
+    margin-top: 2%;
     flex-direction: column;
 }
 
 .container-kpis{
     display: flex;
     width: 100%;
-    height: 33.3%;
+    height: 50%;
     justify-content: space-evenly;
-    margin-bottom: 12%;
+    margin-bottom: 10%;
 }
 
 .container-kpi {

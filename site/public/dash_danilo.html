@@ -181,7 +181,7 @@
                                     <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Latência de Rede nas últimas 24h </p>
-                                        <h2 id="qtdUrgente">20%</h2>
+                                        <h2 id="dado-kpi">20%</h2>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
                                     <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de RAM nas últimas 24h</p>
-                                        <h2 id="qtdUrgente">40%</h2>
+                                        <h2 id="dado-kpi" class="dado"></h2>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                     <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de de uso Disco nas ultimas 24h</p>
-                                        <h2 id="qtdUrgente">42°</h2>
+                                        <h2 id="dado-kpi">42°</h2>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                                     <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de CPU nas últimas 24h</p>
-                                        <h2 id="qtdUrgente">20 ms</h2>
+                                        <h2 id="dado-kpi">20 ms</h2>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                                     <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Qtd de Cirurgias nos últimos 30 dias</p>
-                                        <h2 id="qtdUrgente">32</h2>
+                                        <h2 id="dado-kpi">32</h2>
                                     </div>
                                 </div>
                             </div>
@@ -234,46 +234,13 @@
                                     <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Cirurgias bem sucedidas</p>
-                                        <h2 id="qtdUrgente">42°</h2>
+                                        <h2 id="dado-kpi">31</h2>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="container-kpis">
-                            <div class="kpi">
-                                <div class="container-kpi">
-                                    <div class="indicador orange"></div>
-                                    <div class="conteudo-kpi">
-                                        <p>Temperatura nas ultimas 24h</p>
-                                        <h2 id="qtdUrgente">40%</h2>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="kpi">
-                                <div class="container-kpi">
-                                    <div class="indicador orange"></div>
-                                    <div class="conteudo-kpi">
-                                        <p>Temperatura</p>
-                                        <h2 id="qtdUrgente">42°</h2>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="kpi">
-                                <div class="container-kpi">
-                                    <div class="indicador orange"></div>
-                                    <div class="conteudo-kpi">
-                                        <p>Temperatura</p>
-                                        <h2 id="qtdUrgente">42°</h2>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
 
 
                     </div>
@@ -390,6 +357,7 @@
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
+
     }
 
     function validarEstadoComponentes(alerta, estado) {
@@ -415,57 +383,57 @@
         if (Object.values(alerta).length > 0) {
             for (let i = 0; i <= Object.values(alerta).length; i++) {
 
-                if (Object.values(alerta)[i].nome_componente == "Latencia de Rede"){
+                if (Object.values(alerta)[i].nome_componente == "Latencia de Rede") {
                     estadoInternet = estado
                     elementoEstadoInternet.classList.remove("font-green")
-                    
-                    if(estado == "Perigo"){
+
+                    if (estado == "Perigo") {
                         elementoEstadoInternet.classList.remove("font-orange")
                         elementoEstadoInternet.classList.add("font-red")
-                    } else{
+                    } else {
                         elementoEstadoInternet.classList.remove("font-red")
                         elementoEstadoInternet.classList.add("font-orange")
                     }
-                } 
+                }
 
-                if (Object.values(alerta)[i].nome_componente == "Porcentagem da Memoria"){
+                if (Object.values(alerta)[i].nome_componente == "Porcentagem da Memoria") {
                     estadoRam = estado
                     elementoEstadoRam.classList.remove("font-green")
 
-                    if(estado == "Perigo"){
+                    if (estado == "Perigo") {
                         elementoEstadoRam.classList.remove("font-orange")
                         elementoEstadoRam.classList.add("font-red")
-                    } else{
+                    } else {
                         elementoEstadoRam.classList.remove("font-red")
                         elementoEstadoRam.classList.add("font-orange")
                     }
-                } 
+                }
 
-                if (Object.values(alerta)[i].nome_componente == "Porcentagem do Disco"){
+                if (Object.values(alerta)[i].nome_componente == "Porcentagem do Disco") {
                     estadoDisco = estado
                     elementoEstadoDisco.classList.remove("font-green")
 
-                    if(estado == "Perigo"){
+                    if (estado == "Perigo") {
                         elementoEstadoDisco.classList.remove("font-orange")
                         elementoEstadoDisco.classList.add("font-red")
-                    } else{
+                    } else {
                         elementoEstadoDisco.classList.remove("font-red")
                         elementoEstadoDisco.classList.add("font-orange")
                     }
-                } 
+                }
 
-                if (Object.values(alerta)[i].nome_componente == "Porcentagem da CPU"){
+                if (Object.values(alerta)[i].nome_componente == "Porcentagem da CPU") {
                     estadoCpu = estado
                     elementoEstadoCpu.classList.remove("font-green")
 
-                    if(estado == "Perigo"){
+                    if (estado == "Perigo") {
                         elementoEstadoCpu.classList.remove("font-orange")
                         elementoEstadoCpu.classList.add("font-red")
-                    } else{
+                    } else {
                         elementoEstadoCpu.classList.remove("font-red")
                         elementoEstadoCpu.classList.add("font-orange")
                     }
-                } 
+                }
 
                 // // if(Object.values(alerta)[i].nome_componente == "Temperatura da CPU") estadoTemperatura = estado
                 elementoEstadoInternet.textContent = estadoInternet
@@ -512,6 +480,7 @@
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
+        
     }
 
     function exibirDadosComponentes(latencia, ram, disco, cpu, temperatura) {
@@ -523,6 +492,39 @@
         listaElementosComponentes[4].textContent = temperatura[temperatura.length - 1].dado
     }
 
+    capturarKPIS(1)
+    function capturarKPIS(fkRobo) {
+        fetch(`/danilo/capturarKPIS/:${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log(`Objetos 24 horas`, resposta)
+                exibirDadosKPI(resposta.latencia, resposta.ram, resposta.disco, resposta.cpu)
 
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+
+    }
+
+    function exibirDadosKPI(latencia, ram , disco, cpu){
+        listaElementosKPIS = document.querySelectorAll("#dado-kpi")
+        listaElementosKPIS[0].textContent = `${Math.round(latencia[latencia.length - 1].dado)} ms` 
+        listaElementosKPIS[1].textContent = `${ram[ram.length - 1].dado} %`
+        listaElementosKPIS[2].textContent = `${disco[disco.length-1].dado} %`
+        listaElementosKPIS[3].textContent = `${cpu[cpu.length - 1].dado} %` 
+    }
 
 </script>
