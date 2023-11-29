@@ -6,20 +6,20 @@ function capturarComponentes(fkRobo) {
     var instrucaoSql2 = ''
     var instrucaoSql3 = ''
     var instrucaoSql4 = ''
-    var instrucaoSql5 = ''
+
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        select * from registros where fkComponente = 19 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 16 and fkRoboRegistro = 1;
         `;
 
         instrucaoSql2 = `
-        select * from registros where fkComponente = 8 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 5 and fkRoboRegistro = 1;
 
         `;
 
         instrucaoSql3 = `
-        select * from registros where fkComponente = 13 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 10 and fkRoboRegistro = 1;
 
         `;
 
@@ -28,7 +28,7 @@ function capturarComponentes(fkRobo) {
         `;
 
         instrucaoSql5 = `
-        select * from registros where fkComponente = 5 and fkRoboRegistro = 1;
+        select * from registros where fkComponente = 22 and fkRoboRegistro = 1;
 
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -54,6 +54,85 @@ function capturarComponentes(fkRobo) {
         instrucaoSql5 = `
         select * from registros where fkComponente = 5 and fkRoboRegistro = 1;
 
+        `;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql + instrucaoSql2 + instrucaoSql3 + instrucaoSql4 + instrucaoSql5);
+
+
+    return executarQueryEDevolverObjetoJSON(instrucaoSql, instrucaoSql2, instrucaoSql3, instrucaoSql4, instrucaoSql5)
+
+}
+
+
+function capturarKPIS(fkRobo) {
+
+    var instrucaoSql = ''
+    var instrucaoSql2 = ''
+    var instrucaoSql3 = ''
+    var instrucaoSql4 = ''
+    var instrucaoSql5 = ''
+   
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+        select * from registros where fkComponente = 16 and fkRoboRegistro = 1
+        AND HorarioDado >= DATEADD(HOUR, -24, GETDATE())
+        `;
+
+        instrucaoSql2 = `
+        select * from registros where fkComponente = 5 and fkRoboRegistro = 1
+        AND HorarioDado >= DATEADD(HOUR, -24, GETDATE())
+        `;
+
+        instrucaoSql3 = `
+        select * from registros where fkComponente = 10 and fkRoboRegistro = 1
+        AND HorarioDado >= DATEADD(HOUR, -24, GETDATE())
+
+        `;
+
+        instrucaoSql4 = `
+        select * from registros where fkComponente = 1 and fkRoboRegistro = 1
+        AND HorarioDado >= DATEADD(HOUR, -24, GETDATE())
+        `;
+
+        instrucaoSql5 = `
+        select * from registros where fkComponente = 22 and fkRoboRegistro = 1
+        AND HorarioDado >= DATEADD(HOUR, -24, GETDATE())
+        `;
+
+      
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = ` 
+        select * from registros where fkComponente = 19 and fkRoboRegistro = 1
+        AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+        `;
+
+        instrucaoSql2 = `
+        select * from registros where fkComponente = 8 and fkRoboRegistro = 1
+        AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+
+        `;
+
+        instrucaoSql3 = `
+        select * from registros where fkComponente = 13 and fkRoboRegistro = 1
+        AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+
+        `;
+
+        instrucaoSql4 = `
+        select * from registros where fkComponente = 1 and fkRoboRegistro = 1
+        AND HorarioDado >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+
+        `;
+
+        instrucaoSql5 = `
+        select * from registros where fkComponente = 22 and fkRoboRegistro = 1
+        AND HorarioDado >= DATEADD(HOUR, -24, GETDATE())
         `;
 
     } else {
@@ -121,5 +200,6 @@ function dadosConsultaMedico(nomeUsuario) {
 
 module.exports = {
     capturarComponentes,
-    dadosConsultaMedico
+    dadosConsultaMedico,
+    capturarKPIS
 }

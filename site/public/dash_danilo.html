@@ -492,4 +492,30 @@
         listaElementosComponentes[4].textContent = temperatura[temperatura.length - 1].dado
     }
 
+    capturarKPIS(1)
+    function capturarKPIS(fkRobo) {
+        fetch(`/danilo/capturarKPIS/:${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log(`Objetos 24 horas`, resposta)
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+
+    }
+
 </script>

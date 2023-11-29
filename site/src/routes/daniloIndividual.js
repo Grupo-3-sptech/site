@@ -11,5 +11,9 @@ router.post("/dadosConsultaMedico", function (req, res) {
     daniloIndiviudalController.dadosConsultaMedico(req, res);
 })
 
+router.get("/capturarKPIS/:fkRobo", function (req, res) {
+    daniloIndiviudalController.capturarKPIS(req, res);
+})
+
 
 module.exports = router;
