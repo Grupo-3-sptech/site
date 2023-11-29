@@ -29,39 +29,13 @@
 
     <!-- GOOGLE CHARTS GAUGES -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         google.charts.load('current', { 'packages': ['gauge'] });
         google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
 
-            var data = google.visualization.arrayToDataTable([
-                ['Label', 'Value'],
-                ['CPU', 80],
-                ['Temperatura', 55]
-            ]);
 
-            var options = {
-                width: 600, height: 220,
-                redFrom: 90, redTo: 100,
-                yellowFrom: 75, yellowTo: 90,
-                minorTicks: 5
-            };
-
-            var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-            chart.draw(data, options);
-
-            setInterval(function () {
-                data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-                chart.draw(data, options);
-            }, 13000);
-            setInterval(function () {
-                data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-                chart.draw(data, options);
-            }, 5000);
-        }
-    </script>
+    </script> -->
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
@@ -160,7 +134,7 @@
                         </select>
                     </div>
                     <div class="box-id">
-                        <p>ID da Máquina</p>
+                        <b>ID da Máquina</b>
                         <p id="id_maquina"></p>
                     </div>
                 </div>
@@ -202,7 +176,8 @@
                                 <p>Pico de Temperatura (1min)</p>
                                 <div class="conteudo-alertas">
                                     <div class="container-texto-alertas">
-                                        <h1 class="texto-alertas" id="temperatura_cpu"></h1>
+                                        <h1 style="font-size: 4.2vh; width: 200%;" class="texto-alertas"
+                                            id="temperatura_cpu"></h1>
                                     </div>
 
                                 </div>
@@ -215,7 +190,7 @@
                 <div class="resto">
                     <div class="resto-esquerdo">
                         <div class="grafico-b">
-                            <canvas id="myChart"></canvas>
+                            <canvas id="myChart" class="chartTemp"></canvas>
                         </div>
                         <div class="graficos-gauges">
                             <div id="chart_div" style="width: 1000px; height: 200px;"></div>
@@ -305,6 +280,7 @@
         var valorOption = selectMaquina.options[indice].value
 
         sessionStorage.setItem("FK_ROBO", valorOption)
+        obterDadosGrafico()
     });
 
 
@@ -384,37 +360,14 @@
         const temperatura_cpu = document.querySelector('#temperatura_cpu')
 
         texto_processos.textContent = processos[processos.length - 1].dado
-        velocidade_cpu.textContent = `${velocidade[velocidade.length - 1].dado} Ghz`
-        temperatura_cpu.textContent = pico_temperatura[processos.length - 1].dado
-
-
+        temperatura_cpu.textContent = `${pico_temperatura[0].dado} C°`
+        velocidade_cpu.textContent = `${velocidade[velocidade.length - 1].dado} Mhz`
     }
 
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: null,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
     function listarProcessos(fkRobo) {
-       
-            fkRobo = sessionStorage.getItem("FK_ROBO")
-        
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
 
         fetch(`/biancaAlertas/listarProcessos/${fkRobo}`, {
             method: "GET",
@@ -437,30 +390,28 @@
                 console.log(data)
 
                 const card = document.querySelector('#card_processos')
-                
-                for(let i = 0; i < data.length; i++){
-                    const p = data[i];
 
-                    console.log("entrou no for")
+                for (let i = 0; i < data.length; i++) {
+                    const p = data[i];
 
                     const card = document.querySelector('#card_processos')
 
                     card.innerHTML += `
                     <div class="tupla" style="margin-top: 3%; margin-bottom: 3%">
                                 <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
+                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo.gif" alt="">
                                 </div>
                                 <div class="processo">
                                     <p id="verde">PID: <span id="pid_processo">${p.pid}</span>
-                                    <p>Nome: <span id="nome_processo">${p.nome}</span>
-                                    <p>Status: <span id="status_processo">${p.processo_status}</span>
-                                    <p>Momento/Início: <span id="inicio_processo">${p.momento_inicio}</span>
+                                    <p><b>Nome: </b><span id="nome_processo">${p.nome}</span>
+                                    <p><b>Status: </b><span id="status_processo">${p.processo_status}</span>
+                                    <p><b>Momento/Início: </b><span id="inicio_processo">${p.momento_inicio}</span>
                                 </div>
 
                             </div>
                     `;
 
-               }
+                }
 
             })
             .catch(err => {
@@ -468,7 +419,307 @@
             });
     }
 
-    listarProcessos(fkRobo)
+    setInterval(listarProcessos(fkRobo), 1000)
+
+    function capturarPorcentagem(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/capturarPorcentagem/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(dados => {
+                console.log(dados);
+
+                const gaugeData = [
+                    ['Label', 'Value'],
+                    ['CPU (%)', dados[dados.length - 1].dado],
+                    ['Temperatura', 40 + Math.round(60 * Math.random())]
+                ];
+
+                const gauge = document.querySelector('#chart_div');
+
+                google.charts.load('current', { packages: ['gauge'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(gaugeData);
+
+                    var options = {
+                        width: 600,
+                        height: 220,
+                        redFrom: 90,
+                        redTo: 100,
+                        yellowFrom: 75,
+                        yellowTo: 90,
+                        minorTicks: 5
+                    };
+
+                    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+                    chart.draw(data, options);
+
+                    setInterval(function () {
+                        data.setValue(0, 1, Number(dados[dados.length - 1].dado));
+                        chart.draw(data, options);
+                    }, 1000);
+
+                    // setInterval(function () {
+                    //     data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+                    //     chart.draw(data, options);
+                    // }, 5000);
+                }
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    setInterval(function () {
+        capturarPorcentagem(fkRobo);
+    }, 1000);
+
+    function capturarTemperatura(fkRobo) {
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/capturarTemperatura/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(dados => {
+                console.log(dados);
+
+                const gaugeData = [
+                    ['Label', 'Value'],
+                    ['CPU (%)', null],
+                    ['Temperatura', dados[dados.length - 1].dado]
+                ];
+
+                const gauge = document.querySelector('#chart_div');
+
+                google.charts.load('current', { packages: ['gauge'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(gaugeData);
+
+                    var options = {
+                        width: 600,
+                        height: 220,
+                        redFrom: 90,
+                        redTo: 100,
+                        yellowFrom: 75,
+                        yellowTo: 90,
+                        minorTicks: 5
+                    };
+
+                    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+                    chart.draw(data, options);
+
+                    setInterval(function () {
+                        data.setValue(0, 1, Number(dados[dados.length - 1].dado));
+                        chart.draw(data, options);
+                    }, 1000);
+
+                    setInterval(function () {
+                        data.setValue(1, 1, dados[dados.length - 1].dado);
+                        chart.draw(data, options);
+                    }, 5000);
+                }
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    setInterval(function () {
+        capturarTemperatura(fkRobo);
+    }, 20000);
+
+    function getIdRobo(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/getIdRobo/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(dados => {
+                console.log(dados);
+                console.log("passou aqui");
+
+
+                var div_id = document.getElementById('id_maquina')
+
+                div_id.textContent = dados[dados.length - 1].idProcess
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+
+    }
+
+    function obterDadosGrafico(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+        fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/7`, { cache: 'no-store' })
+
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+
+                        .then(function (data) {
+                            console.log(`Dados recebidos: ${JSON.stringify(data)}`);
+                            data.reverse();
+
+                            plotarGrafico(data, fkRobo);
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico(data, fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+        // CRIANDO GRÁFICO temp
+        let label = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: label,
+            datasets: [
+                {
+                    label: "Temperatura (°C)",
+                    data: [],
+                    fill: true,
+                    borderColor: "rgb(75, 192, 192)",
+                    backgroundColor: "rgb(75, 192, 192, 0.400)",
+                    tension: 0.1,
+                },
+            ],
+        };
+
+        data.forEach((registro) => {
+
+            label.push(registro.HorarioDado);
+            dados.datasets[0].data.push(registro.dado);
+
+        });
+
+
+        console.log("----------------------------------------------");
+        console.log("O gráfico de CPU será plotado com os respectivos valores:");
+        console.log("Labels:");
+        console.log(label);
+        console.log("Dados:");
+        console.log(dados);
+        console.log("----------------------------------------------");
+
+        // Criando estrutura para plotar gráfico - config
+        const configCpu = {
+            type: "line",
+            data: dados,
+        };
+
+        var grafico1 = document.getElementById(`myChart`);
+
+        if (Chart.getChart(grafico1)) {
+            Chart.getChart(grafico1).destroy();
+        }
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(document.getElementById(`myChart`), configCpu);
+    }
+
+
+    function atualizarGrafico(fkRobo, dados, myChart) {
+    fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/1`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(novoRegistro);
+                    novoRegistro.forEach((registro) => {
+                        if (registro.HorarioDado == dados.labels[dados.labels.length - 1]) {
+                            console.log("Como não há dados novos para captura de cpu, o gráfico não atualizará.");
+                        } else {
+                            // tirando e colocando valores no gráfico
+                            dados.labels.shift(); // apagar o primeiro
+                            dados.labels.push(registro.HorarioDado); // incluir um novo momento
+    
+                            dados.datasets[0].data.shift(); // apagar o primeiro de umidade
+                            dados.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+    
+                            myChart.update();
+                        }
+                    });
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
 
 
 
