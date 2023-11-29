@@ -181,7 +181,7 @@
                                     <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Latência de Rede nas últimas 24h </p>
-                                        <h2 id="qtdUrgente">20%</h2>
+                                        <h2 id="dado-kpi">20%</h2>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
                                     <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de RAM nas últimas 24h</p>
-                                        <h2 id="qtdUrgente" class="dado"></h2>
+                                        <h2 id="dado-kpi" class="dado"></h2>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                     <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de de uso Disco nas ultimas 24h</p>
-                                        <h2 id="qtdUrgente">42°</h2>
+                                        <h2 id="dado-kpi">42°</h2>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                                     <div class="indicador green"></div>
                                     <div class="conteudo-kpi">
                                         <p>Porcentagem de Uso de CPU nas últimas 24h</p>
-                                        <h2 id="qtdUrgente">20 ms</h2>
+                                        <h2 id="dado-kpi">20 ms</h2>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                                     <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Qtd de Cirurgias nos últimos 30 dias</p>
-                                        <h2 id="qtdUrgente">32</h2>
+                                        <h2 id="dado-kpi">32</h2>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                     <div class="indicador red"></div>
                                     <div class="conteudo-kpi">
                                         <p>Cirurgias bem sucedidas</p>
-                                        <h2 id="qtdUrgente">31</h2>
+                                        <h2 id="dado-kpi">31</h2>
                                     </div>
                                 </div>
                             </div>
@@ -510,12 +510,21 @@
             })
             .then(resposta => {
                 console.log(`Objetos 24 horas`, resposta)
+                exibirDadosKPI(resposta.latencia, resposta.ram, resposta.disco, resposta.cpu)
 
             })
             .catch(err => {
                 console.log(`Houve um erro no fetch dos dados: ${err}`);
             });
 
+    }
+
+    function exibirDadosKPI(latencia, ram , disco, cpu){
+        listaElementosKPIS = document.querySelectorAll("#dado-kpi")
+        listaElementosKPIS[0].textContent = latencia[latencia.length - 1].dado
+        listaElementosKPIS[1].textContent = ram[ram.length - 1].dado
+        listaElementosKPIS[2].textContent = disco[disco.length-1].dado
+        listaElementosKPIS[3].textContent = cpu[cpu.length - 1].dado
     }
 
 </script>
