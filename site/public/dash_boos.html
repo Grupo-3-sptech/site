@@ -136,10 +136,10 @@
                                 </div>
                             </div>
                             <div class="panel_alerta_cirurgia">
-                                <div class="panel_info_alerta_cirurgia">
+                                <!-- <div class="panel_info_alerta_cirurgia">
                                     <p>Sala:</p>
                                     <div id="painel_numero_sala"><p>201</p></div>
-                                </div>
+                                </div> -->
                                 <div class="panel_info_alerta_cirurgia">
                                     <p>Ínicio:</p>
                                     <div id="painel_inicio"><p>20/04/2023 20:21:00</p></div>
@@ -151,7 +151,7 @@
                             </div>
                         </div>
                     <div class="grafico_componente_cirurgia">
-                        <div class="label-grafico" id="painel_nome_componente"></div>
+                        <div class="label-grafico" id="painel_nome_componente" style="margin-bottom: 2vh;"></div>
                         <div id="grafico1" class="display-none grafico_alerta_componente">
                             <div class="input-maquina" style="margin-right: 3vw; margin-top:2vh">
                                 <p>Tempo Historico </p>
@@ -164,6 +164,7 @@
                                 <canvas id="myChartCanvas1"></canvas>
                             </div>
                         </div>
+                        <div id="usbs_desconectados" >   
                     </div>  
                 </div>
             </div>
@@ -241,6 +242,7 @@
     fkMaquinaAtual = sessionStorage.fk_maquina_alerta_componente;
 
     var selectTempoHistorico = document.getElementById("tempo-historico");
+    
     selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
     async function buscarAlertasCirurgia(idHospital) {
@@ -267,7 +269,7 @@
 
                     menu_alerta_cirurgia.innerHTML += `
                 <div class="selecao_cirurgia_componente" onclick="mudarCorSelecao(this)">
-                    <div class="info_cirurgia_componente" onclick="aplicarDados('${cirurgia.nomeMedico}', '${cirurgia.nomePaciente}', ${cirurgia.numero }, 
+                    <div class="info_cirurgia_componente" onclick="aplicarDados('${cirurgia.nomeMedico}', '${cirurgia.nomePaciente}', 
                     '${cirurgia.dtHoraCirurgia}', '${cirurgia.dtHoraFimCirurgia}', '${cirurgia.fkRobo}', '${cirurgia.nome_componente}')">
                             <div class="text_cirurgia_componente">
                                 <p>${cirurgia.dtHoraComponente}</p>
@@ -280,14 +282,58 @@
                     </div>
                 `
                 }
+                
+                
                 );
+
+        fetch(`cirurgiaComponente/listarUsb/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a solicitação GET');
+                }
+                return response.json();
+            }).then(data => {
+                console.log(data)
+                var alertasCirurgia = data
+                
+
+                alertasCirurgia.forEach(cirurgia => {
+                    // if(cirurgia.unidade == null){
+                    //     cirurgia.unidade = ""
+                    // }
+                    menu_alerta_cirurgia.innerHTML += `
+                <div class="selecao_cirurgia_componente" onclick="mudarCorSelecao(this)">
+                    <div class="info_cirurgia_componente" onclick="aplicarDadosUsb('${cirurgia.nomeMedico}', '${cirurgia.nomePaciente}', 
+                    '${cirurgia.dtHoraCirurgia}', '${cirurgia.dtHoraFimCirurgia}', '${cirurgia.fkRoboUsb}', '${cirurgia.nome}')">
+                            <div class="text_cirurgia_componente">
+                                <p>${cirurgia.dataHora}</p>
+                            </div>
+                            <div class="text_cirurgia_componente text_cirurgia_componente_direita">
+                                <p>O USB ${cirurgia.nome} chegou desconectou durante a cirurgia</p>
+                                <p>Risco Cirurgico: ${cirurgia.risco}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+                }
+                );
+                if(alertasCirurgia.length > 0){
+                    numero_cirurgias_alerta.innerHTML = `(${alertasCirurgia.length})`
+                }
+            });
+
                 if(alertasCirurgia.length > 0){
                     numero_cirurgias_alerta.innerHTML = `(${alertasCirurgia.length})`
                 }
             });
     }
 
-    function aplicarDados(nomeMedico, nomePaciente, sala, dtHorainicio, dtHoraFim, fkMaquina, nomeComponente) {
+    function aplicarDados(nomeMedico, nomePaciente, dtHorainicio, dtHoraFim, fkMaquina, nomeComponente) {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -299,12 +345,31 @@
         obterDadosGrafico()
         painel_nome_medico.innerHTML = nomeMedico;
         painel_nome_paciente.innerHTML = nomePaciente;
-        painel_numero_sala.innerHTML = sala;
+        // painel_numero_sala.innerHTML = sala;
         painel_inicio.innerHTML = dtHorainicio;
         painel_termino.innerHTML = dtHoraFim;
         painel_numero_maquina.innerHTML = fkMaquina;
         painel_nome_componente.innerHTML = nomeComponente;
 
+    }
+
+    function aplicarDadosUsb(nomeMedico, nomePaciente, dtHorainicio, dtHoraFim, fkMaquina, nomeComponente) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        sessionStorage.fk_maquina_alerta_componente = fkMaquina
+        sessionStorage.fk_nome_componente = nomeComponente
+
+        limparDadosAntigos()
+        obterDadosGraficoUsb()
+        painel_nome_medico.innerHTML = nomeMedico;
+        painel_nome_paciente.innerHTML = nomePaciente;
+        // painel_numero_sala.innerHTML = sala;
+        painel_inicio.innerHTML = dtHorainicio;
+        painel_termino.innerHTML = dtHoraFim;
+        painel_numero_maquina.innerHTML = fkMaquina;
+        painel_nome_componente.innerHTML = nomeComponente;
     }
 
     function redirecionarPrevisao(){
@@ -314,7 +379,7 @@
     function limparDadosAntigos(){
         painel_nome_medico.innerHTML = ``;
         painel_nome_paciente.innerHTML = ``;
-        painel_numero_sala.innerHTML = ``;
+        // painel_numero_sala.innerHTML = ``;
         painel_inicio.innerHTML = ``;
         painel_termino.innerHTML = ``;
         painel_numero_maquina.innerHTML = 0;

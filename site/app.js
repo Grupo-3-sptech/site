@@ -4,7 +4,7 @@ process.env.AMBIENTE_PROCESSO = "desenvolvimento";
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 80 : 80;
+var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 3333 : 3333;
 
 var app = express();
 
@@ -23,6 +23,7 @@ var alertasRouter = require("./src/routes/alertas")
 var empresasRouter = require("./src/routes/empresas");
 var cirurgiaRouter = require("./src/routes/cirurgia");
 var salaRouter = require("./src/routes/salas");
+var biancaAlertasRouter = require("./src/routes/biancaAlertas");
 var cirurgiaComponente = require("./src/routes/cirurgiaComponente");
 var individualDaniloRouter = require("./src/routes/daniloIndividual")
 
@@ -65,6 +66,8 @@ app.use("/robo", roboRouter);
 app.use("/alertas", alertasRouter)
 app.use("/cirurgia", cirurgiaRouter)
 app.use("/sala", salaRouter)
+app.use("/biancaAlertas", biancaAlertasRouter)
+
 app.use("/cirurgiaComponente", cirurgiaComponente)
 app.use("/danilo", individualDaniloRouter)
 app.use("/rede", redeRouter)

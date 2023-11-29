@@ -90,7 +90,14 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgb(189, 189, 189);
+    box-shadow: 4px 4px 20px -1px rgba(0, 0, 0, 0.167);
+    border-radius: 3vh;
+    transition: 0.4s ease-in-out;
+}
+
+.tupla:hover{
+    transform: scale(1.08);
+    box-shadow: 4px 4px 20px -1px rgba(0, 0, 0, 0.361);
 }
 
 .img-tupla {
@@ -98,6 +105,11 @@
     height: inherit;
     display: flex;
     align-items: center;
+    margin-left: 10%;
+}
+
+#verde{
+    color: rgb(71, 146, 165);
 }
 
 .processo {
@@ -108,3 +120,8 @@
     flex-direction: column;
 }
 
+.chartTemp {
+    display: flex !important;
+    width: 35vw !important;
+    height: 40vh !important;
+}

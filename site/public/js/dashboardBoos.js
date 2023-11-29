@@ -22,6 +22,8 @@
 function obterDadosGrafico() {
     fkMaquina = sessionStorage.fk_maquina_alerta_componente
     nomeComponente = sessionStorage.fk_nome_componente
+    usbs_desconectados.style.display = "none"
+    grafico1.style.display = "flex"
     console.log("Passei pela Obter Dados Gráfico Atual" + fkMaquina)
     var elementoTempo = document.getElementById("tempo-historico")
 
@@ -69,82 +71,54 @@ function obterDadosGrafico() {
 
 }
 
-function plotarGraficoCirurgia(resposta, fkMaquina, nomeComponente) {
-    // CRIANDO GRÁFICO CPU
-    let labelDados = [];
+function obterDadosGraficoUsb() {
+    fkMaquina = sessionStorage.fk_maquina_alerta_componente
+    nomeComponente = sessionStorage.fk_nome_componente
+    console.log("Passei pela Obter Dados Gráfico Atual" + fkMaquina)
+    var elementoTempo = document.getElementById("tempo-historico")
 
-    // Criando estrutura para plotar gráfico - dados
-    let dados = {
-        labels: labelDados,
-        datasets: [
-            {
-                label: nomeComponente,
-                data: [],
-                fill: true,
-                borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "rgb(75, 192, 192, 0.400)",
-                tension: 0.1
-            },
-        ],
-    };
+    if (elementoTempo.value == "cirurgia") {
+        fetch(`/componentes/medidasPorUsb/${fkMaquina}/cirurgia/${nomeComponente}/7`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(resposta);
 
-    resposta.forEach((registro) => {
-        labelDados.push(registro.HorarioFormatado);
-        dados.datasets[0].data.push(registro.dado);
-    });
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-    // for (i = 0; i < resposta.length; i++) {
-    //     var registro = resposta[i];
-    //     labels.push(registro.HorarioDado);
-    //     dados.datasets[0].data.push(registro.dado);
-    //     // dados.datasets[1].data.push(registro.temperatura);
-    // }
-
-    console.log("----------------------------------------------");
-    console.log("O gráfico será plotado com os respectivos valores:");
-    console.log("Labels:");
-    console.log(labelDados);
-    console.log("Dados:");
-    console.log(dados);
-    console.log("----------------------------------------------");
-
-    // Criando estrutura para plotar gráfico - config
-    const config = {
-        type: "line",
-        data: dados,
-        options: {
-            scales: {
-                x: {
-                    ticks: {
-                        fontSize: 1, // Ajuste o tamanho da fonte do eixo x aqui
-                    },
-                },
-            },
-        },
-    };
-
-    var grafico1 = document.getElementById(`myChartCanvas1`);
-
-    if (Chart.getChart(grafico1)) {
-        Chart.getChart(grafico1).destroy();
+                        plotarGraficoUsb(resposta, fkMaquina, nomeComponente);
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado ou erro na API");
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
-    // Adicionando gráfico criado em div na tela
-    let myChart = new Chart(document.getElementById(`myChartCanvas1`), config);
+    // if (elementoTempo.value == "atual") {
+    //     fetch(`/componentes/medidasPorUsb/${fkMaquina}/atual/${nomeComponente}/30`, {
+    //         cache: "no-store",
+    //     })
+    //         .then(function (response) {
+    //             if (response.ok) {
+    //                 response.json().then(function (resposta) {
+    //                     console.log(resposta);
 
-    // setTimeout(
-    //     () =>
-    //         atualizarGrafico(
-    //             fkMaquina,
-    //             dadosCpu,
-    //             dadosMemoria,
-    //             dadosRede,
-    //             myChart,
-    //             myChart2,
-    //             myChart4
-    //         ),
-    //     10000
-    // );
+    //                     plotarGraficoGeral(resposta, fkMaquina, nomeComponente);
+    //                 });
+    //             } else {
+    //                 console.error("Nenhum dado encontrado ou erro na API");
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+
+    //     // setInterval(obterDadosGrafico, 5000)
+    // }
+
 }
 
 function plotarGraficoCirurgia(resposta, fkMaquina, nomeComponente) {
@@ -225,83 +199,20 @@ function plotarGraficoCirurgia(resposta, fkMaquina, nomeComponente) {
     // );
 }
 
-function plotarGraficoCirurgia(resposta, fkMaquina, nomeComponente) {
-    // CRIANDO GRÁFICO CPU
-    let labelDados = [];
+function plotarGraficoUsb(resposta, fkMaquina, nomeComponente) {
 
-    // Criando estrutura para plotar gráfico - dados
-    let dados = {
-        labels: labelDados,
-        datasets: [
-            {
-                label: nomeComponente,
-                data: [],
-                fill: true,
-                borderColor: "rgb(75, 192, 192)",
-                backgroundColor: "rgb(75, 192, 192, 0.400)",
-                tension: 0.1
-            },
-        ],
-    };
+    usbs_desconectados.style.display = "flex"
+    usbs_desconectados.innerHTML = ``
+    grafico1.style.display = "none"
 
-    resposta.forEach((registro) => {
-        labelDados.push(registro.HorarioFormatado);
-        dados.datasets[0].data.push(registro.dado);
-    });
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-    // for (i = 0; i < resposta.length; i++) {
-    //     var registro = resposta[i];
-    //     labels.push(registro.HorarioDado);
-    //     dados.datasets[0].data.push(registro.dado);
-    //     // dados.datasets[1].data.push(registro.temperatura);
-    // }
-
-    console.log("----------------------------------------------");
-    console.log("O gráfico será plotado com os respectivos valores:");
-    console.log("Labels:");
-    console.log(labelDados);
-    console.log("Dados:");
-    console.log(dados);
-    console.log("----------------------------------------------");
-
-    // Criando estrutura para plotar gráfico - config
-    const config = {
-        type: "line",
-        data: dados,
-        options: {
-            scales: {
-                x: {
-                    ticks: {
-                        fontSize: 1, // Ajuste o tamanho da fonte do eixo x aqui
-                    },
-                },
-            },
-        },
-    };
-
-    var grafico1 = document.getElementById(`myChartCanvas1`);
-
-    if (Chart.getChart(grafico1)) {
-        Chart.getChart(grafico1).destroy();
-    }
-
-    // Adicionando gráfico criado em div na tela
-    let myChart = new Chart(document.getElementById(`myChartCanvas1`), config);
-
-    // setTimeout(
-    //     () =>
-    //         atualizarGrafico(
-    //             fkMaquina,
-    //             dadosCpu,
-    //             dadosMemoria,
-    //             dadosRede,
-    //             myChart,
-    //             myChart2,
-    //             myChart4
-    //         ),
-    //     10000
-    // );
+    resposta.forEach(usb => {
+        usbs_desconectados.innerHTML += `<div class="desconectado">
+        <img src="Img/cabo-usb.png" alt=""> O usb ${usb.nome} desconectou em ${usb.HorarioFormatado} durante a cirurgia</div>
+    </div>`
+    })
 }
+
+
 
 function plotarGraficoGeral(resposta, fkMaquina, nomeComponente) {
     // CRIANDO GRÁFICO CPU
@@ -326,13 +237,6 @@ function plotarGraficoGeral(resposta, fkMaquina, nomeComponente) {
         labelDados.push(registro.HorarioFormatado);
         dados.datasets[0].data.push(registro.dado);
     });
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-    // for (i = 0; i < resposta.length; i++) {
-    //     var registro = resposta[i];
-    //     labels.push(registro.HorarioDado);
-    //     dados.datasets[0].data.push(registro.dado);
-    //     // dados.datasets[1].data.push(registro.temperatura);
-    // }
 
     console.log("----------------------------------------------");
     console.log("O gráfico será plotado com os respectivos valores:");

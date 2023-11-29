@@ -11,6 +11,10 @@ router.get("/medidasPorComponente/:id/:tempo/:nome/:linhas", function (req, res)
     componenteController.buscarUltimasMedidasPorNome(req, res);
 });
 
+router.get("/medidasPorUsb/:id/:tempo/:nome/:linhas", function (req, res) {
+    componenteController.buscarUltimasMedidasPorUsb(req, res);
+});
+
 router.get("/resumo/:id/:tempo", function (req, res) {
     componenteController.buscarMedidasResumo(req, res);
 });
