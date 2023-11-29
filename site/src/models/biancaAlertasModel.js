@@ -144,7 +144,7 @@ function buscarUltimosAlertas(fkRobo) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
 
-        select TOP 30  dado from registros where fkComponente = 6 and fkRoboRegistro = ${fkRobo};
+        select TOP 30  dado from registros where fkComponente = 19 and fkRoboRegistro = ${fkRobo};
 
         `;
 
