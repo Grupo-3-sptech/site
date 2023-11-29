@@ -80,8 +80,8 @@ function editar(nome_medico, data_inicio, horario_inicio,duracao, nome_paciente,
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ")
     var instrucao = `
 
-    UPDATE cirurgia SET nomeMedico = "${nome_medico}", dataInicio = "${data_inicio} ${horario_inicio}", duracao = "${duracao}", nomePaciente = "${nome_paciente}", fkRoboCirurgia = "${fkRoboCirurgia}",
-    tipo = '${categoria}', fkCategoria = "${risco}" WHERE idCirurgia = ${idCirurgia};
+    UPDATE cirurgia SET nomeMedico = '${nome_medico}', dataInicio = '${data_inicio} ${horario_inicio}', duracao = '${duracao}', nomePaciente = '${nome_paciente}', fkRoboCirurgia = '${fkRoboCirurgia}',
+    tipo = '${categoria}', fkCategoria = '${risco}' WHERE idCirurgia = ${idCirurgia};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

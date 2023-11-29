@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedConnect | Dashboard </title>
 
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dash-visu-rede.css">
     <!-- <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script> -->
 
@@ -47,7 +47,8 @@
                     <div style="position: relative;" class="opt" id="aqui">
                         <img src="../Img/icons8-robô-48.png" alt="">
                         <a href="#">Dashboard Rôbos</a>
-                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;" src="./Img/icons8-mais-40.png" alt="">
+                        <img onclick="mostrarMenu()" style="margin-left: 7px; cursor: pointer;"
+                            src="./Img/icons8-mais-40.png" alt="">
                         <div style="display: none;" id="drop_menu" class="drop-menu">
                             <div class="item-menu">
                                 <a href="dash_bianca.html">Dash Bianca</a>
@@ -110,12 +111,170 @@
 
             <div class="header-content">
                 <div class="navbar-header" style="height: 10vh;">
-                    <h3>Dashboard Kayky</h3>
+                    <h3>Visualização de Rede</h3>
                     <p>Olá, <span style="font-weight: bolder;" id="b_usuario"></span></p>
                 </div>
             </div>
             <div class="header-before2">
-                <div class="maquinas" style="height: 85vh;"></div>
+                <div class="maquinas" style="height: 85vh;">
+                    <div class="content-rede">
+                        <div class="container-grafico">
+                            <div class="box-grafico">
+                                <div class="header-grafico">
+                                    <span class="span-grafico">Latência em Milissegundos</span>
+                                </div>
+                                <div class="container-canvas">
+                                    <canvas class="canvas" id="grafico-latencia"></canvas>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="container-grafico">
+                            <div class="box-grafico">
+                                <div class="header-grafico">
+                                    <span class="span-grafico">Taxa de Upload em MB/s</span>
+                                </div>
+                                <div class="container-canvas">
+                                    <canvas class="canvas" id="grafico-velocidade"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-kpi">
+                        <div class="container-estabilidade">
+                            <div class="box-estabilidade">
+                                <div class="container-wifi">
+                                    <svg fill="#000000" height="8vh" width="6vw" version="1.1" id="svgStatusRede" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                    viewBox="0 0 365.892 365.892" xml:space="preserve">
+                               <g>
+                                   <circle cx="182.945" cy="286.681" r="41.494"/>
+                                   <path d="M182.946,176.029c-35.658,0-69.337,17.345-90.09,46.398c-5.921,8.288-4.001,19.806,4.286,25.726
+                                       c3.249,2.321,6.994,3.438,10.704,3.438c5.754,0,11.423-2.686,15.021-7.724c13.846-19.383,36.305-30.954,60.078-30.954
+                                       c23.775,0,46.233,11.571,60.077,30.953c5.919,8.286,17.437,10.209,25.726,4.288c8.288-5.92,10.208-17.438,4.288-25.726
+                                       C252.285,193.373,218.606,176.029,182.946,176.029z"/>
+                                   <path d="M182.946,106.873c-50.938,0-99.694,21.749-133.77,59.67c-6.807,7.576-6.185,19.236,1.392,26.044
+                                       c3.523,3.166,7.929,4.725,12.32,4.725c5.051-0.001,10.082-2.063,13.723-6.116c27.091-30.148,65.849-47.439,106.336-47.439
+                                       s79.246,17.291,106.338,47.438c6.808,7.576,18.468,8.198,26.043,1.391c7.576-6.808,8.198-18.468,1.391-26.043
+                                       C282.641,128.621,233.883,106.873,182.946,106.873z"/>
+                                   <path d="M360.611,112.293c-47.209-48.092-110.305-74.577-177.665-74.577c-67.357,0-130.453,26.485-177.664,74.579
+                                       c-7.135,7.269-7.027,18.944,0.241,26.079c3.59,3.524,8.255,5.282,12.918,5.281c4.776,0,9.551-1.845,13.161-5.522
+                                       c40.22-40.971,93.968-63.534,151.344-63.534c57.379,0,111.127,22.563,151.343,63.532c7.136,7.269,18.812,7.376,26.08,0.242
+                                       C367.637,131.238,367.745,119.562,360.611,112.293z"/>
+                               </g>
+                               </svg>
+                                </div>
+                                <div class="container-text-estabilidade">
+                                    <span id="span-title">Estado da Rede</span>
+                                    <span id="span-connection">Estável</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-relatorio">
+                            <div class="box-relatorio">
+                                <div class="box-header-kpi">
+                                    <span class="span-kpi">Relatório Geral</span>
+                                </div>
+                                <div class="box-kpi-data">
+                                    <div class="div-title">
+                                        <span>Latência</span>
+                                        <span>Velocidade de Rede</span>
+                                    </div>
+                                    <div class="div-data">
+                                        <span id="latencia">200ms</span>
+                                        <span id="velocidadeRede">100 MB/s</span>
+                                    </div>
+                                    <div class="div-title">
+                                        <span>Bytes Enviados</span>
+                                        <span>Bytes Recebidos</span>
+                                    </div>
+                                    <div class="div-data">
+                                        <span id="bytesEnviados">212312321</span>
+                                        <span id="bytesRecebidos">3213212</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-select">
+                                <div class="box-select">
+                                    <span>Selecionar Máquina:</span>
+                                    <select name="" id="select-robo">
+                                    </select>
+                                </div>
+                                <div class="box-select">
+                                    <span>Visualizar conexões por:</span>
+                                    <select name="" id="">
+                                        <option value="">Dia</option>
+                                        <option value="">Mês</option>
+                                        <option value="">Ano</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-conexao">
+                            <div class="header-conexao">
+                                <span class="span-conexao">Relatório de Conexões</span>
+                            </div>
+                            <div class="table-conexao">
+                                <div class="tuple-conexao">
+                                    <div class="container-ip">
+                                        <span>198.123.123.123</span>
+                                    </div>
+                                    <div class="container-dthora">
+                                        <span>07/11/2023 11:22</span>
+                                    </div>
+                                    <div class="container-registro">
+                                        <span>Registrado</span>
+                                    </div>
+                                    <div class="container-maquina">
+                                        <span>Máquina 1</span>
+                                    </div>
+                                </div>
+                                <div class="tuple-conexao">
+                                    <div class="container-ip">
+                                        <span>198.123.123.123</span>
+                                    </div>
+                                    <div class="container-dthora">
+                                        <span>07/11/2023 11:22</span>
+                                    </div>
+                                    <div class="container-registro">
+                                        <span>Registrado</span>
+                                    </div>
+                                    <div class="container-maquina">
+                                        <span>Máquina 1</span>
+                                    </div>
+                                </div>
+                                <div class="tuple-conexao">
+                                    <div class="container-ip">
+                                        <span>198.123.123.123</span>
+                                    </div>
+                                    <div class="container-dthora">
+                                        <span>07/11/2023 11:22</span>
+                                    </div>
+                                    <div class="container-registro">
+                                        <span>Registrado</span>
+                                    </div>
+                                    <div class="container-maquina">
+                                        <span>Máquina 1</span>
+                                    </div>
+                                </div>
+                                <div class="tuple-conexao">
+                                    <div class="container-ip">
+                                        <span>198.123.123.123</span>
+                                    </div>
+                                    <div class="container-dthora">
+                                        <span>07/11/2023 11:22</span>
+                                    </div>
+                                    <div class="container-registro">
+                                        <span>Registrado</span>
+                                    </div>
+                                    <div class="container-maquina">
+                                        <span>Máquina 1</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -129,95 +288,394 @@
 
 <script>
 
-var menu = 0;
+    var menu = 0;
 
-function mostrarMenu() {
-    var drop_menu = document.getElementById('drop_menu'); 
+    function mostrarMenu() {
+        var drop_menu = document.getElementById('drop_menu');
 
-    if (menu === 0) {
-        drop_menu.style.display = 'flex';
-        menu = 1;
-    } else {
-        drop_menu.style.display = 'none';
-        menu = 0;
+        if (menu === 0) {
+            drop_menu.style.display = 'flex';
+            menu = 1;
+        } else {
+            drop_menu.style.display = 'none';
+            menu = 0;
+        }
     }
-}
 
 
     verificarAdmin()
 
-function voltarHome() {
-    window.location = '../index.html'
-}
+    function voltarHome() {
+        window.location = '../index.html'
+    }
 
-b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-cargo = sessionStorage.CARGO_USUARIO
+    cargo = sessionStorage.CARGO_USUARIO
 
-gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
-console.log(gerenciarUsuarios)
+    gerenciarUsuarios = document.getElementById("gerenciar-usuarios")
+    console.log(gerenciarUsuarios)
 
-gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
-console.log(gerenciarCirurgias)
+    gerenciarCirurgias = document.getElementById("gerenciar-cirurgias")
+    console.log(gerenciarCirurgias)
 
-// if(cargo !== "Admin"){
-//     gerenciarUsuarios.style = 'display: none'
-// }
+    // if(cargo !== "Admin"){
+    //     gerenciarUsuarios.style = 'display: none'
+    // }
 
-if (cargo !== "Atendente" && cargo !== "Admin") {
-    gerenciarCirurgias.style = 'display: none'
-}
+    if (cargo !== "Atendente" && cargo !== "Admin") {
+        gerenciarCirurgias.style = 'display: none'
+    }
 
-var idHospital = sessionStorage.ID_HOSPITAL;
+    var idHospital = sessionStorage.ID_HOSPITAL;
 
-window.onload = async function () {
-    await buscarMaquinas(idHospital);
-};
-var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-var selectTempoHistorico = document.getElementById("tempo-historico");
-selectMaquinasAtivas.addEventListener("change", function () {
-    
-    limparDados();
-    obterDadosGrafico();
-    obterDadosResumo();
-    plotarUsb();
-});
+    var fkRobo = 1
+    var sinal = 0
+    var chartLatencia = ""
+    var chartVelocidade = ""
+    var dadosLatencia = ""
+    var dadosVelocidade = ""
+    var labelsLatencia = ""
+    var labelsVelocidade = ""
 
-selectTempoHistorico.addEventListener("change", obterDadosGrafico);
-
-async function buscarMaquinas(idHospital) {
-    fetch(`/robo/listar/${idHospital}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
+    const selectMaquinas = document.querySelector("#select-robo")
+    selectMaquinas.addEventListener("change", () => {
+        var indice = selectMaquinas.selectedIndex
+        var valorOptions = selectMaquinas.options[indice].value
+        sessionStorage.setItem("FK_ROBO", valorOptions)
+        fkRobo = sessionStorage.getItem("FK_ROBO")
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação GET');
+
+    buscarDadosRede(fkRobo, sinal)
+    atualizacaoDinamica()
+
+
+    function atualizacaoDinamica() {
+        setTimeout(() => {
+            buscarDadosRede(fkRobo, sinal)
+            sinal++
+            atualizacaoDinamica()
+        }, 5000)
+    }
+
+
+
+    function buscarDadosRede(fkRobo, sinal) {
+        fetch(`/rede/buscarDadosRede/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            return response.json();
-        }).then(data => {
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Objetos da Resposta:", (resposta))
+                if (sinal == 0 || dadosLatencia == '') {
+                    exibirDadosRede(resposta)
+                    plotarGraficosRede(resposta)
+                } else {
+                    exibirDadosRede(resposta)
+                    atualizarGraficoLatencia(resposta.latenciaRede, chartLatencia)
+                    atualizarGraficoVelocidade(transformarDadosUpload(resposta.bytesEnviados), chartVelocidade)
+                }
 
-            console.log(data)
 
-            maquinas = data;
 
-            var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
 
-            // Itera sobre o array de empresas e cria as opções do select
-            for (let i = 0; i < maquinas.length; i++) {
-                const maquina = maquinas[i];
-
-                const optionElement = document.createElement('option');
-                optionElement.value = maquina.idRobo;
-                optionElement.text = "Robo " + (i+1);
-                selectMaquinasAtivas.appendChild(optionElement);
-                optionElement.setAttribute('data-info', maquina.idProcess);
+    function listarMaquinas(idHospital) {
+        fetch(`/robo/listar/${idHospital}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            obterDadosGrafico()
-            obterDadosResumo()
-            plotarUsb()
-        });
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(resposta => {
+                console.log("Objetos das Máquinas:", (resposta))
+                exibirOptionsRobo(resposta)
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+
+    listarMaquinas(idHospital)
+
+    function exibirDadosRede(dadosRede) {
+        const statusRede = dadosRede.statusRede
+        const latenciaRede = dadosRede.latenciaRede
+        const bytesEnviados = dadosRede.bytesEnviados
+        const bytesRecebidos = dadosRede.bytesRecebidos
+        const velocidadeRede = dadosRede.velocidadeRede
+
+        const divRelatorioGeral = document.querySelector(".box-kpi-data")
+        const listaElementos = divRelatorioGeral.children
+        const spanLatencia = listaElementos[1].childNodes[1]
+        const spanVelocidadeRede = listaElementos[1].childNodes[3]
+        const spanBytesEnviados = listaElementos[3].childNodes[1]
+        const spanBytesRecebidos = listaElementos[3].childNodes[3]
+
+        validarStatusRedeExibirCorSvg(statusRede[statusRede.length - 1].dado)
+        spanLatencia.textContent = `${latenciaRede[latenciaRede.length - 1].dado} ms`
+        spanVelocidadeRede.textContent = `${velocidadeRede[velocidadeRede.length - 1].dado} Mb/s`
+        spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length - 1].dado
+        spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
+    }
+
+    function transformarDadosUpload(objetoUpload){
+        const bytesParaMB = 1048576
+        for(let i = 0; i <= objetoUpload.length - 1; i++){
+            objetoUpload[i].dado = Math.round((objetoUpload[i].dado/bytesParaMB))
+        }
+
+        return objetoUpload
+    }
+
+
+    function validarStatusRedeExibirCorSvg(ultimoDadoStatus){
+        const spanStatus = document.querySelector("#span-connection")
+        const svgStatusRede = document.querySelector("#svgStatusRede")
+        const spanConexao = document.querySelector("#span-connection")
+        
+        var situacaoRede = ""
+        if(ultimoDadoStatus == 0){
+            spanConexao.classList.remove("green")
+            spanConexao.classList.add("red")
+            situacaoRede = "Instável"
+            svgStatusRede.setAttribute("fill", "red")
+        } else{
+           spanConexao.classList.remove("red")
+           spanConexao.classList.add("green")
+           situacaoRede = "Estável"
+           svgStatusRede.setAttribute("fill", "green")
+        }
+
+        spanStatus.textContent = situacaoRede
+    }
+
+
+
+    function exibirOptionsRobo(robos) {
+        const selectRobo = document.querySelector("#select-robo")
+        for (let i = 0; i <= robos.length - 1; i++) {
+            var idRobo = robos[i].idRobo
+            var nomeRobo = `Máquina ${i + 1}`
+
+            var optionRobo = document.createElement("option")
+            optionRobo.value = idRobo
+            optionRobo.textContent = nomeRobo
+            selectRobo.appendChild(optionRobo)
+        }
+
+    }
+
+
+    function plotarGraficosRede(resposta) {
+        graficoLatencia(resposta.latenciaRede)
+        graficoVelocidade(resposta.velocidadeRede)
+    }
+
+    function graficoLatencia(latenciaRede) {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        labelsLatencia = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        dadosLatencia = {
+            labels: labelsLatencia,
+            datasets: [{
+                label: 'Latência',
+                data: [],
+                borderWidth: 3,
+                tension: 0.1,
+                fill: true,
+                showLine: true,
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(latenciaRede)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < latenciaRede.length; i++) {
+            labelsLatencia.push(latenciaRede[i].data_formatada);
+            dadosLatencia.datasets[0].data.push(latenciaRede[i].dado);
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsLatencia)
+        console.log('Dados:')
+        console.log(dadosLatencia.datasets)
+        console.log('----------------------------------------------')
+
+        // Adicionando gráfico criado em div na tela
+        const graficoLatenciaRede = document.getElementById(`grafico-latencia`)
+        graficoLatenciaRede.classList.add("canvas")
+        chartLatencia = new Chart(graficoLatenciaRede,
+            {
+                type: 'line',
+                label: "Latência",
+                data: dadosLatencia,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        )
+
+    }
+
+    function graficoVelocidade(velocidadeRede) {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        labelsVelocidade = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        dadosVelocidade = {
+            labels: labelsVelocidade,
+            datasets: [{
+                label: 'Velocidade',
+                data: [],
+                borderWidth: 3,
+                tension: 0.1,
+                fill: true,
+                showLine: true,
+                borderColor: "rgb(75, 192, 192)",
+                backgroundColor: "rgb(75, 192, 192, 0.400)",
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(velocidadeRede)
+        
+        var taxaDeUpload = transformarDadosUpload(velocidadeRede)
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < taxaDeUpload.length; i++) {
+            labelsVelocidade.push(taxaDeUpload[i].data_formatada);
+            dadosVelocidade.datasets[0].data.push(taxaDeUpload[i].dado);
+
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsVelocidade)
+        console.log('Dados:')
+        console.log(dadosVelocidade.datasets)
+        console.log('----------------------------------------------')
+
+        // Adicionando gráfico criado em div na tela
+        const graficoVelocidadeRede = document.getElementById(`grafico-velocidade`)
+        graficoVelocidadeRede.classList.add("canvas")
+        chartVelocidade = new Chart(graficoVelocidadeRede,
+            {
+                type: 'line',
+                label: "Velocidade",
+                data: dadosVelocidade,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        )
+
+
+    }
+
+
+
+
+
+    function atualizarGraficoLatencia(latenciaRede, chartLatencia) {
+        console.log(`Dados recebidos: ${JSON.stringify(latenciaRede)}`);
+
+        if (latenciaRede.length !== 0) {
+            dadosLatencia.labels.push(latenciaRede[0].data_formatada);
+            dadosLatencia.datasets[0].data.push(latenciaRede[0].dado);
+
+
+            if (dadosLatencia.labels.length > 10) {
+                dadosLatencia.labels.shift();
+                dadosLatencia.datasets[0].data.shift();
+            }
+
+            chartLatencia.data.labels = dadosLatencia.labels;
+            chartLatencia.data.datasets[0].data = dadosLatencia.datasets[0].data;
+            chartLatencia.update();
+        }
+    }
+
+
+
+
+
+    function atualizarGraficoVelocidade(velocidadeRede, chartVelocidade) {
+    console.log(`Dados recebidos: ${JSON.stringify(velocidadeRede)}`);
+
+    if (velocidadeRede.length !== 0) {
+        dadosVelocidade.labels.push(velocidadeRede[0].data_formatada);
+        dadosVelocidade.datasets[0].data.push(velocidadeRede[0].dado);
+
+        if (dadosVelocidade.labels.length > 10) {
+            dadosVelocidade.labels.shift();
+            dadosVelocidade.datasets[0].data.shift();
+        }
+
+        chartVelocidade.data.labels = dadosVelocidade.labels;
+        chartVelocidade.data.datasets[0].data = dadosVelocidade.datasets[0].data;
+        chartVelocidade.update();
+    }
 }
+
+
+
+
+
+
 </script>
