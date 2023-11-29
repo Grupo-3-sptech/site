@@ -20,7 +20,7 @@
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <script src="js/graficoMaquinas.js"></script>
+
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/validacoesUsuario.js"></script>
@@ -29,39 +29,13 @@
 
     <!-- GOOGLE CHARTS GAUGES -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         google.charts.load('current', { 'packages': ['gauge'] });
         google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
 
-            var data = google.visualization.arrayToDataTable([
-                ['Label', 'Value'],
-                ['CPU', 80],
-                ['Temperatura', 55]
-            ]);
 
-            var options = {
-                width: 600, height: 220,
-                redFrom: 90, redTo: 100,
-                yellowFrom: 75, yellowTo: 90,
-                minorTicks: 5
-            };
-
-            var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-            chart.draw(data, options);
-
-            setInterval(function () {
-                data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-                chart.draw(data, options);
-            }, 13000);
-            setInterval(function () {
-                data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-                chart.draw(data, options);
-            }, 5000);
-        }
-    </script>
+    </script> -->
 </head>
 
 <!-- <body onload=" atualizarFeed()"> -->
@@ -160,7 +134,7 @@
                         </select>
                     </div>
                     <div class="box-id">
-                        <p>ID da Máquina</p>
+                        <b>ID da Máquina</b>
                         <p id="id_maquina"></p>
                     </div>
                 </div>
@@ -172,12 +146,7 @@
                                 <p>Qtd. de Processos em Exec.</p>
                                 <div class="conteudo-alertas">
                                     <div class="container-texto-alertas">
-                                        <h1 class="texto-alertas" id="contCritico"></h1>
-                                    </div>
-                                    <div class="container-toogle">
-                                        <select id="visuCritico" class="toggle">
-                                            <option value="">Visualizar Máquinas</option>
-                                            <select>
+                                        <h1 class="texto-alertas" id="texto_processos"></h1>
                                     </div>
                                 </div>
                             </div>
@@ -187,16 +156,13 @@
                         <div class="container-kpi">
                             <div class="indicador blue"></div>
                             <div class="conteudo-kpi">
-                                <p>Total de Threads</p>
+                                <p>Velocidade da CPU</p>
                                 <div class="conteudo-alertas">
-                                    <div class="container-texto-alertas">
-                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                    <div style="width: 100%;" class="container-texto-alertas">
+                                        <h1 class="texto-alertas" id="velocidade_cpu"
+                                            style="font-size: 3.5vh; width: 200%;"></h1>
                                     </div>
-                                    <div class="container-toogle">
-                                        <select id="visuCritico" class="toggle">
-                                            <option value="">Visualizar Máquinas</option>
-                                            <select>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -210,13 +176,10 @@
                                 <p>Pico de Temperatura (1min)</p>
                                 <div class="conteudo-alertas">
                                     <div class="container-texto-alertas">
-                                        <h1 class="texto-alertas" id="contCritico"></h1>
+                                        <h1 style="font-size: 4.2vh; width: 200%;" class="texto-alertas"
+                                            id="temperatura_cpu"></h1>
                                     </div>
-                                    <div class="container-toogle">
-                                        <select id="visuCritico" class="toggle">
-                                            <option value="">Visualizar Máquinas</option>
-                                            <select>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -227,7 +190,7 @@
                 <div class="resto">
                     <div class="resto-esquerdo">
                         <div class="grafico-b">
-
+                            <canvas id="myChart" class="chartTemp"></canvas>
                         </div>
                         <div class="graficos-gauges">
                             <div id="chart_div" style="width: 1000px; height: 200px;"></div>
@@ -235,231 +198,18 @@
                     </div>
 
                     <div class="resto-direito">
-                        <div class="card-processos">
-                            <div class="tupla">
+                        <div class="card-processos" id="card_processos">
+                            <!-- <div class="tupla">
                                 <div class="img-tupla">
                                     <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
                                 </div>
                                 <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
+                                    <p id="verde">PID: <span id="pid_processo"></span>
+                                    <p>Nome: <span id="nome_processo"></span>
+                                    <p>Status: <span id="status_processo"></span>
+                                    <p>Momento/Início: <span id="inicio_processo"></span>
                                 </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>  
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
-
-                            <div class="tupla">
-                                <div class="img-tupla">
-                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo-40.png" alt="">
-                                </div>
-                                <div class="processo">
-                                    <p>PID: 18940
-                                    <p>Uso CPU: 0,0
-                                    <p>Uso memória: 0,0
-                                    <p>Bytes utilizados: 696320
-                                    <p>Memória virtual utilizada: 124452864
-
-                                </div>
-
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -475,6 +225,8 @@
 <script>
 
     var menu = 0;
+    var contadorDados = 0;
+    var contadorProcessos = 0;
 
     function mostrarMenu() {
         var drop_menu = document.getElementById('drop_menu');
@@ -490,6 +242,7 @@
 
 
     verificarAdmin()
+
 
     function voltarHome() {
         window.location = '../index.html'
@@ -514,21 +267,22 @@
     }
 
     var idHospital = sessionStorage.ID_HOSPITAL;
+    var fkRobo = 1
 
     window.onload = async function () {
         await buscarMaquinas(idHospital);
     };
     var selectMaquinasAtivas = document.getElementById("maquinas-ativas");
-    var selectTempoHistorico = document.getElementById("tempo-historico");
-    selectMaquinasAtivas.addEventListener("change", function () {
 
-        limparDados();
-        obterDadosGrafico();
-        obterDadosResumo();
-        plotarUsb();
+    selectMaquinasAtivas.addEventListener("change", function () {
+        const selectMaquina = document.querySelector('#maquinas-ativas')
+        var indice = selectMaquina.selectedIndex
+        var valorOption = selectMaquina.options[indice].value
+
+        sessionStorage.setItem("FK_ROBO", valorOption)
+        obterDadosGrafico()
     });
 
-    selectTempoHistorico.addEventListener("change", obterDadosGrafico);
 
     async function buscarMaquinas(idHospital) {
         fetch(`/robo/listar/${idHospital}`, {
@@ -560,9 +314,413 @@
                     selectMaquinasAtivas.appendChild(optionElement);
                     optionElement.setAttribute('data-info', maquina.idProcess);
                 }
-                obterDadosGrafico()
+                //obterDadosGrafico()
                 obterDadosResumo()
-                plotarUsb()
+
             });
     }
+
+    function obterDadosResumo() {
+        contadorDados++
+        if (contadorDados == 1) {
+            fkRobo = document.getElementById("maquinas-ativas").value;
+        } else {
+            fkRobo = sessionStorage.getItem("FK_ROBO")
+        }
+
+
+        fetch(`/biancaAlertas/buscarUltimaMedida/${fkRobo}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(resposta);
+
+                        plotarResumo(resposta.processos, resposta.pico_temperatura, resposta.velocidade, fkRobo);
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado ou erro na API");
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            })
+            .finally(function () {
+
+                setTimeout(obterDadosResumo, 1000);
+            });
+
+    }
+
+    function plotarResumo(processos, pico_temperatura, velocidade, fkRobo) {
+
+        const texto_processos = document.querySelector('#texto_processos')
+        const velocidade_cpu = document.querySelector('#velocidade_cpu')
+        const temperatura_cpu = document.querySelector('#temperatura_cpu')
+
+        texto_processos.textContent = processos[processos.length - 1].dado
+        temperatura_cpu.textContent = `${pico_temperatura[0].dado} C°`
+        velocidade_cpu.textContent = `${velocidade[velocidade.length - 1].dado} Mhz`
+    }
+
+    function listarProcessos(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/listarProcessos/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(data => {
+                console.log(data)
+
+                const card = document.querySelector('#card_processos')
+
+                for (let i = 0; i < data.length; i++) {
+                    const p = data[i];
+
+                    const card = document.querySelector('#card_processos')
+
+                    card.innerHTML += `
+                    <div class="tupla" style="margin-top: 3%; margin-bottom: 3%">
+                                <div class="img-tupla">
+                                    <img style="width: auto; height: 8vh;" src="./Img/icons8-processo.gif" alt="">
+                                </div>
+                                <div class="processo">
+                                    <p id="verde">PID: <span id="pid_processo">${p.pid}</span>
+                                    <p><b>Nome: </b><span id="nome_processo">${p.nome}</span>
+                                    <p><b>Status: </b><span id="status_processo">${p.processo_status}</span>
+                                    <p><b>Momento/Início: </b><span id="inicio_processo">${p.momento_inicio}</span>
+                                </div>
+
+                            </div>
+                    `;
+
+                }
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    setInterval(listarProcessos(fkRobo), 1000)
+
+    function capturarPorcentagem(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/capturarPorcentagem/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(dados => {
+                console.log(dados);
+
+                const gaugeData = [
+                    ['Label', 'Value'],
+                    ['CPU (%)', dados[dados.length - 1].dado],
+                    ['Temperatura', 40 + Math.round(60 * Math.random())]
+                ];
+
+                const gauge = document.querySelector('#chart_div');
+
+                google.charts.load('current', { packages: ['gauge'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(gaugeData);
+
+                    var options = {
+                        width: 600,
+                        height: 220,
+                        redFrom: 90,
+                        redTo: 100,
+                        yellowFrom: 75,
+                        yellowTo: 90,
+                        minorTicks: 5
+                    };
+
+                    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+                    chart.draw(data, options);
+
+                    setInterval(function () {
+                        data.setValue(0, 1, Number(dados[dados.length - 1].dado));
+                        chart.draw(data, options);
+                    }, 1000);
+
+                    // setInterval(function () {
+                    //     data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+                    //     chart.draw(data, options);
+                    // }, 5000);
+                }
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    setInterval(function () {
+        capturarPorcentagem(fkRobo);
+    }, 1000);
+
+    function capturarTemperatura(fkRobo) {
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/capturarTemperatura/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(dados => {
+                console.log(dados);
+
+                const gaugeData = [
+                    ['Label', 'Value'],
+                    ['CPU (%)', null],
+                    ['Temperatura', dados[dados.length - 1].dado]
+                ];
+
+                const gauge = document.querySelector('#chart_div');
+
+                google.charts.load('current', { packages: ['gauge'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(gaugeData);
+
+                    var options = {
+                        width: 600,
+                        height: 220,
+                        redFrom: 90,
+                        redTo: 100,
+                        yellowFrom: 75,
+                        yellowTo: 90,
+                        minorTicks: 5
+                    };
+
+                    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+                    chart.draw(data, options);
+
+                    setInterval(function () {
+                        data.setValue(0, 1, Number(dados[dados.length - 1].dado));
+                        chart.draw(data, options);
+                    }, 1000);
+
+                    setInterval(function () {
+                        data.setValue(1, 1, dados[dados.length - 1].dado);
+                        chart.draw(data, options);
+                    }, 5000);
+                }
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+    }
+
+    setInterval(function () {
+        capturarTemperatura(fkRobo);
+    }, 20000);
+
+    function getIdRobo(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+
+        fetch(`/biancaAlertas/getIdRobo/${fkRobo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok && response.status !== 204) {
+                    return response.json();
+                } else if (response.status === 204) {
+                    console.log('A resposta está vazia (status 204)');
+
+                } else {
+                    console.log(`A resposta não foi bem-sucedida. Status: ${response.status}`);
+                    return Promise.reject('Erro na resposta do servidor');
+                }
+            })
+            .then(dados => {
+                console.log(dados);
+                console.log("passou aqui");
+
+
+                var div_id = document.getElementById('id_maquina')
+
+                div_id.textContent = dados[dados.length - 1].idProcess
+
+            })
+            .catch(err => {
+                console.log(`Houve um erro no fetch dos dados: ${err}`);
+            });
+
+    }
+
+    function obterDadosGrafico(fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+        fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/7`, { cache: 'no-store' })
+
+            .then(function (response) {
+                if (response.ok) {
+                    response.json()
+
+                        .then(function (data) {
+                            console.log(`Dados recebidos: ${JSON.stringify(data)}`);
+                            data.reverse();
+
+                            plotarGrafico(data, fkRobo);
+
+                        });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico(data, fkRobo) {
+
+        fkRobo = sessionStorage.getItem("FK_ROBO")
+
+        // CRIANDO GRÁFICO temp
+        let label = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: label,
+            datasets: [
+                {
+                    label: "Temperatura (°C)",
+                    data: [],
+                    fill: true,
+                    borderColor: "rgb(75, 192, 192)",
+                    backgroundColor: "rgb(75, 192, 192, 0.400)",
+                    tension: 0.1,
+                },
+            ],
+        };
+
+        data.forEach((registro) => {
+
+            label.push(registro.HorarioDado);
+            dados.datasets[0].data.push(registro.dado);
+
+        });
+
+
+        console.log("----------------------------------------------");
+        console.log("O gráfico de CPU será plotado com os respectivos valores:");
+        console.log("Labels:");
+        console.log(label);
+        console.log("Dados:");
+        console.log(dados);
+        console.log("----------------------------------------------");
+
+        // Criando estrutura para plotar gráfico - config
+        const configCpu = {
+            type: "line",
+            data: dados,
+        };
+
+        var grafico1 = document.getElementById(`myChart`);
+
+        if (Chart.getChart(grafico1)) {
+            Chart.getChart(grafico1).destroy();
+        }
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(document.getElementById(`myChart`), configCpu);
+    }
+
+
+    function atualizarGrafico(fkRobo, dados, myChart) {
+    fetch(`/biancaAlertas/buscarUltimaMedidaGrafico/${fkRobo}/1`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(novoRegistro);
+                    novoRegistro.forEach((registro) => {
+                        if (registro.HorarioDado == dados.labels[dados.labels.length - 1]) {
+                            console.log("Como não há dados novos para captura de cpu, o gráfico não atualizará.");
+                        } else {
+                            // tirando e colocando valores no gráfico
+                            dados.labels.shift(); // apagar o primeiro
+                            dados.labels.push(registro.HorarioDado); // incluir um novo momento
+    
+                            dados.datasets[0].data.shift(); // apagar o primeiro de umidade
+                            dados.datasets[0].data.push(registro.dado); // incluir uma nova medida de umidade
+    
+                            myChart.update();
+                        }
+                    });
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                setTimeout(() => atualizarGrafico(fkRobo, dados, myChart), 2000);
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+
+
+
 </script>

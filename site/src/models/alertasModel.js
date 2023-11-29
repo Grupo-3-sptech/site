@@ -14,7 +14,7 @@ function buscarUltimosAlertas() {
         FROM Alerta
         WHERE
         tipo_alerta = 'critico'
-        AND dtHora >= DATEADD(MINUTE, -1, GETDATE());
+        AND dtHora >= DATEADD(MINUTE, -1, GETDATE())
 
         `;
 
@@ -25,7 +25,7 @@ function buscarUltimosAlertas() {
         FROM Alerta
         WHERE
         tipo_alerta = 'urgente'
-        AND dtHora >= DATEADD(MINUTE, -1, GETDATE());
+        AND dtHora >= DATEADD(MINUTE, -1, GETDATE())
 
         `;
 
@@ -36,40 +36,40 @@ function buscarUltimosAlertas() {
         FROM Alerta
         WHERE
         tipo_alerta = 'alerta'
-        AND dtHora >= DATEADD(MINUTE, -1, GETDATE());
+        AND dtHora >= DATEADD(MINUTE, -1, GETDATE())
 
         `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT
             *,
-        DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        DATE_FORMAT(dtHora, 'dd/MM/yyyy HH:mm:ss') AS data_formatada
         FROM Alerta
         WHERE
         tipo_alerta = 'alerta'
-        AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
+        AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
 
         `;
 
         instrucaoSql2 = `
         SELECT
             *,
-        DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        DATE_FORMAT(dtHora, 'dd/MM/yyyy HH:mm:ss') AS data_formatada
         FROM Alerta
         WHERE
         tipo_alerta = 'urgente'
-        AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
+        AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
 
         `;
 
         instrucaoSql3 = `
         SELECT
             *,
-        DATE_FORMAT(dtHora, '%d/%m/%Y %H:%i:%s') AS data_formatada
+        DATE_FORMAT(dtHora, 'dd/MM/yyyy HH:mm:ss') AS data_formatada
         FROM Alerta
         WHERE
         tipo_alerta = 'critico'
-        AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
+        AND dtHora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE)
 
         `;
 
@@ -95,19 +95,19 @@ function buscarQuantidadeDeAlertas(intervalo) {
         instrucaoSql = `
             SELECT count(idAlerta) as alertas FROM Alerta WHERE 
             tipo_alerta = "alerta"
-            AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE()));
+            AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE())
             `;
 
         instrucaoSql2 = `
             SELECT count(idAlerta) as alertas FROM Alerta WHERE 
             tipo_alerta = "urgente"
-            AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE()));
+            AND dtHora >=  DATEADD(${intervalo}, -1, GETDATE())
             `;
 
         instrucaoSql3 = `
             SELECT count(idAlerta) as alertas FROM Alerta WHERE 
             tipo_alerta = "critico"
-            AND dtHora >= DATEADD(${intervalo}, -1, GETDATE()));
+            AND dtHora >= DATEADD(${intervalo}, -1, GETDATE())
             `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
