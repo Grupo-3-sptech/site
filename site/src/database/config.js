@@ -23,8 +23,8 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "medconnect",
-    user: "admin",
-    password: "admin",
+    user: "root",
+    password: "5505",
 };
 
 function executar(instrucao) {

@@ -31,7 +31,6 @@ function listar(fkHospital) {
                 CONVERT(VARCHAR, a.dtHora, 103) + ' ' + CONVERT(VARCHAR, a.dtHora, 108) as dtHoraComponente,
                 a.nome_componente,
                 cn.unidade,
-                s.numero,
                 CONVERT(VARCHAR, c.dataInicio, 103) + ' ' + CONVERT(VARCHAR, c.dataInicio, 108) as dtHoraCirurgia,
                 CONVERT(VARCHAR, DATEADD(MINUTE, c.duracao, c.dataInicio), 103) + ' ' + CONVERT(VARCHAR, DATEADD(MINUTE, c.duracao, c.dataInicio), 108) as dtHoraFimCirurgia,
                 c.duracao,
@@ -39,11 +38,9 @@ function listar(fkHospital) {
                 c.nomeMedico,
                 c.tipo,
                 cr.niveisPericuloridade as risco,
-                ROW_NUMBER() OVER (PARTITION BY a.nome_componente ORDER BY a.dado DESC) AS numAlerta
+                ROW_NUMBER() OVER (PARTITION BY a.fkRobo, a.nome_componente ORDER BY a.dado DESC) AS numAlerta
             FROM 
                 alerta a
-            JOIN 
-                salaCirurgiao s ON s.fkRoboSala = a.fkRobo
             JOIN 
                 cirurgia c ON a.dtHora BETWEEN c.dataInicio AND DATEADD(MINUTE, c.duracao, c.dataInicio)
             JOIN 
@@ -60,7 +57,6 @@ function listar(fkHospital) {
             dtHoraComponente,
             nome_componente,
             unidade,
-            numero,
             dtHoraCirurgia,
             dtHoraFimCirurgia,
             duracao,
@@ -133,6 +129,104 @@ function listar(fkHospital) {
     return database.executar(instrucao);
 }
 
+function listarUsb(fkHospital){
+
+    if(process.env.AMBIENTE_PROCESSO == "producao"){
+        var instrucao = `WITH CirurgiasNumeradas AS (
+            SELECT 
+                d.nome, 
+                CONVERT(VARCHAR, d.dataHora, 103) + ' ' + CONVERT(VARCHAR, d.dataHora, 108) as dataHora, 
+                d.conectado, 
+                d.fkRoboUsb,
+                c.duracao,
+                CONVERT(VARCHAR, c.dataInicio, 103) + ' ' + CONVERT(VARCHAR, c.dataInicio, 108) as dtHoraCirurgia,
+                CONVERT(VARCHAR, DATEADD(MINUTE, c.duracao, c.dataInicio), 103) + ' ' + CONVERT(VARCHAR, DATEADD(MINUTE, c.duracao, c.dataInicio), 108) as dtHoraFimCirurgia,
+                c.nomePaciente,
+                c.nomeMedico,
+                c.tipo,
+                cr.niveisPericuloridade as risco,
+                ROW_NUMBER() OVER (PARTITION BY d.nome, d.fkRoboUsb ORDER BY c.dataInicio) AS numCirurgia
+            FROM 
+                dispositivos_usb d 
+            JOIN 
+                cirurgia c ON d.dataHora BETWEEN c.dataInicio AND DATEADD(MINUTE, c.duracao, c.dataInicio)
+            JOIN 
+                RoboCirurgiao r ON r.fkHospital = 1
+            JOIN 
+                categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria
+            WHERE 
+                d.conectado = 0
+        )
+        SELECT 
+            nome, 
+            dataHora, 
+            conectado, 
+            fkRoboUsb,
+            duracao,
+            dtHoraCirurgia,
+            dtHoraFimCirurgia,
+            nomePaciente,
+            nomeMedico,
+            tipo,
+            risco
+        FROM 
+            CirurgiasNumeradas
+        WHERE 
+            numCirurgia = 1;        
+        `;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        var instrucao = `
+        WITH CirurgiasNumeradas AS (
+            SELECT 
+                d.nome, 
+                d.dataHora, 
+                d.conectado, 
+                d.fkRoboUsb,
+                c.duracao,
+                DATE_FORMAT(c.dataInicio, '%d/%m/%Y %H:%i:%s') as dtHoraCirurgia,
+                DATE_FORMAT(TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio), '%d/%m/%Y %H:%i:%s') as dtHoraFimCirurgia,
+                c.nomePaciente,
+                c.nomeMedico,
+                c.tipo,
+                cr.niveisPericuloridade as risco,
+                ROW_NUMBER() OVER (PARTITION BY d.nome, d.fkRoboUsb ORDER BY c.dataInicio) AS numCirurgia
+            FROM 
+                dispositivos_usb d 
+            JOIN 
+                cirurgia c ON d.dataHora BETWEEN c.dataInicio AND TIMESTAMPADD(MINUTE, c.duracao, c.dataInicio)
+            JOIN 
+                RoboCirurgiao r ON r.fkHospital = 1
+            JOIN 
+                categoriaCirurgia cr ON c.fkCategoria = cr.idCategoria
+            WHERE 
+                d.conectado = 0
+        )
+        SELECT 
+            nome, 
+            dataHora, 
+            conectado, 
+            fkRoboUsb,
+            duracao,
+            dtHoraCirurgia,
+            dtHoraFimCirurgia,
+            nomePaciente,
+            nomeMedico,
+            tipo,
+            risco
+        FROM 
+            CirurgiasNumeradas
+        WHERE 
+            numCirurgia = 1;
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+
+}
+
 function deletar(idCirurgia) {
     console.log("ACESSEI O associado MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ")
     var instrucao = `
@@ -158,6 +252,7 @@ function editar(nome_medico, data_inicio, horario_inicio, duracao, nome_paciente
 module.exports = {
     editar,
     listarMetricas,
+    listarUsb,
     deletar,
     listar,
     cadastrar

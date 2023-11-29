@@ -21,6 +21,25 @@ function listar(req, res) {
         );
 }
 
+function listarUsb(req, res) {
+    fkHospital = req.params.hospital
+
+    cirurgiaComponenteModel.listarUsb(fkHospital)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function listarMetricas(req, res) {
 
     cirurgiaComponenteModel.listarMetricas()
@@ -95,6 +114,7 @@ function getLinearRegression(req, res) {
 module.exports = {
     // editar,
     // deletar,
+    listarUsb,
     listarMetricas,
     getLinearRegression,
     listar,

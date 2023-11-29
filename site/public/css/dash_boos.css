@@ -1110,7 +1110,7 @@ td {
 
 .grafico_componente_cirurgia {
     width: 70%;
-    height: inherit;
+    height: 48vh;
     background: #FFFFFF;
     /* border: 1px solid #8a8a8a; */
     margin-top: 5vh;
@@ -1269,4 +1269,14 @@ td {
     justify-content: center;
     height: 6vh;
     margin-top: 2vh;
+}
+
+#usbs_desconectados{
+    display: flex;
+    flex-direction: column;
+}
+
+.desconectado{
+    margin-bottom: 1.5vh;
+    display: flex;
 }

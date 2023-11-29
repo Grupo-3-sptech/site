@@ -15,6 +15,10 @@ var cirurgiaComponenteController = require("../controllers/cirurgiaComponenteCon
 router.get("/listar/:hospital", function (req, res) {
     cirurgiaComponenteController.listar(req, res);
 });
+
+router.get("/listarUsb/:hospital", function (req, res) {
+    cirurgiaComponenteController.listarUsb(req, res);
+});
 router.get("/listarMetricas", function (req, res) {
     cirurgiaComponenteController.listarMetricas(req, res);
 });
