@@ -427,18 +427,15 @@
         const latenciaRede = dadosRede.latenciaRede
         const bytesEnviados = dadosRede.bytesEnviados
         const bytesRecebidos = dadosRede.bytesRecebidos
-        const velocidadeRede = dadosRede.velocidadeRede
 
         const divRelatorioGeral = document.querySelector(".box-kpi-data")
         const listaElementos = divRelatorioGeral.children
         const spanLatencia = listaElementos[1].childNodes[1]
-        const spanVelocidadeRede = listaElementos[1].childNodes[3]
         const spanBytesEnviados = listaElementos[3].childNodes[1]
         const spanBytesRecebidos = listaElementos[3].childNodes[3]
 
         validarStatusRedeExibirCorSvg(statusRede[statusRede.length - 1].dado)
-        spanLatencia.textContent = `${latenciaRede[latenciaRede.length - 1].dado} ms`
-        spanVelocidadeRede.textContent = `${velocidadeRede[velocidadeRede.length - 1].dado} Mb/s`
+        spanLatencia.textContent = `${Math.round(latenciaRede[latenciaRede.length - 1].dado)} ms`
         spanBytesEnviados.textContent = bytesEnviados[bytesEnviados.length - 1].dado
         spanBytesRecebidos.textContent = bytesRecebidos[bytesRecebidos.length - 1].dado
     }
@@ -493,7 +490,7 @@
 
     function plotarGraficosRede(resposta) {
         graficoLatencia(resposta.latenciaRede)
-        graficoVelocidade(resposta.velocidadeRede)
+        graficoVelocidade(resposta.bytesEnviados)
     }
 
     function graficoLatencia(latenciaRede) {
@@ -524,7 +521,7 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < latenciaRede.length; i++) {
             labelsLatencia.push(latenciaRede[i].data_formatada);
-            dadosLatencia.datasets[0].data.push(latenciaRede[i].dado);
+            dadosLatencia.datasets[0].data.push(Math.floor(latenciaRede[i].dado));
 
         }
 
